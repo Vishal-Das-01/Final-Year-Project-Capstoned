@@ -12,10 +12,10 @@ export const connectToDB = async () => {
             {
                 user: process.env.USER,
                 pass: process.env.PASSWORD,
-                dbName: 'Project-DataBase',
+                dbName: 'Project-DataBase'
             })
         connection.isConnected = db.connections[0].readyState;
-        console.log("server connected to database...");
+        console.log("Server connected to database...");
     } catch (error) {
         console.log('Error connecting to the database', error);
         throw new Error(error);
