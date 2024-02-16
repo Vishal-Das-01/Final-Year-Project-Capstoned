@@ -1,5 +1,7 @@
 export default function Footer(props){
 	return (
-		<div>Footer</div>
+		<div className="h-14 w-full flex items-center border-2 border-green-500">
+			Footer
+		</div>
 	);
 }
