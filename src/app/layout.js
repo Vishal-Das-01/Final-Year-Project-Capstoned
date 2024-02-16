@@ -1,7 +1,14 @@
-import { Montserrat } from "next/font/google";
+import { Montserrat, Exo_2 } from "next/font/google";
 import "./globals.css";
 
-const montserrat = Montserrat({ subsets: ["latin"] });
+const montserrat = Montserrat({ 
+	subsets: ["latin"],
+	variable: "--montserrat" 
+});
+const exo2 = Exo_2({
+	subsets: ["latin"],
+	variable: "--exo2"
+});
 
 export const metadata = {
   title: "Finnify",
@@ -11,7 +18,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
 	<html lang="en">
-	  <body className={montserrat.className}>
+	  <body className={`${montserrat.variable} ${exo2.variable}`}>
 	  	{children}
 	  </body>
 	</html>
