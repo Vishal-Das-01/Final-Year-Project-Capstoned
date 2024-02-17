@@ -1,5 +1,5 @@
-import Footer from "./_components/Footer/Footer.jsx";
-import Navbar from "./_components/Navbar/Navbar.jsx";
+import Footer from "@/app/(Unauthenticated)/_components/Footer/Footer.jsx";
+import Navbar from "@/app/(Unauthenticated)/_components/Navbar/Navbar.jsx";
 import styles from "./LandingPage.module.css";
 
 export const metadata = {

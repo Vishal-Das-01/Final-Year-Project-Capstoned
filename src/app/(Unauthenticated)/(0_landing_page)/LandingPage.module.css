@@ -1,0 +1,12 @@
+.left{
+	width: 100%;
+	
+}
+
+.landingPage{
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  background-image: url("/bg.png");
+}
