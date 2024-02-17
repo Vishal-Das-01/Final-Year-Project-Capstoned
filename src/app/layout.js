@@ -11,8 +11,8 @@ const exo2 = Exo_2({
 });
 
 export const metadata = {
-  title: "Finnify",
-  description: "Finnify | FYP Management Portal for College & University Students.",
+  title: "Capstoned",
+  description: "Capstoned | FYP Management Portal for College & University Students.",
 };
 
 export default function RootLayout({ children }) {
