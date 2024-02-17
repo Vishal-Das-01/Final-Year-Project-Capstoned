@@ -7,7 +7,7 @@ import EnterCapstonedBtn from "./_components/EnterCapstonedBtn/EnterCapstonedBtn
 
 export default function LandingPage(props){
 	return (
-		<div className="h-full w-full flex flex-col bg-white">
+		<div className="h-full w-full flex flex-col">
 			<div className="h-full w-full flex items-center">
 				<div className={`${styles.left} flex flex-col h-full items-center justify-center`}>
 					<PrimaryHeading>

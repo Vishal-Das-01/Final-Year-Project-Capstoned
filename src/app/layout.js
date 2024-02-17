@@ -12,7 +12,7 @@ const exo2 = Exo_2({
 
 export const metadata = {
   title: "Capstoned",
-  description: "Capstoned | FYP Management Portal for College & University Students.",
+  description: "Capstoned | Final Year Project (FYP) Management Platform for College & University Students.",
 };
 
 export default function RootLayout({ children }) {

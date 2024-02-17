@@ -1,14 +1,15 @@
 import Footer from "./_components/Footer/Footer.jsx";
 import Navbar from "./_components/Navbar/Navbar.jsx";
+import styles from "./LandingPage.module.css";
 
 export const metadata = {
   title: "Capstoned",
-  description: "Capstoned | FYP Management Portal for College & University Students.",
+  description: "Capstoned | Final Year Project (FYP) Management Platform for College & University Students.",
 };
 
 export default function LandingPageLayout({children}){
 	return (
-		<div className="h-full w-full flex flex-col bg-white">
+		<div className={`${styles.landingPage} h-full w-full flex flex-col `}>
 			<Navbar />
 			<div className="h-full w-full">
 				{children}
