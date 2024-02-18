@@ -5,7 +5,7 @@ export const metadata = {
 
 export default function ContactPage(props){
 	return (
-		<div>
+		<div className="w-full h-full flex items-center justify-center">
 			Contact
 		</div>
 	);

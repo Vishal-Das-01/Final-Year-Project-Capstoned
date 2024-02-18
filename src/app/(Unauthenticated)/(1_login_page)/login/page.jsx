@@ -5,7 +5,7 @@ export const metadata = {
 
 export default function LoginPage(props){
 	return (
-		<div className="">
+		<div className="w-full h-full flex items-center justify-center">
 			Login
 		</div>
 	);
