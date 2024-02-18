@@ -2,12 +2,12 @@ import Link from "next/link";
 
 export default function NavbarMenuLink({children, href}){
 	return (
-		<div className="flex w-20 items-center justify-center ">
-			<Link href={href}>
+		<Link href={href}>
+			<div className="flex w-20 items-center justify-center ">
 				<p className="text-black text-lg font-montserrat font-semibold hover:text-neutral-500">
 					{children}
 				</p>
-			</Link>
-		</div>
+			</div>
+		</Link>
 	);
 }
