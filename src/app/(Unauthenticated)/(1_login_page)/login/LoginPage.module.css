@@ -1,9 +1,13 @@
 .secondaryContainer{
 	width: 500px;
 	height: 450px;
-	border-radius: 30px;
+	/*border-radius: 30px;
 	background: #f6f7f9;
-	box-shadow:  20px 20px 32px #d1d2d4, -20px -20px 32px #ffffff;
+	box-shadow:  20px 20px 32px #d1d2d4, -20px -20px 32px #ffffff;*/
+	border-radius: 50px;
+background: #fdfcfc;
+box-shadow:  20px 20px 60px #d7d6d6,
+             -20px -20px 60px #ffffff;
 }
 
 .formContainer{
