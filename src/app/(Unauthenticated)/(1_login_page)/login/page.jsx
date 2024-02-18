@@ -1,4 +1,5 @@
 import LoginInput from "./_components/LoginInput/LoginInput.jsx";
+import LoginSubmitBtn from "./_components/LoginSubmitBtn/LoginSubmitBtn.jsx";
 
 import styles from "./LoginPage.module.css";
 
@@ -23,6 +24,7 @@ export default function LoginPage(props){
 							inputType="password" 
 							inputPlaceholder="Password" 
 						/>
+						<LoginSubmitBtn btnText="Login"/>
 					</form>
 				</div>
 			</div>

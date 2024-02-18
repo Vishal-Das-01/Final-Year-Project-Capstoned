@@ -8,6 +8,12 @@
 background: #fdfcfc;
 box-shadow:  20px 20px 60px #d7d6d6,
              -20px -20px 60px #ffffff;
+            
+
+           /* border-radius: 50px;
+background: #f2f2f2;
+box-shadow:  20px 20px 60px #cecece,
+             -20px -20px 60px #ffffff;*/
 }
 
 .formContainer{

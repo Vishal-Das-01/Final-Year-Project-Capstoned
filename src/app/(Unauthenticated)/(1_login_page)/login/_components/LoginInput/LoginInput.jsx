@@ -7,7 +7,7 @@ export default function LoginInput({label, inputType, inputPlaceholder}){
 				{label}
 			</label>
 			<input 
-				className={`${styles.input} px-2 text-lg rounded-lg border-2 border-neutral-500 outline-none`} 
+				className={`${styles.input} px-2 text-lg rounded-xl outline-none border-2 border-neutral-500 flex justify-center`} 
 				type={inputType} 
 				placeholder={inputPlaceholder}
 			/>
