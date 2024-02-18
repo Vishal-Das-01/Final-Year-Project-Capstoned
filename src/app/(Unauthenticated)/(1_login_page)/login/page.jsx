@@ -9,10 +9,10 @@ export const metadata = {
 
 export default function LoginPage(props){
 	return (
-		<div className="w-full h-full flex items-center justify-center border-2 border-black">
+		<div className="w-full h-full flex items-center justify-center">
 			<div className={`${styles.secondaryContainer} flex flex-col items-center justify-center rounded-lg `}>
-				<div className={`${styles.formContainer} flex flex-col items-center justify-center w-full h-full border-2 border-blue-500`}>
-					<form className="flex flex-col">
+				<div className={`${styles.formContainer} flex flex-col items-center justify-center w-full h-full`}>
+					<form className="flex flex-col w-full items-center justify-center">
 						<LoginInput 
 							label="Email" 
 							inputType="email" 
