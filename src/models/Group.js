@@ -5,28 +5,30 @@ const groupSchema = new Schema({
         type: String,
         required: true
     },
-    projectID: {
+    project: {
         type: Schema.Types.ObjectId,
         ref: 'Project'
     },
     lead: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'Student'
     },
     members: [
         {
-            type: Schema.Types.ObjectId,
-            ref: 'User'
-        },
-        status: {
-            type: String,
-            enum: ['Pending', 'Accepted'],
-            required: true
+            member: {
+                type: Schema.Types.ObjectId,
+                ref: 'Student'
+            },
+            status: {
+                type: String,
+                enum: ['Pending', 'Accepted'],
+                required: true
+            }
         }
     ],
     status: {
         type: String,
-        enum: ['In-progress', 'Confirmed'],
+        enum: ['Pending', 'Confirmed'],
         required: true
     }  
 },{timestamps: true})
