@@ -22,7 +22,11 @@ const userSchema = new Schema({
     profileID: {
         type: Schema.Types.ObjectId,
         refPath: 'role'   
-    },  
+    },
+    activated: {
+        type: Boolean,
+        default: true
+    }  
 },{timestamps: true})
 
 const User = models.User || model('User', userSchema);
