@@ -5,15 +5,18 @@ import { HttpStatusCode } from 'axios';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-export async function POST(req) {
+export async function POST(request) {
     await connectToDB();
 
     try {
-        const { email, password } = await req.json();
+
+        const { email, password } = await request.json();
         const user = await User.findOne({ email: email });
         if (!user) {
             return NextResponse.json({ message: 'User not found' }, { status: HttpStatusCode.UNAUTHORIZED });
         }
+
+        if (user.activated === false) return NextResponse.json({ message: 'Account deactivated' }, { status: HttpStatusCode.UNAUTHORIZED });
 
         if (await bcrypt.compare(password, user.password)) {
             const accessToken = jwt.sign({ email: email, role: user.role, profileID: user.profileID }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
@@ -28,12 +31,4 @@ export async function POST(req) {
         return NextResponse.json({ message: error.message }, { status: HttpStatusCode.INTERNAL_SERVER_ERROR });
     }
 
-    // const encryptedPass = await bcrypt.hash('hello world', 10);
-    // const user = new User({
-    //     email: 'admin@fypms.com',
-    //     password: encryptedPass,
-    //     role: 'Admin'
-    // });
-    // const response = await user.save();
-    // return NextResponse.json({ message: response }, { status: HttpStatusCode.OK });
 }
