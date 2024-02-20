@@ -45,8 +45,4 @@ const studentSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Group'
     },
-    projectID: {
-        type: Schema.Types.ObjectId,
-        ref: 'Project'
-    }
 });
