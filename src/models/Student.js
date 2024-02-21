@@ -1,3 +1,4 @@
+import { Gender } from '@/constants/enums';
 import { model, models, Schema } from 'mongoose';
 
 const studentSchema = new Schema({
@@ -16,7 +17,7 @@ const studentSchema = new Schema({
     },
     gender: {
         type: String,
-        enum: ['male', 'female']
+        enum: [Gender.Male, Gender.Female]
     },
     contact: {
         type: String,
@@ -25,17 +26,12 @@ const studentSchema = new Schema({
     semester: {
         type: Number,
         required: true,
-        enum: [5, 6, 7, 8]
+        min: 4
     },
     gpa: {
         type: Number,
         required: true,
-        validate: {
-            validator: function (value) {
-                return value < 4;
-            },
-            message: '{VALUE} is not less than 4'
-        }
+        max: 4
     },
     resume: {
         type: String,
