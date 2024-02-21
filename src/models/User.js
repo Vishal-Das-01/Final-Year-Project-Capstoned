@@ -1,3 +1,4 @@
+import { Role } from '@/constants/enums';
 import { model, models, Schema } from 'mongoose';
 
 const userSchema = new Schema({
@@ -12,7 +13,7 @@ const userSchema = new Schema({
     },
     role: {
         type: String,
-        enum: ['Student','Supervisor','Admin','Mentor','IndustryMentor'],
+        enum: [Role.Student, Role.Admin, Role.Supervisor, Role.Mentor, Role.IndustryMentor],
         required: true
     },
     profilePicture: {
