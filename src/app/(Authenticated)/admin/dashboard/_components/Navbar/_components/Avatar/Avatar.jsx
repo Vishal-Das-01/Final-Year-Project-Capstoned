@@ -1,20 +1,21 @@
+"use client";
+
 import Image from "next/image";
-import Link from "next/link";
 import styles from "./Avatar.module.css";
 
-export default function Avatar({href, src, alt}){
+export default function Avatar({src, alt}){
 	return (
-		<div className={`flex flex-row items-center justify-center `}>
-			<Link href={href}>
-				<div className={``}>
+		<div className={`${styles.avatarContainer} flex flex-row items-center justify-center relative `}>
+			<button onClick={() => console.log("Avatar Clicked")}>
+				<div className={`w-full h-full`}>
 					<Image 
 						src={src} 
 						alt={alt}
-						height={42}
-						width={42}
+						height={40}
+						width={40}
 					/>
 				</div>
-			</Link>
+			</button>
 		</div>
 	);
 }

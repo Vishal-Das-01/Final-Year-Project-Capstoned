@@ -18,7 +18,6 @@ export default function Navbar(props){
 					<div className={`${styles.rightContent} flex flex-row items-center justify-between h-full `}>
 						<NotificationIcon />
 						<Avatar 
-							href="/admin/dashboard"
 							alt="Profile Picture"
 							src="/picCircular.png"
 						/>
