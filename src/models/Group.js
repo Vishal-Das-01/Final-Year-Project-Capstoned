@@ -1,3 +1,4 @@
+import { Status } from '@/constants/enums';
 import { model, models, Schema } from 'mongoose';
 
 const groupSchema = new Schema({
@@ -21,14 +22,14 @@ const groupSchema = new Schema({
             },
             status: {
                 type: String,
-                enum: ['Pending', 'Accepted'],
+                enum: [Status.Pending, Status.Confirmed],
                 required: true
             }
         }
     ],
     status: {
         type: String,
-        enum: ['Pending', 'Confirmed'],
+        enum: [Status.Pending, Status.Confirmed],
         required: true
     }  
 },{timestamps: true})
