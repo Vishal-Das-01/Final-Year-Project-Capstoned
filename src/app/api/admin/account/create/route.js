@@ -6,6 +6,8 @@ import User from "@/models/User";
 import isEmail from "validator/lib/isEmail";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
+import Student from "@/models/Student";
+import { transporter } from "@/constants/emailConstant";
 
 export async function POST(request) {
     await connectToDB();
@@ -19,29 +21,51 @@ export async function POST(request) {
         if (data.email == null || data.email === "" || !isEmail(data.email))
             return NextResponse.json({ message: "Correct email is required" }, { status: HttpStatusCode.BAD_REQUEST });
 
-        const generatedPassword = crypto.randomBytes(20).toString('hex');
+        const generatedPassword = crypto.randomBytes(15).toString('hex');
 
-        // const transporter = nodemailer.createTransport({
-        //     service: 'gmail',
-        //     auth: {
-        //         user: ,
-        //         pass: 
-        //     }
-        // });
+        const user = new User({
+            email: data.email,
+            password: generatedPassword,
+            role: data.role
+        });
+
         if (data.role === "Supervisor") {
-            console.log(generatedPassword)
             const supervisor = new Supervisor(data.details);
-            const user = new User({
-                email: data.email,
-                password: generatedPassword,
-                role: data.role,
-                profileID: supervisor._id
-            })
-            console.log(supervisor, user);
-            await supervisor.save();
-            await user.save();
-            return NextResponse.json({ message: "Supervisor created" }, { status: HttpStatusCode.OK });
+            user.profileID = supervisor._id;
+            // await supervisor.save();
         }
+
+        if (data.role === "Student") {
+            const student = new Student(data.details);
+            user.profileID = student._id;
+            // await student.save();
+        }
+
+        // await user.save();
+        const createAccountOptions = {
+            from: process.env.EMAIL_USER,
+            to: data.email,
+            subject: 'Account Created',
+            text: `Welcome to Capstoned! \n
+            Your account has been created. Your password is ${generatedPassword} \n
+            Please change your password by clicking on "Forgot Password" on login page. \n`
+        };
+        transporter.sendMail(createAccountOptions, (error, info) => {
+            if (error) {
+                return NextResponse.json({ message: error.message }, { status: HttpStatusCode.INTERNAL_SERVER_ERROR });
+            }
+        })
+
+        return NextResponse.json({ message: `${data.role} created` }, { status: HttpStatusCode.OK });
+
+
+
+
+
+
+
+
+
         // const email = request.headers.get('email')
         // const profileID = request.headers.get('profileID')
         // console.log(email, profileID);
