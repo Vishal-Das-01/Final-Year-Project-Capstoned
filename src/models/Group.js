@@ -1,19 +1,20 @@
 import { model, models, Schema } from 'mongoose';
 
 const groupSchema = new Schema({
-    name: {
+    groupName: {
         type: String,
         required: true
     },
-    project: {
+    workingProjectID: {
         type: Schema.Types.ObjectId,
-        ref: 'Project'
+        ref: 'WorkingProject'
     },
-    lead: {
+    leadID: {
         type: Schema.Types.ObjectId,
-        ref: 'Student'
+        ref: 'Student',
+        required: true
     },
-    members: [
+    membersID: [
         {
             member: {
                 type: Schema.Types.ObjectId,
@@ -26,12 +27,24 @@ const groupSchema = new Schema({
             }
         }
     ],
+    supervisorID: {
+        type: Schema.Types.ObjectId,
+        ref: 'Supervisor'
+    },
+    mentorID: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Mentor'
+    }],
+    industryMentorID: [{
+        type: Schema.Types.ObjectId,
+        ref: 'IndustryMentor'
+    }],
     status: {
         type: String,
         enum: ['Pending', 'Confirmed'],
         required: true
-    }  
-},{timestamps: true})
+    }
+}, { timestamps: true })
 
 const Group = models.Group || model('Group', groupSchema);
 export default Group;

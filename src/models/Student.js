@@ -1,7 +1,7 @@
 import { model, models, Schema } from 'mongoose';
 
 const studentSchema = new Schema({
-    erp: {
+    studentID: {
         type: String,
         required: true,
         unique: true
@@ -16,6 +16,7 @@ const studentSchema = new Schema({
     },
     gender: {
         type: String,
+        required: true,
         enum: ['male', 'female']
     },
     contact: {
@@ -25,7 +26,7 @@ const studentSchema = new Schema({
     semester: {
         type: Number,
         required: true,
-        enum: [5, 6, 7, 8]
+        enum: [1, 2, 3, 4, 5, 6, 7, 8]
     },
     gpa: {
         type: Number,
@@ -37,12 +38,27 @@ const studentSchema = new Schema({
             message: '{VALUE} is not less than 4'
         }
     },
+    program: {
+        type: String,
+        required: true
+    },
     resume: {
         type: String,
-        default: ''
+        default: null
     },
-    groupID: {
+    areaOfInterest: [{
+        type: String,
+    }],
+    groupInvites: [{
         type: Schema.Types.ObjectId,
         ref: 'Group'
+    }],
+    groupID: {
+        type: Schema.Types.ObjectId,
+        ref: 'Group',
+        default: null
     },
-});
+}, { timestamps: true });
+
+const Student = models.Student || model('Student', studentSchema);
+export default Student;
