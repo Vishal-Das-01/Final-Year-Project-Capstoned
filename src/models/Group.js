@@ -2,19 +2,20 @@ import { Status } from '@/constants/enums';
 import { model, models, Schema } from 'mongoose';
 
 const groupSchema = new Schema({
-    name: {
+    groupName: {
         type: String,
         required: true
     },
-    project: {
+    projectID: {
         type: Schema.Types.ObjectId,
         ref: 'Project'
     },
-    lead: {
+    leadID: {
         type: Schema.Types.ObjectId,
-        ref: 'Student'
+        ref: 'Student',
+        required: true
     },
-    members: [
+    membersID: [
         {
             member: {
                 type: Schema.Types.ObjectId,
@@ -27,12 +28,16 @@ const groupSchema = new Schema({
             }
         }
     ],
+    supervisorID: {
+        type: Schema.Types.ObjectId,
+        ref: 'Supervisor'
+    },
     status: {
         type: String,
         enum: [Status.Pending, Status.Confirmed],
         required: true
-    }  
-},{timestamps: true})
+    }
+}, { timestamps: true })
 
 const Group = models.Group || model('Group', groupSchema);
 export default Group;

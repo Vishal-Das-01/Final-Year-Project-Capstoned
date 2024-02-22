@@ -2,7 +2,7 @@ import { Gender } from '@/constants/enums';
 import { model, models, Schema } from 'mongoose';
 
 const studentSchema = new Schema({
-    erp: {
+    studentID: {
         type: String,
         required: true,
         unique: true
@@ -31,14 +31,29 @@ const studentSchema = new Schema({
     gpa: {
         type: Number,
         required: true,
-        max: 4
+        max: 4.0
+    },
+    program: {
+        type: String,
+        required: true
     },
     resume: {
         type: String,
-        default: ''
+        default: null
     },
-    groupID: {
+    areaOfInterest: [{
+        type: String,
+    }],
+    groupInvites: [{
         type: Schema.Types.ObjectId,
         ref: 'Group'
+    }],
+    groupID: {
+        type: Schema.Types.ObjectId,
+        ref: 'Group',
+        default: null
     },
-});
+}, { timestamps: true });
+
+const Student = models.Student || model('Student', studentSchema);
+export default Student;
