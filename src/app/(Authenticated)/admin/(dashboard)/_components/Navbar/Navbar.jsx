@@ -8,7 +8,7 @@ export default function Navbar(props){
 		<div className={`${styles.navbar} w-full h-full flex flex-row`}>
 			<div className={`${styles.left} flex flex-row flex-1 items-center justify-start`}>
 				<div className={`${styles.leftContent} w-full h-full flex flex-row items-center justify-start`}>
-					<Brand href="/admin/dashboard">
+					<Brand href="/admin/home">
 						Capstoned
 					</Brand>
 				</div>
