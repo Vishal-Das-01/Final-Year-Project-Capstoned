@@ -11,19 +11,19 @@ export default function SideMenu(props){
 
 			<div className={`${styles.secondaryContainer} w-full flex flex-col items-center `}>
 
-				<SideMenuItem href="/admin/home" icon={<MdSpaceDashboard color="#3b82f6"/>}>
+				<SideMenuItem href="/admin/home" icon={<MdSpaceDashboard/>}>
 					Dashboard
 				</SideMenuItem>
 
-				<SideMenuItem href="/admin/milestones" icon={<GiStoneSphere color="#3b82f6"/>}>
+				<SideMenuItem href="/admin/milestones" icon={<GiStoneSphere/>}>
 					Milestones
 				</SideMenuItem>
 
-				<SideMenuItem href="/admin/fyp-groups" icon={<HiMiniUserGroup color="#3b82f6"/>}>
+				<SideMenuItem href="/admin/fyp-groups" icon={<HiMiniUserGroup/>}>
 					FYP Groups
 				</SideMenuItem>
 
-				<SideMenuItem href="/admin/meetings" icon={<FaStaylinked color="#3b82f6"/>}>
+				<SideMenuItem href="/admin/meetings" icon={<FaStaylinked/>}>
 					Meetings
 				</SideMenuItem>
 
