@@ -3,7 +3,7 @@ import Image from "next/image";
 import PrimaryHeading from "./_components/PrimaryHeading/PrimaryHeading.jsx";
 import SecondaryHeading from "./_components/SecondaryHeading/SecondaryHeading.jsx";
 import EnterCapstonedBtn from "./_components/EnterCapstonedBtn/EnterCapstonedBtn.jsx";  
-
+import {FRONTEND_ROUTES} from "@/utils/frontend_routes.js";
 
 export default function LandingPage(props){
 	return (
@@ -18,7 +18,7 @@ export default function LandingPage(props){
 						The Only Tool You Need To Manage Your Projects
 					</SecondaryHeading>
 
-					<EnterCapstonedBtn href="/login">
+					<EnterCapstonedBtn href={FRONTEND_ROUTES.login_page}>
 						Enter Capstoned
 					</EnterCapstonedBtn>
 				</div>
