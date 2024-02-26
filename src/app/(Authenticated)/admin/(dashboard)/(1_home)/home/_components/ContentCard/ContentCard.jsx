@@ -1,9 +1,9 @@
 import styles from "./ContentCard.module.css";
 
-export default function ContentCard(props){
+export default function ContentCard({children}){
 	return (
-		<div className={`${styles.contentCardContainer} border-2 border-black`}>
-			Content Card
+		<div className={`${styles.contentCardContainer} flex flex-col items-start rounded-lg border-2 border-black`}>
+			{children}
 		</div>
 	);
 }
