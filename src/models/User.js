@@ -13,7 +13,7 @@ const userSchema = new Schema({
     },
     role: {
         type: String,
-        enum: [Role.Student, Role.Admin, Role.Supervisor, Role.Mentor, Role.IndustryMentor],
+        enum: Object.keys(Role),
         required: true
     },
     profilePicture: {

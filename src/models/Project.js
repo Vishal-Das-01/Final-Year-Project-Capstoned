@@ -32,14 +32,14 @@ const projectSchema = new Schema({
             },
             extension: {
                 type: String,
-                enum: [FileType.JPG, FileType.PNG, FileType.DOC, FileType.PDF],
+                enum: Object.keys(FileType),
                 required: true
             }
         }
     ],
     status: {
         type: String,
-        enum: [AccessType.Public, AccessType.Private],
+        enum: Object.keys(AccessType),
         required: true
     }  
 },{timestamps: true})
