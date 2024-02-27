@@ -1,4 +1,4 @@
-import { Gender } from '@/constants/enums';
+import { Gender, Industry } from '@/constants/enums';
 import { model, models, Schema } from 'mongoose';
 
 const studentSchema = new Schema({

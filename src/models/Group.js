@@ -7,9 +7,12 @@ const groupSchema = new Schema({
         ref: 'Student',
         required: true
     },
-    groupName: {
+    name: {
         type: String,
         required: true
+    },
+    profileImage: {
+        type: String
     },
     project: {
         type: Schema.Types.ObjectId,

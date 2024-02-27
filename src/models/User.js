@@ -20,7 +20,7 @@ const userSchema = new Schema({
         enum: Object.keys(Role),
         required: true
     },
-    profilePicture: {
+    profileImage: {
         type: String,
         default:''
     },
