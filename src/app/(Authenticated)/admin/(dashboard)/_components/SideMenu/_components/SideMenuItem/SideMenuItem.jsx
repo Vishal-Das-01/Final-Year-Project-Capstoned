@@ -62,15 +62,15 @@ export default function SideMenuItem({href, children, icon}){
 	// White when SideMenuText == Pagename
 	// Blue when SideMenuText != Pagename
 	function chooseListItemTextColor(route, children){
-		return compareCorrectSideMenuItemTextToPagename(route, children) ? 'text-white' : 'text-blue-500';
+		return compareCorrectSideMenuItemTextToPagename(route, children) ? 'text-white' : 'text-gray-500';
 	}
 
 
 	// Returns List Item Icon Color
-	// White when SideMenuText == Pagename
-	// Blue when SideMenuText != Pagename
+	// White color when SideMenuText == Pagename
+	// Blue color when SideMenuText != Pagename
 	function chooseListItemIconColor(route, children){
-		return compareCorrectSideMenuItemTextToPagename(route, children) ? "white" : "#3b82f6";
+		return compareCorrectSideMenuItemTextToPagename(route, children) ? "white" : "gray";
 	}
 
 	// Returns the type of React Icon according
@@ -116,7 +116,7 @@ export default function SideMenuItem({href, children, icon}){
 				
 				</div>
 
-				<div className={`absolute w-full h-full rounded-lg opacity-0 bg-transparent hover:bg-neutral-500 hover:opacity-30`} />
+				<div className={`absolute w-full h-full rounded-lg opacity-0 bg-transparent hover:bg-white hover:opacity-30`} />
 			
 			</Link>
 			

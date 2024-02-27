@@ -13,11 +13,11 @@ export const metadata = {
 
 export default function AdminDashboardHomePage(props){
 	return (
-		<div className={`${styles.pageContainer} w-full h-full flex flex-row items-center justify-center border-2 border-green-500`}>
+		<div className={`${styles.pageContainer} w-full h-full flex flex-row items-center justify-center `}>
 			
 			<div className={`${styles.primaryContainer} overflow-auto flex flex-row `}>
 				
-				<div className={`${styles.left} w-full h-full flex flex-col flex-1 items-center justify-evenly border-2 border-pink-500`}>
+				<div className={`${styles.left} w-full h-full flex flex-col flex-1 items-center justify-evenly `}>
 
 					<ContentCard>
 
@@ -39,7 +39,7 @@ export default function AdminDashboardHomePage(props){
 
 				</div>
 
-				<div className={`${styles.right} w-full h-full flex flex-col flex-1 items-center justify-evenly border-2 border-yellow-500`}>
+				<div className={`${styles.right} w-full h-full flex flex-col flex-1 items-center justify-evenly `}>
 
 					<ContentCard>
 

@@ -9,19 +9,19 @@ export const metadata = {
 
 export default function AdminDashboardLayout({children}){
 	return (
-		<div className={`${styles.pageBodyContainer} w-full h-full flex flex-col`}>
+		<div className={`${styles.pageBodyContainer} w-full h-full flex flex-col `}>
 
-			<div className={`${styles.navbarContainer} flex flex-row h-20`}>
+			<div className={`${styles.navbarContainer} flex flex-row h-20 `}>
 				<Navbar />
 			</div>
 			
 			<div className={`${styles.sideMenuAndContentContainer} h-full flex flex-row`}>
 
-				<div className={`${styles.sideMenuContainer} h-full `}>
+				<div className={`${styles.sideMenuContainer} h-full bg-white`}>
 					<SideMenu />
 				</div>
 				
-				<div className={`${styles.contentContainer} w-full`}>
+				<div className={`${styles.contentContainer} w-full bg-white rounded-tl-xl`}>
 					{children}
 				</div>
 			

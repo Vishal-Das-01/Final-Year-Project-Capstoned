@@ -7,14 +7,13 @@
 }
 
 .sideMenuAndContentContainer{
-
+	background-color: white;
 }
 
 .sideMenuContainer{
 	width: 20%;
-	margin-right: 7.5px;
 }
 
 .contentContainer{
-
+	background-color: #e0e0e0;
 }

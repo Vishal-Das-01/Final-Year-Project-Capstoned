@@ -10,7 +10,7 @@ export default function Navbar(props){
 
 			<div className={`${styles.left} flex flex-row flex-1 items-center justify-start`}>
 
-				<div className={`${styles.leftContent} w-full h-full flex flex-row items-center justify-start`}>
+				<div className={`${styles.leftContent} w-full h-full flex flex-row items-center justify-start `}>
 					
 					<Brand href={FRONTEND_ROUTES.admin_dashboard_home_page}>
 						Capstoned

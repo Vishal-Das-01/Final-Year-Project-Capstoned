@@ -8,7 +8,7 @@ import styles from "./SideMenu.module.css";
 
 export default function SideMenu(props){
 	return (
-		<div className={`${styles.sideMenu} flex flex-col items-center justify-center w-full h-full border-2 border-pink-500`}>
+		<div className={`${styles.sideMenu} flex flex-col items-center justify-center w-full h-full`}>
 
 			<div className={`${styles.secondaryContainer} w-full flex flex-col items-center `}>
 

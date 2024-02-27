@@ -8,8 +8,11 @@ import {FRONTEND_ROUTES} from "@/utils/frontend_routes.js";
 export default function LandingPage(props){
 	return (
 		<div className="h-full w-full flex flex-col">
+
 			<div className="h-full w-full flex items-center">
+
 				<div className={`${styles.left} flex flex-col h-full items-center justify-center`}>
+					
 					<PrimaryHeading>
 						Capstoned
 					</PrimaryHeading>
@@ -21,8 +24,11 @@ export default function LandingPage(props){
 					<EnterCapstonedBtn href={FRONTEND_ROUTES.login_page}>
 						Enter Capstoned
 					</EnterCapstonedBtn>
+				
 				</div>
+			
 			</div>
+		
 		</div>
 	);
 }
