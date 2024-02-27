@@ -14,7 +14,7 @@ const requestSchema = new Schema({
     },
     type: {
         type: String,
-        enum: [RequestType.GroupMember, RequestType.Supervisor, RequestType.Mentor],
+        enum: Object.keys(RequestType),
         required: true
     }  
 },{timestamps: true})

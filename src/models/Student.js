@@ -45,10 +45,6 @@ const studentSchema = new Schema({
         type: String,
         enum: Object.keys(Industry)
     }],
-    groupInvites: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Group'
-    }],
     group: {
         type: Schema.Types.ObjectId,
         ref: 'Group',
