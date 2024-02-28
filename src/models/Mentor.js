@@ -20,7 +20,8 @@ const mentorSchema = new Schema({
     },
     gender: {
         type: String,
-        enum: Object.keys(Gender)
+        enum: Object.keys(Gender),
+        required: true
     },
     occupation: {
         type: String,

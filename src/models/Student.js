@@ -17,7 +17,8 @@ const studentSchema = new Schema({
     },
     gender: {
         type: String,
-        enum: Object.keys(Gender)
+        enum: Object.keys(Gender),
+        required: true
     },
     contact: {
         type: String,

@@ -8,6 +8,9 @@ import crypto from "crypto";
 import nodemailer from "nodemailer";
 import Student from "@/models/Student";
 import { transporter } from "@/constants/emailConstant";
+import { Role } from "@/constants/enums";
+import Mentor from "@/models/Mentor";
+import bcrypt from "bcrypt";
 
 export async function POST(request) {
     await connectToDB();
@@ -15,33 +18,41 @@ export async function POST(request) {
     try {
         const data = await request.json()
 
+        const userExists = await User.findOne({ email : data.email });
+
+        if (userExists) return NextResponse.json({ message: "User already exists" }, { status: HttpStatusCode.BAD_REQUEST });
+
         if (data.role == null || data.role === "")
             return NextResponse.json({ message: "Role is required" }, { status: HttpStatusCode.BAD_REQUEST });
+
+        if (data.role !== Role.Mentor && data.role !== Role.Student)
+            return NextResponse.json({ message: "Role is invalid" }, { status: HttpStatusCode.BAD_REQUEST });
 
         if (data.email == null || data.email === "" || !isEmail(data.email))
             return NextResponse.json({ message: "Correct email is required" }, { status: HttpStatusCode.BAD_REQUEST });
 
         const generatedPassword = crypto.randomBytes(15).toString('hex');
+        const encryptedPass = await bcrypt.hash(generatedPassword, 10);
 
         const user = new User({
             email: data.email,
-            password: generatedPassword,
+            password: encryptedPass,
             role: data.role
         });
 
-        if (data.role === "Supervisor") {
-            const supervisor = new Supervisor(data.details);
+        if (data.role === Role.Mentor) {
+            const supervisor = new Mentor(data.details);
             user.profileID = supervisor._id;
-            // await supervisor.save();
+            await supervisor.save();
         }
 
-        if (data.role === "Student") {
+        if (data.role === Role.Student) {
             const student = new Student(data.details);
             user.profileID = student._id;
-            // await student.save();
+            await student.save();
         }
 
-        // await user.save();
+        await user.save();
         const createAccountOptions = {
             from: process.env.EMAIL_USER,
             to: data.email,
@@ -57,19 +68,6 @@ export async function POST(request) {
         })
 
         return NextResponse.json({ message: `${data.role} created` }, { status: HttpStatusCode.OK });
-
-
-
-
-
-
-
-
-
-        // const email = request.headers.get('email')
-        // const profileID = request.headers.get('profileID')
-        // console.log(email, profileID);
-        // return NextResponse.json({ message: "Hello from admin route" });
 
     } catch (error) {
         if (error.name === "ValidationError")
