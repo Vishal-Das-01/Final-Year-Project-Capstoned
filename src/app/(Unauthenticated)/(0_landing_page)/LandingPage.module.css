@@ -10,3 +10,12 @@
   min-height: 100vh;
   background-image: url("/bgExp2.jpg");
 }
+
+.lottieWrapper{
+	height: 300px;
+	width: 320px;
+	position: absolute;
+	right: 280px;
+	top: 40px;
+	transform: rotate(90deg);
+}

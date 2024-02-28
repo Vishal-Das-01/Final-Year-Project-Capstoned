@@ -4,10 +4,11 @@ import PrimaryHeading from "./_components/PrimaryHeading/PrimaryHeading.jsx";
 import SecondaryHeading from "./_components/SecondaryHeading/SecondaryHeading.jsx";
 import EnterCapstonedBtn from "./_components/EnterCapstonedBtn/EnterCapstonedBtn.jsx";  
 import {FRONTEND_ROUTES} from "@/utils/frontend_routes.js";
+import AstronotLottie from "./_components/AstronotLottie/AstronotLottie.jsx";
 
 export default function LandingPage(props){
 	return (
-		<div className="h-full w-full flex flex-col">
+		<div className="h-full w-full flex flex-col relative">
 
 			<div className="h-full w-full flex items-center">
 
@@ -27,6 +28,10 @@ export default function LandingPage(props){
 				
 				</div>
 			
+			</div>
+
+			<div className={`${styles.lottieWrapper}`}>
+				<AstronotLottie src={`/astronot.json`}/>
 			</div>
 		
 		</div>
