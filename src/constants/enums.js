@@ -37,7 +37,7 @@ const Industry = {
     Security: 'Security',
     NetworkSecurity: 'Network Security',
     CloudSecurity: 'Cloud Security',
-    ApplicationSecurty: 'Application Security',
+    ApplicationSecurity: 'Application Security',
     MachineLearning: 'Machine Learning',
     ArtificialIntelligence: 'Artificial Intelligence',
     MobileAppDevelopment: 'Mobile App Development',
