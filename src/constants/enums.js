@@ -22,11 +22,34 @@ const Status = {
   
 const Role = {
     Student: 'Student',
-    Supervisor: 'Supervisor',
-    Admin: 'Admin',
     Mentor: 'Mentor',
-    IndustryMentor: 'IndustryMentor',
+    Admin: 'Admin',
+};
+
+const RequestType = {
+    GroupMember: 'Group Member',
+    Supervisor: 'Supervisor',
+    Mentor: 'Mentor',
+};
+
+const Industry = {
+    SoftwareEngineering: 'Software Engineering',
+    Security: 'Security',
+    NetworkSecurity: 'Network Security',
+    CloudSecurity: 'Cloud Security',
+    ApplicationSecurty: 'Application Security',
+    MachineLearning: 'Machine Learning',
+    ArtificialIntelligence: 'Artificial Intelligence',
+    MobileAppDevelopment: 'Mobile App Development',
+    BackendEngineering: 'Backend Engineering',
+    FrontendDevelopment: 'Frontend Development',
+    Robotics: 'Robotics',
+    Devops: 'Devops',
+    UIDesigning: 'UI Designing',
+    ProjectManagement: 'Project Management',
+    DataWarehousing: 'Data Warehousing',
+    ComputerVision: 'Computer Vision'
 };
   
-module.exports = { AccessType, FileType, Gender, Status, Role };
+module.exports = { AccessType, FileType, Gender, Status, Role, RequestType, Industry };
   

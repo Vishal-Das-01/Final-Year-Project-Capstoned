@@ -2,6 +2,10 @@ import { Role } from '@/constants/enums';
 import { model, models, Schema } from 'mongoose';
 
 const userSchema = new Schema({
+    firstLogin: {
+        type: Boolean,
+        default: false
+    },
     email: {
         type: String,
         required: true,
@@ -13,10 +17,10 @@ const userSchema = new Schema({
     },
     role: {
         type: String,
-        enum: [Role.Student, Role.Admin, Role.Supervisor, Role.Mentor, Role.IndustryMentor],
+        enum: Object.keys(Role),
         required: true
     },
-    profilePicture: {
+    profileImage: {
         type: String,
         default:''
     },

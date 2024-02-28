@@ -1,4 +1,4 @@
-import { Gender } from '@/constants/enums';
+import { Gender, Industry } from '@/constants/enums';
 import { model, models, Schema } from 'mongoose';
 
 const studentSchema = new Schema({
@@ -17,7 +17,7 @@ const studentSchema = new Schema({
     },
     gender: {
         type: String,
-        enum: [Gender.Male, Gender.Female]
+        enum: Object.keys(Gender)
     },
     contact: {
         type: String,
@@ -41,14 +41,11 @@ const studentSchema = new Schema({
         type: String,
         default: null
     },
-    areaOfInterest: [{
+    industriesOfInterest: [{
         type: String,
+        enum: Object.keys(Industry)
     }],
-    groupInvites: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Group'
-    }],
-    groupID: {
+    group: {
         type: Schema.Types.ObjectId,
         ref: 'Group',
         default: null
