@@ -1,3 +1,33 @@
+.contentHeadingWrapper{
+
+}
+
+.contentHeading{
+	font-size: 18px;
+	
+}
+
+.contentHeadingLine{
+	width: 80px;
+	height: 3px;
+	background-image: linear-gradient(
+		45deg,
+		hsl(217deg 91% 60%) 0%,
+		hsl(217deg 92% 64%) 8%,
+		hsl(217deg 91% 68%) 17%,
+		hsl(217deg 90% 72%) 25%,
+		hsl(217deg 90% 75%) 33%,
+		hsl(217deg 90% 77%) 42%,
+		hsl(217deg 90% 80%) 50%,
+		hsl(217deg 90% 83%) 58%,
+		hsl(217deg 90% 85%) 67%,
+		hsl(217deg 90% 88%) 75%,
+		hsl(218deg 91% 92%) 83%,
+		hsl(219deg 91% 96%) 92%,
+		hsl(0deg 0% 100%) 100%
+	);
+}
+
 .meetingInfoWrapper{
 	width: 96.5%;
 }

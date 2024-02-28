@@ -1,5 +1,17 @@
+.welcomeMessageIconWrapper{
+	width: 40px;
+}
+
 .welcomeContentWrapper{
  	background: url("/cardBg.jpg");
 	object-fit: cover;
 	
+}
+
+.welcomeHeading{
+	font-size: 18px;
+}
+
+.welcomeMessage{
+	font-size: 16px;
 }
