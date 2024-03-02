@@ -12,6 +12,11 @@ const requestSchema = new Schema({
         refPath: 'User',
         required: true 
     },
+    group: {
+        type: Schema.Types.ObjectId,
+        ref: 'Group',
+        required: true
+    },
     type: {
         type: String,
         enum: Object.keys(RequestType),
