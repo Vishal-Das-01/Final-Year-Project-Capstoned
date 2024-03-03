@@ -1,3 +1,4 @@
+import { Approval } from '@/constants/enums';
 import { model, models, Schema } from 'mongoose';
 
 const groupSchema = new Schema({
@@ -14,9 +15,26 @@ const groupSchema = new Schema({
         type: String,
         default: null
     },
+    selectedProposal: {
+        type: [{
+            proposal: {
+                type: Schema.Types.ObjectId,
+                ref: 'Proposal',
+                default: null,
+            },
+            status: {
+                type: String,
+                enum: Object.keys(Approval)
+            }
+        }],
+        validator: function (v) {
+            return v.length <= 5;
+        }
+    },
     project: {
         type: Schema.Types.ObjectId,
-        ref: 'Project'
+        ref: 'Project',
+        default: null
     },
     members: [
         {

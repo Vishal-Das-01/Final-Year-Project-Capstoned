@@ -1,4 +1,4 @@
-import { Gender, Industry } from '@/constants/enums';
+import { DocFileType, Gender, Industry } from '@/constants/enums';
 import { model, models, Schema } from 'mongoose';
 
 const studentSchema = new Schema({
@@ -39,8 +39,13 @@ const studentSchema = new Schema({
         required: true
     },
     resume: {
-        type: String,
-        default: null
+        file: {
+            type: String,
+        },
+        extension: {
+            type: String,
+            enum: Object.keys(DocFileType),
+        }
     },
     industriesOfInterest: [{
         type: String,

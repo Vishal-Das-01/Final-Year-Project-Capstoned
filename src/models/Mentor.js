@@ -42,7 +42,7 @@ const mentorSchema = new Schema({
     contact: {
         type: String,
         required: true
-    }, 
+    },
     roomNum: {
         type: String,
         default: null
@@ -67,14 +67,29 @@ const mentorSchema = new Schema({
         },
     },
     groups: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Group'
-    }],
+            group: {
+                type: Schema.Types.ObjectId,
+                ref: 'Group'
+            },
+            project: {
+                type: Schema.Types.ObjectId,
+                ref: 'Project'
+            },
+        }],
+    myProposals: {
+        type: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Proposal'
+        }],
+        validate: function (value) {
+            return value.length < 6;
+        }
+    },
     pastProjects: [{
         type: Schema.Types.ObjectId,
         ref: 'Project'
     }],
-},{timestamps: true})
+}, { timestamps: true })
 
 const Mentor = models.Mentor || model('Mentor', mentorSchema);
 export default Mentor;
