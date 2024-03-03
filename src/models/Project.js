@@ -2,16 +2,9 @@ import { AccessType, FileType } from '@/constants/enums';
 import { model, models, Schema } from 'mongoose';
 
 const projectSchema = new Schema({
-    proposedBy: {
+    proposal: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
-    },
-    title: {
-        type: String,
-        required: true
-    },
-    description: {
-        type: String,
+        ref: 'Proposal',
         required: true
     },
     progress: {
@@ -26,6 +19,11 @@ const projectSchema = new Schema({
     },
     documents: [
         {
+            milestone:{
+                type: String,
+                required: true,
+                ref: 'Milestone'
+            },
             file: {
                 type: String,
                 required: true
@@ -41,8 +39,8 @@ const projectSchema = new Schema({
         type: String,
         enum: Object.keys(AccessType),
         required: true
-    }  
-},{timestamps: true})
+    }
+}, { timestamps: true })
 
 const Project = models.Project || model('Project', projectSchema);
 export default Project;

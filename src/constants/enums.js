@@ -2,10 +2,20 @@ const AccessType = {
     Public: 'Public',
     Private: 'Private',
 };
-  
-const FileType = {
+
+const Approval = {
+    Approved: 'Approved',
+    AwaitingApproval: 'Awaiting Approval',
+    Pending: 'Pending',
+    Rejected: 'Rejected',
+};
+
+const ImageFileType = {
     JPG: 'jpg',
     PNG: 'png',
+};
+
+const DocFileType = {
     DOC: 'doc',
     PDF: 'pdf',
 };
@@ -51,5 +61,5 @@ const Industry = {
     ComputerVision: 'Computer Vision'
 };
   
-module.exports = { AccessType, FileType, Gender, Status, Role, RequestType, Industry };
+module.exports = { AccessType, ImageFileType, Gender, Status, Role, RequestType, Industry, DocFileType, Approval};
   

@@ -1,4 +1,4 @@
-import { Role } from '@/constants/enums';
+import { ImageFileType, Role } from '@/constants/enums';
 import { model, models, Schema } from 'mongoose';
 
 const userSchema = new Schema({
@@ -21,8 +21,13 @@ const userSchema = new Schema({
         required: true
     },
     profileImage: {
-        type: String,
-        default:''
+        image: {
+            type: String,
+        },
+        extension: {
+            type: String,
+            enum: Object.keys(ImageFileType),
+        }
     },
     profileID: {
         type: Schema.Types.ObjectId,
