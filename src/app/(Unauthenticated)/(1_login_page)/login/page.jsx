@@ -1,6 +1,5 @@
 import LoginInput from "./_components/LoginInput/LoginInput.jsx";
 import LoginSubmitBtn from "./_components/LoginSubmitBtn/LoginSubmitBtn.jsx";
-
 import styles from "./LoginPage.module.css";
 
 export const metadata = {
@@ -16,7 +15,18 @@ export default function LoginPage(props){
 
 				<div className={`${styles.formContainer} flex flex-col items-center justify-center w-full h-full relative `}>
 
-					<form className="flex flex-col w-full items-center justify-center">
+					<div className={`flex flex-row items-center justify-center `}>
+						<p className={`font-montserrat font-semibold text-2xl text-black`}>
+							Jump Right In
+						</p>
+
+						<div className={`${styles.styledDivLine} absolute rounded-lg`}/>
+
+						<div className={`${styles.secondStyledDivLine} absolute rounded-lg`}/>
+
+					</div>
+
+					<form className="flex flex-col w-full items-center justify-center mt-7 mb-3 ">
 
 						<LoginInput 
 							label="Email" 
@@ -34,9 +44,9 @@ export default function LoginPage(props){
 
 					</form>
 					
-					<div className={`${styles.errorMsgContainer} w-full flex items-center justify-center h-8 absolute `}>
+					<div className={`${styles.errorMsgContainer} w-full flex items-center justify-center h-8 `}>
 
-						<p className={`${styles.errorMsg} font-montserrat font-semibold text-red-600`}>
+						<p className={`${styles.errorMsg} font-montserrat font-base text-red-600 text-lg`}>
 							{``}
 						</p>
 					

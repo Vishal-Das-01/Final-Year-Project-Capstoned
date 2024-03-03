@@ -1,3 +1,7 @@
+.mainWrapper{
+	 background-color: #e0e0e0;
+}
+
 .secondaryContainer{
 	width: 500px;
 	height: 450px;
@@ -5,10 +9,9 @@
 	background: #f6f7f9;
 	box-shadow:  20px 20px 32px #d1d2d4, -20px -20px 32px #ffffff;*/
 	border-radius: 50px;
-background: #fdfcfc;
-box-shadow:  20px 20px 60px #d7d6d6,
+background: #e0e0e0;
+box-shadow:  20px 20px 60px #bebebe,
              -20px -20px 60px #ffffff;
-            
 
            /* border-radius: 50px;
 background: #f2f2f2;
@@ -19,14 +22,62 @@ box-shadow:  20px 20px 60px #cecece,
 .formContainer{
 	width: 90%;
 	height: 95%;
+
+
 }
 
 .errorMsgContainer{
-	bottom: 65px;
+	/*bottom: 65px;
 	right: 0;
-	left: 0;
+	left: 0;*/
 }
 
 .errorMsg{
 
+}
+
+.styledDivLine{
+	height: 4px;
+	width: 80px;
+	background-image: linear-gradient(
+  90deg,
+  hsl(0deg 0% 32%) 0%,
+  hsl(344deg 0% 38%) 8%,
+  hsl(344deg 0% 44%) 17%,
+  hsl(0deg 0% 50%) 25%,
+  hsl(210deg 1% 51%) 33%,
+  hsl(210deg 2% 52%) 42%,
+  hsl(210deg 3% 52%) 50%,
+  hsl(210deg 2% 57%) 58%,
+  hsl(210deg 1% 62%) 67%,
+  hsl(0deg 0% 66%) 75%,
+  hsl(344deg 0% 72%) 83%,
+  hsl(344deg 0% 77%) 92%,
+  hsl(0deg 0% 83%) 100%
+);
+	right: 140px;
+	top: 40px;
+}
+
+.secondStyledDivLine{
+	height: 4px;
+	width: 80px;
+	background-image: linear-gradient(
+	  90deg,
+	  hsl(0deg 0% 83%) 0%,
+	  hsl(344deg 0% 77%) 8%,
+	  hsl(344deg 0% 72%) 17%,
+	  hsl(0deg 0% 66%) 25%,
+	  hsl(210deg 1% 62%) 33%,
+	  hsl(210deg 2% 57%) 42%,
+	  hsl(210deg 3% 52%) 50%,
+	  hsl(210deg 2% 52%) 58%,
+	  hsl(210deg 1% 51%) 67%,
+	  hsl(0deg 0% 50%) 75%,
+	  hsl(344deg 0% 44%) 83%,
+	  hsl(344deg 0% 38%) 92%,
+	  hsl(0deg 0% 32%) 100%
+	);
+	left: 140px;
+	top: 90px;
 }
