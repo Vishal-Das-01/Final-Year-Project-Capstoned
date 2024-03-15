@@ -22,8 +22,10 @@ box-shadow:  20px 20px 60px #cecece,
 .formContainer{
 	width: 90%;
 	height: 95%;
+}
 
-
+.heading{
+	
 }
 
 .errorMsgContainer{
@@ -55,6 +57,23 @@ box-shadow:  20px 20px 60px #cecece,
   hsl(344deg 0% 77%) 92%,
   hsl(0deg 0% 83%) 100%
 );
+
+	background-image: linear-gradient(
+  90deg,
+  hsl(217deg 87% 12%) 0%,
+  hsl(215deg 94% 16%) 8%,
+  hsl(215deg 96% 21%) 17%,
+  hsl(217deg 89% 28%) 25%,
+  hsl(217deg 88% 31%) 33%,
+  hsl(217deg 87% 33%) 42%,
+  hsl(217deg 86% 36%) 50%,
+  hsl(218deg 72% 45%) 58%,
+  hsl(218deg 72% 52%) 67%,
+  hsl(217deg 91% 60%) 75%,
+  hsl(219deg 93% 72%) 83%,
+  hsl(218deg 93% 82%) 92%,
+  hsl(217deg 87% 91%) 100%
+);
 	right: 140px;
 	top: 40px;
 }
@@ -78,6 +97,23 @@ box-shadow:  20px 20px 60px #cecece,
 	  hsl(344deg 0% 38%) 92%,
 	  hsl(0deg 0% 32%) 100%
 	);
+
+	background-image: linear-gradient(
+  90deg,
+  hsl(217deg 87% 91%) 0%,
+  hsl(218deg 93% 82%) 8%,
+  hsl(219deg 93% 72%) 17%,
+  hsl(217deg 91% 60%) 25%,
+  hsl(218deg 72% 52%) 33%,
+  hsl(218deg 72% 45%) 42%,
+  hsl(217deg 86% 36%) 50%,
+  hsl(217deg 87% 33%) 58%,
+  hsl(217deg 88% 31%) 67%,
+  hsl(217deg 89% 28%) 75%,
+  hsl(215deg 96% 21%) 83%,
+  hsl(215deg 94% 16%) 92%,
+  hsl(217deg 87% 12%) 100%
+);
 	left: 140px;
 	top: 90px;
 }

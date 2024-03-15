@@ -1,0 +1,23 @@
+.textContentWrapper{
+	width: 74%;
+}
+
+.headingWrapper{
+
+}
+
+.textWrapper{
+	height: 400px;
+}
+
+.heading{
+	font-size: 30px;
+}
+
+.text{
+	font-size: 22px;
+}
+
+.btnWrapper{
+	width: 8%;
+}

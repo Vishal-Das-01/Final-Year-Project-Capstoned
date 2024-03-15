@@ -1,0 +1,82 @@
+.mainWrapper{
+
+}
+
+.leftContainer{
+	width: 60%;
+}
+
+/*
+.textContentWrapper{
+	width: 74%;
+}
+
+.headingWrapper{
+
+}
+
+.textWrapper{
+	height: 400px;
+}
+
+.heading{
+	font-size: 30px;
+}
+
+.text{
+	font-size: 22px;
+}
+
+.btnWrapper{
+	width: 8%;
+}
+*/
+
+.rightContainer{
+	width: 40%;
+}
+
+.designDiv{
+	margin: 0px 30px;
+	transform: rotate(-35deg);
+}
+
+.topDesignDivWrapper{
+	width: 80%;
+}
+
+.topDesignDiv{
+	width: 300px;
+	height: 50px;
+}
+
+.firstDesignDiv{
+	width: 65px;
+	height: 140px;
+}
+
+.secondDesignDiv{
+	width: 65px;
+	height: 280px;
+}
+
+.thirdDesignDiv{
+	width: 65px;
+	height: 400px;
+}
+
+.bottomDesignDivWrapper{
+	width: 80%;
+}
+
+.firstBottomDesignDiv{
+	width: 130px;
+	height: 50px;
+}
+
+.secondBottomDesignDiv{
+	width: 300px;
+	height: 50px;
+}
+
+

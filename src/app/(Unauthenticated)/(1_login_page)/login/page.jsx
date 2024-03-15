@@ -16,7 +16,7 @@ export default function LoginPage(props){
 				<div className={`${styles.formContainer} flex flex-col items-center justify-center w-full h-full relative `}>
 
 					<div className={`flex flex-row items-center justify-center `}>
-						<p className={`font-montserrat font-semibold text-2xl text-black`}>
+						<p className={`${styles.heading} font-montserrat font-normal text-2xl text-black`}>
 							Jump Right In
 						</p>
 
