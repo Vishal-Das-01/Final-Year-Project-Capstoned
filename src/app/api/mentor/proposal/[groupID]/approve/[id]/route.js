@@ -1,8 +1,8 @@
 import { Approval } from "@/constants/enums";
 import { connectToDB } from "@/lib/utils";
 import Group from "@/models/Group";
-import Mentor from "@/models/Mentor";
 import Proposal from "@/models/Proposal";
+import { NextResponse } from "next/server";
 
 export async function POST(request) {
     connectToDB();

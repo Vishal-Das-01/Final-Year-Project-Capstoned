@@ -17,27 +17,61 @@ const projectSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Group'
     },
-    documents: [
+    milestones: [
         {
-            milestone:{
+            ID: {
                 type: String,
                 required: true,
                 ref: 'Milestone'
             },
-            file: {
-                type: String,
-                required: true
+            completed:{
+                type: Boolean
             },
-            extension: {
-                type: String,
-                enum: Object.keys(FileType),
-                required: true
-            }
+            file: [
+                {
+                    doc: {
+                        type: String,
+                    },
+                    extension: {
+                        type: String,
+                        enum: Object.keys(FileType),
+                        required: true
+                    }
+                }
+            ],
+            marks: [
+                {
+                    member: {
+                        type: Schema.Types.ObjectId,
+                        ref: 'Student'
+                    },
+                    marks: {
+                        type: Number,
+                        required: true,
+                        min: 0,
+                        max: 100
+                    }
+                }
+            ]
         }
     ],
     status: {
         type: String,
         enum: Object.keys(AccessType),
+        default: AccessType.Private
+    },
+    finished: {
+        type: Boolean,
+        default: false
+    },
+    grade: {
+        type: Number,
+        min: 0,
+        max: 100,
+        default: null
+    },
+    year: {
+        type: Number,
         required: true
     }
 }, { timestamps: true })
