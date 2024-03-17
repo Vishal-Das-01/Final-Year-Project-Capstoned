@@ -6,31 +6,6 @@
 	width: 60%;
 }
 
-/*
-.textContentWrapper{
-	width: 74%;
-}
-
-.headingWrapper{
-
-}
-
-.textWrapper{
-	height: 400px;
-}
-
-.heading{
-	font-size: 30px;
-}
-
-.text{
-	font-size: 22px;
-}
-
-.btnWrapper{
-	width: 8%;
-}
-*/
 
 .rightContainer{
 	width: 40%;
@@ -47,22 +22,22 @@
 
 .topDesignDiv{
 	width: 300px;
-	height: 50px;
+	height: 35px;
 }
 
 .firstDesignDiv{
-	width: 65px;
-	height: 140px;
+	width: 42px;
+	height: 120px;
 }
 
 .secondDesignDiv{
-	width: 65px;
-	height: 280px;
+	width: 42px;
+	height: 220px;
 }
 
 .thirdDesignDiv{
-	width: 65px;
-	height: 400px;
+	width: 42px;
+	height: 320px;
 }
 
 .bottomDesignDivWrapper{
@@ -71,12 +46,12 @@
 
 .firstBottomDesignDiv{
 	width: 130px;
-	height: 50px;
+	height: 35px;
 }
 
 .secondBottomDesignDiv{
 	width: 300px;
-	height: 50px;
+	height: 35px;
 }
 
 

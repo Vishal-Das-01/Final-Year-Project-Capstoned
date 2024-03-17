@@ -1,6 +1,9 @@
 import LoginInput from "./_components/LoginInput/LoginInput.jsx";
 import LoginSubmitBtn from "./_components/LoginSubmitBtn/LoginSubmitBtn.jsx";
+import ForgetPasswordLink from "./_components/ForgetPasswordLink/ForgetPasswordLink.jsx";
+import FormHeading from "./_components/FormHeading/FormHeading.jsx";
 import styles from "./LoginPage.module.css";
+import {FRONTEND_ROUTES} from "@/utils/frontend_routes.js";
 
 export const metadata = {
   title: "Capstoned Login",
@@ -13,20 +16,11 @@ export default function LoginPage(props){
 
 			<div className={`${styles.secondaryContainer} flex flex-col items-center justify-center rounded-lg `}>
 
-				<div className={`${styles.formContainer} flex flex-col items-center justify-center w-full h-full relative `}>
+				<div className={`${styles.formContainer} flex flex-col items-center justify-center w-full h-full `}>
 
-					<div className={`flex flex-row items-center justify-center `}>
-						<p className={`${styles.heading} font-montserrat font-normal text-2xl text-black`}>
-							Jump Right In
-						</p>
+					<FormHeading />
 
-						<div className={`${styles.styledDivLine} absolute rounded-lg`}/>
-
-						<div className={`${styles.secondStyledDivLine} absolute rounded-lg`}/>
-
-					</div>
-
-					<form className="flex flex-col w-full items-center justify-center mt-7 mb-3 ">
+					<form className="flex flex-col w-full items-center justify-center mt-3">
 
 						<LoginInput 
 							label="Email" 
@@ -40,11 +34,13 @@ export default function LoginPage(props){
 							inputPlaceholder="Password" 
 						/>
 
+						<ForgetPasswordLink href={FRONTEND_ROUTES.forget_password_page}/>
+
 						<LoginSubmitBtn btnText="Login"/>
 
 					</form>
 					
-					<div className={`${styles.errorMsgContainer} w-full flex items-center justify-center h-8 `}>
+					<div className={`${styles.errorMsgContainer} w-full flex items-center justify-center h-8`}>
 
 						<p className={`${styles.errorMsg} font-montserrat font-base text-red-600 text-lg`}>
 							{``}

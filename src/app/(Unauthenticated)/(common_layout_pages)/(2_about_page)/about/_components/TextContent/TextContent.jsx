@@ -71,7 +71,7 @@ export default function TextContent(){
 					
 				</div>
 
-				<div className={`${styles.textWrapper} pr-4 `}>
+				<div className={`${styles.textWrapper} pr-4 overflow-y-scroll`}>
 
 					{(aboutDataIndex != 1) ? 
 						(
@@ -87,8 +87,8 @@ export default function TextContent(){
 								</p>
 								<ul>
 									{aboutData[aboutDataIndex].features.map((feature) => {
-										return (<li className={`text-xl text-neutral-700 my-2 text-justify`}>
-													<b className={`text-blue-300`}>{feature.name}</b>
+										return (<li className={`${styles.listItem}  text-neutral-700 my-1 text-justify font-montserrat`}>
+													<span className={`text-blue-300 font-semibold`}>{feature.name}</span>
 													{feature.description}
 												</li>)
 									})}

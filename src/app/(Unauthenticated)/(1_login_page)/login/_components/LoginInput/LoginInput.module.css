@@ -5,8 +5,11 @@
 .input{
 	border-width: 3px;
 	padding-right: 4px; 
-	padding-left: 4px;
-	height: 40.5px;
+	padding-left: 6px;
+	height: 42px;
+	outline: none;
+	border: none;
+	border-bottom: 2px solid black;
 }
 
 .label{
