@@ -6,7 +6,7 @@ const secret = new TextEncoder().encode(process.env.ACCESS_TOKEN_SECRET);
 
 export async function middleware(request) {
 
-    if (request.nextUrl.pathname.startsWith('/api/auth')) return NextResponse.next();
+    if (request.nextUrl.pathname.startsWith('/api/auth') || !request.nextUrl.pathname.startsWith('/api')) return NextResponse.next();
 
     const authHeader = request.headers.get('Authorization');
 
