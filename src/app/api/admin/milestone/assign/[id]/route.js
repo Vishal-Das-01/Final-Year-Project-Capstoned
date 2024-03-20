@@ -1,9 +1,7 @@
 import { connectToDB } from "@/lib/utils";
-import Milestone from "@/models/Milestone";
 import Project from "@/models/Project";
 import { HttpStatusCode } from "axios";
 import { NextResponse } from "next/server";
-import { finished } from "nodemailer/lib/xoauth2";
 
 export async function POST(request, { params }) {
     connectToDB();
