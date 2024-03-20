@@ -1,0 +1,57 @@
+.mainWrapper{
+
+}
+
+.leftContainer{
+	width: 60%;
+}
+
+
+.rightContainer{
+	width: 40%;
+}
+
+.designDiv{
+	margin: 0px 30px;
+	transform: rotate(-35deg);
+}
+
+.topDesignDivWrapper{
+	width: 80%;
+}
+
+.topDesignDiv{
+	width: 300px;
+	height: 35px;
+}
+
+.firstDesignDiv{
+	width: 42px;
+	height: 120px;
+}
+
+.secondDesignDiv{
+	width: 42px;
+	height: 220px;
+}
+
+.thirdDesignDiv{
+	width: 42px;
+	height: 320px;
+}
+
+.bottomDesignDivWrapper{
+	width: 80%;
+}
+
+.firstBottomDesignDiv{
+	width: 130px;
+	height: 35px;
+}
+
+.secondBottomDesignDiv{
+	width: 300px;
+	height: 35px;
+}
+
+
