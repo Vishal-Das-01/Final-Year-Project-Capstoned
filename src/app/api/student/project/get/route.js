@@ -1,4 +1,4 @@
-import { connectToDB } from "@/lib/utils";
+import { connectToDB } from "@/utils/helpers/connectDB";
 import Group from "@/models/Group";
 import Project from "@/models/Project";
 import Student from "@/models/Student";

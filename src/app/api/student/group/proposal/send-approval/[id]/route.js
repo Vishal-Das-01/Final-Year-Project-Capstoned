@@ -1,11 +1,11 @@
-import { connectToDB } from "@/lib/utils";
+import { connectToDB } from "@/utils/helpers/connectDB";
 import Group from "@/models/Group";
 import Mentor from "@/models/Mentor";
 import Student from "@/models/Student";
 import { NextResponse } from "next/server";
 import { HttpStatusCode } from "axios";
 import Proposal from "@/models/Proposal";
-import { Approval } from "@/constants/enums";
+import { Approval } from "@/utils/constants/enums";
 
 export async function PATCH(request, { params }) {
     connectToDB();

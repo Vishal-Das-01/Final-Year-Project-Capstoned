@@ -1,4 +1,4 @@
-import { connectToDB } from "@/lib/utils";
+import { connectToDB } from "@/utils/helpers/connectDB";
 import Proposal from "@/models/Proposal";
 import { NextResponse } from "next/server";
 

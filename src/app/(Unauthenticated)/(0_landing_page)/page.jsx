@@ -3,7 +3,7 @@ import Image from "next/image";
 import PrimaryHeading from "./_components/PrimaryHeading/PrimaryHeading.jsx";
 import SecondaryHeading from "./_components/SecondaryHeading/SecondaryHeading.jsx";
 import EnterCapstonedBtn from "./_components/EnterCapstonedBtn/EnterCapstonedBtn.jsx";  
-import {FRONTEND_ROUTES} from "@/utils/frontend_routes.js";
+import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import AstronotLottie from "./_components/AstronotLottie/AstronotLottie.jsx";
 
 export default function LandingPage(props){

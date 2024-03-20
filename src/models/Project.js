@@ -1,4 +1,4 @@
-import { AccessType, FileType } from '@/constants/enums';
+import { AccessType, FileType } from '@/utils/constants/enums';
 import { model, models, Schema } from 'mongoose';
 
 const projectSchema = new Schema({

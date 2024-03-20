@@ -1,5 +1,5 @@
-import { Role } from "@/constants/enums";
-import { connectToDB } from "@/lib/utils";
+import { Role } from "@/utils/constants/enums";
+import { connectToDB } from "@/utils/helpers/connectDB";
 import Proposal from "@/models/Proposal";
 import { NextResponse } from "next/server";
 import { HttpStatusCode } from "axios";

@@ -1,5 +1,5 @@
-import { connectToDB } from "@/lib/utils";
-import { Role } from "@/constants/enums";
+import { connectToDB } from "@/utils/helpers/connectDB";
+import { Role } from "@/utils/constants/enums";
 import { HttpStatusCode } from "axios";
 import { NextResponse } from "next/server";
 import Student from "@/models/Student";

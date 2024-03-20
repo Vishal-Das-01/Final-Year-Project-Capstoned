@@ -1,5 +1,5 @@
 import Mentor from "@/models/Mentor";
-import { connectToDB } from "@/lib/utils";
+import { connectToDB } from "@/utils/helpers/connectDB";
 import { NextResponse } from "next/server";
 import { HttpStatusCode } from "axios";
 

@@ -1,10 +1,10 @@
-import { connectToDB } from "@/lib/utils"
+import { connectToDB } from "@/utils/helpers/connectDB";
 import { NextResponse } from "next/server";
 import { HttpStatusCode } from "axios";
 import Group from "@/models/Group";
 import Proposal from "@/models/Proposal";
 import Student from "@/models/Student";
-import { Approval } from "@/constants/enums";
+import { Approval } from "@/utils/constants/enums";
 
 export async function POST(request) {
     connectToDB();

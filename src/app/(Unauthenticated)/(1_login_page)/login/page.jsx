@@ -3,7 +3,7 @@ import LoginSubmitBtn from "./_components/LoginSubmitBtn/LoginSubmitBtn.jsx";
 import ForgetPasswordLink from "./_components/ForgetPasswordLink/ForgetPasswordLink.jsx";
 import FormHeading from "./_components/FormHeading/FormHeading.jsx";
 import styles from "./LoginPage.module.css";
-import {FRONTEND_ROUTES} from "@/utils/frontend_routes.js";
+import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes.js";
 
 export const metadata = {
   title: "Capstoned Login",

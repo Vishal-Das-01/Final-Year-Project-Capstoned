@@ -1,4 +1,4 @@
-import { ImageFileType, Role } from '@/constants/enums';
+import { ImageFileType, Role } from '@/utils/constants/enums';
 import { model, models, Schema } from 'mongoose';
 
 const userSchema = new Schema({

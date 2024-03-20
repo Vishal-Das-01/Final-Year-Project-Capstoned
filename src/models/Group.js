@@ -1,4 +1,4 @@
-import { Approval } from '@/constants/enums';
+import { Approval } from '@/utils/constants/enums';
 import { model, models, Schema } from 'mongoose';
 
 const groupSchema = new Schema({

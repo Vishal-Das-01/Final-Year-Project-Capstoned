@@ -1,7 +1,7 @@
 import Brand from "./_components/Brand/Brand.jsx";
 import NavbarMenuLink from "./_components/NavbarMenuLink/NavbarMenuLink.jsx";
 import ActionButtonLink from "./_components/ActionButtonLink/ActionButtonLink.jsx";
-import {FRONTEND_ROUTES} from "@/utils/frontend_routes.js";
+import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes.js";
 
 export default function Navbar(props){
 	return (

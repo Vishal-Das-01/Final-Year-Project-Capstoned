@@ -1,4 +1,4 @@
-import { connectToDB } from "@/lib/utils";
+import { connectToDB } from "@/utils/helpers/connectDB";
 import Milestone from "@/models/Milestone";
 import { HttpStatusCode } from "axios";
 import { NextResponse } from "next/server";
