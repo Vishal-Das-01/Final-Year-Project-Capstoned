@@ -1,5 +1,5 @@
 import { model, models, Schema } from "mongoose";
-import { Approval, DocFileType, Industry } from "@/constants/enums";
+import { DocFileType, Industry } from "@/constants/enums";
 
 const proposalSchema = new Schema({
     proposer: {
