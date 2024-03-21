@@ -18,14 +18,6 @@ export default function LoginPage(props){
 					<FormHeading />
 
 					<LoginForm />
-					
-					<div className={`${styles.errorMsgContainer} w-full flex items-center justify-center h-8`}>
-
-						<p className={`${styles.errorMsg} font-montserrat font-base text-red-600 text-lg`}>
-							{``}
-						</p>
-					
-					</div>
 				
 				</div>
 			

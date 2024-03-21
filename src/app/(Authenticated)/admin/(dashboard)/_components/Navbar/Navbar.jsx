@@ -2,7 +2,7 @@ import styles from "./Navbar.module.css";
 import Brand from "@/components/Brand/Brand.jsx";
 import Avatar from "./_components/Avatar/Avatar.jsx";
 import NotificationIcon from "./_components/NotificationIcon/NotificationIcon.jsx";
-import {FRONTEND_ROUTES} from "@/utils/frontend_routes.js";
+import {FRONTEND_ROUTES} from "@/utils/routes/frontend_routes";
 
 export default function Navbar(props){
 	return (

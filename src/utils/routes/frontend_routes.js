@@ -8,4 +8,5 @@ export const FRONTEND_ROUTES = {
 	admin_dashboard_milestones_page: "/admin/milestones", // Admin
 	admin_dashboard_fypgroups_page: "/admin/fyp-groups", // Admin
 	admin_dashboard_meetings_page: "/admin/meetings", // Admin
+	mentor_dashboard_home_page: "/mentor/home", // Mentor
 };
