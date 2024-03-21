@@ -1,17 +1,26 @@
-import { Inter } from "next/font/google";
+import { Montserrat, Exo_2 } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const montserrat = Montserrat({ 
+	subsets: ["latin"],
+	variable: "--montserrat" 
+});
+const exo2 = Exo_2({
+	subsets: ["latin"],
+	variable: "--exo2"
+});
 
 export const metadata = {
-  title: "Finnify",
-  description: "FYP Management Portal for College & University Students",
+  title: "Capstoned",
+  description: "Capstoned | Final Year Project (FYP) Management Platform for College & University Students.",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+	<html lang="en">
+	  <body className={`${montserrat.variable} ${exo2.variable}`}>
+	  	{children}
+	  </body>
+	</html>
   );
 }

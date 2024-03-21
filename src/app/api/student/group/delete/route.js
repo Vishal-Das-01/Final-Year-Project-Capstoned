@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { HttpStatusCode } from "axios";
-import { connectToDB } from "@/lib/utils";
+import { connectToDB } from "@/utils/helpers/connectDB";
 import Group from "@/models/Group";
 import Student from "@/models/Student";
 import Mentor from "@/models/Mentor";

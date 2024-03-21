@@ -1,0 +1,20 @@
+.logoBg{
+	width: 65px;
+	height: 65px;
+	animation: color-change 5s infinite;
+}
+
+@keyframes color-change {
+  0% { background-color: #525252; }
+  25% { background-color: #0F111C;}
+  50% { background-color: black; }
+  75% { background-color: #404040; }
+  100% { background-color: #525252; }
+
+  /*0% { background-color: #525252; }*/
+  /*0% { background-color: #1B1B29;}
+  25% { background-color: #261429; }
+  50% { background-color: black; }
+  75% { background-color: #261429; }
+  100% { background-color: #1B1B29; }*/
+}

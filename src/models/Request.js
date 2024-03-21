@@ -1,4 +1,4 @@
-import { RequestType } from '@/constants/enums';
+import { RequestType } from '@/utils/constants/enums';
 import { model, models, Schema } from 'mongoose';
 
 const requestSchema = new Schema({

@@ -1,5 +1,5 @@
-import { Approval } from "@/constants/enums";
-import { connectToDB } from "@/lib/utils";
+import { Approval } from "@/utils/constants/enums";
+import { connectToDB } from "@/utils/helpers/connectDB";
 import Group from "@/models/Group";
 import Proposal from "@/models/Proposal";
 import { NextResponse } from "next/server";

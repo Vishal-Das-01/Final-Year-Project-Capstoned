@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { connectToDB } from '@/lib/utils';
+import { connectToDB } from "@/utils/helpers/connectDB";
 import User from '@/models/User';
 import { HttpStatusCode } from 'axios';
 import bcrypt from 'bcrypt';

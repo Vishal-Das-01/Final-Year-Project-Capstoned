@@ -1,14 +1,13 @@
 import { NextResponse } from "next/server";
 import { HttpStatusCode } from "axios";
-import { connectToDB } from "@/lib/utils";
-import Supervisor from "@/models/Supervisor";
+import { connectToDB } from "@/utils/helpers/connectDB";
 import User from "@/models/User";
 import isEmail from "validator/lib/isEmail";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
 import Student from "@/models/Student";
-import { transporter } from "@/constants/emailConstant";
-import { Role } from "@/constants/enums";
+import { transporter } from "@/utils/constants/emailConstant";
+import { Role } from "@/utils/constants/enums";
 import Mentor from "@/models/Mentor";
 import bcrypt from "bcrypt";
 

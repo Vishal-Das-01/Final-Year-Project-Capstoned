@@ -1,0 +1,25 @@
+.messageListTileWrapper{
+
+}
+
+.imgWrapper{
+    width: 47px;
+    height: 47px;
+}
+
+.nameAndUnreadMessagesCountWrapper{
+    width: 70%;
+}
+
+.name{
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.unreadMessagesCount{
+    font-size: 13px;
+}
+
+.divider{
+    border: 1.5px solid #e6e6e6;
+}

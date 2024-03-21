@@ -1,0 +1,47 @@
+.textContentWrapper{
+	width: 74%;
+}
+
+.headingWrapper{
+
+}
+
+.textWrapper{
+	height: 400px;
+}
+
+.textWrapper::-webkit-scrollbar {
+  width: 5px; 
+  border-radius: 20px;
+}
+
+.textWrapper::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+  border-radius: 20px;
+}
+
+.textWrapper::-webkit-scrollbar-thumb {
+  background: #93c5fd; 
+  border-radius: 20px;
+}
+
+.textWrapper::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+  border-radius: 20px;
+}
+
+.heading{
+	font-size: 30px;
+}
+
+.text{
+	font-size: 22px;
+}
+
+.btnWrapper{
+	width: 8%;
+}
+
+.listItem{
+	font-size: 21px;
+}

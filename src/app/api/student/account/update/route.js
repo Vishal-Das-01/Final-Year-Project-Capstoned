@@ -2,7 +2,7 @@ import Student from "@/models/Student";
 import User from "@/models/User";
 import { NextResponse } from "next/server";
 import HttpStatusCode from "axios";
-import { connectToDB } from "@/lib/utils";
+import { connectToDB } from "@/utils/helpers/connectDB";
 
 export async function PATCH(request){
     connectToDB();
