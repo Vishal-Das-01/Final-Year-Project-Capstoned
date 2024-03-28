@@ -40,9 +40,9 @@ export async function POST(request) {
         });
 
         if (data.role === Role.Mentor) {
-            const supervisor = new Mentor(data.details);
-            user.profileID = supervisor._id;
-            await supervisor.save();
+            const mentor = new Mentor(data.details);
+            user.profileID = mentor._id;
+            await mentor.save();
         }
 
         if (data.role === Role.Student) {
@@ -58,7 +58,7 @@ export async function POST(request) {
             subject: 'Account Created',
             text: `Welcome to Capstoned! \n
             Your account has been created. Your password is ${generatedPassword} \n
-            Please change your password by clicking on "Forgot Password" on login page. \n`
+            You can change your password on first login. \n`
         };
         transporter.sendMail(createAccountOptions, (error, info) => {
             if (error) {
@@ -71,6 +71,6 @@ export async function POST(request) {
     } catch (error) {
         if (error.name === "ValidationError")
             return NextResponse.json({ message: "Please provide the correct or necessary fields." }, { status: HttpStatusCode.BAD_REQUEST });
-        return NextResponse.json({ message: error.message }, { status: HttpStatusCode.INTERNAL_SERVER_ERROR });
+        return NextResponse.json({ message: "Account could not be created." }, { status: HttpStatusCode.INTERNAL_SERVER_ERROR });
     }
 }

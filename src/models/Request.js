@@ -4,7 +4,7 @@ import { model, models, Schema } from 'mongoose';
 const requestSchema = new Schema({
     sender: {
         type: Schema.Types.ObjectId,
-        refPath: 'User',
+        refPath: 'Student',
         required: true 
     },
     receiver: {
@@ -12,14 +12,9 @@ const requestSchema = new Schema({
         refPath: 'User',
         required: true 
     },
-    group: {
-        type: Schema.Types.ObjectId,
-        ref: 'Group',
-        required: true
-    },
     type: {
         type: String,
-        enum: Object.keys(RequestType),
+        enum: Object.values(RequestType),
         required: true
     }  
 },{timestamps: true})
