@@ -1,0 +1,19 @@
+.pageBodyContainer{
+
+}
+
+.navbarContainer{
+	margin-bottom: 7.5px;
+}
+
+.sideMenuAndContentContainer{
+	background-color: white;
+}
+
+.sideMenuContainer{
+	width: 20%;
+}
+
+.contentContainer{
+	background-color: #e0e0e0;
+}

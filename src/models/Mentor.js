@@ -33,7 +33,6 @@ const mentorSchema = new Schema({
     },
     bio: {
         type: String,
-        required: true
     },
     industries: [{
         type: String,
@@ -45,7 +44,6 @@ const mentorSchema = new Schema({
     },
     roomNum: {
         type: String,
-        default: null
     },
     officeHours: {
         type: [{
