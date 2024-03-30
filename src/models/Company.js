@@ -34,6 +34,10 @@ const companySchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Project'
     }],
+    verified: {
+        type: Boolean,
+        default: false
+    }
 },{timestamps: true})
 
 const Company = models.Company || model('Company', companySchema);

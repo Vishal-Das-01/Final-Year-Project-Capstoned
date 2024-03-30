@@ -9,6 +9,7 @@ import Request from "@/models/Request";
 
 export const DELETE = async (request) => {
     await connectToDB();
+    const profileID = request.headers.get('profileID');
 
     try {
         const groupID = request.nextUrl.searchParams.get('id');
@@ -17,15 +18,13 @@ export const DELETE = async (request) => {
             return NextResponse.json({message: "Group not found."}, {status: HttpStatusCode.NotFound});
         }
 
-        console.log(group);
-
         await Promise.all([
             group.lead ? Student.updateOne({ _id: group.lead }, { $set: { group: null } }) : Promise.resolve(),
             group.supervisor ? Mentor.updateOne({ _id: group.supervisor }, { $set: { group: null } }) : Promise.resolve(),
             group.project ? Project.updateOne({ _id: group.project }, { $set: { group: null } }) : Promise.resolve(),
             group.mentors.length > 0 ? Mentor.updateMany({ _id: { $in: group.mentors } }, { $set: { group: null } }) : Promise.resolve(),
             group.members.length > 0 ? Student.updateMany({ _id: { $in: group.members } }, { $set: { group: null } }) : Promise.resolve(),
-            Request.deleteMany({ group: groupID })
+            Request.deleteMany({ sender: profileID })
         ]);
 
         await Group.findByIdAndDelete(groupID);

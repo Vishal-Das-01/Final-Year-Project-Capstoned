@@ -33,6 +33,7 @@ const mentorSchema = new Schema({
     },
     bio: {
         type: String,
+        default: null
     },
     industries: [{
         type: String,
