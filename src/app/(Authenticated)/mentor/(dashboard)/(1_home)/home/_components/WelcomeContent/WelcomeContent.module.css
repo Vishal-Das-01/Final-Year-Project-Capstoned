@@ -5,6 +5,7 @@
 .welcomeContentWrapper{
  	background: url("/cardBg.jpg");
 	object-fit: cover;
+	
 }
 
 .welcomeHeading{
