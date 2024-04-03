@@ -3,7 +3,7 @@ import { useState } from "react";
 import ForgetPasswordLink from "../ForgetPasswordLink/ForgetPasswordLink";
 import LoginInput from "../LoginInput/LoginInput";
 import LoginSubmitBtn from "../LoginSubmitBtn/LoginSubmitBtn";
-import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
+import { FRONTEND_ROUTES, FRONTEND_ROUTES_MENTOR } from "@/utils/routes/frontend_routes";
 import { api } from "@/utils/helpers/axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import LoginLoadingBtn from "../LoginLoadingBtn/LoginLoadingBtn";
@@ -49,7 +49,7 @@ export default function LoginForm() {
         if (role === "Admin") {
             router.replace(FRONTEND_ROUTES.admin_dashboard_home_page,);
         } else if (role === "Mentor") {
-            router.replace(FRONTEND_ROUTES.mentor_dashboard_home_page);
+            router.replace(FRONTEND_ROUTES_MENTOR.mentor_dashboard_home_page);
         } else {
             router.replace(FRONTEND_ROUTES.student_dashboard_home_page);
         }

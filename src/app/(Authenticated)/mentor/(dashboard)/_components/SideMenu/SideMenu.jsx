@@ -1,6 +1,6 @@
 import SideMenuItem from "./_components/SideMenuItem/SideMenuItem.jsx";
 import styles from "./SideMenu.module.css";
-import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes.js";
+import { FRONTEND_ROUTES_MENTOR, FRONTEND_ROUTES } from "@/utils/routes/frontend_routes.js";
 
 export default function SideMenu(props){
 	return (
@@ -8,27 +8,27 @@ export default function SideMenu(props){
 
 			<div className={`${styles.secondaryContainer} w-full flex flex-col items-center `}>
 
-				<SideMenuItem href={FRONTEND_ROUTES.mentor_dashboard_home_page}>
+				<SideMenuItem href={FRONTEND_ROUTES_MENTOR.mentor_dashboard_home_page}>
 					Dashboard
 				</SideMenuItem>
 
-				<SideMenuItem href={FRONTEND_ROUTES.mentor_dashboard_fyp_groups_page}>
+				<SideMenuItem href={FRONTEND_ROUTES_MENTOR.mentor_dashboard_fyp_groups_page}>
 					FYP Groups
 				</SideMenuItem>
 
-				<SideMenuItem href={FRONTEND_ROUTES.mentor_dashboard_fyp_projects_page}>
+				<SideMenuItem href={FRONTEND_ROUTES_MENTOR.mentor_dashboard_fyp_projects_page}>
 					FYP Projects
 				</SideMenuItem>
 
-				<SideMenuItem href={FRONTEND_ROUTES.mentor_dashboard_my_proposals_page}>
+				<SideMenuItem href={FRONTEND_ROUTES_MENTOR.mentor_dashboard_my_proposals_page}>
 					My Proposals
 				</SideMenuItem>
 
-				<SideMenuItem href={FRONTEND_ROUTES.mentor_dashboard_profile_page}>
+				<SideMenuItem href={FRONTEND_ROUTES_MENTOR.mentor_dashboard_profile_page}>
 					Profile
 				</SideMenuItem>
 
-				<SideMenuItem href={FRONTEND_ROUTES.mentor_dashboard_chats_page}>
+				<SideMenuItem href={FRONTEND_ROUTES_MENTOR.mentor_dashboard_chats_page}>
 					Chats
 				</SideMenuItem>
 

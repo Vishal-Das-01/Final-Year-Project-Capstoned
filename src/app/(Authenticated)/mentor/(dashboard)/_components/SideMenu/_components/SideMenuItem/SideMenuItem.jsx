@@ -16,8 +16,6 @@ export default function SideMenuItem({href, children}){
 	const route = usePathname();
 
 	// Gets Page Name in the URL.
-	// /admin/home -> Will Return home
-	// /admin/meetings -> Will Return meetings
 	function getPageName(route){
 		let firstSlash = route.indexOf("/");
 		let secondSlash = route.substring(firstSlash + 1).indexOf("/");
