@@ -34,7 +34,7 @@ const projectSchema = new Schema({
                     },
                     extension: {
                         type: String,
-                        enum: Object.keys(FileType),
+                        enum: Object.values(FileType),
                         required: true
                     }
                 }
@@ -57,7 +57,7 @@ const projectSchema = new Schema({
     ],
     status: {
         type: String,
-        enum: Object.keys(AccessType),
+        enum: Object.values(AccessType),
         default: AccessType.Private
     },
     finished: {

@@ -27,13 +27,13 @@ const proposalSchema = new Schema({
         },
         extension: {
             type: String,
-            enum: Object.keys(DocFileType),
+            enum: Object.values(DocFileType),
             required: true
         }
     },
     industries: [{
         type: String,
-        enum: Object.keys(Industry)
+        enum: Object.values(Industry)
     }],
     mentorship: {
         type: Boolean,

@@ -24,7 +24,7 @@ const groupSchema = new Schema({
             },
             status: {
                 type: String,
-                enum: Object.keys(Approval)
+                enum: Object.values(Approval)
             }
         }],
         validator: function (v) {

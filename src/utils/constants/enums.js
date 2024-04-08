@@ -42,6 +42,13 @@ const RequestType = {
     Mentor: 'Mentor',
 };
 
+const NotificationType = {
+    ToAll: 'To All',
+    ToStudents: 'To Students',
+    ToMentors: 'To Mentors',
+    ToIndividual: 'To Individual'
+};
+
 const Industry = {
     SoftwareEngineering: 'Software Engineering',
     Security: 'Security',
@@ -61,5 +68,5 @@ const Industry = {
     ComputerVision: 'Computer Vision'
 };
   
-module.exports = { AccessType, ImageFileType, Gender, Status, Role, RequestType, Industry, DocFileType, Approval};
+module.exports = { AccessType, ImageFileType, Gender, Status, Role, RequestType, NotificationType, Industry, DocFileType, Approval};
   
