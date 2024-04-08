@@ -5,6 +5,14 @@ const companySchema = new Schema({
         type: String,
         required: true
     },
+    phone: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
     profileImage: {
         type: String
     },
@@ -15,20 +23,10 @@ const companySchema = new Schema({
         type: String
     },
     city: {
-        type: String,
-        required: true
+        type: String
     },
     address: {
-        type: String,
-        required: true
-    },
-    phone: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true
+        type: String
     },
     affiliatedProjects: [{
         type: Schema.Types.ObjectId,

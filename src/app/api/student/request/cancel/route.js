@@ -22,7 +22,6 @@ export const DELETE = async (request) => {
 
         return NextResponse.json({message: "Request deleted."}, {status: HttpStatusCode.Ok});
     } catch (error) {
-        console.log(error)
         return NextResponse.json({message: "Failed to delete request."}, {status: HttpStatusCode.InternalServerError});
     }
 }
