@@ -7,10 +7,10 @@ export const GET = async (request) => {
     await connectToDB();
 
     try {
-        const group = await Group.find();
+        const groups = await Group.find();
 
-        return NextResponse.json({message: "Success.", data: group}, {status: HttpStatusCode.Ok});
+        return NextResponse.json({message: "Success.", data: groups}, {status: HttpStatusCode.Ok});
     } catch (error) {
-        return NextResponse.json({message: "Failed to retrieve group."}, {status: HttpStatusCode.InternalServerError});
+        return NextResponse.json({message: "Failed to retrieve groups."}, {status: HttpStatusCode.InternalServerError});
     }
 }

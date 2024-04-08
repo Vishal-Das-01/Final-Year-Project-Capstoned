@@ -6,7 +6,7 @@ const secret = new TextEncoder().encode(process.env.ACCESS_TOKEN_SECRET);
 
 export async function middleware(request) {
 
-    if (request.nextUrl.pathname.startsWith('/api/auth') || !request.nextUrl.pathname.startsWith('/api')) return NextResponse.next();
+    if (request.nextUrl.pathname.startsWith('/api/socket') || request.nextUrl.pathname.startsWith('/test') || request.nextUrl.pathname.startsWith('/api/auth') || !request.nextUrl.pathname.startsWith('/api')) return NextResponse.next();
 
     const authHeader = request.headers.get('Authorization');
 
@@ -52,7 +52,6 @@ export async function middleware(request) {
         }
 
         if (request.nextUrl.pathname.startsWith('/api/user')) {
-            console.log(payload.role)
             if (payload.role !== 'Mentor' && payload.role !== 'Student') return NextResponse.json({ message: 'Unauthorized' }, { status: HttpStatusCode.FORBIDDEN })
             return NextResponse.next({
                 request: {

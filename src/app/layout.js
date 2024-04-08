@@ -1,6 +1,7 @@
 import { Montserrat, Exo_2 } from "next/font/google";
 import "./globals.css";
 import ReduxProvider from "@/provider/redux/ReduxProvider";
+import { SocketProvider } from "@/utils/helpers/socketProvider";
 
 const montserrat = Montserrat({
 	subsets: ["latin"],
@@ -21,7 +22,9 @@ export default function RootLayout({ children }) {
 		<ReduxProvider>
 			<html lang="en">
 				<body className={`${montserrat.variable} ${exo2.variable}`}>
+					<SocketProvider>
 					{children}
+					</SocketProvider>
 				</body>
 			</html>
 		</ReduxProvider>
