@@ -28,7 +28,7 @@ export async function POST(request) {
         if (user.activated === false) return NextResponse.json({ message: 'Account deactivated' }, { status: HttpStatusCode.Unauthorized });
 
         if (await bcrypt.compare(password, user.password)) {
-            const accessToken = jwt.sign({ email: email, role: user.role, profileID: user.profileID }, process.env.ACCESS_TOKEN_SECRET);
+            const accessToken = jwt.sign({ email: email, role: user.role, profileID: user.profileID }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
             const refreshToken = jwt.sign({ email: email, role: user.role, profileID: user.profileID }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '24h' });
             return NextResponse.json({ message: 'User authenticated', accessToken: accessToken, refreshToken: refreshToken }, { status: HttpStatusCode.Ok });
         }

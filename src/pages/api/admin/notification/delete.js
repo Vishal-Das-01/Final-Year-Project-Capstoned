@@ -7,19 +7,28 @@ export default async function handler(req, res) {
         await connectToDB();
 
         try {
-            const notification = await Notification.findByIdAndDelete(req.query.id).select('-sender');
+            const profileID = req.headers.profileid;
+
+            const notification = await Notification.findById(req.query.id);
             if(!notification) {
                 return res.status(400).json({ message: 'Notification not found.' });
             }
 
+            if(notification.sender!=profileID) {
+                return res.status(403).json({ message: 'Unauthorized operation.' });
+            }
+
+            await Notification.findByIdAndDelete(req.query.id).select('-sender');
+
+            const {sender, ...notificationData} = notification
+
             if (res.socket.server.io) {
                 if(notification.type==NotificationType.ToIndividual) {
-                    res.socket.server.io.emit(`notification:delete:${notification.receiver}`, notification);
+                    res.socket.server.io.emit(`notification:delete:${notification.receiver}`, notificationData);
                 }
                 else {
                     const eventSuffix = notification.type.toLowerCase().replace('to ', '');
-                    console.log(eventSuffix)
-                    res.socket.server.io.emit(`notification:delete:${eventSuffix}`, notification);
+                    res.socket.server.io.emit(`notification:delete:${eventSuffix}`, notificationData);
                 }
             }
         
