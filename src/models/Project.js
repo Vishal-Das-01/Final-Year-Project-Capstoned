@@ -1,4 +1,4 @@
-import { AccessType, FileType } from '@/utils/constants/enums';
+import { AccessType, DocFileType } from '@/utils/constants/enums';
 import { model, models, Schema } from 'mongoose';
 
 const projectSchema = new Schema({
@@ -34,7 +34,7 @@ const projectSchema = new Schema({
                     },
                     extension: {
                         type: String,
-                        enum: Object.values(FileType),
+                        enum: Object.values(DocFileType),
                         required: true
                     }
                 }

@@ -46,8 +46,17 @@ const NotificationType = {
     ToAll: 'To All',
     ToStudents: 'To Students',
     ToMentors: 'To Mentors',
+    ToAdmins: 'To Admins',
     ToIndividual: 'To Individual'
 };
+
+const NotificationPriority = {
+    Minimal: 'Minimal',
+    Low: 'Low',
+    Moderate: 'Moderate',
+    High: 'High',
+    Critical: 'Critical'
+}
 
 const Industry = {
     SoftwareEngineering: 'Software Engineering',
@@ -68,5 +77,17 @@ const Industry = {
     ComputerVision: 'Computer Vision'
 };
   
-module.exports = { AccessType, ImageFileType, Gender, Status, Role, RequestType, NotificationType, Industry, DocFileType, Approval};
+module.exports = { 
+    AccessType, 
+    ImageFileType, 
+    Gender, 
+    Status, 
+    Role, 
+    RequestType, 
+    NotificationType,
+    NotificationPriority, 
+    Industry, 
+    DocFileType, 
+    Approval
+};
   

@@ -2,7 +2,6 @@ import { connectToDB } from "@/utils/helpers/connectDB";
 import { RequestType } from "@/utils/constants/enums";
 import Request from "@/models/Request";
 import Student from "@/models/Student";
-import Group from "@/models/Group";
 import Mentor from "@/models/Mentor";
 
 export default async function handler(req, res) {

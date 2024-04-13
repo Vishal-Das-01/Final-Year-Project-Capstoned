@@ -1,9 +1,18 @@
 import { NextResponse } from 'next/server';
 import { connectToDB } from "@/utils/helpers/connectDB";
-import User from '@/models/User';
 import { HttpStatusCode } from 'axios';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import User from '@/models/User';
+import Company from '@/models/Company';
+import Group from '@/models/Group';
+import Mentor from '@/models/Mentor';
+import Student from '@/models/Student';
+import Admin from '@/models/Admin';
+import Notification from '@/models/Notification';
+import Project from '@/models/Project';
+import Proposal from '@/models/Proposal';
+import Request from '@/models/Request';
 
 export async function POST(request) {
     await connectToDB();
@@ -19,7 +28,7 @@ export async function POST(request) {
         if (user.activated === false) return NextResponse.json({ message: 'Account deactivated' }, { status: HttpStatusCode.Unauthorized });
 
         if (await bcrypt.compare(password, user.password)) {
-            const accessToken = jwt.sign({ email: email, role: user.role, profileID: user.profileID }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+            const accessToken = jwt.sign({ email: email, role: user.role, profileID: user.profileID }, process.env.ACCESS_TOKEN_SECRET);
             const refreshToken = jwt.sign({ email: email, role: user.role, profileID: user.profileID }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '24h' });
             return NextResponse.json({ message: 'User authenticated', accessToken: accessToken, refreshToken: refreshToken }, { status: HttpStatusCode.Ok });
         }
