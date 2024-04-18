@@ -1,0 +1,20 @@
+.notifIconContainer{
+	width: 47px;
+	height: 42px;
+}
+
+.notificationIcon{
+	width: 27px;
+	height: 27px;
+}
+
+.notifCountContainer{
+	right: 4px;
+	top: 3px;
+	width: 17px;
+	height: 17px;
+}
+
+.notifCount{
+	font-size: 10px;
+}
