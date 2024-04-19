@@ -1,0 +1,12 @@
+.contactInput{
+	border: none;
+    outline: none;
+    border-bottom: 2px solid black;
+    border-width: 3px;
+    width: 400px;
+}
+
+.contactInput:focus{
+    border: none;
+    outline: none;
+}

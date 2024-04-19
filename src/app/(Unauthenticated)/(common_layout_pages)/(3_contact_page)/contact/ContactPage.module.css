@@ -1,0 +1,41 @@
+.left{
+    width: 30%;
+    background-image: url("/wave.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.center{
+    width: 37.5%;
+    height: 100%;
+}
+
+.right{
+    width: 30%;
+    background-image: url("/wave2.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.mainContainer{
+    width: 70%;
+}
+
+.mainHeadingContainer{
+
+}
+
+.mainHeading{
+    font-size: 47.5px;   
+}
+
+.contactFormContainer{
+    width: 70%;
+    height: 70%;
+}
+
+.contactForm{
+
+}
