@@ -12,12 +12,12 @@ export default function SideMenu(props){
 					Dashboard
 				</SideMenuItem>
 
-				<SideMenuItem href={FRONTEND_ROUTES_MENTOR.mentor_dashboard_fyp_groups_page}>
-					FYP Groups
+				<SideMenuItem href={FRONTEND_ROUTES_MENTOR.mentor_dashboard_groups_page}>
+					Groups
 				</SideMenuItem>
 
-				<SideMenuItem href={FRONTEND_ROUTES_MENTOR.mentor_dashboard_fyp_projects_page}>
-					FYP Projects
+				<SideMenuItem href={FRONTEND_ROUTES_MENTOR.mentor_dashboard_final_year_projects_current_page}>
+					Final Year Projects
 				</SideMenuItem>
 
 				<SideMenuItem href={FRONTEND_ROUTES_MENTOR.mentor_dashboard_my_proposals_page}>

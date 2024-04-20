@@ -32,11 +32,11 @@ export default function SideMenuItem({href, children}){
 		if(children.toString() === "Dashboard"){
 			return "home";
 		}
-		else if(children.toString() === "FYP Projects"){
-			return "fyp-projects";
+		else if(children.toString() === "Final Year Projects"){
+			return "final-year-projects";
 		}
-		else if(children.toString() === "FYP Groups"){
-			return "fyp-groups";
+		else if(children.toString() === "Groups"){
+			return "groups";
 		}
 		else if(children.toString() === "My Proposals"){
 			return "my-proposals";
@@ -53,7 +53,7 @@ export default function SideMenuItem({href, children}){
 	// with corrected text of side menu list item
 	// returns true when equal, false otherwise
 	function compareCorrectSideMenuItemTextToPageName(route, children){
-		return getPageName(route) === correctMenuItemTextForComparison(children);
+		return getPageName(route).startsWith(correctMenuItemTextForComparison(children));
 	}
 
 
@@ -92,10 +92,10 @@ export default function SideMenuItem({href, children}){
 		if(children.toString() === "Dashboard"){
 			return (<MdSpaceDashboard color={color}/>);
 		}
-		else if(children.toString() === "FYP Projects"){
+		else if(children.toString() === "Final Year Projects"){
 			return (<GoProject color={color}/>);
 		}
-		else if(children.toString() === "FYP Groups"){
+		else if(children.toString() === "Groups"){
 			return (<HiMiniUserGroup color={color}/>);
 		}
 		else if(children.toString() === "My Proposals"){
