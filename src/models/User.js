@@ -17,7 +17,7 @@ const userSchema = new Schema({
     },
     role: {
         type: String,
-        enum: Object.keys(Role),
+        enum: Object.values(Role),
         required: true
     },
     profileImage: {
@@ -26,7 +26,7 @@ const userSchema = new Schema({
         },
         extension: {
             type: String,
-            enum: Object.keys(ImageFileType),
+            enum: Object.values(ImageFileType),
         }
     },
     profileID: {

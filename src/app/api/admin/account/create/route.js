@@ -5,11 +5,12 @@ import User from "@/models/User";
 import isEmail from "validator/lib/isEmail";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
-import Student from "@/models/Student";
 import { transporter } from "@/utils/constants/emailConstant";
 import { Role } from "@/utils/constants/enums";
-import Mentor from "@/models/Mentor";
 import bcrypt from "bcrypt";
+import Student from "@/models/Student";
+import Mentor from "@/models/Mentor";
+import Admin from "@/models/Admin";
 
 export async function POST(request) {
     await connectToDB();
@@ -24,7 +25,7 @@ export async function POST(request) {
         if (data.role == null || data.role === "")
             return NextResponse.json({ message: "Role is required" }, { status: HttpStatusCode.BAD_REQUEST });
 
-        if (data.role !== Role.Mentor && data.role !== Role.Student)
+        if (data.role !== Role.Mentor && data.role !== Role.Student && data.role !== Role.Admin)
             return NextResponse.json({ message: "Role is invalid" }, { status: HttpStatusCode.BAD_REQUEST });
 
         if (data.email == null || data.email === "" || !isEmail(data.email))
@@ -49,6 +50,12 @@ export async function POST(request) {
             const student = new Student(data.details);
             user.profileID = student._id;
             await student.save();
+        }
+
+        if (data.role === Role.Admin) {
+            const admin = new Admin(data.details);
+            user.profileID = admin._id;
+            await admin.save();
         }
 
         await user.save();

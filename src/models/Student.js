@@ -17,7 +17,7 @@ const studentSchema = new Schema({
     },
     gender: {
         type: String,
-        enum: Object.keys(Gender),
+        enum: Object.values(Gender),
         required: true
     },
     contact: {
@@ -44,12 +44,12 @@ const studentSchema = new Schema({
         },
         extension: {
             type: String,
-            enum: Object.keys(DocFileType),
+            enum: Object.values(DocFileType),
         }
     },
     industriesOfInterest: [{
         type: String,
-        enum: Object.keys(Industry)
+        enum: Object.values(Industry)
     }],
     group: {
         type: Schema.Types.ObjectId,

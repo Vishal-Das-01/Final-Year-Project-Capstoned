@@ -1,9 +1,18 @@
 import { NextResponse } from 'next/server';
 import { connectToDB } from "@/utils/helpers/connectDB";
-import User from '@/models/User';
 import { HttpStatusCode } from 'axios';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import User from '@/models/User';
+import Company from '@/models/Company';
+import Group from '@/models/Group';
+import Mentor from '@/models/Mentor';
+import Student from '@/models/Student';
+import Admin from '@/models/Admin';
+import Notification from '@/models/Notification';
+import Project from '@/models/Project';
+import Proposal from '@/models/Proposal';
+import Request from '@/models/Request';
 
 export async function POST(request) {
     await connectToDB();

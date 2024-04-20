@@ -20,7 +20,7 @@ const mentorSchema = new Schema({
     },
     gender: {
         type: String,
-        enum: Object.keys(Gender),
+        enum: Object.values(Gender),
         required: true
     },
     occupation: {
@@ -37,7 +37,7 @@ const mentorSchema = new Schema({
     },
     industries: [{
         type: String,
-        enum: Object.keys(Industry)
+        enum: Object.values(Industry)
     }],
     contact: {
         type: String,
