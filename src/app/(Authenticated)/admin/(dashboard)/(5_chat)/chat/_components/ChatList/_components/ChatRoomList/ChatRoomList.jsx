@@ -7,17 +7,14 @@ export default function ChatRoomList(props){
 
             <div className={`${styles.chatList} flex flex-col items-center justify-start w-full`}>
 
-                <ChatRoomListItem>
-                    Item 1
-                </ChatRoomListItem>
+                <ChatRoomListItem avatar={"/picCircular.png"} name={"Hamza Akbar"} message={`Hello`}/>
+                
 
-                <ChatRoomListItem>
-                    Item2
-                </ChatRoomListItem>
+                <ChatRoomListItem avatar={"/picCircular.png"} name={"Hamza Akbar"} message={`Hello`}/>
+                
 
-                <ChatRoomListItem>
-                    Item 3
-                </ChatRoomListItem>
+                <ChatRoomListItem avatar={"/picCircular.png"} message={`Hello`} name={"Hamza Akbar"}/>
+                
 
             </div>
 
