@@ -6,6 +6,7 @@ import { MdSpaceDashboard } from "react-icons/md";
 import { GiStoneSphere } from "react-icons/gi";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { FaStaylinked } from "react-icons/fa6";
+import { FaRocketchat } from "react-icons/fa";
 import styles from "./SideMenuItem.module.css";
 
 
@@ -39,6 +40,9 @@ export default function SideMenuItem({href, children, icon}){
 		}
 		else if(children.toString() === "Meetings"){
 			return "meetings";
+		}
+		else if(children.toString() === "Chat"){
+			return "chat";
 		}
 	}
 
@@ -92,6 +96,9 @@ export default function SideMenuItem({href, children, icon}){
 		}
 		else if(children.toString() === "Meetings"){
 			return (<FaStaylinked color={color}/>);
+		}
+		else if(children.toString() === "Chat"){
+			return (<FaRocketchat color={color}/>);
 		}
 	}
 

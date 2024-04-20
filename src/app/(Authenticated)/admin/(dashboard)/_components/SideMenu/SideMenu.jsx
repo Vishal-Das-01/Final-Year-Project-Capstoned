@@ -3,6 +3,7 @@ import { MdSpaceDashboard } from "react-icons/md";
 import { GiStoneSphere } from "react-icons/gi";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { FaStaylinked } from "react-icons/fa6";
+import { FaRocketchat } from "react-icons/fa";
 import styles from "./SideMenu.module.css";
 import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes.js";
 
@@ -26,6 +27,10 @@ export default function SideMenu(props){
 
 				<SideMenuItem href={FRONTEND_ROUTES.admin_dashboard_meetings_page} icon={<FaStaylinked/>}>
 					Meetings
+				</SideMenuItem>
+
+				<SideMenuItem href={FRONTEND_ROUTES.admin_dashboard_chat_page} icon={<FaRocketchat/>}>
+					Chat
 				</SideMenuItem>
 
 			</div>
