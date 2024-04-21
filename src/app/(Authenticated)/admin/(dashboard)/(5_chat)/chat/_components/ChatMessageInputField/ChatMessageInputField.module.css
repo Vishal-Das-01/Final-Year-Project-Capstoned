@@ -1,0 +1,15 @@
+.chatMessageInputFieldContainer{
+    height: 15%;
+}
+
+.chatMessageInputField{
+    height: 70%;
+    width: 93%;
+    border-radius: 10px;
+}
+
+.chatMessageSendButton{
+    width: 45px;
+    height: 45px;
+    
+}

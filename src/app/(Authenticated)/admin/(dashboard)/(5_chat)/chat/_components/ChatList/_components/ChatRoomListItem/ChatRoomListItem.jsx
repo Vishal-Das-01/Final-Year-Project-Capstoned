@@ -5,13 +5,13 @@ import ChatRecipientMessage from "./_components/ChatRecipientMessage/ChatRecipie
 
 export default function ChatRoomListItem({avatar, name, message}){
     return (
-        <div className={`${styles.chatListItemContainer} flex flex-row items-center w-full border-2 border-pink-500`}>
+        <div className={`${styles.chatListItemContainer} flex flex-row items-center w-full `}>
 
             <div className={`${styles.chatListItem} flex flex-row items-center w-full h-full `}>
                 
                 <ChatRecipientAvatar avatar={avatar}/>
                 
-                <div className={`${styles.chatRecipientNameAndMsgContainer} flex flex-col items-start justify-center w-full h-full border-2 border-green-500`}>
+                <div className={`${styles.chatRecipientNameAndMsgContainer} flex flex-col items-start justify-center w-full h-full  border-neutral-200`}>
                     
                     <ChatRecipientName name={name}/>
                     

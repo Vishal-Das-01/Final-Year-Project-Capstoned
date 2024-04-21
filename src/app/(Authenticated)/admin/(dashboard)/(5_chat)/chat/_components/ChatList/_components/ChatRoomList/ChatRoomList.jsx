@@ -10,12 +10,34 @@ export default function ChatRoomList(props){
                 <ChatRoomListItem avatar={"/picCircular.png"} name={"Hamza Akbar"} message={`Hello`}/>
                 
 
+                <ChatRoomListItem avatar={"/picCircular.png"} name={"Hamza Akbar"} message={`Hello World`}/>
+                
+
+                <ChatRoomListItem avatar={"/picCircular.png"} message={`Bye`} name={"Hamza Akbar"}/>
+                
                 <ChatRoomListItem avatar={"/picCircular.png"} name={"Hamza Akbar"} message={`Hello`}/>
                 
 
-                <ChatRoomListItem avatar={"/picCircular.png"} message={`Hello`} name={"Hamza Akbar"}/>
+                <ChatRoomListItem avatar={"/picCircular.png"} name={"Hamza Akbar"} message={`Hello World`}/>
                 
 
+                <ChatRoomListItem avatar={"/picCircular.png"} message={`Bye`} name={"Hamza Akbar"}/>
+
+                <ChatRoomListItem avatar={"/picCircular.png"} name={"Hamza Akbar"} message={`Hello`}/>
+                
+
+                <ChatRoomListItem avatar={"/picCircular.png"} name={"Hamza Akbar"} message={`Hello World`}/>
+                
+
+                <ChatRoomListItem avatar={"/picCircular.png"} message={`Bye`} name={"Hamza Akbar"}/>
+
+                <ChatRoomListItem avatar={"/picCircular.png"} name={"Hamza Akbar"} message={`Hello`}/>
+                
+
+                <ChatRoomListItem avatar={"/picCircular.png"} name={"Hamza Akbar"} message={`Hello World`}/>
+                
+
+                <ChatRoomListItem avatar={"/picCircular.png"} message={`Bye`} name={"Hamza Akbar"}/>
             </div>
 
         </div>
