@@ -9,3 +9,7 @@
 .chatRecipientNameAndMsgContainer{
     border-bottom: 1px solid rgb(212 212 212);
 }
+
+.chatListItemOverlay{
+    border-radius: 7px;
+}

@@ -1,0 +1,18 @@
+.bubblePrimaryContainer{
+
+}
+
+.bubbleSecondaryContainer{
+    width: fit-content;
+    max-width: 300px;
+    height: fit-content;
+    padding: 5px 7px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.chatMessage{
+    font-size: 14px;
+}

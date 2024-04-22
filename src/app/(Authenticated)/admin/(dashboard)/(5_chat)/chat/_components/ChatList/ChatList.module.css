@@ -10,6 +10,7 @@
     width: 100%;
     height: 620px;
     background-color: white;
+    border-radius: 10px;
 }
 
 .tertiaryContainer{

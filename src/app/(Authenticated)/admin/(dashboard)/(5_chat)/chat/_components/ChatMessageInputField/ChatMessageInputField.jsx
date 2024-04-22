@@ -5,9 +5,9 @@ export default function ChatMessageInputField(props){
     return (
         <div className={`${styles.chatMessageInputFieldContainer} flex flex-row items-end justify-between w-full `}>
 
-            <input type = "text" className={`${styles.chatMessageInputField} w-full`} />
+            <input type = "text" className={`${styles.chatMessageInputField} w-full font-montserrat`} />
                 
-            <div className={`${styles.chatMessageSendButtonContainer}`}>
+            <div className={`${styles.chatMessageSendButtonContainer} flex items-center justify-end`}>
 
                 <button className={`${styles.chatMessageSendButton} flex flex-row bg-blue-500 items-center justify-center rounded-full`}>
                     <FaPlay style={{ color: "white", fontSize: "20px" }}/>

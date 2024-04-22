@@ -1,3 +1,5 @@
+"use client";
+
 import styles from "./ChatRoomListItem.module.css";
 import ChatRecipientAvatar from "./_components/ChatRecipientAvatar/ChatRecipientAvatar";
 import ChatRecipientName from "./_components/ChatRecipientName/ChatRecipientName";
@@ -5,9 +7,9 @@ import ChatRecipientMessage from "./_components/ChatRecipientMessage/ChatRecipie
 
 export default function ChatRoomListItem({avatar, name, message}){
     return (
-        <div className={`${styles.chatListItemContainer} flex flex-row items-center w-full `}>
+        <div className={`${styles.chatListItemContainer} flex flex-row items-center w-full relative`}>
 
-            <div className={`${styles.chatListItem} flex flex-row items-center w-full h-full `}>
+            <div className={`${styles.chatListItem} flex flex-row items-center w-full h-full`}>
                 
                 <ChatRecipientAvatar avatar={avatar}/>
                 
@@ -20,6 +22,8 @@ export default function ChatRoomListItem({avatar, name, message}){
                 </div>
 
             </div>
+
+            <div onClick={() => console.log("Clicked Chat")} className={`${styles.chatListItemOverlay} cursor-pointer flex flex-row items-center w-full h-full absolute bg-transparent hover:bg-neutral-200 hover:opacity-30`}/>
         
         </div>
     );
