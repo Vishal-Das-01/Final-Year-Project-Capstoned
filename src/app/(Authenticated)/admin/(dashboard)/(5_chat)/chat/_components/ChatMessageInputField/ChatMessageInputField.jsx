@@ -5,7 +5,7 @@ export default function ChatMessageInputField(props){
     return (
         <div className={`${styles.chatMessageInputFieldContainer} flex flex-row items-end justify-between w-full `}>
 
-            <input type = "text" className={`${styles.chatMessageInputField} w-full font-montserrat`} />
+            <input type = "text" className={`${styles.chatMessageInputField} w-full font-montserrat`} placeholder="Enter..." />
                 
             <div className={`${styles.chatMessageSendButtonContainer} flex items-center justify-end`}>
 
