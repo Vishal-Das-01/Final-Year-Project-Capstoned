@@ -8,8 +8,8 @@ export default function ChatRecipientAvatar({avatar}){
             <Image 
                 className={`${styles.chatRecipientAvatar}`} 
                 src={avatar} 
-                width={55} 
-                height={55}
+                width={51} 
+                height={51}
             />
         
         </div>

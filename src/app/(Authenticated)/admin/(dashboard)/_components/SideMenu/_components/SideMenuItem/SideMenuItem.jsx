@@ -7,6 +7,9 @@ import { GiStoneSphere } from "react-icons/gi";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { FaStaylinked } from "react-icons/fa6";
 import { FaRocketchat } from "react-icons/fa";
+import { AiFillProject } from "react-icons/ai";
+import { IoLogoAppleAr } from "react-icons/io5";
+import { BiAdjust } from "react-icons/bi";
 import styles from "./SideMenuItem.module.css";
 
 
@@ -38,11 +41,20 @@ export default function SideMenuItem({href, children, icon}){
 		else if(children.toString() === "FYP Groups"){
 			return "fyp-groups";
 		}
-		else if(children.toString() === "Meetings"){
-			return "meetings";
+		else if(children.toString() === "Accounts"){
+			return "accounts";
 		}
 		else if(children.toString() === "Chat"){
 			return "chat";
+		}
+		else if(children.toString() === "Projects"){
+			return "projects";
+		}
+		else if(children.toString() === "Companies"){
+			return "companies";
+		}
+		else if(children.toString() === "Announcements"){
+			return "annoucements";
 		}
 	}
 
@@ -94,11 +106,20 @@ export default function SideMenuItem({href, children, icon}){
 		else if(children.toString() === "FYP Groups"){
 			return (<HiMiniUserGroup color={color}/>);
 		}
-		else if(children.toString() === "Meetings"){
+		else if(children.toString() === "Accounts"){
 			return (<FaStaylinked color={color}/>);
 		}
 		else if(children.toString() === "Chat"){
 			return (<FaRocketchat color={color}/>);
+		}
+		else if(children.toString() === "Projects"){
+			return (<AiFillProject color={color}/>);
+		}
+		else if(children.toString() === "Companies"){
+			return (<IoLogoAppleAr color={color}/>);
+		}
+		else if(children.toString() === "Announcements"){
+			return (<BiAdjust color={color}/>);
 		}
 	}
 

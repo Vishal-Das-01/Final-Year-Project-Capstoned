@@ -13,7 +13,7 @@
 .chatMessageDisplayBox::-webkit-scrollbar {
     margin-top: 8px;
     margin-bottom: 8px;
-    width:8px;
+    width:6px;
     border-radius: 10px;
 }
 
