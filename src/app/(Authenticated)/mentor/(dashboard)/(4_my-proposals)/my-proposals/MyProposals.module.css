@@ -1,14 +1,13 @@
-.contentHeadingWrapper{
-
-}
-
 .contentHeading{
-	font-size: 18px;
-	
+	font-size: 15px;	
 }
 
-.proposalsInfoWrapper{
-	width: 96.5%;
+.contentCardTitleContainer{
+	background-color: white;
+	box-shadow:  7px 7px 23px #c1c1c1,
+             -7px -7px 23px #ffffff;
+    height: auto;
+    width: auto;
 }
 
 .contentHeadingLine{

@@ -25,9 +25,7 @@ export default function ProposalsContent(){
 
                 </div>
                 
-				<div className={`${styles.messagesWrapper} flex flex-col my-2`}>
-
-				</div>
+	
 
 			</div>
 

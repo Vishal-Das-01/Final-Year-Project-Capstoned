@@ -3,7 +3,10 @@ import { useState } from "react";
 import ForgetPasswordLink from "../ForgetPasswordLink/ForgetPasswordLink";
 import LoginInput from "../LoginInput/LoginInput";
 import LoginSubmitBtn from "../LoginSubmitBtn/LoginSubmitBtn";
-import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
+import {
+  FRONTEND_ROUTES,
+  FRONTEND_ROUTES_MENTOR,
+} from "@/utils/routes/frontend_routes";
 import { api } from "@/utils/helpers/axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import LoginLoadingBtn from "../LoginLoadingBtn/LoginLoadingBtn";
@@ -13,10 +16,9 @@ import { jwtDecode } from "jwt-decode";
 import styles from "./LoginForm.module.css";
 import { useRouter } from "next/navigation";
 
-
 export default function LoginForm() {
   const dispatch = useDispatch();
-    const router = useRouter();
+  const router = useRouter();
 
   const [isPending, setIsPending] = useState(false);
   const [email, setEmail] = useState("");
@@ -47,15 +49,15 @@ export default function LoginForm() {
           })
         );
         if (role === "Admin") {
-            router.replace(FRONTEND_ROUTES.admin_dashboard_home_page,);
+          router.replace(FRONTEND_ROUTES.admin_dashboard_home_page);
         } else if (role === "Mentor") {
-            router.replace(FRONTEND_ROUTES.mentor_dashboard_home_page);
+          router.replace(FRONTEND_ROUTES_MENTOR.mentor_dashboard_home_page);
         } else {
-            router.replace(FRONTEND_ROUTES.student_dashboard_home_page);
+          router.replace(FRONTEND_ROUTES.student_dashboard_home_page);
         }
       }
     } catch (error) {
-        console.log(error)
+      console.log(error);
       setErrorMsg(error.response.data.message);
       setIsPending(false);
     }
@@ -89,9 +91,7 @@ export default function LoginForm() {
       <div
         className={`${styles.errorMsgContainer} w-full flex items-center justify-center h-8`}
       >
-        <p
-          className={`font-montserrat font-base text-red-600 text-lg`}
-        >
+        <p className={`font-montserrat font-base text-red-600 text-lg`}>
           {errorMsg}
         </p>
       </div>
