@@ -4,9 +4,15 @@ export const FRONTEND_ROUTES = {
 	contact_page: "/contact", // Common
 	login_page: "/login", // Common
 	forget_password_page: "/forget_password", // Common
+
 	admin_dashboard_home_page: "/admin/home",  // Admin
 	admin_dashboard_milestones_page: "/admin/milestones", // Admin
 	admin_dashboard_fypgroups_page: "/admin/fyp-groups", // Admin
+	admin_dashboard_accounts_page: "/admin/accounts", // Admin
+	admin_dashboard_chat_page: "/admin/chat", // Admin
+	admin_dashboard_projects_page: "/admin/projects", // Admin
+	admin_dashboard_companies_page: "/admin/companies", // Admin
+	admin_dashboard_announcements_page: "/admin/announcements", // Admin
 	admin_dashboard_meetings_page: "/admin/meetings", // Admin
 };
 
