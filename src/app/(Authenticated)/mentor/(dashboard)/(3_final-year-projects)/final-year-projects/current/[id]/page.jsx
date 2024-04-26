@@ -1,6 +1,9 @@
 import React from "react";
 import BackButton from "./_components/BackButton/BackButton";
-import { IoIosArrowDown } from "react-icons/io";
+import MilestoneTab from "./_components/MilestoneTab/MilestoneTab";
+import ResourceButton from "./_components/ResourceButton/ResourceButton";
+import MarkSection from "./_components/MarkSection/MarkSection";
+import MainMarkSection from "./_components/MainMarkSection/MainMarkSection";
 
 function ProjectPage() {
   return (
@@ -12,44 +15,33 @@ function ProjectPage() {
         </h1>
         <h2 className="font-light">Fall 2024</h2>
       </div>
-      <h2>
-        <span className="font-semibold">Your Role:</span> Supervisor/Mentor
-      </h2>
-      <h2>
-        <span className="font-semibold">Proposed By:</span> Dr. Imran Khan
-      </h2>
-      <div className="grid grid-cols-2">
-        <p>
-          <span className="font-semibold">Progress:</span> 30%
+      <div className="grid grid-cols-4 gap-y-5">
+        <h2 className="font-semibold">Your Role:</h2>
+        <h2 className="col-span-3">Supervisor/Mentor</h2>
+        <h2 className="font-semibold">Proposed By:</h2>
+        <h2 className="col-span-3">Dr Muhammad Saeed</h2>
+        <h2 className="font-semibold">Progress:</h2>
+        <h2 className="col-span-3">30%</h2>
+        <h2 className="font-semibold">Project Description:</h2>
+        <p className="col-span-3">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
         </p>
-        <p>
-          <span className="font-semibold">Grade:</span> Ungraded
-        </p>
+        <h2 className="font-semibold">Proposal Doc:</h2>
+        <div className="col-span-3"><ResourceButton name="Hello World"/></div>
+        <h2 className="font-semibold">Marks:</h2>
+        <div className="col-span-3">
+          <MainMarkSection isMarked={true}/>
+        </div>
       </div>
-      <p>
-        <span className="font-semibold">Project Description:</span> Lorem ipsum
-        dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-        id est laborum.
-      </p>
-      <div className="flex flex-col">
-        <p className="font-semibold">Group Members:</p>
-        <ul className="list-disc ml-10">
-          <li>Taha Mirza</li>
-          <li>Owais Ali</li>
-          <li>Hamza Akbar</li>
-        </ul>
-      </div>
-      <div className="hover:bg-gray-100 border-2 rounded-full border-blue-500 h-16 flex flex-row items-center justify-between px-10 font-bold text-base">
-        <h1>Milestone 1</h1>
-        <IoIosArrowDown/>
-      </div>
-      <div className="border-2 rounded-full border-blue-500 h-16 flex flex-row items-center px-10 font-bold text-base">Milestone 2</div>
-      <div className="border-2 rounded-full border-blue-500 h-16 flex flex-row items-center px-10 font-bold text-base">Milestone 3</div>
+    <MilestoneTab isMarked={true}/>
+    <MilestoneTab isMarked={false}/>
+    <MilestoneTab isMarked={false}/>
     </div>
   );
 }
