@@ -1,8 +1,9 @@
 import React from "react";
 import BackButton from "./_components/BackButton/BackButton";
 import MilestoneTab from "./_components/MilestoneTab/MilestoneTab";
-import Milestone from "@/models/Milestone";
 import ResourceButton from "./_components/ResourceButton/ResourceButton";
+import MarkSection from "./_components/MarkSection/MarkSection";
+import MainMarkSection from "./_components/MainMarkSection/MainMarkSection";
 
 function ProjectPage() {
   return (
@@ -35,32 +36,7 @@ function ProjectPage() {
         <div className="col-span-3"><ResourceButton name="Hello World"/></div>
         <h2 className="font-semibold">Marks:</h2>
         <div className="col-span-3">
-          <table className="border-4 border-double border-gray-500">
-            <thead>
-              <tr className="bg-blue-500 text-white">
-                <th className="w-36">Members</th>
-                <th className="w-36">Marks Obtained</th>
-                <th className="w-36">Total Marks</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr >
-                <td className="pt-2">Syed Owais Ali</td>
-                <td className="text-center">30</td>
-                <td className="text-center">30</td>
-              </tr>
-              <tr>
-                <td className="pt-2">Hamza Ali Akbar</td>
-                <td className="text-center">25</td>
-                <td className="text-center">30</td>
-              </tr>
-              <tr>
-                <td className="pt-2">Taha Mirza</td>
-                <td className="text-center">28</td>
-                <td className="text-center">30</td>
-              </tr>
-            </tbody>
-          </table>
+          <MainMarkSection isMarked={true}/>
         </div>
       </div>
     <MilestoneTab isMarked={true}/>

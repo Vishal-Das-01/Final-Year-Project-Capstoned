@@ -1,6 +1,7 @@
+'use client';
 import React, { useState } from "react";
 
-function MarkSection({ isMarked }) {
+function MarkSection({ isMarked}) {
   const [marking, setMarking] = useState(false);
   return (
     <div className="flex flex-row">
