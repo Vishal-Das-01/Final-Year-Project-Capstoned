@@ -1,9 +1,9 @@
 "use client";
 
 import { Player } from '@lottiefiles/react-lottie-player';
-import styles from "./AstronotLottie.module.css"
+import styles from "./SpaceshipLottie.module.css"
 
-export default function AstronotLottie({src}){
+export default function SpaceshipLottie({src}){
 	return (
 		<div className={`h-full w-full flex flex-row items-start justify-start`}>
 
