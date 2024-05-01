@@ -14,6 +14,16 @@ export const FRONTEND_ROUTES = {
 	admin_dashboard_companies_page: "/admin/companies", // Admin
 	admin_dashboard_announcements_page: "/admin/announcements", // Admin
 	admin_dashboard_meetings_page: "/admin/meetings", // Admin
+
+	student_dashboard_home_page: "/student/home", // Student
+	student_dashboard_fyp_groups_page: "/student/my-group", // Student
+	student_dashboard_my_proposals_page: "/student/my-proposals", // Student
+	student_dashboard_profile_page: "/student/profile", // Student
+	student_dashboard_chats_page: "/student/chats", // Student
+	student_dashboard_companies_page: "/student/companies", // Student
+	student_dashboard_mentors_page: "/student/mentors", // Student
+	student_dashboard_milestones_page: "/student/milestones", // Student
+
 };
 
 export const FRONTEND_ROUTES_MENTOR = {
@@ -24,4 +34,5 @@ export const FRONTEND_ROUTES_MENTOR = {
 	mentor_dashboard_my_proposals_page: "/mentor/my-proposals", // Mentor
 	mentor_dashboard_profile_page: "/mentor/profile", // Mentor
 	mentor_dashboard_chats_page: "/mentor/chats", // Mentor
-}
+};
+
