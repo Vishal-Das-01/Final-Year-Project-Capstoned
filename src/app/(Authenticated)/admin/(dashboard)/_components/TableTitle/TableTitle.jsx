@@ -1,7 +1,7 @@
-import styles from "./TableHeading.module.css";
+import styles from "./TableTitle.module.css";
 import ContentHeadingLine from "../ContentHeadingLine/ContentHeadingLine";
 
-export default function TableHeading({children}){
+export default function TableTitle({children}){
     return (
         <div className={`${styles.tableHeadingContainer} flex flex-row items-center `}>
 

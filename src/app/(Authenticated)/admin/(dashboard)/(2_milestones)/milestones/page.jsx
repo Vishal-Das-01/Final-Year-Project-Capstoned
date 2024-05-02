@@ -1,5 +1,8 @@
 import styles from "./MilestonesPage.module.css";
 import MilestoneHeadingAndButton from "./_components/MilestoneHeadingAndButton/MilestoneHeadingAndButton";
+import ContentTable from "../../_components/ContentTable/ContentTable";
+import TableHead from "../../_components/TableHead/TableHead";
+import TableRow from "../../_components/TableRow/TableRow";
 
 export const metadata = {
 	title: "Admin Milestones",
@@ -19,326 +22,97 @@ export default function AdminDashboardMilestonesPage(props){
 
 				<MilestoneHeadingAndButton />
 
-				<div className={`${styles.tablePrimaryContainer} bg-white overflow-y-auto`}>
+				<ContentTable>
 
-					<table className="w-full text-sm text-left text-gray-500 table-auto">
+					<TableHead>
 
-						<thead className="sticky top-0 z-10 text-xs text-white bg-blue-500 uppercase text-center ">
+						<th scope="col" className={`px-4 py-3 text-left`}>
+							<span class="sr-only">Number</span>
+						</th>
 
-							<tr>
-								<th scope="col" className="px-4 py-3">
-									<span class="sr-only">Number</span>
-								</th>
-								<th scope="col" className={`px-4 py-3`}>
-									Title
-								</th>
-								<th scope="col" className={`px-4 py-3`}>
-									Description
-								</th>
-								<th scope="col" className={`px-4 py-3`}>
-									Deadline
-								</th>
-								<th scope="col" className={`px-4 py-3`}>
-									Percentage
-								</th>
-								<th scope="col" className={`px-4 py-3`}>
-									Year
-								</th>
-							</tr>
+						<th scope="col" className={`px-4 py-3 text-left`}>
+							Title
+						</th>
 
-						</thead>
-						
-						<tbody>
+						<th scope="col" className={`px-4 py-3 text-left`}>
+							Description
+						</th>
 
-							<tr className="border-b dark:border-gray-700 hover:bg-gray-100">
-								<td className="px-2 py-3 ">1</td>
-								<td className="px-2 py-3 ">Hamza Akbar</td>
-								<td className="px-2 py-3 ">22</td>
-								<td className="px-2 py-3 ">Pakistan</td>
-								<td className="px-2 py-3 ">22</td>
-								<td className="px-2 py-3 ">Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
+						<th scope="col" className={`px-4 py-3 text-left`}>
+							Deadline
+						</th>
 
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-							<tr>
-								<td>Hamza Akbar</td>
-								<td>22</td>
-								<td>Pakistan</td>
-							</tr>
-						</tbody>
+						<th scope="col" className={`px-4 py-3 text-left`}>
+							Percentage
+						</th>
+
+						<th scope="col" className={`px-4 py-3 text-left`}>
+							Year
+						</th>
+
+					</TableHead>
 					
-					</table>
-				
-				</div>
+					<tbody>
+
+						<TableRow>
+
+							<td className="px-4 py-3 text-left">
+								1
+							</td>
+							
+							<td className="px-4 py-3 text-left">
+								Hamza Akbar
+							</td>
+
+							<td className="px-4 py-3 text-left">
+								22
+							</td>
+							
+							<td className="px-4 py-3 text-left">
+								Pakistan
+							</td>
+							
+							<td className="px-4 py-3 text-left">
+								22
+							</td>
+							
+							<td className="px-4 py-3 text-left">
+								Pakistan
+							</td>
+						
+						</TableRow>
+
+						<TableRow>
+
+							<td className="px-4 py-3 text-left">
+								1
+							</td>
+							
+							<td className="px-4 py-3 text-left">
+								Hamza Akbar
+							</td>
+
+							<td className="px-4 py-3 text-left">
+								22
+							</td>
+							
+							<td className="px-4 py-3 text-left">
+								Pakistan
+							</td>
+							
+							<td className="px-4 py-3 text-left">
+								22
+							</td>
+							
+							<td className="px-4 py-3 text-left">
+								Pakistan
+							</td>
+						
+						</TableRow>
+						
+					</tbody>
+					
+				</ContentTable>
 				
 			</div>
 
