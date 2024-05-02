@@ -1,0 +1,40 @@
+.listTileWrapper{
+
+}
+
+.listTileContentWrapper{
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.status{
+    border-radius: 0.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    font-size: 0.5rem;
+    color: black;
+}
+
+.common{
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.sNo{
+    width: 18px;
+}
+
+.text{
+    width: 180px;
+}
+
+.selected{
+    width: 105px;
+}
+
+
+.divider{
+    border: 1.5px solid #e6e6e6;
+}
