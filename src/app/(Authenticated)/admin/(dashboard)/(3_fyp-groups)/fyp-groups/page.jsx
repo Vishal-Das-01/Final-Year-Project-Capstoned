@@ -1,8 +1,10 @@
 import styles from "./FYPGroups.module.css";
-import FYPGroupsHeadingAndButton from "./_components/MilestoneHeadingAndButton/MilestoneHeadingAndButton";
+import FYPGroupsHeadingAndButton from "./_components/FYPGroupsHeadingAndButton/FYPGroupsHeadingAndButton";
 import ContentTable from "../../_components/ContentTable/ContentTable";
 import TableHead from "../../_components/TableHead/TableHead";
 import TableRow from "../../_components/TableRow/TableRow";
+import TableHeadDataCell from "../../_components/TableHeadDataCell/TableHeadDataCell";
+import TableBodyDataCell from "../../_components/TableBodyDataCell/TableBodyDataCell";
 
 export const metadata = {
 	title: "Admin FYP Groups",
@@ -10,10 +12,6 @@ export const metadata = {
 }
 
 export default function AdminDashboardFYPGroupsPage(props){
-
-	function finalizeAllGroups(){
-		console.log("Finalize All Groups");
-	}
 
 	return (
 		<div className={`${styles.primaryContainer} flex flex-row items-center justify-center w-full h-full`}>
@@ -26,29 +24,19 @@ export default function AdminDashboardFYPGroupsPage(props){
 
 					<TableHead>
 
-						<th scope="col" className={`px-4 py-3 text-left`}>
-							<span class="sr-only">Number</span>
-						</th>
+						<TableHeadDataCell isNumberCell={true} text={`Number`}/>
 
-						<th scope="col" className={`px-4 py-3 text-left`}>
-							Title
-						</th>
+						<TableHeadDataCell isNumberCell={false} text={`Name`}/>
 
-						<th scope="col" className={`px-4 py-3 text-left`}>
-							Description
-						</th>
+						<TableHeadDataCell isNumberCell={false} text={`Project`}/>
 
-						<th scope="col" className={`px-4 py-3 text-left`}>
-							Deadline
-						</th>
+						<TableHeadDataCell isNumberCell={false} text={`Members`}/>
 
-						<th scope="col" className={`px-4 py-3 text-left`}>
-							Percentage
-						</th>
+						<TableHeadDataCell isNumberCell={false} text={`Supervisor`}/>
 
-						<th scope="col" className={`px-4 py-3 text-left`}>
-							Year
-						</th>
+						<TableHeadDataCell isNumberCell={false} text={`Mentors`}/>
+
+						<TableHeadDataCell isNumberCell={false} text={`Confirmed`}/>
 
 					</TableHead>
 					
@@ -56,57 +44,37 @@ export default function AdminDashboardFYPGroupsPage(props){
 
 						<TableRow>
 
-							<td className="px-4 py-3 text-left">
-								1
-							</td>
-							
-							<td className="px-4 py-3 text-left">
-								Hamza Akbar
-							</td>
+							<TableBodyDataCell text={'1'}/>
+								
+							<TableBodyDataCell text={'Hamza Akbar'}/>
 
-							<td className="px-4 py-3 text-left">
-								22
-							</td>
+							<TableBodyDataCell text={'This is dummy text. This is dummy text. This is dummy text. This is dummy text.'}/>
+								
+							<TableBodyDataCell text={'Pakistan'}/>
 							
-							<td className="px-4 py-3 text-left">
-								Pakistan
-							</td>
+							<TableBodyDataCell text={'22'}/>
 							
-							<td className="px-4 py-3 text-left">
-								22
-							</td>
+							<TableBodyDataCell text={'Pakistan'}/>
+
+							<TableBodyDataCell text={'True'}/>
 							
-							<td className="px-4 py-3 text-left">
-								Pakistan
-							</td>
-						
 						</TableRow>
 
 						<TableRow>
 
-							<td className="px-4 py-3 text-left">
-								1
-							</td>
-							
-							<td className="px-4 py-3 text-left">
-								Hamza Akbar
-							</td>
+						<TableBodyDataCell text={'1'}/>
+								
+							<TableBodyDataCell text={'Hamza Akbar'}/>
 
-							<td className="px-4 py-3 text-left">
-								22
-							</td>
+							<TableBodyDataCell text={'This is dummy text. This is dummy text. This is dummy text. This is dummy text.'}/>
+								
+							<TableBodyDataCell text={'Pakistan'}/>
 							
-							<td className="px-4 py-3 text-left">
-								Pakistan
-							</td>
+							<TableBodyDataCell text={'22'}/>
 							
-							<td className="px-4 py-3 text-left">
-								22
-							</td>
-							
-							<td className="px-4 py-3 text-left">
-								Pakistan
-							</td>
+							<TableBodyDataCell text={'Pakistan'}/>
+
+							<TableBodyDataCell text={'True'}/>
 						
 						</TableRow>
 						

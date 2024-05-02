@@ -3,6 +3,8 @@ import MilestoneHeadingAndButton from "./_components/MilestoneHeadingAndButton/M
 import ContentTable from "../../_components/ContentTable/ContentTable";
 import TableHead from "../../_components/TableHead/TableHead";
 import TableRow from "../../_components/TableRow/TableRow";
+import TableHeadDataCell from "../../_components/TableHeadDataCell/TableHeadDataCell";
+import TableBodyDataCell from "../../_components/TableBodyDataCell/TableBodyDataCell";
 
 export const metadata = {
 	title: "Admin Milestones",
@@ -26,29 +28,17 @@ export default function AdminDashboardMilestonesPage(props){
 
 					<TableHead>
 
-						<th scope="col" className={`px-4 py-3 text-left`}>
-							<span class="sr-only">Number</span>
-						</th>
+						<TableHeadDataCell isNumberCell={true} text={`Number`}/>
 
-						<th scope="col" className={`px-4 py-3 text-left`}>
-							Title
-						</th>
+						<TableHeadDataCell isNumberCell={false} text={`Title`}/>
 
-						<th scope="col" className={`px-4 py-3 text-left`}>
-							Description
-						</th>
+						<TableHeadDataCell isNumberCell={false} text={`Description`}/>
 
-						<th scope="col" className={`px-4 py-3 text-left`}>
-							Deadline
-						</th>
+						<TableHeadDataCell isNumberCell={false} text={`Deadline`}/>
 
-						<th scope="col" className={`px-4 py-3 text-left`}>
-							Percentage
-						</th>
+						<TableHeadDataCell isNumberCell={false} text={`Percentage`}/>
 
-						<th scope="col" className={`px-4 py-3 text-left`}>
-							Year
-						</th>
+						<TableHeadDataCell isNumberCell={false} text={`Year`}/>
 
 					</TableHead>
 					
@@ -56,57 +46,33 @@ export default function AdminDashboardMilestonesPage(props){
 
 						<TableRow>
 
-							<td className="px-4 py-3 text-left">
-								1
-							</td>
+							<TableBodyDataCell text={'1'}/>
 							
-							<td className="px-4 py-3 text-left">
-								Hamza Akbar
-							</td>
+							<TableBodyDataCell text={'Hamza Akbar'}/>
 
-							<td className="px-4 py-3 text-left">
-								22
-							</td>
+							<TableBodyDataCell text={'22'}/>
 							
-							<td className="px-4 py-3 text-left">
-								Pakistan
-							</td>
+							<TableBodyDataCell text={'Pakistan'}/>
 							
-							<td className="px-4 py-3 text-left">
-								22
-							</td>
+							<TableBodyDataCell text={'22'}/>
 							
-							<td className="px-4 py-3 text-left">
-								Pakistan
-							</td>
+							<TableBodyDataCell text={'Pakistan'}/>
 						
 						</TableRow>
 
 						<TableRow>
 
-							<td className="px-4 py-3 text-left">
-								1
-							</td>
+							<TableBodyDataCell text={'2'}/>
 							
-							<td className="px-4 py-3 text-left">
-								Hamza Akbar
-							</td>
+							<TableBodyDataCell text={'Hamza Akbar'}/>
 
-							<td className="px-4 py-3 text-left">
-								22
-							</td>
+							<TableBodyDataCell text={'22'}/>
 							
-							<td className="px-4 py-3 text-left">
-								Pakistan
-							</td>
+							<TableBodyDataCell text={'Pakistan'}/>
 							
-							<td className="px-4 py-3 text-left">
-								22
-							</td>
+							<TableBodyDataCell text={'22'}/>
 							
-							<td className="px-4 py-3 text-left">
-								Pakistan
-							</td>
+							<TableBodyDataCell text={'Pakistan'}/>
 						
 						</TableRow>
 						
