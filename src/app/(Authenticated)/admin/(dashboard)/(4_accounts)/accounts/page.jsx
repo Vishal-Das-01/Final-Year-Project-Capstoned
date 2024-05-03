@@ -4,6 +4,7 @@ import TableHead from "../../_components/TableHead/TableHead";
 import TableRow from "../../_components/TableRow/TableRow";
 import TableHeadDataCell from "../../_components/TableHeadDataCell/TableHeadDataCell";
 import TableBodyDataCell from "../../_components/TableBodyDataCell/TableBodyDataCell";
+import AccountHeadingAndButton from "./_components/AccountsHeadingAndButton/AccountHeadingAndButton";
 
 export const metadata = {
 	title: "Admin Accounts Management",
@@ -16,7 +17,7 @@ export default function AdminDashboardAccountsPage(props){
 			
 			<div className={`${styles.secondaryContainer} flex flex-col items-center justify-evenly bg-white`}>
 
-				<FYPGroupsHeadingAndButton />
+				<AccountHeadingAndButton />
 
 				<ContentTable>
 
