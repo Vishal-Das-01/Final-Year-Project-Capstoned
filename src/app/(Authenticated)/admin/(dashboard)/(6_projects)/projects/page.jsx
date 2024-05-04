@@ -27,15 +27,15 @@ export default function AdminDashboardProjectsPage(props){
 
 						<TableHeadDataCell isNumberCell={false} text={`Name`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Project`}/>
+						<TableHeadDataCell isNumberCell={false} text={`Group`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Members`}/>
+						<TableHeadDataCell isNumberCell={false} text={`Progress`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Supervisor`}/>
+						<TableHeadDataCell isNumberCell={false} text={`Status`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Mentors`}/>
+						<TableHeadDataCell isNumberCell={false} text={`Finished`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Confirmed`}/>
+						<TableHeadDataCell isNumberCell={false} text={`Year`}/>
 
 					</TableHead>
 					

@@ -25,17 +25,19 @@ export default function AdminDashboardAnnouncementsPage(props){
 
 						<TableHeadDataCell isNumberCell={true} text={`Number`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Name`}/>
+						<TableHeadDataCell isNumberCell={false} text={`Headline`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Project`}/>
+						<TableHeadDataCell isNumberCell={false} text={`Description`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Members`}/>
+						<TableHeadDataCell isNumberCell={false} text={`Priority`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Supervisor`}/>
+						<TableHeadDataCell isNumberCell={false} text={`Type`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Mentors`}/>
+						<TableHeadDataCell isNumberCell={false} text={`Sender`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Confirmed`}/>
+						<TableHeadDataCell isNumberCell={false} text={`Receiver`}/>
+
+						<TableHeadDataCell isNumberCell={false} text={`Activated`}/>
 
 					</TableHead>
 					
@@ -56,6 +58,8 @@ export default function AdminDashboardAnnouncementsPage(props){
 							<TableBodyDataCell text={'Pakistan'}/>
 
 							<TableBodyDataCell text={'True'}/>
+
+							<TableBodyDataCell text={'True'}/>
 							
 						</TableRow>
 
@@ -72,6 +76,8 @@ export default function AdminDashboardAnnouncementsPage(props){
 							<TableBodyDataCell text={'22'}/>
 							
 							<TableBodyDataCell text={'Pakistan'}/>
+
+							<TableBodyDataCell text={'True'}/>
 
 							<TableBodyDataCell text={'True'}/>
 						
