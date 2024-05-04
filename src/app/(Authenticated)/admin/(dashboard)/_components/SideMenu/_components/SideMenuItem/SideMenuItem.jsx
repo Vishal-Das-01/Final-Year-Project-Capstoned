@@ -54,7 +54,7 @@ export default function SideMenuItem({href, children, icon}){
 			return "companies";
 		}
 		else if(children.toString() === "Announcements"){
-			return "annoucements";
+			return "announcements";
 		}
 	}
 
