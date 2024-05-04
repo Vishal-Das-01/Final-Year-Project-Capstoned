@@ -9,6 +9,7 @@ import { IoLogoAppleAr } from "react-icons/io5";
 import { BiAdjust } from "react-icons/bi";
 import styles from "./SideMenu.module.css";
 import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes.js";
+import Logout from "./_components/Logout/Logout.jsx";
 
 export default function SideMenu(props){
 	return (
@@ -47,6 +48,10 @@ export default function SideMenu(props){
 				<SideMenuItem href={FRONTEND_ROUTES.admin_dashboard_announcements_page} icon={<BiAdjust/>}>
 					Announcements
 				</SideMenuItem>
+
+				<div className="flex flex-col flex-1"></div>
+
+				<Logout/>
 
 			</div>
 			

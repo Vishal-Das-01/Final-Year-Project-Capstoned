@@ -19,14 +19,14 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
 	return (
-		<ReduxProvider>
-			<html lang="en">
-				<body className={`${montserrat.variable} ${exo2.variable}`}>
+		<html lang="en">
+			<body className={`${montserrat.variable} ${exo2.variable}`}>
+				<ReduxProvider>
 					<SocketProvider>
-					{children}
+						{children}
 					</SocketProvider>
-				</body>
-			</html>
-		</ReduxProvider>
+				</ReduxProvider>
+			</body>
+		</html>
 	);
 }

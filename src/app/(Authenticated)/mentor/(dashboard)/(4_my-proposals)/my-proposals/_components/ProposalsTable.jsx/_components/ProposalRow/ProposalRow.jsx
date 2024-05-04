@@ -8,8 +8,18 @@ import { MdDelete } from "react-icons/md";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
 import ProposalModal from "../../../ProposalModal/ProposalModal";
+import { convertDate } from "@/utils/helpers/date";
 
-function ProposalRow({ title, description, status, selectedBy, mentorship, active }) {
+function ProposalRow({
+  title,
+  description,
+  status,
+  selectedBy,
+  mentorship,
+  active,
+  createdAt,
+  updatedAt,
+}) {
   const [expanded, setExpanded] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
@@ -44,7 +54,15 @@ function ProposalRow({ title, description, status, selectedBy, mentorship, activ
 
   return (
     <>
-      {openModal && <ProposalModal setOpenModal={setOpenModal} oldTitle={title} oldDescription={description} oldMentorship={mentorship} oldList={list}/>}
+      {openModal && (
+        <ProposalModal
+          setOpenModal={setOpenModal}
+          oldTitle={title}
+          oldDescription={description}
+          oldMentorship={mentorship}
+          oldList={list}
+        />
+      )}
       <tr class="border-b dark:border-gray-700 hover:bg-gray-100">
         <td class="px-2 py-3 w-1/12">
           {expanded ? (
@@ -93,8 +111,11 @@ function ProposalRow({ title, description, status, selectedBy, mentorship, activ
         </td>
         <td class="px-2 py-3 w-1/12">
           <div className="flex flex-row space-x-3 w-full justify-end text-xl">
-            <MdEdit className="text-gray-400 hover:text-green-600" onClick={() => setOpenModal(true)} />
-            <MdDelete className="text-gray-400 hover:text-red-600" /> 
+            <MdEdit
+              className="text-gray-400 hover:text-green-600"
+              onClick={() => setOpenModal(true)}
+            />
+            <MdDelete className="text-gray-400 hover:text-red-600" />
           </div>
         </td>
       </tr>
@@ -105,9 +126,7 @@ function ProposalRow({ title, description, status, selectedBy, mentorship, activ
               <div className=" w-full flex flex-row items-start justify-center">
                 <div className="flex flex-col w-1/3 justify-center">
                   <p className="font-semibold">Description</p>
-                  <p>
-                    {description}
-                  </p>
+                  <p>{description}</p>
                 </div>
                 <div className="flex flex-col w-2/3 pl-5">
                   <p className="font-semibold">Industries</p>
@@ -129,11 +148,11 @@ function ProposalRow({ title, description, status, selectedBy, mentorship, activ
               <div className="flex flex-row w-full items-center justify-evenly">
                 <p>
                   <span className="font-semibold mr-2">Last Modified:</span>
-                  <span>3:40 PM, Mon, 24th March</span>
+                  <span>{convertDate(updatedAt)}</span>
                 </p>
                 <p>
                   <span className="font-semibold mr-2">Created At:</span>
-                  <span>3:40 PM, Mon, 24th March</span>
+                  <span>{convertDate(createdAt)}</span>
                 </p>
               </div>
             </div>
