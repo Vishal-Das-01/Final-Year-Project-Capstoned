@@ -43,7 +43,7 @@ function ProfileCardTwo() {
   return (
     <div className="flex flex-col ml-5 mr-14 my-5 items-center justify-start font-montserrat text-black">
       <form className="w-full">
-        <label htmlFor="bio" class="block font-semibold mb-2 text-sm">
+        <label htmlFor="bio" className="block font-semibold mb-2 text-sm">
           Bio :
         </label>
         <textarea
@@ -52,9 +52,8 @@ function ProfileCardTwo() {
           rows="2"
           className=" mb-5 block p-2.5 w-full text-sm text-black bg-gray-50 rounded-lg border border-gray-300"
           placeholder="Introduce yourself to everyone..."
-        >
-          This is some initial text inside the textarea.
-        </textarea>
+          value="This is some initial text inside the textarea." 
+        />
 
         <div className="flex flex-row items-center mb-5 text-sm justify-start">
           <h1 className="block font-semibold">Company :</h1>

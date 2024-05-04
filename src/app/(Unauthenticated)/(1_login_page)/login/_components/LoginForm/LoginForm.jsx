@@ -7,7 +7,6 @@ import {
   FRONTEND_ROUTES,
   FRONTEND_ROUTES_MENTOR,
 } from "@/utils/routes/frontend_routes";
-import { api } from "@/utils/helpers/axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import LoginLoadingBtn from "../LoginLoadingBtn/LoginLoadingBtn";
 import { useDispatch } from "react-redux";
@@ -33,19 +32,27 @@ export default function LoginForm() {
         return;
       }
       setIsPending(true);
-      const response = await api.post(BACKEND_ROUTES.login, {
-        email: email,
-        password: password,
-      });
-      console.log(response);
+      const response = await fetch(BACKEND_ROUTES.login, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      })
+      const responseData = await response.json();
+      console.log(responseData);
       if (response.status === 200) {
-        const { role, email, profileID } = jwtDecode(response.data.accessToken);
+        const { role, email, profileID } = jwtDecode(responseData.accessToken);
         dispatch(
           setAuthDetails({
-            accessToken: response.data.accessToken,
             role: role,
             email: email,
             profileID: profileID,
+            accessToken: responseData.accessToken,
+            profileImage: responseData.profileImage,
           })
         );
         if (role === "Admin") {
@@ -56,10 +63,12 @@ export default function LoginForm() {
           router.replace(FRONTEND_ROUTES.student_dashboard_home_page);
         }
       }
+      else{
+        setErrorMsg(responseData.message);
+        setIsPending(false);
+      }
     } catch (error) {
-      console.log(error);
-      setErrorMsg(error.response.data.message);
-      setIsPending(false);
+      alert(error);
     }
   };
 

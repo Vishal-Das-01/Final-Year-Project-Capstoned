@@ -119,14 +119,11 @@ export default function SideMenuItem({href, children}){
 		else if(children.toString() === "Mentors"){
 			return (<FaChalkboardTeacher color={color}/>);
 		}
-		else if(children.toString() === "Logout"){
-			return (<IoIosLogOut color={color}/>);
-		}
 
 	}
 
 	return (
-		<div href={href} className={`${styles.sideMenuItemContainer} w-full flex flex-row items-center justify-center`}>
+		<div className={`${styles.sideMenuItemContainer} w-full flex flex-row items-center justify-center`}>
 
 			<Link href={href} className={`${styles.sideMenuItemLink} h-full flex flex-row items-center justify-center rounded-lg relative `}>
 

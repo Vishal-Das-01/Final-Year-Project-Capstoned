@@ -1,8 +1,13 @@
+'use client'
 import Image from "next/image";
 import React from "react";
 import { RiProfileLine } from "react-icons/ri";
+import { useSelector } from "react-redux";
 
-function ProfileCardOne() {
+function ProfileCardOne({ firstName, lastName, gender, contact ,teacher }) {
+
+  const authDetails = useSelector((state) => state.AuthDetails);
+  
   return (
     <div className="relative flex flex-col py-5 h-auto items-center justify-center bg-blue-50 m-5 rounded-xl">
       <div className="absolute top-4 left-4">
@@ -25,18 +30,18 @@ function ProfileCardOne() {
       </button>
 
       <div className="flex flex-col w-full justify-start items-center p-5 space-y-1">
-        <p className="font-montserrat font-semibold text-lg">Taha Mirza</p>
+        <p className="font-montserrat font-semibold text-lg">{firstName} {lastName}</p>
         <p className="font-montserrat font-normal text-sm text-neutral-500">
-          t.mirza.22808@khi.iba.edu.pk
+          {authDetails.email}
         </p>
         <p className="font-montserrat font-normal text-sm text-neutral-500">
-            Gender: Male
+            Gender: {gender}
         </p>
         <p className="font-montserrat font-normal text-sm text-neutral-500">
-            Role: Teacher
+            {`Role: ${teacher ? "Teacher" : "Mentor"}`}
         </p>
         <p className="font-montserrat font-normal text-sm text-neutral-500">
-            Contact: 03123456789
+            Contact: {contact}
         </p>
       </div>
     </div>

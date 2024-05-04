@@ -40,7 +40,6 @@ export async function POST(request) {
         });
 
         if (data.role === Role.Mentor) {
-            console.log("working")
             const mentor = new Mentor(data.details);
             user.profileID = mentor._id;
             await mentor.save();
@@ -63,9 +62,7 @@ export async function POST(request) {
             from: process.env.EMAIL_USER,
             to: data.email,
             subject: 'Account Created',
-            text: `Welcome to Capstoned ${data.details.firstName}! \n
-            Your account has been created. Your password is ${generatedPassword} \n
-            You can change your password on first login. \n`
+            text: `Welcome to Capstoned ${data.details.firstName}! \n \nYour account has been created. Your password is ${generatedPassword} \nYou can change your password on first login. \n`
         };
         transporter.sendMail(createAccountOptions, (error, info) => {
             if (error) {
