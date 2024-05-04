@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import styles from "./ProposalModal.module.css";
 import DropDown from "./_components/DropDown/DropDown";
-import { FaBullseye, FaTimes } from "react-icons/fa";
-import { set } from "mongoose";
-import { PiNutFill } from "react-icons/pi";
+import { FaTimes } from "react-icons/fa";
+import { callAPI } from "@/utils/helpers/callAPI";
+import { useDispatch, useSelector } from "react-redux";
+import { HttpStatusCode } from "axios";
+import { useRouter } from "next/navigation";
+import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
+import { FRONTEND_ROUTES, FRONTEND_ROUTES_MENTOR } from "@/utils/routes/frontend_routes";
+import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
 
 function ProposalModal({
   setOpenModal,
@@ -24,6 +29,10 @@ function ProposalModal({
   const [error, setError] = useState(false);
   const [msg, setMsg] = useState("");
 
+  const authDetails = useSelector((state) => state.AuthDetails);
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   const handleAdd = (value) => {
     if (value === "All Categories") return;
     if (!list.includes(value)) {
@@ -36,10 +45,15 @@ function ProposalModal({
     setList(updatedList);
   };
 
-  const addProposal = () => {
+  const addProposal = async () => {
     console.log(title, description, mentorship, list, proposalDoc);
     setPrompt(true);
-    if (title === "" || description === "" || list.length === 0 || !proposalDoc) {
+    if (
+      title === "" ||
+      description === "" ||
+      list.length === 0 ||
+      !proposalDoc
+    ) {
       setError(true);
       setMsg("Please, enter all details.");
       return;
@@ -47,7 +61,44 @@ function ProposalModal({
       setLoading(true);
       setError(false);
       setMsg("Adding proposal...");
-      // setOpenModal(false);
+
+      const accessToken = authDetails.accessToken;
+      const response = await callAPI(
+        "POST",
+        accessToken,
+        BACKEND_ROUTES.createProposalMentor,
+        {
+          title: title,
+          description: description,
+          industries: list,
+          mentorship: mentorship,
+          proposalDoc: {
+            file: "proposalDoc",
+            extension: "pdf"
+          },
+        }
+      );
+      if (response.status === HttpStatusCode.Ok) {
+        setLoading(false);
+        setOpenModal(false);
+        router.refresh();
+
+      } else if (response.status === HttpStatusCode.Unauthorized) {
+        setLoading(false);
+        setPrompt(false);
+        setError(false);
+        setMsg("");
+        const responseLogOut = await fetch(BACKEND_ROUTES.logout, { method: "POST" });
+        if (responseLogOut.status === HttpStatusCode.Ok) {
+          dispatch(removeAuthDetails());
+          router.replace(FRONTEND_ROUTES.landing_page);
+        }
+      } else if (response.status === HttpStatusCode.BadRequest) {
+        setLoading(false);
+        setError(true);
+        setPrompt(true);
+        setMsg("You have reached the maximum number of proposals");
+      }
     }
   };
 
@@ -137,6 +188,9 @@ function ProposalModal({
               class="mb-8 block w-1/2 text-xs text-black border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none"
               id="document"
               type="file"
+              onChange={(e) => {
+                setProposalDoc(e.target.files[0]);
+              }}
             />
 
             <div className="flex flex-row mb-8 items-center justify-start">
@@ -186,7 +240,11 @@ function ProposalModal({
 
           <div class="flex items-center justify-end p-4 md:p-5 border-gray-200 rounded-b dark:border-gray-600">
             {prompt && (
-              <p className={`${error? "text-red-500":"text-green-500"} mr-5`}>{msg}</p>
+              <p
+                className={`${error ? "text-red-500" : "text-green-500"} mr-5`}
+              >
+                {msg}
+              </p>
             )}
             <button
               disabled={loading}

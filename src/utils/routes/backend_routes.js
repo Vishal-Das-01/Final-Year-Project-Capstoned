@@ -7,4 +7,5 @@ export const BACKEND_ROUTES = {
   sendRequest: 'http://localhost:3000/api/student/request/send',
   getProfile: `${baseURL}/user/account/get`,
   getProposalsMentor: `${baseURL}/mentor/proposal/get`,
+  createProposalMentor: `${baseURL}/mentor/proposal/create`,
 };

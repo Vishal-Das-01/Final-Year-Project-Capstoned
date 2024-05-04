@@ -9,8 +9,7 @@ import { callAPI } from "@/utils/helpers/callAPI";
 import NotFound from "./_components/NotFound/NotFound";
 
 async function ProposalsTable() {
-  const proposals = [];
-  console.log(proposals);
+  const proposals = await getProposals();
 
   return (
     <div class="bg-white dark:bg-gray-800 border-2 m-5 relative shadow-lg rounded-xl overflow-hidden">
@@ -46,26 +45,18 @@ async function ProposalsTable() {
             {proposals.length !==0 &&  proposals.map((proposal) => (
               <ProposalRow
                 key={proposal._id}
-                title={"FYP Management System"}
+                title={proposal.title}
                 description={
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velitesse cillum dolore eu fugiat nulla pariatur."
+                  proposal.description
                 }
-                status={true}
-                selectedBy={"Free Riders"}
-                mentorship={true}
-                active={false}
+                status={!proposal.edit}
+                selectedBy={proposal.selectedBy}
+                mentorship={proposal.mentorship}
+                active={proposal.available}
+                createdAt={proposal.createdAt}
+                updatedAt={proposal.updatedAt}
               />
             ))}
-            {/* <ProposalRow
-              title={"FYP Management System"}
-              description={
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velitesse cillum dolore eu fugiat nulla pariatur."
-              }
-              status={true}
-              selectedBy={"Free Riders"}
-              mentorship={true}
-              active={false}
-            /> */}
           </tbody>
         </table>
       </div>
@@ -75,18 +66,18 @@ async function ProposalsTable() {
 
 export default ProposalsTable;
 
-// async function getProposals() {
-//   const accessToken = cookies().get("accessToken")?.value;
-//   const response = await callAPI(
-//     "GET",
-//     accessToken,
-//     BACKEND_ROUTES.getProposalsMentor
-//   );
-//   if (response.status === HttpStatusCode.Ok) {
-//     const responseData = await response.json();
-//     return responseData;
-//   }
-//   if (response.status === HttpStatusCode.Unauthorized) {
-//     redirect(FRONTEND_ROUTES.login_page);
-//   }
-// }
+async function getProposals() {
+  const accessToken = cookies().get("accessToken")?.value;
+  const response = await callAPI(
+    "GET",
+    accessToken,
+    BACKEND_ROUTES.getProposalsMentor
+  );
+  if (response.status === HttpStatusCode.Ok) {
+    const responseData = await response.json();
+    return responseData;
+  }
+  if (response.status === HttpStatusCode.Unauthorized) {
+    redirect(FRONTEND_ROUTES.login_page);
+  }
+}
