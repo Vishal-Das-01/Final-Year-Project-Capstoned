@@ -8,7 +8,6 @@ import { CgProfile } from "react-icons/cg";
 import { GoProject } from "react-icons/go";
 import { FaRegFileAlt } from "react-icons/fa";
 import { FaRocketchat } from "react-icons/fa";
-import { IoIosLogOut } from "react-icons/io";
 import styles from "./SideMenuItem.module.css";
 
 
@@ -28,7 +27,7 @@ export default function SideMenuItem({href, children}){
 	// Corrects -> 'Milestones' to 'milestones'
 	// Corrects -> 'FYP Groups' to 'fyp-groups'
 	// Corrects ->'Meetings' to 'meetings'
-	function correctMenuItemTextForComparison(children){
+	function correctMenuItemTextForComparison(children) {
 		if(children.toString() === "Dashboard"){
 			return "home";
 		}
@@ -107,14 +106,11 @@ export default function SideMenuItem({href, children}){
 		else if(children.toString() === "Chats"){
 			return (<FaRocketchat color={color}/>);
 		}
-		else if(children.toString() === "Logout"){
-			return (<IoIosLogOut color={color}/>);
-		}
 
 	}
 
 	return (
-		<div href={href} className={`${styles.sideMenuItemContainer} w-full flex flex-row items-center justify-center`}>
+		<div className={`${styles.sideMenuItemContainer} w-full flex flex-row items-center justify-center`}>
 
 			<Link href={href} className={`${styles.sideMenuItemLink} h-full flex flex-row items-center justify-center rounded-lg relative `}>
 

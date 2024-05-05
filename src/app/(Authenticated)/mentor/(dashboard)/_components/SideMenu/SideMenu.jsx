@@ -1,8 +1,10 @@
+import Logout from "./_components/Logout/Logout.jsx";
 import SideMenuItem from "./_components/SideMenuItem/SideMenuItem.jsx";
 import styles from "./SideMenu.module.css";
-import { FRONTEND_ROUTES_MENTOR, FRONTEND_ROUTES } from "@/utils/routes/frontend_routes.js";
+import { FRONTEND_ROUTES_MENTOR} from "@/utils/routes/frontend_routes.js";
 
 export default function SideMenu(props){
+
 	return (
 		<div className={`${styles.sideMenu} flex flex-col items-center justify-center w-full h-full`}>
 
@@ -34,9 +36,7 @@ export default function SideMenu(props){
 
 				<div className="flex flex-col flex-1"></div>
 
-				<SideMenuItem href={FRONTEND_ROUTES.landing_page}>
-					Logout
-				</SideMenuItem>
+				<Logout/>
 			</div>
 			
 		</div>

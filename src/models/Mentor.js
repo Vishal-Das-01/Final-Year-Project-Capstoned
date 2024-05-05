@@ -45,6 +45,7 @@ const mentorSchema = new Schema({
     },
     roomNum: {
         type: String,
+        default: null
     },
     officeHours: {
         type: [{
