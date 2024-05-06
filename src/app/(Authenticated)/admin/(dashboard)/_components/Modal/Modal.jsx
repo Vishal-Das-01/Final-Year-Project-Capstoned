@@ -1,9 +1,7 @@
-"use client";
-
 import styles from "./Modal.module.css";
 import { IoMdClose } from "react-icons/io";
 
-export default function Modal({children, modalHeadingText}){
+export default function Modal({children, modalHeadingText, closeModal}){
 
     return (
         <div 
@@ -29,7 +27,7 @@ export default function Modal({children, modalHeadingText}){
                         
                         <button 
                             className={`${styles.modalCloseBtn} cursor-pointer flex flex-row items-center justify-center`}
-                            onClick={() => console.log("Close")}
+                            onClick={closeModal}
                         >
                             <IoMdClose style={{ fontSize: "20px" }}/>
                         </button>
@@ -48,7 +46,7 @@ export default function Modal({children, modalHeadingText}){
           
             </div>
 
-            <div className={`${styles.modalBackdrop}`} onClick={() => console.log("Close")}/>
+            <div className={`${styles.modalBackdrop}`} onClick={closeModal}/>
 
         </div>
     );
