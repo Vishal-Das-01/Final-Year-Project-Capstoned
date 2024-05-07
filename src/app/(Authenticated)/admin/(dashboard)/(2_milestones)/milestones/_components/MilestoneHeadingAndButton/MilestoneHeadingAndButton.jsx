@@ -2,7 +2,7 @@
 
 import TableTitleAndButton from "../../../../_components/TableTitleAndButton/TableTitleAndButton";
 
-export default function MilestoneHeadingAndButton(props){
+export default function MilestoneHeadingAndButton({setOpenModal, setModalTitle, setModalContent}){
     function createMilestoneHandler(){
 		console.log("Create Milestone");
 	}
@@ -12,7 +12,13 @@ export default function MilestoneHeadingAndButton(props){
             tableTitle = {"Milestones"}
             includeButton = {true}
             buttonTitle = {"Create Milestone"}
-            buttonClickHandler = {createMilestoneHandler}
+            buttonClickHandler = {
+                () => {
+                    setOpenModal(true); 
+                    setModalTitle("Create Milestsone");
+                    setModalContent(<h1>Create Milestone Form</h1>);
+                }
+            }
         />
     );
 }
