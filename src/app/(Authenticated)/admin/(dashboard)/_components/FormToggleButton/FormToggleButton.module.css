@@ -1,12 +1,7 @@
-.toggleButtonContainer{
-
-}
-
-.numberInputLabel{
-    
-}
-
-.numberInput{
-    border-radius: 5px;
+.toggleButtonPrimaryContainer{
     width: 300px;
+}
+
+.toggleButtonLabel{
+    
 }

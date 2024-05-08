@@ -2,9 +2,9 @@ import styles from "./FormTextInput.module.css";
 
 export default function FormTextInput({labelText, textInputName, placeholderText, isRequired}){
     return (
-        <div className={`${styles.textInputContainer}`}>
+        <div className={`${styles.textInputContainer} `}>
                     
-            <label for={textInputName} className={`${styles.textInputLabel} font-montserrat`}>
+            <label htmlFor={textInputName} className={`${styles.textInputLabel} font-montserrat`}>
                 {labelText} {isRequired && `*`}
             </label>
             

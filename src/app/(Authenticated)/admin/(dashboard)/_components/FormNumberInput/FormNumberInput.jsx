@@ -2,9 +2,9 @@ import styles from "./FormNumberInput.module.css";
 
 export default function FormNumberInput({labelText, numberInputName, placeholderText, isRequired}){
     return (
-        <div className={`${styles.numberInputContainer}`}>
+        <div className={`${styles.numberInputContainer} `}>
                     
-            <label for={numberInputName} className={`${styles.numberInputLabel} font-montserrat`}>
+            <label htmlFor={numberInputName} className={`${styles.numberInputLabel} font-montserrat`}>
                 {labelText} {isRequired && `*`}
             </label>
             

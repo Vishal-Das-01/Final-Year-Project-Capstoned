@@ -6,6 +6,7 @@ import FormRow from "../../../../_components/FormRow/FormRow";
 import FormEmailInput from "../../../../_components/FormEmailInput/FormEmailInput";
 import FormNumberInput from "../../../../_components/FormNumberInput/FormNumberInput";
 import FormToggleButton from "../../../../_components/FormToggleButton/FormToggleButton";
+import FormFileInput from "../../../../_components/FormFileInput/FormFileInput";
 
 export default function CreateCompanyForm(){
     return (
@@ -13,7 +14,10 @@ export default function CreateCompanyForm(){
 
             <form className={`${styles.createCompanyForm} flex flex-col items-center justify-start`}>
                 
-                <FormRow>
+                <FormRow 
+                    verticalPlacement={"justify-between"} 
+                    horizontalPlacement={"items-center"}
+                >
 
                     <FormTextInput 
                         labelText={"Name"} 
@@ -31,7 +35,10 @@ export default function CreateCompanyForm(){
 
                 </FormRow>
 
-                <FormRow>
+                <FormRow 
+                    verticalPlacement={"justify-between"}
+                    horizontalPlacement={"items-center"}
+                >
 
                     <FormEmailInput
                         labelText="Email"
@@ -49,7 +56,10 @@ export default function CreateCompanyForm(){
 
                 </FormRow>
 
-                <FormRow>
+                <FormRow 
+                    verticalPlacement={"justify-between"}
+                    horizontalPlacement={"items-center"}
+                >
 
                     <FormTextInput 
                         labelText={"Website URL"} 
@@ -67,7 +77,10 @@ export default function CreateCompanyForm(){
 
                 </FormRow>
 
-                <FormRow>
+                <FormRow 
+                    verticalPlacement={"justify-between"}
+                    horizontalPlacement={"items-end"}
+                >
 
                     <FormTextInput 
                         labelText={"City"} 
@@ -76,10 +89,24 @@ export default function CreateCompanyForm(){
                         isRequired={false}
                     />
 
-                    <FormNumberInput
+                    <FormToggleButton 
+                        inactiveLabelText="No"
+                        activeLabelText="Yes"
+                        isRequired={false}
+                        labelText="Verified"
+                        toggleInputName="verified"
+                    />
+
+                </FormRow>
+
+                <FormRow 
+                    verticalPlacement={"justify-between"}
+                    horizontalPlacement={"items-center"}
+                >
+
+                    <FormFileInput
                         labelText="Profile Image"
-                        emailInputName="companyProfileImage"
-                        placeholderText="Company Profile Image"
+                        fileInputName="companyProfileImage"
                         isRequired={false}
                     />
 

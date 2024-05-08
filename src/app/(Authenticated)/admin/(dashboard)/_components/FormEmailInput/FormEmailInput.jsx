@@ -2,9 +2,9 @@ import styles from "./FormEmailInput.module.css";
 
 export default function FormEmailInput({labelText, emailInputName, placeholderText, isRequired}){
     return (
-        <div className={`${styles.emailInputContainer}`}>
+        <div className={`${styles.emailInputContainer} `}>
                     
-            <label for={emailInputName} className={`${styles.emailInputLabel} font-montserrat`}>
+            <label htmlFor={emailInputName} className={`${styles.emailInputLabel} font-montserrat`}>
                 {labelText} {isRequired && `*`}
             </label>
             
