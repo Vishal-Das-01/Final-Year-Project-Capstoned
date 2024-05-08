@@ -2,6 +2,7 @@
 
 import styles from "./CompaniesHeadingAndButton.module.css"
 import TableTitleAndButton from "../../../../_components/TableTitleAndButton/TableTitleAndButton";
+import CreateCompanyForm from "../CreateCompanyForm/CreateCompanyForm";
 
 export default function CompaniesHeadingAndButton({setOpenModal, setModalTitle, setModalContent}){
 
@@ -14,7 +15,7 @@ export default function CompaniesHeadingAndButton({setOpenModal, setModalTitle, 
                 () => {
                     setOpenModal(true); 
                     setModalTitle("Create Company");
-                    setModalContent(<h1>Create Company Form</h1>);
+                    setModalContent(<CreateCompanyForm />);
                 }
             }
         />
