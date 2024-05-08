@@ -15,7 +15,7 @@ export default function CompaniesHeadingAndButton({setOpenModal, setModalTitle, 
                 () => {
                     setOpenModal(true); 
                     setModalTitle("Create Company");
-                    setModalContent(<CreateCompanyForm />);
+                    setModalContent(<CreateCompanyForm setOpenModal={setOpenModal}/>);
                 }
             }
         />

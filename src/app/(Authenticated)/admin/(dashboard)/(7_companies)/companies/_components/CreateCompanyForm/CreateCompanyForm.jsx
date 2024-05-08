@@ -7,12 +7,19 @@ import FormEmailInput from "../../../../_components/FormEmailInput/FormEmailInpu
 import FormNumberInput from "../../../../_components/FormNumberInput/FormNumberInput";
 import FormToggleButton from "../../../../_components/FormToggleButton/FormToggleButton";
 import FormFileInput from "../../../../_components/FormFileInput/FormFileInput";
+import FormActionButton from "../../../../_components/FormActionButton/FormActionButton";
 
-export default function CreateCompanyForm(){
+export default function CreateCompanyForm({setOpenModal}){
+    let formId = `createCompanyForm`;
+
+    function submitForm(){
+        console.log("Submit Form");
+    }
+
     return (
         <div className={`${styles.createCompanyFormPrimaryContainer} w-full `}>
 
-            <form className={`${styles.createCompanyForm} flex flex-col items-center justify-start`}>
+            <form id={formId} className={`${styles.createCompanyForm} flex flex-col items-center justify-start`}>
                 
                 <FormRow 
                     verticalPlacement={"justify-between"} 
@@ -108,6 +115,26 @@ export default function CreateCompanyForm(){
                         labelText="Profile Image"
                         fileInputName="companyProfileImage"
                         isRequired={false}
+                    />
+
+                </FormRow>
+
+                <FormRow
+                    verticalPlacement={"justify-end"}
+                    horizontalPlacement={"items-center"}
+                >
+                    <FormActionButton 
+                        buttonText={`Save`}
+                        buttonClickAction={submitForm}
+                        formId={formId}
+                        isCancel={false}
+                    />
+
+                    <FormActionButton 
+                        buttonText={`Cancel`}
+                        buttonClickAction={() => setOpenModal(false)}
+                        formId={null}
+                        isCancel={true}
                     />
 
                 </FormRow>
