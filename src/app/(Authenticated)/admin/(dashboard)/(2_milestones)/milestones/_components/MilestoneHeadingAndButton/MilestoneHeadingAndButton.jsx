@@ -1,5 +1,6 @@
 "use client";
 
+import styles from "./MilestoneHeadingAndButton.module.css";
 import TableTitleAndButton from "../../../../_components/TableTitleAndButton/TableTitleAndButton";
 import CreateMilestoneForm from "../CreateMilestoneForm/CreateMilestoneForm";
 

@@ -2,12 +2,9 @@
 
 import styles from "./AnnouncementsHeadingAndButton.module.css";
 import TableTitleAndButton from "../../../../_components/TableTitleAndButton/TableTitleAndButton";
+import CreateAnnouncementForm from "../CreateAnnouncementForm/CreateAnnouncementForm";
 
 export default function AnnouncementsHeadingAndButton({setOpenModal, setModalTitle, setModalContent}){
-
-    function createAnnouncementHandler(){
-        console.log("Create Announcement");
-    }
 
     return (
         <TableTitleAndButton 
@@ -18,7 +15,7 @@ export default function AnnouncementsHeadingAndButton({setOpenModal, setModalTit
                 () => {
                     setOpenModal(true); 
                     setModalTitle("Create Announcement");
-                    setModalContent(<h1>Create Announcement Form</h1>);
+                    setModalContent(<CreateAnnouncementForm setOpenModal={setOpenModal}/>);
                 }
             }
         />

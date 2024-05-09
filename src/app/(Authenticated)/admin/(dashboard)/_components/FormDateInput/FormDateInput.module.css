@@ -1,5 +1,5 @@
 .dateInputContainer{
-    width: 280px;
+    /* width: 300px; */
 }
 
 .dateInputLabel{
@@ -8,5 +8,5 @@
 
 .dateInput{
     border-radius: 5px;
-    width: 200px;
+    width: 300px;
 }

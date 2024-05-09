@@ -5,6 +5,8 @@ import FormTextInput from "../../../../_components/FormTextInput/FormTextInput";
 import FormRow from "../../../../_components/FormRow/FormRow";   
 import FormActionButton from "../../../../_components/FormActionButton/FormActionButton"; 
 import FormDateInput from "../../../../_components/FormDateInput/FormDateInput";
+import FormNumberInput from "../../../../_components/FormNumberInput/FormNumberInput";
+import FormTextArea from "../../../../_components/FormTextArea/FormTextArea";
 
 export default function CreateMilestoneForm({setOpenModal}){
     let formId = `createMilestoneForm`;
@@ -22,18 +24,18 @@ export default function CreateMilestoneForm({setOpenModal}){
                     verticalPlacement={"justify-between"} 
                     horizontalPlacement={"items-center"}
                 >
+                    
+                    <FormNumberInput 
+                        labelText="Assignment Number"
+                        numberInputName="milestoneAssignmentNumber"
+                        placeholderText="Assignment Number"
+                        isRequired={true}
+                    />
 
                     <FormTextInput 
                         labelText={"Title"} 
                         textInputName={"milestoneTitle"} 
                         placeholderText={"Milestone Title"}
-                        isRequired={true}
-                    />
-
-                    <FormDateInput
-                        labelText="Deadline"
-                        emailInputName="milestoneDeadline"
-                        placeholderText="Milestone Deadline"
                         isRequired={true}
                     />
 
@@ -44,7 +46,47 @@ export default function CreateMilestoneForm({setOpenModal}){
                     horizontalPlacement={"items-center"}
                 >
 
-                    
+                    <FormDateInput
+                        labelText="Deadline"
+                        emailInputName="milestoneDeadline"
+                        placeholderText="Milestone Deadline"
+                        isRequired={true}
+                    />
+
+                    <FormNumberInput 
+                        labelText="Milestone Worth"
+                        numberInputName="milestonePercentageWorth"
+                        placeholderText="Percentage"
+                        isRequired={true}
+                    />
+
+                </FormRow>
+
+                <FormRow
+                    verticalPlacement={"justify-between"} 
+                    horizontalPlacement={"items-center"}
+                >
+
+                    <FormNumberInput 
+                        labelText="Milestone Year"
+                        numberInputName="milestoneYear"
+                        placeholderText="Year"
+                        isRequired={true}
+                    />
+
+                </FormRow>
+
+                <FormRow
+                    verticalPlacement={"justify-start"} 
+                    horizontalPlacement={"items-start"}
+                >
+
+                    <FormTextArea
+                        labelText="Description"
+                        textAreaName="milestoneDescription"
+                        placeholderText="Milestone Description"
+                        isRequired={true}
+                    />
 
                 </FormRow>
             
