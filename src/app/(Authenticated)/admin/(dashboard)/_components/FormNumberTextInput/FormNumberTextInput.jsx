@@ -16,7 +16,7 @@ export default function FormNumberTextInput({labelText, numberTextInputName, pla
                     name={numberTextInputName} 
                     id={numberTextInputName}
                     placeholder={placeholderText}
-                    className={`${styles.numberTextInput}`}
+                    className={`${styles.numberTextInput} font-montserrat`}
                     required
                 />
                 :
@@ -25,7 +25,7 @@ export default function FormNumberTextInput({labelText, numberTextInputName, pla
                     name={numberTextInputName} 
                     id={numberTextInputName}
                     placeholder={placeholderText}
-                    className={`${styles.numberTextInput}`}
+                    className={`${styles.numberTextInput} font-montserrat`}
                 />
             }
             
