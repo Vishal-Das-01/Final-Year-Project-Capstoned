@@ -12,7 +12,7 @@ export default function FormNumberInput({labelText, numberInputName, placeholder
             
             {(isRequired) ? 
                 <input 
-                    type="text" 
+                    type="number" 
                     name={numberInputName} 
                     id={numberInputName}
                     placeholder={placeholderText}
@@ -21,7 +21,7 @@ export default function FormNumberInput({labelText, numberInputName, placeholder
                 />
                 :
                 <input 
-                    type="text" 
+                    type="number" 
                     name={numberInputName} 
                     id={numberInputName}
                     placeholder={placeholderText}
@@ -29,7 +29,6 @@ export default function FormNumberInput({labelText, numberInputName, placeholder
                 />
             }
             
-
         </div>
     );
 }

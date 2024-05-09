@@ -29,7 +29,6 @@ export default function FormEmailInput({labelText, emailInputName, placeholderTe
                 />
             }
             
-
         </div>
     );
 }

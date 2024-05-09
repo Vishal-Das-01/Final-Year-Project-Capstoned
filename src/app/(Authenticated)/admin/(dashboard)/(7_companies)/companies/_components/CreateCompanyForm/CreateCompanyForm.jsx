@@ -4,7 +4,7 @@ import styles from "./CreateCompanyForm.module.css";
 import FormTextInput from "../../../../_components/FormTextInput/FormTextInput";
 import FormRow from "../../../../_components/FormRow/FormRow";
 import FormEmailInput from "../../../../_components/FormEmailInput/FormEmailInput";
-import FormNumberInput from "../../../../_components/FormNumberInput/FormNumberInput";
+import FormNumberTextInput from "../../../../_components/FormNumberTextInput/FormNumberTextInput";
 import FormToggleButton from "../../../../_components/FormToggleButton/FormToggleButton";
 import FormFileInput from "../../../../_components/FormFileInput/FormFileInput";
 import FormActionButton from "../../../../_components/FormActionButton/FormActionButton";
@@ -33,9 +33,9 @@ export default function CreateCompanyForm({setOpenModal}){
                         isRequired={true}
                     />
 
-                    <FormNumberInput
+                    <FormNumberTextInput
                         labelText="Number"
-                        emailInputName="companyNumber"
+                        emailTextInputName="companyNumber"
                         placeholderText="Company Number"
                         isRequired={true}
                     />

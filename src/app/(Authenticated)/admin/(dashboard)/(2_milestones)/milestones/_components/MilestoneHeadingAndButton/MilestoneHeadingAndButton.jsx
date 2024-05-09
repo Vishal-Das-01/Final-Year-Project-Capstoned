@@ -1,11 +1,9 @@
 "use client";
 
 import TableTitleAndButton from "../../../../_components/TableTitleAndButton/TableTitleAndButton";
+import CreateMilestoneForm from "../CreateMilestoneForm/CreateMilestoneForm";
 
 export default function MilestoneHeadingAndButton({setOpenModal, setModalTitle, setModalContent}){
-    function createMilestoneHandler(){
-		console.log("Create Milestone");
-	}
 
     return (
         <TableTitleAndButton 
@@ -16,7 +14,7 @@ export default function MilestoneHeadingAndButton({setOpenModal, setModalTitle, 
                 () => {
                     setOpenModal(true); 
                     setModalTitle("Create Milestsone");
-                    setModalContent(<h1>Create Milestone Form</h1>);
+                    setModalContent(<CreateMilestoneForm setOpenModal={setOpenModal}/>);
                 }
             }
         />
