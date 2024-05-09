@@ -1,29 +1,13 @@
 import React from "react";
 
-function ProfileCardTwo() {
-  const list = [
-    "Software Engineering",
-    "Security",
-    "Network Security",
-    "Cloud Security",
-    "Application Security",
-    "Machine Learning",
-    "Artificial Intelligence",
-    "Mobile App Development",
-    "Backend Engineering",
-    "Frontend Engineering",
-  ];
-
-  const officeHours = [
-    { start: "10:00", end: "123:00", day: "Mon" },
-    { start: "10:00", end: "12:00", day: "Tue" },
-    { start: "10:00", end: "12:00", day: "Wed" },
-    { start: "10:00", end: "14:00", day: "Thu" },
-    { start: "10:00", end: "12:00", day: "Fri" },
-    { start: "10:00", end: "12:00", day: "Sat" },
-    { start: null, end: null, day: "Sun" },
-  ];
-
+function ProfileCardTwo({
+  bio,
+  company,
+  industries,
+  roomNum,
+  officeHours,
+  occupation,
+}) {
   const tailwindColorClasses = [
     "bg-red-100",
     "bg-blue-100",
@@ -52,19 +36,29 @@ function ProfileCardTwo() {
           rows="2"
           className=" mb-5 block p-2.5 w-full text-sm text-black bg-gray-50 rounded-lg border border-gray-300"
           placeholder="Introduce yourself to everyone..."
-          value="This is some initial text inside the textarea." 
+          value={bio}
         />
-
         <div className="flex flex-row items-center mb-5 text-sm justify-start">
           <h1 className="block font-semibold">Company :</h1>
-          <p className="block ml-2 font-normal">Google</p>
+          {!company || !occupation ? (
+            <p className="block ml-2 font-normal">No company</p>
+          ) : (
+            <p className="block ml-2 font-normal">
+              {occupation} at {company?.name}
+            </p>
+          )}
         </div>
 
         <h1 className="block font-semibold text-sm mb-2">
           Industries Interest :
         </h1>
+        {industries.length === 0 && (
+          <p className="font-normal text-sm w-full flex flex-row justify-center">
+            No industries interest
+          </p>
+        )}
 
-        {list.map((item, index) => {
+        {industries.map((item, index) => {
           const randomColorClass = generateRandomColor();
           return (
             <button
@@ -77,15 +71,21 @@ function ProfileCardTwo() {
           );
         })}
 
-       <div className="flex flex-row items-center mb-5 mt-4 text-sm justify-start">
+        <div className="flex flex-row items-center mb-5 mt-4 text-sm justify-start">
           <h1 className="block font-semibold">Room :</h1>
-          <p className="block ml-2 font-normal">MTC-13</p>
+          {!roomNum && <p className="block ml-2 font-normal">No room number</p>}
+          <p className="block ml-2 font-normal">{roomNum}</p>
         </div>
 
         <h1 className="block font-semibold mt-5 mb-2 text-sm">
           Office Hours :
         </h1>
         <div className="grid grid-cols-7 max-w-3xl text-center rounded-xl overflow-hidden">
+          {officeHours.length === 0 && (
+            <p className="w-full col-span-7 flex flex-row justify-center font-normal text-sm">
+              No office hours
+            </p>
+          )}
           {officeHours.map((item, index) => (
             <div
               key={index}

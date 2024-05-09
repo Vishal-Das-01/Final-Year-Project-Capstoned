@@ -18,6 +18,7 @@ export const metadata = {
 
 async function Profile() {
   const profile = await getProfile();
+  console.log(profile);
 
   return (
     <div
@@ -26,7 +27,14 @@ async function Profile() {
       <div
         className={`${styles.contentCardTitleContainer} p-3 overflow-auto flex flex-row w-full rounded-xl`}
       >
-        <ProfileHeadingCard />
+        <ProfileHeadingCard
+          bio={profile.bio}
+          company={profile.company}
+          industries={profile.industries}
+          roomNum={profile.roomNum}
+          officeHours={profile.officeHours}
+          occupation={profile.occupation}
+        />
       </div>
 
       <div className="flex flex-row w-full h-5/6 items-center justify-center space-x-10">
@@ -44,7 +52,14 @@ async function Profile() {
         <div
           className={`${styles.contentCardContainer} h-full w-2/3 rounded-xl`}
         >
-          <ProfileCardTwo />
+          <ProfileCardTwo
+            bio={profile.bio}
+            company={profile.company}
+            industries={profile.industries}
+            roomNum={profile.roomNum}
+            officeHours={profile.officeHours}
+            occupation={profile.occupation}
+          />
         </div>
       </div>
     </div>
@@ -52,7 +67,6 @@ async function Profile() {
 }
 
 export default Profile;
-
 
 async function getProfile() {
   const accessToken = cookies().get("accessToken")?.value;
@@ -65,17 +79,3 @@ async function getProfile() {
     redirect(FRONTEND_ROUTES.login_page);
   }
 }
-
-
-// const response = await fetch(BACKEND_ROUTES.getProfile, {
-//   method: 'GET',
-//   headers: {
-//     'Authorization': `Bearer ${accessToken.value}`,
-//   },
-// });
-// // const response = await api.get(BACKEND_ROUTES.getProfile, {
-// //   headers: {
-// //     Authorization: `Bearer ${accessToken.value}`,
-// //   },
-// // });
-// const responseData = await response.json();

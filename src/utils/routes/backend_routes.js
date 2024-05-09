@@ -8,4 +8,6 @@ export const BACKEND_ROUTES = {
   getProfile: `${baseURL}/user/account/get`,
   getProposalsMentor: `${baseURL}/mentor/proposal/get`,
   createProposalMentor: `${baseURL}/mentor/proposal/create`,
+  getAllCompanies: `${baseURL}/user/company/get/all`,
+  updateProfileMentor: `${baseURL}/mentor/account/update`,
 };

@@ -4,6 +4,7 @@ import { HttpStatusCode } from "axios";
 import { NextResponse } from "next/server";
 import Student from "@/models/Student";
 import Mentor from "@/models/Mentor";
+import Company from "@/models/Company";
 
 export const GET = async (req, res) => {
     await connectToDB();
@@ -19,7 +20,10 @@ export const GET = async (req, res) => {
     }
 
     if (role === Role.Mentor) {
-        const mentor = await Mentor.findById(profileID);
+        const mentor = await Mentor.findById(profileID).populate({
+            path: 'company',
+            select: 'name'
+        });;
         if (!mentor) {
             return new NextResponse.json({ message: "Mentor not found." }, { status: HttpStatusCode.NOT_FOUND });
         }
