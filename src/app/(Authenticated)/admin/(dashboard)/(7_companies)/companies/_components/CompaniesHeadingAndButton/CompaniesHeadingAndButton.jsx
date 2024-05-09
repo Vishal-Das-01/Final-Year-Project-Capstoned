@@ -2,19 +2,22 @@
 
 import styles from "./CompaniesHeadingAndButton.module.css"
 import TableTitleAndButton from "../../../../_components/TableTitleAndButton/TableTitleAndButton";
+import CreateCompanyForm from "../CreateCompanyForm/CreateCompanyForm";
 
-export default function CompaniesHeadingAndButton(){
-
-    function createCompanyHandler(){
-        console.log("Create Company");
-    }
+export default function CompaniesHeadingAndButton({setOpenModal, setModalTitle, setModalContent}){
 
     return (
         <TableTitleAndButton 
             tableTitle = {"Companies"}
             includeButton = {true}
             buttonTitle = {"Create Company"}
-            buttonClickHandler = {createCompanyHandler}
+            buttonClickHandler = {
+                () => {
+                    setOpenModal(true); 
+                    setModalTitle("Create Company");
+                    setModalContent(<CreateCompanyForm setOpenModal={setOpenModal}/>);
+                }
+            }
         />
     );
     

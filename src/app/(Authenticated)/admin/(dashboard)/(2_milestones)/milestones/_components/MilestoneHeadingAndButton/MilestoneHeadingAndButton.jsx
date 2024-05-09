@@ -1,18 +1,23 @@
 "use client";
 
+import styles from "./MilestoneHeadingAndButton.module.css";
 import TableTitleAndButton from "../../../../_components/TableTitleAndButton/TableTitleAndButton";
+import CreateMilestoneForm from "../CreateMilestoneForm/CreateMilestoneForm";
 
-export default function MilestoneHeadingAndButton(props){
-    function createMilestoneHandler(){
-		console.log("Create Milestone");
-	}
+export default function MilestoneHeadingAndButton({setOpenModal, setModalTitle, setModalContent}){
 
     return (
         <TableTitleAndButton 
             tableTitle = {"Milestones"}
             includeButton = {true}
             buttonTitle = {"Create Milestone"}
-            buttonClickHandler = {createMilestoneHandler}
+            buttonClickHandler = {
+                () => {
+                    setOpenModal(true); 
+                    setModalTitle("Create Milestsone");
+                    setModalContent(<CreateMilestoneForm setOpenModal={setOpenModal}/>);
+                }
+            }
         />
     );
 }

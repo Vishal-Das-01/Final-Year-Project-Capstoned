@@ -1,0 +1,15 @@
+.toggleButtonPrimaryContainer{
+    width: 300px;
+}
+
+.toggleButtonLabel{
+    
+}
+
+.toggleButtonBlueColor{
+    background-color: rgb(59 130 246);
+}
+
+.toggleButtonBlackColor{
+    background-color: rgb(2 6 23);
+}

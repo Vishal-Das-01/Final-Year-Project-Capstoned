@@ -3,7 +3,7 @@
 import styles from "./AccountHeadingAndButton.module.css";
 import TableTitleAndButton from "../../../../_components/TableTitleAndButton/TableTitleAndButton";
 
-export default function AccountHeadingAndButton(){
+export default function AccountHeadingAndButton({setOpenModal, setModalTitle, setModalContent}){
 
     function createAccountHandler(){
         console.log("Create Account");
@@ -14,7 +14,13 @@ export default function AccountHeadingAndButton(){
             tableTitle = {"Accounts"}
             includeButton = {true}
             buttonTitle = {"Create Account"}
-            buttonClickHandler = {createAccountHandler}
+            buttonClickHandler = {
+                () => {
+                    setOpenModal(true); 
+                    setModalTitle("Create Account");
+                    setModalContent(<h1>Create Account Form</h1>);
+                }
+            }
         />
     );
     
