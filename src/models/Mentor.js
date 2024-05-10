@@ -50,21 +50,24 @@ const mentorSchema = new Schema({
     officeHours: {
         type: [{
             start: {
-                type: Date,
-                required: true
+                type: String,
             },
             end: {
-                type: Date,
-                required: true
+                type: String,
             },
             day: {
                 type: String,
-                enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+                enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                required: true
             }
         }],
         validator: function (value) {
             return value.length < 8;
         },
+    },
+    company: {
+        type: Schema.Types.ObjectId,
+        ref: 'Company'
     },
     groups: [{
             group: {

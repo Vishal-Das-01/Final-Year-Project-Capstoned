@@ -1,12 +1,9 @@
-'use client'
 import Image from "next/image";
 import React from "react";
 import { RiProfileLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
 
-function ProfileCardOne({ firstName, lastName, gender, contact ,teacher }) {
-
-  const authDetails = useSelector((state) => state.AuthDetails);
+function ProfileCardOne({ firstName, lastName, gender, contact ,teacher,email,profileImage }) {
   
   return (
     <div className="relative flex flex-col py-5 h-auto items-center justify-center bg-blue-50 m-5 rounded-xl">
@@ -14,12 +11,18 @@ function ProfileCardOne({ firstName, lastName, gender, contact ,teacher }) {
         <RiProfileLine className="h-6 w-6"/>
       </div>
       
-      <div className="relative h-36 w-36 rounded-full overflow-hidden mb-3">
-        <Image
-          alt={"Image Cannot be loaded"}
-          src="https://firebasestorage.googleapis.com/v0/b/capstoned-5463f.appspot.com/o/profile_picture%2F65df4b533c513b8b0d83b69d.jpg?alt=media&token=cab7f3cb-a892-4175-a69d-afb8c1e58ff6"
+      <div className="relative h-36 w-36 rounded-full overflow-hidden mb-3 text-center">
+        {(profileImage?.image)?
+          <Image
+          alt={"Failed to load image."}
+          src={profileImage.Image}
           fill
-        />
+        />:
+        <Image
+          alt={"Failed to load image."}
+          src="/defaultProfile.jpg"
+          fill
+        />}
       </div>
 
       <button
@@ -32,7 +35,7 @@ function ProfileCardOne({ firstName, lastName, gender, contact ,teacher }) {
       <div className="flex flex-col w-full justify-start items-center p-5 space-y-1">
         <p className="font-montserrat font-semibold text-lg">{firstName} {lastName}</p>
         <p className="font-montserrat font-normal text-sm text-neutral-500">
-          {authDetails.email}
+          {email}
         </p>
         <p className="font-montserrat font-normal text-sm text-neutral-500">
             Gender: {gender}

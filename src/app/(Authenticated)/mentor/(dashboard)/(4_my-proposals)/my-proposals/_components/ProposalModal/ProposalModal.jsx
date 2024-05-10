@@ -7,8 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { HttpStatusCode } from "axios";
 import { useRouter } from "next/navigation";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
-import { FRONTEND_ROUTES, FRONTEND_ROUTES_MENTOR } from "@/utils/routes/frontend_routes";
+import {
+  FRONTEND_ROUTES,
+  FRONTEND_ROUTES_MENTOR,
+} from "@/utils/routes/frontend_routes";
 import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
+import { uploadFile } from "@/utils/firebase/uploadFile";
 
 function ProposalModal({
   setOpenModal,
@@ -72,23 +76,42 @@ function ProposalModal({
           description: description,
           industries: list,
           mentorship: mentorship,
-          proposalDoc: {
-            file: "proposalDoc",
-            extension: "pdf"
-          },
         }
       );
       if (response.status === HttpStatusCode.Ok) {
-        setLoading(false);
-        setOpenModal(false);
-        router.refresh();
-
+        const responseData = await response.json();
+        console.log(responseData);
+        const fileURL = await uploadFile(
+          proposalDoc,
+          responseData.proposalID,
+          "proposals/mentor/",
+          "application/pdf"
+        );
+        const linkUpdateResponse = await callAPI(
+          "PATCH",
+          accessToken,
+          BACKEND_ROUTES.updateProposalLinkMentor,
+          {
+            proposalID: responseData.proposalID,
+            link: {
+              file: fileURL,
+              extension: "pdf",
+            },
+          }
+        );
+        if (linkUpdateResponse.status === HttpStatusCode.Ok) {
+          setLoading(false);
+          setOpenModal(false);
+          router.refresh();
+        }
       } else if (response.status === HttpStatusCode.Unauthorized) {
         setLoading(false);
         setPrompt(false);
         setError(false);
         setMsg("");
-        const responseLogOut = await fetch(BACKEND_ROUTES.logout, { method: "POST" });
+        const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+          method: "POST",
+        });
         if (responseLogOut.status === HttpStatusCode.Ok) {
           dispatch(removeAuthDetails());
           router.replace(FRONTEND_ROUTES.landing_page);
@@ -182,7 +205,7 @@ function ProposalModal({
             </p>
 
             <label htmlFor="document" className="text-sm block mb-3 text-black">
-              Proposal Document:
+              Proposal Document: (File should be PDF format only and less than 5MB)
             </label>
             <input
               class="mb-8 block w-1/2 text-xs text-black border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none"
