@@ -14,7 +14,7 @@ export async function POST(request) {
             return NextResponse.json({ message: 'You have reached the maximum number of proposals' }, { status: HttpStatusCode.BadRequest });
         }
 
-        const { title, description, proposalDoc, industries, mentorship } = await request.json();
+        const { title, description, proposalDoc, industries, mentorship} = await request.json();
         
         const proposal = new Proposal({
             proposer: 'Mentor',
@@ -31,7 +31,7 @@ export async function POST(request) {
         await proposal.save();
         await mentor.save();
 
-        return NextResponse.json({ message: 'Proposal created',proposalID: proposal._id }, { status: HttpStatusCode.Ok });
+        return NextResponse.json({ message: 'Proposal created', proposalID: proposal._id }, { status: HttpStatusCode.Ok });
 
     } catch (error) {
         console.log(error);

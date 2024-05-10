@@ -28,12 +28,12 @@ async function Profile() {
         className={`${styles.contentCardTitleContainer} p-3 overflow-auto flex flex-row w-full rounded-xl`}
       >
         <ProfileHeadingCard
-          bio={profile.bio}
-          company={profile.company}
-          industries={profile.industries}
-          roomNum={profile.roomNum}
-          officeHours={profile.officeHours}
-          occupation={profile.occupation}
+          bio={profile.mentor.bio}
+          company={profile.mentor.company}
+          industries={profile.mentor.industries}
+          roomNum={profile.mentor.roomNum}
+          officeHours={profile.mentor.officeHours}
+          occupation={profile.mentor.occupation}
         />
       </div>
 
@@ -42,23 +42,25 @@ async function Profile() {
           className={`${styles.contentCardContainer} h-full w-1/3 rounded-xl`}
         >
           <ProfileCardOne
-            firstName={profile.firstName}
-            lastName={profile.lastName}
-            gender={profile.gender}
-            contact={profile.contact}
-            teacher={profile.isUniversityTeacher}
+            firstName={profile.mentor.firstName}
+            lastName={profile.mentor.lastName}
+            gender={profile.mentor.gender}
+            contact={profile.mentor.contact}
+            teacher={profile.mentor.isUniversityTeacher}
+            email={profile.email}
+            profileImage={profile.profileImage}
           />
         </div>
         <div
           className={`${styles.contentCardContainer} h-full w-2/3 rounded-xl`}
         >
           <ProfileCardTwo
-            bio={profile.bio}
-            company={profile.company}
-            industries={profile.industries}
-            roomNum={profile.roomNum}
-            officeHours={profile.officeHours}
-            occupation={profile.occupation}
+            bio={profile.mentor.bio}
+            company={profile.mentor.company}
+            industries={profile.mentor.industries}
+            roomNum={profile.mentor.roomNum}
+            officeHours={profile.mentor.officeHours}
+            occupation={profile.mentor.occupation}
           />
         </div>
       </div>

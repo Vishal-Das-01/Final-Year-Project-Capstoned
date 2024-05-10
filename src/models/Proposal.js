@@ -23,12 +23,10 @@ const proposalSchema = new Schema({
     proposalDoc: {
         file: {
             type: String,
-            required: true
         },
         extension: {
             type: String,
             enum: Object.values(DocFileType),
-            required: true
         }
     },
     industries: [{
