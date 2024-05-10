@@ -36,7 +36,7 @@ export default function CreateCompanyForm({setOpenModal}){
                     <FormNumberTextInput
                         labelText="Number"
                         emailTextInputName="companyNumber"
-                        placeholderText="Company Number"
+                        placeholderText="Company Contact Number"
                         isRequired={true}
                     />
 
@@ -114,7 +114,7 @@ export default function CreateCompanyForm({setOpenModal}){
                     <FormFileInput
                         labelText="Profile Image"
                         fileInputName="companyProfileImage"
-                        isRequired={false}
+                        isRequired={true}
                         acceptableFiles=".jpeg, .jpg, .png"
                     />
 

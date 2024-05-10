@@ -5,6 +5,7 @@ import FormRow from "../../../../_components/FormRow/FormRow";
 import FormTextInput from "../../../../_components/FormTextInput/FormTextInput";
 import FormDropDownSelect from "../../../../_components/FormDropDownSelect/FormDropDownSelect";
 import FormActionButton from "../../../../_components/FormActionButton/FormActionButton";
+import FormEmailInput from "../../../../_components/FormEmailInput/FormEmailInput";
 
 export default function CreateAdminAccountForm({setOpenModal}){
     let formId = `createAdminAccountForm`;
@@ -41,8 +42,8 @@ export default function CreateAdminAccountForm({setOpenModal}){
                 </FormRow>
 
                 <FormRow
-                    verticalPlacement={"justify-start"} 
-                    horizontalPlacement={"items-start"}
+                    verticalPlacement={"justify-between"} 
+                    horizontalPlacement={"items-center"}
                     rowHeight={""}
                 >
 
@@ -52,6 +53,13 @@ export default function CreateAdminAccountForm({setOpenModal}){
                         options={["Male", "Female"]}
                         isRequired={true}
                         placeholder={"Admin's Gender"}
+                    />
+
+                    <FormEmailInput 
+                        labelText="Email" 
+                        emailInputName={"adminEmailID"} 
+                        placeholderText="Admin's Email ID" 
+                        isRequired={true}
                     />
 
                 </FormRow>

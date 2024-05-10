@@ -9,6 +9,7 @@ import FormTextArea from "../../../../_components/FormTextArea/FormTextArea";
 import FormNumberInput from "../../../../_components/FormNumberInput/FormNumberInput";
 import FormActionButton from "../../../../_components/FormActionButton/FormActionButton";
 import { Industry } from "@/utils/constants/enums";
+import FormEmailInput from "../../../../_components/FormEmailInput/FormEmailInput";
 
 
 export default function CreateMentorAccountForm({setOpenModal}){
@@ -57,11 +58,11 @@ export default function CreateMentorAccountForm({setOpenModal}){
                         placeholder={"Mentor's Gender"}
                     />
                     
-                    <FormTextInput 
-                        labelText="Occupation"
-                        textInputName="mentorOccupation"
-                        placeholderText="Mentor's Occupation"
-                        isRequired={true}
+                    <FormNumberInput 
+                        labelText="Contact Number"
+                        numberInputName="mentorContact" 
+                        placeholderText="Mentor's Contact Number" 
+                        isRequired={false}
                     />
 
                 </FormRow>
@@ -93,56 +94,12 @@ export default function CreateMentorAccountForm({setOpenModal}){
                     verticalPlacement={"justify-between"} 
                     horizontalPlacement={"items-center"}
                 >
-                    
-                    <FormDropDownSelect 
-                        labelText="Company"
-                        dropDownSelectName="mentorCompany"
-                        options={["Vaulsys", "Softech Worldwide"]}
-                        isRequired={false}
-                        placeholder={"Company Mentor Is In"}
-                    />
 
-                    <FormNumberInput 
-                        labelText="Contact Number"
-                        numberInputName="mentorContact" 
-                        placeholderText="Mentor's Contact Number" 
-                        isRequired={false}
-                    />
-
-                </FormRow>
-
-                <FormRow
-                    verticalPlacement={"justify-between"} 
-                    horizontalPlacement={"items-center"}
-                >
-
-                    <FormDropDownSelect 
-                        labelText="Industry"
-                        dropDownSelectName="mentorIndustry"
-                        options={Object.values(Industry)}
-                        isRequired={false}
-                        placeholder="Mentor's Industry"
-                    />     
-
-                    <FormTextInput 
-                        labelText="Room Number" 
-                        textInputName="mentorRoomNumber"
-                        placeholderText="Mentor's Room Number" 
-                        isRequired={false}
-                    />               
-
-                </FormRow>
-
-                <FormRow
-                    verticalPlacement={"justify-between"} 
-                    horizontalPlacement={"items-center"}
-                >
-
-                    <FormTextArea
-                        labelText="Bio"
-                        textAreaName={"mentorBio"}
-                        placeholderText="Mentor's Bio"
-                        isRequired={false}
+                    <FormEmailInput 
+                        labelText="Email" 
+                        emailInputName="mentorEmailID" 
+                        placeholderText="Mentor's Email ID" 
+                        isRequired={true}
                     />
 
                 </FormRow>

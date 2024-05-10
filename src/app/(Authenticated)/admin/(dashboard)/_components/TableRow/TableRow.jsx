@@ -10,7 +10,7 @@ export default function TableRow({children, setOpenModal, setModalTitle, setModa
                 () => {
                     setOpenModal(true); 
                     setModalTitle("Table Row");
-                    setModalContent("Table Row Content")
+                    setModalContent("Table Row Contenttttt")
                 }
             }
         >
