@@ -115,6 +115,7 @@ export default function CreateCompanyForm({setOpenModal}){
                         labelText="Profile Image"
                         fileInputName="companyProfileImage"
                         isRequired={false}
+                        acceptableFiles=".jpeg, .jpg, .png"
                     />
 
                 </FormRow>

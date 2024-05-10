@@ -24,7 +24,41 @@ export default function CreateAnnouncementForm({setOpenModal}){
                     horizontalPlacement={"items-center"}
                 >
                     
-asasas
+                    <FormTextInput 
+                        labelText="Headline"
+                        textInputName="announcementHeadline"
+                        placeholderText="Announcement Headline"
+                        isRequired={true}
+                    />
+
+                </FormRow>
+
+                <FormRow
+                    verticalPlacement={"justify-between"} 
+                    horizontalPlacement={"items-start"}
+                >
+
+                    <FormToggleButton
+                        labelText="Verified"
+                        toggleInputName="announcementVerification"
+                        isRequired={true}
+                        inactiveLabelText="No" 
+                        activeLabelText="Yes"
+                    />
+
+                </FormRow>
+
+                <FormRow 
+                    verticalPlacement={"justify-start"} 
+                    horizontalPlacement={"items-start"}
+                >
+                    
+                    <FormTextArea 
+                        labelText="Description"
+                        textAreaName="announcementDescription"
+                        placeholderText="Announcement Description"
+                        isRequired={true}
+                    />
 
                 </FormRow>
             

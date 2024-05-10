@@ -16,7 +16,7 @@ export default function FormTextInput({labelText, textInputName, placeholderText
                     name={textInputName} 
                     id={textInputName}
                     placeholder={placeholderText}
-                    className={`${styles.textInput}`}
+                    className={`${styles.textInput} font-montserrat`}
                     required
                 />
                 :
@@ -25,7 +25,7 @@ export default function FormTextInput({labelText, textInputName, placeholderText
                     name={textInputName} 
                     id={textInputName}
                     placeholder={placeholderText}
-                    className={`${styles.textInput}`}
+                    className={`${styles.textInput} font-montserrat`}
                 />
             }
             

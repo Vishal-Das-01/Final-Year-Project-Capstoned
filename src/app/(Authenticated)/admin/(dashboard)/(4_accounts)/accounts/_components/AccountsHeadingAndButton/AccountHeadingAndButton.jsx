@@ -2,6 +2,10 @@
 
 import styles from "./AccountHeadingAndButton.module.css";
 import TableTitleAndButton from "../../../../_components/TableTitleAndButton/TableTitleAndButton";
+import CreateAdminAccountForm from "../CreateAdminAccountForm/CreateAdminAccountForm";
+import CreateMentorAccountForm from "../CreateMentorAccountForm/CreateMentorAccountForm";
+import CreateStudentAccountForm from "../CreateStudentAccountForm/CreateStudentAccountForm";
+import CreateUserAccountForm from "../CreateUserAccountForm/CreateUserAccountForm";
 
 export default function AccountHeadingAndButton({setOpenModal, setModalTitle, setModalContent}){
 
@@ -18,7 +22,7 @@ export default function AccountHeadingAndButton({setOpenModal, setModalTitle, se
                 () => {
                     setOpenModal(true); 
                     setModalTitle("Create Account");
-                    setModalContent(<h1>Create Account Form</h1>);
+                    setModalContent(<CreateUserAccountForm setOpenModal={setOpenModal}/>);
                 }
             }
         />

@@ -16,7 +16,7 @@ export default function FormEmailInput({labelText, emailInputName, placeholderTe
                     name={emailInputName} 
                     id={emailInputName}
                     placeholder={placeholderText}
-                    className={`${styles.emailInput}`}
+                    className={`${styles.emailInput} font-montserrat`}
                     required
                 />
                 :
@@ -25,7 +25,7 @@ export default function FormEmailInput({labelText, emailInputName, placeholderTe
                     name={emailInputName} 
                     id={emailInputName}
                     placeholder={placeholderText}
-                    className={`${styles.emailInput}`}
+                    className={`${styles.emailInput} font-montserrat`}
                 />
             }
             

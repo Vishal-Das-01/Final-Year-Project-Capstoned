@@ -16,7 +16,7 @@ export default function FormTextArea({labelText, textAreaName, placeholderText, 
                     name={textAreaName} 
                     id={textAreaName}
                     placeholder={placeholderText}
-                    className={`${styles.textArea}`}
+                    className={`${styles.textArea} font-montserrat`}
                     required
                     rows={9}
                     cols={35}
@@ -27,7 +27,7 @@ export default function FormTextArea({labelText, textAreaName, placeholderText, 
                     name={textAreaName} 
                     id={textAreaName}
                     placeholder={placeholderText}
-                    className={`${styles.textArea}`}
+                    className={`${styles.textArea} font-montserrat`}
                     rows={9}
                     cols={35}
                 />

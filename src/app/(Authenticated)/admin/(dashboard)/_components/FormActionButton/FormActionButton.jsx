@@ -13,7 +13,7 @@ export default function FormActionButton({buttonText, buttonClickAction, formId,
         <div className={`${styles.formActionBtnPrimaryContainer} flex flex-row items-center justify-center `}>
             
             <button 
-                className={`${styles.formActionBtn} ${btnStyling()} text-white mr-2 `}
+                className={`${styles.formActionBtn} ${btnStyling()} text-white mr-2 font-montserrat`}
                 onClick={buttonClickAction}
                 form={formId}
             >
