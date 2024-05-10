@@ -1,6 +1,6 @@
 import styles from "./FormDropDownSelect.module.css";
 
-export default function FormDropDownSelect({labelText, dropDownSelectName, options, isRequired}){
+export default function FormDropDownSelect({labelText, dropDownSelectName, options, isRequired, placeholder}){
     return ( 
         <div className={`${styles.dropDownSelectContainer} `}>
                     
@@ -17,8 +17,13 @@ export default function FormDropDownSelect({labelText, dropDownSelectName, optio
                     id={dropDownSelectName}
                     className={`${styles.dropDownSelect} font-montserrat`}
                     required
+                    defaultValue=""
                 >
                     
+                    <option value="" disabled>
+                        {placeholder}
+                    </option>
+
                     {options.map((option) => {
                         return (<option value={option} key={option} className="font-montserrat">
                                     {option}
@@ -32,7 +37,12 @@ export default function FormDropDownSelect({labelText, dropDownSelectName, optio
                     name={dropDownSelectName} 
                     id={dropDownSelectName}
                     className={`${styles.dropDownSelect} font-montserrat`}
+                    defaultValue=""
                 >
+                    
+                    <option value="" disabled>
+                        {placeholder}
+                    </option>
 
                     {options.map((option) => {
                         return (<option value={option} key={option} className="font-montserrat">
