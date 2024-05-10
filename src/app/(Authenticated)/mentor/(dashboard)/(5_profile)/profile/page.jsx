@@ -18,6 +18,7 @@ export const metadata = {
 
 async function Profile() {
   const profile = await getProfile();
+  console.log(profile);
 
   return (
     <div
@@ -26,7 +27,14 @@ async function Profile() {
       <div
         className={`${styles.contentCardTitleContainer} p-3 overflow-auto flex flex-row w-full rounded-xl`}
       >
-        <ProfileHeadingCard />
+        <ProfileHeadingCard
+          bio={profile.mentor.bio}
+          company={profile.mentor.company}
+          industries={profile.mentor.industries}
+          roomNum={profile.mentor.roomNum}
+          officeHours={profile.mentor.officeHours}
+          occupation={profile.mentor.occupation}
+        />
       </div>
 
       <div className="flex flex-row w-full h-5/6 items-center justify-center space-x-10">
@@ -34,17 +42,26 @@ async function Profile() {
           className={`${styles.contentCardContainer} h-full w-1/3 rounded-xl`}
         >
           <ProfileCardOne
-            firstName={profile.firstName}
-            lastName={profile.lastName}
-            gender={profile.gender}
-            contact={profile.contact}
-            teacher={profile.isUniversityTeacher}
+            firstName={profile.mentor.firstName}
+            lastName={profile.mentor.lastName}
+            gender={profile.mentor.gender}
+            contact={profile.mentor.contact}
+            teacher={profile.mentor.isUniversityTeacher}
+            email={profile.email}
+            profileImage={profile.profileImage}
           />
         </div>
         <div
           className={`${styles.contentCardContainer} h-full w-2/3 rounded-xl`}
         >
-          <ProfileCardTwo />
+          <ProfileCardTwo
+            bio={profile.mentor.bio}
+            company={profile.mentor.company}
+            industries={profile.mentor.industries}
+            roomNum={profile.mentor.roomNum}
+            officeHours={profile.mentor.officeHours}
+            occupation={profile.mentor.occupation}
+          />
         </div>
       </div>
     </div>
@@ -52,7 +69,6 @@ async function Profile() {
 }
 
 export default Profile;
-
 
 async function getProfile() {
   const accessToken = cookies().get("accessToken")?.value;
@@ -65,17 +81,3 @@ async function getProfile() {
     redirect(FRONTEND_ROUTES.login_page);
   }
 }
-
-
-// const response = await fetch(BACKEND_ROUTES.getProfile, {
-//   method: 'GET',
-//   headers: {
-//     'Authorization': `Bearer ${accessToken.value}`,
-//   },
-// });
-// // const response = await api.get(BACKEND_ROUTES.getProfile, {
-// //   headers: {
-// //     Authorization: `Bearer ${accessToken.value}`,
-// //   },
-// // });
-// const responseData = await response.json();

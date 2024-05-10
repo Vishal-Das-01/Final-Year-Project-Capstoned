@@ -1,51 +1,130 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./ProfileUpdateModal.module.css";
-import { AiOutlinePlusCircle } from "react-icons/ai";
-import { FaTimes } from "react-icons/fa";
 import DropDown from "./_components/DropDown/DropDown";
 import TimeTable from "./_components/TimeTable/TimeTable";
+import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
+import { HttpStatusCode } from "axios";
+import { callAPI } from "@/utils/helpers/callAPI";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
+import DropDownIndustries from "./_components/DropDownIndustries/DropDownIndustries";
+import { FaTimes } from "react-icons/fa";
+import { set } from "mongoose";
+import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 
-function ProfileUpdateModal({ setOpenModal }) {
-  const [list, setList] = useState([
-    "Software Engineering",
-    "Security",
-    "Network Security",
-    "Cloud Security",
-    "Application Security",
-    "Machine Learning",
-    "Artificial Intelligence",
-    "Mobile App Development",
-    "Backend Engineering",
-  ]);
+function ProfileUpdateModal({
+  setOpenModal,
+  bio,
+  company,
+  industries,
+  oldRoomNum,
+  oldOfficeHours,
+  oldOccupation
+}) {
+  const authDetails = useSelector((state) => state.AuthDetails);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
-  const [companyList, setCompanyList] = useState([
-    "Google",
-    "Facebook",
-    "Amazon",
-    "Microsoft",
-    "Apple",
-    "Netflix",
-    "Tesla",
-    "SpaceX",
-    "Twitter",
-  ]);
+  const [description, setDescription] = useState(bio || "");
+  const [list, setList] = useState(industries);
+  const [roomNum, setRoomNum] = useState(oldRoomNum);
+  const [officeHours, setOfficeHours] = useState(oldOfficeHours);
+  const [selectedCompany, setSelectedCompany] = useState(company);
+  const [occupation, setOccupation] = useState(oldOccupation);
 
-  const tailwindColorClasses = [
-    "bg-red-100",
-    "bg-blue-100",
-    "bg-green-100",
-    "bg-yellow-100",
-    "bg-indigo-100",
-    "bg-purple-100",
-    "bg-pink-100",
-    "bg-gray-100",
-  ];
+  const [companyList, setCompanyList] = useState([]);
 
-  const generateRandomColor = () => {
-    const randomIndex = Math.floor(Math.random() * tailwindColorClasses.length);
-    return tailwindColorClasses[randomIndex];
+  const [loading,setLoading] = useState(false)
+
+  const handleAdd = (value) => {
+    if (value === "All Categories") return;
+    if (!list.includes(value)) {
+      setList([...list, value]);
+    }
   };
 
+  const handleDelete = (indexToRemove) => {
+    const updatedList = list.filter((_, index) => index !== indexToRemove);
+    setList(updatedList);
+  };
+
+  useEffect(() => {
+    async function fetchCompanies() {
+      const accessToken = authDetails.accessToken;
+      let allCompanies = [];
+      let currentPage = 1;
+
+      while (true) {
+        const response = await callAPI(
+          "GET",
+          accessToken,
+          `${BACKEND_ROUTES.getAllCompanies}?page=${currentPage}&limit=5`
+        );
+        if (response.status === HttpStatusCode.Unauthorized) {
+          const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+            method: "POST",
+          });
+          if (responseLogOut.status === HttpStatusCode.Ok) {
+            dispatch(removeAuthDetails());
+            router.replace(FRONTEND_ROUTES.landing_page);
+          }
+        }
+        if (response.status === HttpStatusCode.Ok) {
+          {
+            const { data } = await response.json();
+            const { companies, totalPages } = data;
+            console.log(companies);
+
+            allCompanies = [...allCompanies, ...companies];
+            currentPage++;
+            console.log(currentPage);
+
+            if (currentPage > totalPages) {
+              break;
+            }
+          }
+        }
+      }
+      setCompanyList(allCompanies);
+    }
+
+    fetchCompanies();
+  }, [authDetails.accessToken, dispatch, router]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const accessToken = authDetails.accessToken;
+    console.log(description, list, roomNum, officeHours, selectedCompany, occupation);
+
+    setLoading(true)
+    const response = await callAPI('PATCH', accessToken, BACKEND_ROUTES.updateProfileMentor, 
+    {
+      officeHours: officeHours,
+      industries: list,
+      roomNum: roomNum,
+      company: selectedCompany,
+      occupation: occupation,
+      bio: description
+    }) 
+    console.log(response)
+    if(response.status === HttpStatusCode.Ok){
+      setLoading(false)
+      setOpenModal(false)
+      router.refresh();
+    }
+    if(response.status === HttpStatusCode.Unauthorized){
+      const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+        method: "POST",
+      });
+      if (responseLogOut.status === HttpStatusCode.Ok) {
+        dispatch(removeAuthDetails());
+        router.replace(FRONTEND_ROUTES.landing_page);
+      }
+    }
+
+  };
   return (
     <div
       id="static-modal"
@@ -63,6 +142,7 @@ function ProfileUpdateModal({ setOpenModal }) {
               type="button"
               class="text-black bg-transparent hover:bg-red-500 hover:text-white rounded-lg text-sm w-6 h-6 ms-auto inline-flex justify-center items-center"
               data-modal-hide="static-modal"
+              disabled={loading}
               onClick={() => setOpenModal(false)}
             >
               <svg
@@ -90,57 +170,72 @@ function ProfileUpdateModal({ setOpenModal }) {
             <textarea
               id="bio"
               rows="2"
-              className=" mb-5 block p-2.5 w-full text-sm text-black bg-gray-50 rounded-lg border border-gray-300"
+              className="mb-1 block p-2.5 w-full text-sm text-black bg-gray-50 rounded-lg border border-gray-300"
               placeholder="Introduce yourself to everyone..."
-            >
-              This is some initial text inside the textarea.
-            </textarea>
+              value={description}
+              maxLength={200}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+            <p className="text-xs w-full flex flex-row justify-end mb-5">
+              {description.length}/200
+            </p>
 
             <h1 className="font-semibold">Industries Details</h1>
             <hr className={`${styles.line} mb-6`} />
 
-            <div className="flex flex-row mb-3 items-center justify-start">
-              <label htmlFor="dropdown" className="text-sm mr-5">
+            <div className="flex flex-row items-center justify-start mb-3">
+              <label htmlFor="dropdown" className="text-sm mr-5 text-black">
                 Interests:
               </label>
-              <div>
-                <DropDown list={list} placeHolder={"All categories"} />
-              </div>
-              <button
-                disabled
-                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full flex items-center"
-              >
-                <AiOutlinePlusCircle />
-              </button>
+              <DropDownIndustries
+                list={list}
+                handleAdd={handleAdd}
+                placeHolder={"All categories"}
+              />
             </div>
 
-            {list.map((item, index) => {
-              const randomColorClass = generateRandomColor();
-              return (
+            <div className="border-2 border-gray-300 rounded-lg p-2">
+              {list.map((item, index) => (
                 <button
                   key={index}
                   type="button"
-                  className={`${randomColorClass} inline-flex justify-center items-center text-sm rounded-xl p-2 mr-2 my-1 `}
+                  className="bg-blue-100 inline-flex justify-center items-center text-sm rounded-xl p-2 mr-2 my-1"
                 >
                   {item}
-                  <FaTimes className="ml-2 text-xs hover:text-red-500" />
+                  <FaTimes
+                    className="ml-2 text-xs hover:text-red-500"
+                    onClick={() => handleDelete(index)}
+                  />
                 </button>
-              );
-            })}
+              ))}
+            </div>
 
             <div className="flex flex-row mb-5 mt-5 items-center justify-start">
               <label htmlFor="dropdown" className="text-sm mr-5">
                 Company:
               </label>
               <div>
-                <DropDown list={companyList} placeHolder={"All companies"} />
+                <DropDown
+                  list={companyList.map((company) => ({
+                    label: company.name,
+                    value: company._id,
+                  }))}
+                  placeHolder={"Select Company"}
+                  setSelectedCompany={setSelectedCompany}
+                />
               </div>
-              <button
-                disabled
-                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full flex items-center"
-              >
-                <AiOutlinePlusCircle />
-              </button>
+            </div>
+
+            <div className="flex flex-row mb-5 items-center justify-start">
+              <label htmlFor="room" className="text-sm block mr-5">
+                Occupation:
+              </label>
+              <input
+                className="text-sm border-gray-300 rounded-md p-1.5 border-2 focus:ring-1"
+                onChange={(e) => setOccupation(e.target.value)}
+                value={occupation}
+                maxLength={30}
+              />
             </div>
 
             <h1 className="font-semibold ">Office Hours</h1>
@@ -150,10 +245,15 @@ function ProfileUpdateModal({ setOpenModal }) {
               <label htmlFor="room" className="text-sm block mr-5">
                 Room No:
               </label>
-              <input className="text-sm border-gray-300 rounded-md p-1.5 border-2 focus:ring-1"></input>
+              <input
+                className="text-sm border-gray-300 rounded-md p-1.5 border-2 focus:ring-1"
+                onChange={(e) => setRoomNum(e.target.value)}
+                value={roomNum}
+                maxLength={7}
+              />
             </div>
 
-            <TimeTable />
+            <TimeTable oldOfficeHours={oldOfficeHours} setOfficeHours={setOfficeHours}/>
           </form>
 
           <div class="flex items-center justify-end p-4 md:p-5 border-gray-200 rounded-b dark:border-gray-600">
@@ -161,7 +261,8 @@ function ProfileUpdateModal({ setOpenModal }) {
               data-modal-hide="static-modal"
               type="button"
               className="p-1 text-sm rounded-lg tracking-widest text-white bg-black border-2 border-black hover:text-gray-300"
-              onClick={() => setOpenModal(false)}
+              onClick={handleSubmit}
+              disabled={loading}
             >
               Save
             </button>
@@ -170,6 +271,7 @@ function ProfileUpdateModal({ setOpenModal }) {
               type="button"
               className="p-1 ms-3 rounded-lg text-sm tracking-widest text-black bg-white border-2 border-black hover:bg-gray-300 "
               onClick={() => setOpenModal(false)}
+              disabled={loading}
             >
               Cancel
             </button>

@@ -45,6 +45,7 @@ async function ProposalsTable() {
             {proposals.length !==0 &&  proposals.map((proposal) => (
               <ProposalRow
                 key={proposal._id}
+                proposalID={proposal._id}
                 title={proposal.title}
                 description={
                   proposal.description
@@ -55,6 +56,7 @@ async function ProposalsTable() {
                 active={proposal.available}
                 createdAt={proposal.createdAt}
                 updatedAt={proposal.updatedAt}
+                proposalDoc={proposal.proposalDoc}
               />
             ))}
           </tbody>

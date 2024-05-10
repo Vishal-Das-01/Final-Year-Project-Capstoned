@@ -9,8 +9,17 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
 import ProposalModal from "../../../ProposalModal/ProposalModal";
 import { convertDate } from "@/utils/helpers/date";
+import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
+import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { callAPI } from "@/utils/helpers/callAPI";
+import { HttpStatusCode } from "axios";
+import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
+import { deleteFile } from "@/utils/firebase/deleteFile";
+
 
 function ProposalRow({
+  proposalID,
   title,
   description,
   status,
@@ -19,9 +28,14 @@ function ProposalRow({
   active,
   createdAt,
   updatedAt,
+  proposalDoc,
 }) {
   const [expanded, setExpanded] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+
+  const router = useRouter();
+  const authDetails = useSelector((state) => state.AuthDetails);
+  const dispatch = useDispatch();
 
   const list = [
     "Software Engineering",
@@ -51,6 +65,32 @@ function ProposalRow({
     const randomIndex = Math.floor(Math.random() * tailwindColorClasses.length);
     return tailwindColorClasses[randomIndex];
   };
+
+  const handleDelete = async () => {
+
+    const accessToken = authDetails.accessToken;
+    const response = await callAPI(
+      "DELETE",
+      accessToken,
+      BACKEND_ROUTES.deleteProposalMentor,
+      { proposalID}
+    );
+    const responseData = await response.json();
+    console.log(response,responseData);
+    if (response.status === HttpStatusCode.Ok) {
+      await deleteFile(proposalDoc.file);
+      router.refresh();
+    }
+    if (response.status === HttpStatusCode.Unauthorized) {
+      const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+        method: "POST",
+      });
+      if (responseLogOut.status === HttpStatusCode.Ok) {
+        dispatch(removeAuthDetails());
+        router.replace(FRONTEND_ROUTES.landing_page);
+      }
+    }
+  }
 
   return (
     <>
@@ -106,16 +146,23 @@ function ProposalRow({
         </td>
         <td class="px-2 py-3 w-2/12">
           <div className="text-center justify-center items-center flex flex-row text-xl">
-            <FaDownload className="text-black hover:text-blue-600" />
+            <a
+              href={proposalDoc?.file}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-black hover:text-blue-600"
+            >
+              <FaDownload />
+            </a>
           </div>
         </td>
         <td class="px-2 py-3 w-1/12">
           <div className="flex flex-row space-x-3 w-full justify-end text-xl">
-            <MdEdit
+            {/* <MdEdit
               className="text-gray-400 hover:text-green-600"
               onClick={() => setOpenModal(true)}
-            />
-            <MdDelete className="text-gray-400 hover:text-red-600" />
+            /> */}
+            <MdDelete className="text-gray-400 hover:text-red-600" onClick={handleDelete}/>
           </div>
         </td>
       </tr>
