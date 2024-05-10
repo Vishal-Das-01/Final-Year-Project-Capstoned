@@ -21,6 +21,7 @@ export default function CreateAdminAccountForm({setOpenModal}){
                 <FormRow
                     verticalPlacement={"justify-between"} 
                     horizontalPlacement={"items-center"}
+                    rowHeight={""}
                 >
 
                     <FormTextInput 
@@ -42,6 +43,7 @@ export default function CreateAdminAccountForm({setOpenModal}){
                 <FormRow
                     verticalPlacement={"justify-start"} 
                     horizontalPlacement={"items-start"}
+                    rowHeight={""}
                 >
 
                     <FormDropDownSelect 
@@ -49,13 +51,15 @@ export default function CreateAdminAccountForm({setOpenModal}){
                         dropDownSelectName={`adminGender`}
                         options={["Male", "Female"]}
                         isRequired={true}
+                        placeholder={"Admin's Gender"}
                     />
 
                 </FormRow>
 
                 <FormRow
                     verticalPlacement={"justify-end"}
-                    horizontalPlacement={"items-center"}
+                    horizontalPlacement={"items-end"}
+                    rowHeight={"h-56"}
                 >
                     <FormActionButton 
                         buttonText={`Save`}

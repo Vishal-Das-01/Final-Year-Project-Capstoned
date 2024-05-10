@@ -3,7 +3,7 @@
 import styles from "./FormFileInput.module.css";
 import { useState } from "react";
 
-export default function FormFileInput({isRequired, labelText, fileInputName}){
+export default function FormFileInput({isRequired, labelText, fileInputName, acceptableFiles}){
     const [proposalDoc, setProposalDoc] = useState(null);
 
     return (
@@ -23,6 +23,7 @@ export default function FormFileInput({isRequired, labelText, fileInputName}){
                         }
                     }
                     required
+                    accept=".doc,.pdf"
                 />
                 :
                 <input
@@ -33,6 +34,7 @@ export default function FormFileInput({isRequired, labelText, fileInputName}){
                             setProposalDoc(e.target.files[0]);
                         }
                     }
+                    accept={acceptableFiles}
                 />
             }
 

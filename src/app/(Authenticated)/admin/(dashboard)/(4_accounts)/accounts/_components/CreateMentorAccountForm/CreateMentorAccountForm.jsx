@@ -54,6 +54,7 @@ export default function CreateMentorAccountForm({setOpenModal}){
                         dropDownSelectName="mentorGender"
                         options={["Male", "Female"]}
                         isRequired={true}
+                        placeholder={"Mentor's Gender"}
                     />
                     
                     <FormTextInput 
@@ -74,7 +75,7 @@ export default function CreateMentorAccountForm({setOpenModal}){
                         inactiveLabelText="No"
                         activeLabelText="Yes"
                         isRequired={true}
-                        labelText="Is University Teacher"
+                        labelText="Is University Teacher?"
                         toggleInputName={"isMentorUniversityTeacher"}
                     />
 
@@ -82,7 +83,7 @@ export default function CreateMentorAccountForm({setOpenModal}){
                         inactiveLabelText="No"
                         activeLabelText="Yes"
                         isRequired={true}
-                        labelText="Can Mentor Supervise"
+                        labelText="Can Mentor Supervise?"
                         toggleInputName={"canMentorSupervise"}
                     />
 
