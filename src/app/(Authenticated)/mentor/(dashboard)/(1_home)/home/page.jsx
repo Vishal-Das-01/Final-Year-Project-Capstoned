@@ -3,17 +3,19 @@ import WelcomeContent from "./_components/WelcomeContent/WelcomeContent.jsx";
 import MilestonesContent from "./_components/MilestonesContent/MilestonesContent.jsx";
 import MeetingsContent from "./_components/MeetingsContent/MeetingsContent.jsx";
 import FYPGroupsContent from "./_components/FYPGroupsContent/FYPGroupsContent.jsx";
-import MessagesContent from "./_components/ProposalsContent/ProposalsContent.jsx";
 import CalendarContent from "./_components/CalendarContent/CalendarContent.jsx";
 
 import styles from "./MentorHomePage.module.css";
+import ProposalsContent from "./_components/ProposalsContent/ProposalsContent.jsx";
+
 
 export const metadata = {
 	title: "Mentor Home",
 	description: "Capstoned Mentor Home | Final Year Project (FYP) Management Platform for College & University Students.",
 }
 
-export default function MentorDashboardHomePage(props){
+export default function MentorDashboardHomePage(){
+
 	return (
 		<div className={`${styles.pageContainer} w-full h-full flex flex-row items-center justify-center `}>
 			
@@ -65,7 +67,7 @@ export default function MentorDashboardHomePage(props){
 
 					<ContentCard>
 
-						<MessagesContent />
+						<ProposalsContent/>
 
 					</ContentCard>
 
@@ -82,3 +84,4 @@ export default function MentorDashboardHomePage(props){
 		</div>
 	);
 }
+

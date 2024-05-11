@@ -26,9 +26,9 @@ export default function ProposalListTile({sNo, text, selected}){
 
                 <div className={`${styles.selected} flex flex-row items-center justify-center`}>
 
-                    <p className={`font-montserrat`}>
+                    <div className={`font-montserrat`}>
                         {selected ? <div className={`${styles.status} bg-green-200`}> SELECTED </div> :<div className={`${styles.status} bg-red-200`}> UNSELECTED </div> }
-                    </p>
+                    </div>
 
                 </div>
 

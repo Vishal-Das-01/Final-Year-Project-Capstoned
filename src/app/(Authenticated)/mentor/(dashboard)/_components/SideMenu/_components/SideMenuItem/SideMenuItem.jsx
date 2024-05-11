@@ -8,7 +8,6 @@ import { CgProfile } from "react-icons/cg";
 import { GoProject } from "react-icons/go";
 import { FaRegFileAlt } from "react-icons/fa";
 import { FaRocketchat } from "react-icons/fa";
-import { IoIosLogOut } from "react-icons/io";
 import styles from "./SideMenuItem.module.css";
 
 
@@ -16,8 +15,6 @@ export default function SideMenuItem({href, children}){
 	const route = usePathname();
 
 	// Gets Page Name in the URL.
-	// /admin/home -> Will Return home
-	// /admin/meetings -> Will Return meetings
 	function getPageName(route){
 		let firstSlash = route.indexOf("/");
 		let secondSlash = route.substring(firstSlash + 1).indexOf("/");
@@ -30,15 +27,15 @@ export default function SideMenuItem({href, children}){
 	// Corrects -> 'Milestones' to 'milestones'
 	// Corrects -> 'FYP Groups' to 'fyp-groups'
 	// Corrects ->'Meetings' to 'meetings'
-	function correctMenuItemTextForComparison(children){
+	function correctMenuItemTextForComparison(children) {
 		if(children.toString() === "Dashboard"){
 			return "home";
 		}
-		else if(children.toString() === "FYP Projects"){
-			return "fyp-projects";
+		else if(children.toString() === "Final Year Projects"){
+			return "final-year-projects";
 		}
-		else if(children.toString() === "FYP Groups"){
-			return "fyp-groups";
+		else if(children.toString() === "Groups"){
+			return "groups";
 		}
 		else if(children.toString() === "My Proposals"){
 			return "my-proposals";
@@ -55,7 +52,7 @@ export default function SideMenuItem({href, children}){
 	// with corrected text of side menu list item
 	// returns true when equal, false otherwise
 	function compareCorrectSideMenuItemTextToPageName(route, children){
-		return getPageName(route) === correctMenuItemTextForComparison(children);
+		return getPageName(route).startsWith(correctMenuItemTextForComparison(children));
 	}
 
 
@@ -94,10 +91,10 @@ export default function SideMenuItem({href, children}){
 		if(children.toString() === "Dashboard"){
 			return (<MdSpaceDashboard color={color}/>);
 		}
-		else if(children.toString() === "FYP Projects"){
+		else if(children.toString() === "Final Year Projects"){
 			return (<GoProject color={color}/>);
 		}
-		else if(children.toString() === "FYP Groups"){
+		else if(children.toString() === "Groups"){
 			return (<HiMiniUserGroup color={color}/>);
 		}
 		else if(children.toString() === "My Proposals"){
@@ -109,14 +106,11 @@ export default function SideMenuItem({href, children}){
 		else if(children.toString() === "Chats"){
 			return (<FaRocketchat color={color}/>);
 		}
-		else if(children.toString() === "Logout"){
-			return (<IoIosLogOut color={color}/>);
-		}
 
 	}
 
 	return (
-		<div href={href} className={`${styles.sideMenuItemContainer} w-full flex flex-row items-center justify-center`}>
+		<div className={`${styles.sideMenuItemContainer} w-full flex flex-row items-center justify-center`}>
 
 			<Link href={href} className={`${styles.sideMenuItemLink} h-full flex flex-row items-center justify-center rounded-lg relative `}>
 

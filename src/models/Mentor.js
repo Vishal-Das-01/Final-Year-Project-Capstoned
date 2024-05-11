@@ -25,7 +25,6 @@ const mentorSchema = new Schema({
     },
     occupation: {
         type: String,
-        required: true
     },
     company: {
         type: Schema.Types.ObjectId,
@@ -45,20 +44,20 @@ const mentorSchema = new Schema({
     },
     roomNum: {
         type: String,
+        default: null
     },
     officeHours: {
         type: [{
             start: {
-                type: Date,
-                required: true
+                type: String,
             },
             end: {
-                type: Date,
-                required: true
+                type: String,
             },
             day: {
                 type: String,
-                enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+                enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                required: true
             }
         }],
         validator: function (value) {

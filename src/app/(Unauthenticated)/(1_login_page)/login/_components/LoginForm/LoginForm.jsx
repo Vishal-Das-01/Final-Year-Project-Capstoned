@@ -3,8 +3,10 @@ import { useState } from "react";
 import ForgetPasswordLink from "../ForgetPasswordLink/ForgetPasswordLink";
 import LoginInput from "../LoginInput/LoginInput";
 import LoginSubmitBtn from "../LoginSubmitBtn/LoginSubmitBtn";
-import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
-import { api } from "@/utils/helpers/axios";
+import {
+  FRONTEND_ROUTES,
+  FRONTEND_ROUTES_MENTOR,
+} from "@/utils/routes/frontend_routes";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import LoginLoadingBtn from "../LoginLoadingBtn/LoginLoadingBtn";
 import { useDispatch } from "react-redux";
@@ -13,10 +15,9 @@ import { jwtDecode } from "jwt-decode";
 import styles from "./LoginForm.module.css";
 import { useRouter } from "next/navigation";
 
-
 export default function LoginForm() {
   const dispatch = useDispatch();
-    const router = useRouter();
+  const router = useRouter();
 
   const [isPending, setIsPending] = useState(false);
   const [email, setEmail] = useState("");
@@ -31,33 +32,43 @@ export default function LoginForm() {
         return;
       }
       setIsPending(true);
-      const response = await api.post(BACKEND_ROUTES.login, {
-        email: email,
-        password: password,
-      });
-      console.log(response);
+      const response = await fetch(BACKEND_ROUTES.login, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      })
+      const responseData = await response.json();
+      console.log(responseData);
       if (response.status === 200) {
-        const { role, email, profileID } = jwtDecode(response.data.accessToken);
+        const { role, email, profileID } = jwtDecode(responseData.accessToken);
         dispatch(
           setAuthDetails({
-            accessToken: response.data.accessToken,
             role: role,
             email: email,
             profileID: profileID,
+            accessToken: responseData.accessToken,
+            profileImage: responseData.profileImage,
           })
         );
         if (role === "Admin") {
-            router.replace(FRONTEND_ROUTES.admin_dashboard_home_page,);
+          router.replace(FRONTEND_ROUTES.admin_dashboard_home_page);
         } else if (role === "Mentor") {
-            router.replace(FRONTEND_ROUTES.mentor_dashboard_home_page);
+          router.replace(FRONTEND_ROUTES_MENTOR.mentor_dashboard_home_page);
         } else {
-            router.replace(FRONTEND_ROUTES.student_dashboard_home_page);
+          router.replace(FRONTEND_ROUTES.student_dashboard_home_page);
         }
       }
+      else{
+        setErrorMsg(responseData.message);
+        setIsPending(false);
+      }
     } catch (error) {
-        console.log(error)
-      setErrorMsg(error.response.data.message);
-      setIsPending(false);
+      alert(error);
     }
   };
 
@@ -89,9 +100,7 @@ export default function LoginForm() {
       <div
         className={`${styles.errorMsgContainer} w-full flex items-center justify-center h-8`}
       >
-        <p
-          className={`font-montserrat font-base text-red-600 text-lg`}
-        >
+        <p className={`font-montserrat font-base text-red-600 text-lg`}>
           {errorMsg}
         </p>
       </div>

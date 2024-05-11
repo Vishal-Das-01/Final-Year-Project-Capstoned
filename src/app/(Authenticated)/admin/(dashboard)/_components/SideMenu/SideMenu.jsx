@@ -3,8 +3,13 @@ import { MdSpaceDashboard } from "react-icons/md";
 import { GiStoneSphere } from "react-icons/gi";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { FaStaylinked } from "react-icons/fa6";
+import { FaRocketchat } from "react-icons/fa";
+import { AiFillProject } from "react-icons/ai";
+import { IoLogoAppleAr } from "react-icons/io5";
+import { BiAdjust } from "react-icons/bi";
 import styles from "./SideMenu.module.css";
 import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes.js";
+import Logout from "./_components/Logout/Logout.jsx";
 
 export default function SideMenu(props){
 	return (
@@ -24,9 +29,29 @@ export default function SideMenu(props){
 					FYP Groups
 				</SideMenuItem>
 
-				<SideMenuItem href={FRONTEND_ROUTES.admin_dashboard_meetings_page} icon={<FaStaylinked/>}>
-					Meetings
+				<SideMenuItem href={FRONTEND_ROUTES.admin_dashboard_accounts_page} icon={<FaStaylinked/>}>
+					Accounts
 				</SideMenuItem>
+
+				<SideMenuItem href={FRONTEND_ROUTES.admin_dashboard_chat_page} icon={<FaRocketchat/>}>
+					Chat
+				</SideMenuItem>
+
+				<SideMenuItem href={FRONTEND_ROUTES.admin_dashboard_projects_page} icon={<AiFillProject/>}>
+					Projects
+				</SideMenuItem>
+
+				<SideMenuItem href={FRONTEND_ROUTES.admin_dashboard_companies_page} icon={<IoLogoAppleAr/>}>
+					Companies
+				</SideMenuItem>
+
+				<SideMenuItem href={FRONTEND_ROUTES.admin_dashboard_announcements_page} icon={<BiAdjust/>}>
+					Announcements
+				</SideMenuItem>
+
+				<div className="flex flex-col flex-1"></div>
+
+				<Logout/>
 
 			</div>
 			

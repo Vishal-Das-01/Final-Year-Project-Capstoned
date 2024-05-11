@@ -1,0 +1,60 @@
+.modalPrimaryContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalContentPrimaryContainer {
+    background-color: #fff;
+    padding: 20px;
+    width: 720px;
+    height: 640px;
+}
+
+.modalHeaderContainer{
+    height: 35px;
+    margin-bottom: 5px;
+}
+
+.modalHeading{
+    font-size: 21px;
+}
+
+.modalSecondaryContentContainer{
+    height: 95%;
+}
+
+.modalSecondaryContentContainer::-webkit-scrollbar {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width: 4px;
+    border-radius: 10px;
+}
+
+.modalSecondaryContentContainer::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgb(59 130 246);
+    border-radius: 10px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.modalSecondaryContentContainer::-webkit-scrollbar-thumb {
+    background-color: rgb(59 130 246);
+    outline: 1px solid slategrey;
+    border-radius: 10px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.modalBackdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

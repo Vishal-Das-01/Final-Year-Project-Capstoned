@@ -1,7 +1,8 @@
 import { Dropdown } from "flowbite-react";
-import React from "react";
+import React, { useState } from "react";
 
-function DropDown({ placeHolder, list }) {
+function DropDown({ placeHolder, list, setSelectedCompany }) {
+  const [value,setValue] = useState(placeHolder);
   return (
     <Dropdown
       renderTrigger={() => (
@@ -11,7 +12,7 @@ function DropDown({ placeHolder, list }) {
           class="flex-shrink-0 z-10 inline-flex border-2 mr-5 items-center py-1.5 px-4 text-sm text-center text-black bg-white border-gray-300 rounded-md hover:bg-gray-200 focus:ring-1 focus:outline-none focus:ring-black"
           type="button"
         >
-          {placeHolder}
+          {value}
           <svg
             class="w-2.5 h-2.5 ms-2.5"
             aria-hidden="true"
@@ -33,7 +34,10 @@ function DropDown({ placeHolder, list }) {
       dismissOnClick={true}
     >
       {list.map((item, index) => (
-        <Dropdown.Item key={index}>{item}</Dropdown.Item>
+        <Dropdown.Item key={index} onClick={() => {
+          setValue(item.label);
+          setSelectedCompany(item.value);
+        }}>{item.label}</Dropdown.Item>
       ))}
     </Dropdown>
   );

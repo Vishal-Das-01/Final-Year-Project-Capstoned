@@ -4,10 +4,12 @@
 
 .navbarContainer{
 	margin-bottom: 7.5px;
+	height: 10%;
 }
 
 .sideMenuAndContentContainer{
 	background-color: white;
+	height: 90%;
 }
 
 .sideMenuContainer{

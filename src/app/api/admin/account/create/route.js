@@ -4,7 +4,6 @@ import { connectToDB } from "@/utils/helpers/connectDB";
 import User from "@/models/User";
 import isEmail from "validator/lib/isEmail";
 import crypto from "crypto";
-import nodemailer from "nodemailer";
 import { transporter } from "@/utils/constants/emailConstant";
 import { Role } from "@/utils/constants/enums";
 import bcrypt from "bcrypt";
@@ -63,9 +62,7 @@ export async function POST(request) {
             from: process.env.EMAIL_USER,
             to: data.email,
             subject: 'Account Created',
-            text: `Welcome to Capstoned! \n
-            Your account has been created. Your password is ${generatedPassword} \n
-            You can change your password on first login. \n`
+            text: `Welcome to Capstoned ${data.details.firstName}! \n \nYour account has been created. Your password is ${generatedPassword} \nYou can change your password on first login. \n`
         };
         transporter.sendMail(createAccountOptions, (error, info) => {
             if (error) {
