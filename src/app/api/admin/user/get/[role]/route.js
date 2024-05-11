@@ -22,7 +22,7 @@ export const GET = async (request, { params }) => {
         if (params.role === "supervisors") {
             users = await User.find(query).populate({
                 path: 'profileID',
-                select: 'canSupervise',
+                select: 'canSupervise firstName lastName gender',
                 match: { canSupervise: true }
             }).select('-password').skip(skip).limit(limit);
 
@@ -35,7 +35,10 @@ export const GET = async (request, { params }) => {
             });
             totalUsers = allSupervisors.filter(user => user.profileID && user.profileID.canSupervise).length;
         } else {
-            users = await User.find(query).select('-password').skip(skip).limit(limit);
+            users = await User.find(query).select('-password').populate({
+                path: 'profileID',
+                select: 'firstName lastName gender'
+            }).skip(skip).limit(limit);
             totalUsers = await User.countDocuments(query);
         }
 
@@ -43,6 +46,7 @@ export const GET = async (request, { params }) => {
 
         return NextResponse.json({message: "Success.", data: {page, totalUsers, totalPages, users}}, {status: HttpStatusCode.Ok});
     } catch (error) {
+        console.log(error)
         return NextResponse.json({message: "Failed to retrieve users."}, {status: HttpStatusCode.InternalServerError});
     }
 }
