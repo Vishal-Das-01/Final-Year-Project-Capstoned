@@ -22,7 +22,7 @@ export default function SideMenu(props){
 				</SideMenuItem>
 
 				<SideMenuItem href={FRONTEND_ROUTES.student_dashboard_my_proposals_page}>
-					My Proposals
+					Proposals
 				</SideMenuItem>
 
 				<SideMenuItem href={FRONTEND_ROUTES.student_dashboard_profile_page}>

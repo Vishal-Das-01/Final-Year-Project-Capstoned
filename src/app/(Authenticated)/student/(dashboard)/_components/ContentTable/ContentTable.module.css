@@ -1,0 +1,30 @@
+.tablePrimaryContainer{
+    width: 95%;
+    height: 500px;
+    border-radius: 10px;
+    box-shadow:  7px 7px 23px #c1c1c1,
+             -7px -7px 23px #ffffff;
+}
+
+
+.tablePrimaryContainer::-webkit-scrollbar {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width:6px;
+    border-radius: 10px;
+}
+
+.tablePrimaryContainer::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgb(59 130 246);
+    border-radius: 10px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.tablePrimaryContainer::-webkit-scrollbar-thumb {
+    background-color: rgb(59 130 246);
+    outline: 1px solid slategrey;
+    border-radius: 10px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}

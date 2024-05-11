@@ -1,0 +1,17 @@
+.mainContainer{
+
+}
+
+.secondaryContainer{
+    width: 100%;
+}
+
+.left{
+    width: 25%;
+    height: 97%;;    
+}
+
+.right{
+    width: 71%;
+    height: 97%;
+}

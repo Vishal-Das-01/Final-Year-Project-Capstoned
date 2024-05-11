@@ -85,16 +85,6 @@ function ProfileUpdateModal({ setOpenModal }) {
           </div>
 
           <form className={`${styles.form} py-5 px-10  overflow-auto`}>
-            <h1 className="font-semibold">Introduce yourself</h1>
-            <hr className={`${styles.line} mb-6`} />
-            <textarea
-              id="bio"
-              rows="2"
-              className=" mb-5 block p-2.5 w-full text-sm text-black bg-gray-50 rounded-lg border border-gray-300"
-              placeholder="Introduce yourself to everyone..."
-            >
-              This is some initial text inside the textarea.
-            </textarea>
 
             <h1 className="font-semibold">Industries Details</h1>
             <hr className={`${styles.line} mb-6`} />
@@ -128,32 +118,7 @@ function ProfileUpdateModal({ setOpenModal }) {
               );
             })}
 
-            <div className="flex flex-row mb-5 mt-5 items-center justify-start">
-              <label htmlFor="dropdown" className="text-sm mr-5">
-                Company:
-              </label>
-              <div>
-                <DropDown list={companyList} placeHolder={"All companies"} />
-              </div>
-              <button
-                disabled
-                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full flex items-center"
-              >
-                <AiOutlinePlusCircle />
-              </button>
-            </div>
-
-            <h1 className="font-semibold ">Office Hours</h1>
-            <hr className={`${styles.line} mb-6`} />
-
-            <div className="flex flex-row mb-5 items-center justify-start">
-              <label htmlFor="room" className="text-sm block mr-5">
-                Room No:
-              </label>
-              <input className="text-sm border-gray-300 rounded-md p-1.5 border-2 focus:ring-1"></input>
-            </div>
-
-            <TimeTable />
+            
           </form>
 
           <div class="flex items-center justify-end p-4 md:p-5 border-gray-200 rounded-b dark:border-gray-600">
