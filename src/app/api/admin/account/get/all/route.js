@@ -20,7 +20,7 @@ export const GET = async (request) => {
         const totalUsers = await User.countDocuments();
         const totalPages = Math.ceil(totalUsers/limit);
 
-        return NextResponse.json({message: "Success.", data: {page, totalUsers, totalPages, groups}}, {status: HttpStatusCode.Ok});
+        return NextResponse.json({message: "Success.", data: {page, totalUsers, totalPages, users}}, {status: HttpStatusCode.Ok});
     } catch (error) {
         return NextResponse.json({message: "Failed to retrieve users."}, {status: HttpStatusCode.InternalServerError});
     }
