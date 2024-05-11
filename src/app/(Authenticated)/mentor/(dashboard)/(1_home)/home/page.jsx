@@ -10,7 +10,7 @@ import ProposalsContent from "./_components/ProposalsContent/ProposalsContent.js
 
 
 export const metadata = {
-	title: "Home",
+	title: "Mentor Home",
 	description: "Capstoned Mentor Home | Final Year Project (FYP) Management Platform for College & University Students.",
 }
 

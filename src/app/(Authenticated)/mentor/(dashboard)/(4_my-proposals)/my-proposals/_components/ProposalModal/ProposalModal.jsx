@@ -56,10 +56,16 @@ function ProposalModal({
       title === "" ||
       description === "" ||
       list.length === 0 ||
-      !proposalDoc
+      !proposalDoc ||
+      proposalDoc.size > 5000000
     ) {
-      setError(true);
-      setMsg("Please, enter all details.");
+      if (proposalDoc.size > 5000000) {
+        setMsg("File size should be less than 5MB.");
+        setError(true);
+      } else {
+        setError(true);
+        setMsg("Please, enter all details.");
+      }
       return;
     } else {
       setLoading(true);
@@ -205,12 +211,14 @@ function ProposalModal({
             </p>
 
             <label htmlFor="document" className="text-sm block mb-3 text-black">
-              Proposal Document: (File should be PDF format only and less than 5MB)
+              Proposal Document: (File should be PDF format only and less than
+              5MB)
             </label>
             <input
               class="mb-8 block w-1/2 text-xs text-black border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none"
               id="document"
               type="file"
+              accept=".pdf"
               onChange={(e) => {
                 setProposalDoc(e.target.files[0]);
               }}
