@@ -25,7 +25,6 @@ const mentorSchema = new Schema({
     },
     occupation: {
         type: String,
-        required: true
     },
     company: {
         type: Schema.Types.ObjectId,
@@ -64,10 +63,6 @@ const mentorSchema = new Schema({
         validator: function (value) {
             return value.length < 8;
         },
-    },
-    company: {
-        type: Schema.Types.ObjectId,
-        ref: 'Company'
     },
     groups: [{
             group: {
