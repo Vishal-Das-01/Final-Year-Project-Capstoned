@@ -4,6 +4,9 @@ import { connectToDB } from "@/utils/helpers/connectDB";
 import User from "@/models/User";
 import { paginationParams } from "@/utils/helpers/paginationParams";
 import { Role } from "@/utils/constants/enums";
+import Student from "@/models/Student";
+import Mentor from "@/models/Mentor";
+import Admin from "@/models/Admin";
 
 export const GET = async (request, { params }) => {
     await connectToDB();
@@ -35,7 +38,7 @@ export const GET = async (request, { params }) => {
             });
             totalUsers = allSupervisors.filter(user => user.profileID && user.profileID.canSupervise).length;
         } else {
-            users = await User.find(query).select('-password').skip(skip).limit(limit);
+            users = await User.find(query).select('-password').skip(skip).limit(limit).populate('profileID', 'firstName lastName');
             totalUsers = await User.countDocuments(query);
         }
 
@@ -43,6 +46,7 @@ export const GET = async (request, { params }) => {
 
         return NextResponse.json({message: "Success.", data: {page, totalUsers, totalPages, users}}, {status: HttpStatusCode.Ok});
     } catch (error) {
+        console.error(error);
         return NextResponse.json({message: "Failed to retrieve users."}, {status: HttpStatusCode.InternalServerError});
     }
 }
