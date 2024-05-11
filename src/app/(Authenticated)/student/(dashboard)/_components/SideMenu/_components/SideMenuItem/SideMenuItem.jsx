@@ -23,6 +23,8 @@ export default function SideMenuItem({href, children}){
 		let firstSlash = route.indexOf("/");
 		let secondSlash = route.substring(firstSlash + 1).indexOf("/");
 		let pageName = route.substring(firstSlash + 1).substring(secondSlash + 1);
+		if (pageName === "other-proposals") return "my-proposals";
+	
 		return pageName;
 	}
 
@@ -44,7 +46,7 @@ export default function SideMenuItem({href, children}){
 		else if(children.toString() === "My Group"){
 			return "my-group";
 		}
-		else if(children.toString() === "My Proposals"){
+		else if(children.toString() === "Proposals"){
 			return "my-proposals";
 		}
 		else if(children.toString() === "Profile"){
@@ -52,6 +54,12 @@ export default function SideMenuItem({href, children}){
 		}
 		else if(children.toString() === "Chats"){
 			return "chats";
+		}
+		else if(children.toString() === "Companies"){
+			return "companies";
+		}
+		else if(children.toString() === "Mentors"){
+			return "mentors";
 		}
 	}
 
@@ -104,7 +112,7 @@ export default function SideMenuItem({href, children}){
 		else if(children.toString() === "My Group"){
 			return (<HiMiniUserGroup color={color}/>);
 		}
-		else if(children.toString() === "My Proposals"){
+		else if(children.toString() === "Proposals"){
 			return (<FaRegFileAlt color={color}/>);
 		}
 		else if(children.toString() === "Profile"){

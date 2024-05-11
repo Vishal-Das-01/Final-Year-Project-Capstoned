@@ -26,6 +26,14 @@ function ProfileCardOne() {
 
       <div className="flex flex-col w-full justify-start items-center p-5 space-y-1">
         <p className="font-montserrat font-semibold text-lg">Taha Mirza</p>
+        <p className="font-montserrat font-semibold text-base">BSCS</p>
+        {/* //Add link for resume */}
+        <a
+          href="https://firebasestorage.googleapis.com/v0/b/capstoned-5463f.appspot.com/o/resume%2F65df4b533c513b8b0d83b69d.pdf?alt=media&token=1d8b3e2d-6d6a-4e3d-9c5a-3b0b1f5b3b5b"
+          className="font-montserrat font-semibold text-sm text-blue-500" target="_blank" rel="noreferrer" > 
+          Resume 
+        </a>
+        <p className="font-montserrat font-normal text-sm text-neutral-500">ERP: 23010</p>
         <p className="font-montserrat font-normal text-sm text-neutral-500">
           t.mirza.22808@khi.iba.edu.pk
         </p>
@@ -33,7 +41,7 @@ function ProfileCardOne() {
             Gender: Male
         </p>
         <p className="font-montserrat font-normal text-sm text-neutral-500">
-            Role: Teacher
+            Role: Student
         </p>
         <p className="font-montserrat font-normal text-sm text-neutral-500">
             Contact: 03123456789

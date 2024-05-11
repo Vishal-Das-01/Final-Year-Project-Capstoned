@@ -8,6 +8,7 @@ import FormNumberInput from "../../../../_components/FormNumberInput/FormNumberI
 import FormDropDownSelect from "../../../../_components/FormDropDownSelect/FormDropDownSelect";
 import FormFileInput from "../../../../_components/FormFileInput/FormFileInput";
 import { Industry } from "@/utils/constants/enums";
+import FormEmailInput from "../../../../_components/FormEmailInput/FormEmailInput";
 
 export default function CreateStudentAccountForm({setOpenModal}){
     let formId = `createStudentAccountForm`;
@@ -111,34 +112,11 @@ export default function CreateStudentAccountForm({setOpenModal}){
                     horizontalPlacement={"items-center"}
                 >
 
-                    <FormDropDownSelect 
-                        labelText="Industry of Interest"
-                        dropDownSelectName="industryStudentInterestedIn" 
-                        options={Object.values(Industry)}
-                        isRequired={false}
-                        placeholder="Student's Industry of Interest"
-                    />
-
-                    <FormDropDownSelect 
-                        labelText="Group"
-                        dropDownSelectName="studentGroup" 
-                        options={["Group 1", "Group 2"]}
-                        isRequired={false}
-                        placeholder="Student's Group"
-                    />
-
-                </FormRow>
-
-                <FormRow
-                    verticalPlacement={"justify-between"}
-                    horizontalPlacement={"items-center"}
-                >
-
-                    <FormFileInput 
-                        isRequired={false} 
-                        labelText="Student's Resume"
-                        fileInputName="studentResume"
-                        acceptableFiles=".doc, .pdf"
+                    <FormEmailInput 
+                        labelText="Email" 
+                        emailInputName="studentEmailID" 
+                        placeholderText="Student's Email ID" 
+                        isRequired={true}
                     />
 
                 </FormRow>

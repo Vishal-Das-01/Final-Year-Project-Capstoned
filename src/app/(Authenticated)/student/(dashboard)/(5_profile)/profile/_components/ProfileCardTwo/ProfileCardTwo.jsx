@@ -43,22 +43,17 @@ function ProfileCardTwo() {
   return (
     <div className="flex flex-col ml-5 mr-14 my-5 items-center justify-start font-montserrat text-black">
       <form className="w-full">
-        <label htmlFor="bio" class="block font-semibold mb-2 text-sm">
-          Bio :
-        </label>
-        <textarea
-          disabled
-          id="bio"
-          rows="2"
-          className=" mb-5 block p-2.5 w-full text-sm text-black bg-gray-50 rounded-lg border border-gray-300"
-          placeholder="Introduce yourself to everyone..."
-        >
-          This is some initial text inside the textarea.
-        </textarea>
-
         <div className="flex flex-row items-center mb-5 text-sm justify-start">
-          <h1 className="block font-semibold">Company :</h1>
-          <p className="block ml-2 font-normal">Google</p>
+          <h1 className="block font-semibold">Group :</h1>
+          <p className="block ml-2 font-normal">Group Name</p>
+        </div>
+        <div className="flex flex-row items-center mb-5 text-sm justify-start">
+          <h1 className="block font-semibold">Semester :</h1>
+          <p className="block ml-2 font-normal">8</p>
+        </div>
+        <div className="flex flex-row items-center mb-5 text-sm justify-start">
+          <h1 className="block font-semibold">GPA :</h1>
+          <p className="block ml-2 font-normal">4.0</p>
         </div>
 
         <h1 className="block font-semibold text-sm mb-2">
@@ -78,34 +73,8 @@ function ProfileCardTwo() {
           );
         })}
 
-       <div className="flex flex-row items-center mb-5 mt-4 text-sm justify-start">
-          <h1 className="block font-semibold">Room :</h1>
-          <p className="block ml-2 font-normal">MTC-13</p>
-        </div>
-
-        <h1 className="block font-semibold mt-5 mb-2 text-sm">
-          Office Hours :
-        </h1>
-        <div className="grid grid-cols-7 max-w-3xl text-center rounded-xl overflow-hidden">
-          {officeHours.map((item, index) => (
-            <div
-              key={index}
-              className="flex flex-col w-full items-center justify-start"
-            >
-              <div className="text-sm bg-red-500 w-full font-semibold text-center text-white">
-                {item.day}
-              </div>
-              {item.start && item.end ? (
-                <div>
-                  <p className="text-xs py-2">Start: {item.start}</p>
-                  <p className="text-xs ">End: {item.end}</p>
-                </div>
-              ) : (
-                <p className="text-xs py-2">Closed</p>
-              )}
-            </div>
-          ))}
-        </div>
+       
+        
       </form>
     </div>
   );
