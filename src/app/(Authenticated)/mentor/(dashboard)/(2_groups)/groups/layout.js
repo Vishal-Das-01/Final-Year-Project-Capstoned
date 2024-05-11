@@ -1,8 +1,8 @@
 import React from 'react'
-import styles from './ProjectPage.module.css'
-import TabButtons from './_components/TabButtons/TabButtons'
+import styles from './MyGroups.module.css'
+import TabButtons from './_components/TabButtons'
 
-function ProjectPageLayout({ children }) {
+function GroupPageLayout({ children }) {
 
   return (
     <div
@@ -12,7 +12,7 @@ function ProjectPageLayout({ children }) {
         <h1
           className={`${styles.contentHeading} font-semibold text-black`}
         >
-          Final Year Projects
+          Groups
         </h1>
         <div
           className={`${styles.contentHeadingLine} ml-2 bg-blue-500 rounded-full`}
@@ -29,4 +29,4 @@ function ProjectPageLayout({ children }) {
   )
 }
 
-export default ProjectPageLayout
+export default GroupPageLayout
