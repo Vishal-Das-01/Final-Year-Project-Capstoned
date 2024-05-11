@@ -25,7 +25,7 @@ export const GET = async (request, { params }) => {
         if (params.role === "supervisors") {
             users = await User.find(query).populate({
                 path: 'profileID',
-                select: 'canSupervise',
+                select: 'canSupervise firstName lastName gender',
                 match: { canSupervise: true }
             }).select('-password').skip(skip).limit(limit);
 
@@ -38,7 +38,7 @@ export const GET = async (request, { params }) => {
             });
             totalUsers = allSupervisors.filter(user => user.profileID && user.profileID.canSupervise).length;
         } else {
-            users = await User.find(query).select('-password').skip(skip).limit(limit).populate('profileID', 'firstName lastName');
+            users = await User.find(query).select('-password').skip(skip).limit(limit).populate('profileID', 'firstName lastName gender');
             totalUsers = await User.countDocuments(query);
         }
 
