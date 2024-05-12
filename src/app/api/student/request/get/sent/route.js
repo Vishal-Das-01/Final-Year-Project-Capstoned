@@ -8,7 +8,7 @@ export const GET = async (request) => {
     const profileID = request.headers.get('profileID');
 
     try {
-        const sentRequests = await Request.find({sender: profileID});
+        const sentRequests = await Request.find({sender: profileID}).populate('sender').populate('receiver');
 
         return NextResponse.json({message: "Success.", data: sentRequests}, {status: HttpStatusCode.Ok});
     } catch (error) {

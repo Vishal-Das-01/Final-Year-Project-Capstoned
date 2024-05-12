@@ -11,6 +11,7 @@ export default async function handler(req, res) {
         try {
             const { receiver, type } = req.body;
             const profileID = req.headers.profileid;
+            const role = req.headers.role;
 
             if(profileID==receiver) {
                 return res.status(400).json({ message: 'Invalid request.' });
@@ -92,7 +93,7 @@ export default async function handler(req, res) {
                     return res.status(400).json({ message: 'Invalid request.' });
             }
 
-            const request = await Request.create({sender: profileID, receiver, type});
+            const request = await Request.create({sender: profileID, receiverRole: role, receiver, type});
 
             if(res.socket.server.io) {
                 res.socket.server.io.emit(`request:${receiver}`, request);
