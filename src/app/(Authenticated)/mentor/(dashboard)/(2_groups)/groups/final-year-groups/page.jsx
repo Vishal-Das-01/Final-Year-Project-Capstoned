@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from './FinalYearGroups.module.css'
 
 export const metadata = {
     title: 'Final Year Groups',
@@ -7,7 +8,7 @@ export const metadata = {
 
 function FinalYearGroups() {
   return (
-    <div>page</div>
+    <div className={`${styles.container}`}>page</div>
   )
 }
 
