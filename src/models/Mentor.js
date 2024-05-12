@@ -1,4 +1,4 @@
-import { Gender, Industry } from '@/utils/constants/enums';
+import { Gender, Industry, ImageFileType } from '@/utils/constants/enums';
 import { model, models, Schema } from 'mongoose';
 
 const mentorSchema = new Schema({
@@ -87,6 +87,17 @@ const mentorSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Project'
     }],
+    profileImage: {
+        image: {
+            type: String,
+            required: true
+        },
+        extension: {
+            type: String,
+            enum: Object.values(ImageFileType),
+            required: true
+        }
+    },
 }, { timestamps: true })
 
 const Mentor = models.Mentor || model('Mentor', mentorSchema);

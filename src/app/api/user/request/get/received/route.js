@@ -8,7 +8,14 @@ export const GET = async (request) => {
     const profileID = request.headers.get('profileID');
 
     try {
-        const receivedRequests = await Request.find({receiver: profileID});
+        const receivedRequests = await Request.find({ receiver: profileID }).populate({
+            path: 'sender',
+            select: 'firstName lastName profileImage group',
+            populate: {
+                path: 'group',
+                select: 'name'
+            }
+        })
 
         return NextResponse.json({message: "Success.", data: receivedRequests}, {status: HttpStatusCode.Ok});
     } catch (error) {

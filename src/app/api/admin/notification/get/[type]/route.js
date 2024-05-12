@@ -18,7 +18,9 @@ export const GET = async (request, { params }) => {
             return NextResponse.json({ message: "Invalid request." }, { status: HttpStatusCode.BadRequest });
         }
 
-        const notifications = await Notification.find(query).skip(skip).limit(limit).populate('sender').populate('receiver');
+        const notifications = await Notification.find(query).skip(skip).limit(limit).populate(
+            'sender', 'firstName lastName profileImage'
+        ).populate('receiver', 'firstName lastName profileImage');
 
         const totalNotifications = await Notification.countDocuments(query);
         const totalPages = Math.ceil(totalNotifications/limit);
