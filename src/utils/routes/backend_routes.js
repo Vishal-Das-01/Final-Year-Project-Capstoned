@@ -12,4 +12,5 @@ export const BACKEND_ROUTES = {
   updateProfileMentor: `${baseURL}/mentor/account/update`,
   updateProposalLinkMentor: `${baseURL}/mentor/proposal/updateLink`,
   deleteProposalMentor: `${baseURL}/mentor/proposal/delete`,
+  getAllMilestones: `${baseURL}/admin/milestone/get-all`
 };
