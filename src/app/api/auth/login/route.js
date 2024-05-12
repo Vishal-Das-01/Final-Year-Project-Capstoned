@@ -22,7 +22,9 @@ export async function POST(request, response) {
     try {
 
         const { email, password } = await request.json();
-        const user = await User.findOne({ email: email });
+        const user = await User.findOne({ email: email }).populate(
+            'profileID', 'firstName lastName gender profileImage'
+        );
         if (!user) {
             return NextResponse.json({ message: 'User not found' }, { status: HttpStatusCode.NotFound });
         }
@@ -51,6 +53,10 @@ export async function POST(request, response) {
             return NextResponse.json({
                 message: 'User authenticated',
                 accessToken: accessToken,
+                user: {
+                    firstLogin: user.firstLogin,
+                    profileID: user.profileID
+                }
             }, {
                 status: HttpStatusCode.Ok,
                 headers: {
