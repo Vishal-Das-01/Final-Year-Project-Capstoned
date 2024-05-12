@@ -9,7 +9,7 @@ const requestSchema = new Schema({
     },
     receiverRole: {
         type: String,
-        enum: Object.values(Role),
+        enum: ['Student', 'Mentor'],
         required: true
     },
     receiver: {
