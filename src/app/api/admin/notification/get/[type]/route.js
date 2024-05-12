@@ -18,13 +18,14 @@ export const GET = async (request, { params }) => {
             return NextResponse.json({ message: "Invalid request." }, { status: HttpStatusCode.BadRequest });
         }
 
-        const notifications = await Notification.find(query).skip(skip).limit(limit);
+        const notifications = await Notification.find(query).skip(skip).limit(limit).populate('sender').populate('receiver');
 
         const totalNotifications = await Notification.countDocuments(query);
         const totalPages = Math.ceil(totalNotifications/limit);
 
         return NextResponse.json({message: "Success.", data: {page, totalNotifications, totalPages, notifications}}, {status: HttpStatusCode.Ok});
     } catch (error) {
+        console.log(error)
         return NextResponse.json({message: "Failed to retrieve notifications."}, {status: HttpStatusCode.InternalServerError});
     }
 }

@@ -1,5 +1,5 @@
 import { connectToDB } from "@/utils/helpers/connectDB";
-import { RequestType } from "@/utils/constants/enums";
+import { RequestType, Role } from "@/utils/constants/enums";
 import Request from "@/models/Request";
 import Student from "@/models/Student";
 import Mentor from "@/models/Mentor";
@@ -11,7 +11,7 @@ export default async function handler(req, res) {
         try {
             const { receiver, type } = req.body;
             const profileID = req.headers.profileid;
-            const role = req.headers.role;
+            let receiverRole;
 
             if(profileID==receiver) {
                 return res.status(400).json({ message: 'Invalid request.' });
@@ -48,6 +48,8 @@ export default async function handler(req, res) {
                         return res.status(400).json({ message: 'Student is already in the group.' });
                     }
 
+                    receiverRole = Role.Student;
+
                     break;
                 case RequestType.Supervisor: 
 
@@ -67,6 +69,8 @@ export default async function handler(req, res) {
                     if(group.mentors.includes(supervisor._id)) {
                         return res.status(400).json({ message: 'Cannot add mentor as supervisor.' });
                     }
+
+                    receiverRole = Role.Mentor;
                 
                     break;
                 case RequestType.Mentor:
@@ -87,13 +91,15 @@ export default async function handler(req, res) {
                     if(group.supervisor==mentor._id) {
                         return res.status(400).json({ message: 'Cannot add supervisor as mentor.' });
                     }
+
+                    receiverRole = Role.Mentor;
                 
                     break;
                 default:
                     return res.status(400).json({ message: 'Invalid request.' });
             }
 
-            const request = await Request.create({sender: profileID, receiverRole: role, receiver, type});
+            const request = await Request.create({sender: profileID, receiverRole, receiver, type});
 
             if(res.socket.server.io) {
                 res.socket.server.io.emit(`request:${receiver}`, request);

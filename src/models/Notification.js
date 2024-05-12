@@ -1,10 +1,18 @@
-import { NotificationPriority, NotificationType } from '@/utils/constants/enums';
+import { NotificationPriority, NotificationType, Role } from '@/utils/constants/enums';
 import { model, models, Schema } from 'mongoose';
 
 const notificationSchema = new Schema({
     sender: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'Admin'
+    },
+    receiverRole: {
+        type: String,
+        enum: Object.values(Role)
+    },
+    receiver: {
+        type: Schema.Types.ObjectId,
+        refPath: 'receiverRole'
     },
     headline: {
         type: String,
@@ -23,10 +31,6 @@ const notificationSchema = new Schema({
         type: String,
         enum: Object.values(NotificationType),
         required: true
-    },
-    receiver: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
     },
     activated: {
         type: Boolean,
