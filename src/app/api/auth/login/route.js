@@ -3,8 +3,18 @@ import { connectToDB } from "@/utils/helpers/connectDB";
 import { HttpStatusCode } from 'axios';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import User from '@/models/User';
 import {serialize} from 'cookie';
+import User from '@/models/User';
+import Student from '@/models/Student';
+import Mentor from '@/models/Mentor';
+import Admin from '@/models/Admin';
+import Group from '@/models/Group';
+import Request from '@/models/Request';
+import Company from '@/models/Company';
+import Milestone from '@/models/Milestone';
+import Notification from '@/models/Notification';
+import Project from '@/models/Project';
+import Proposal from '@/models/Proposal';
 
 export async function POST(request, response) {
     await connectToDB();
