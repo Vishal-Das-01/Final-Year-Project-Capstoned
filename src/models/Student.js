@@ -1,4 +1,4 @@
-import { DocFileType, Gender, Industry } from '@/utils/constants/enums';
+import { DocFileType, Gender, Industry, ImageFileType } from '@/utils/constants/enums';
 import { model, models, Schema } from 'mongoose';
 
 const studentSchema = new Schema({
@@ -55,6 +55,17 @@ const studentSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Group',
         default: null
+    },
+    profileImage: {
+        image: {
+            type: String,
+            required: true
+        },
+        extension: {
+            type: String,
+            enum: Object.values(ImageFileType),
+            required: true
+        }
     },
 }, { timestamps: true });
 

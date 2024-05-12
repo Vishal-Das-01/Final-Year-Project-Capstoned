@@ -51,7 +51,6 @@ export async function POST(request, response) {
             return NextResponse.json({
                 message: 'User authenticated',
                 accessToken: accessToken,
-                profileImage: user.profileImage,
             }, {
                 status: HttpStatusCode.Ok,
                 headers: {

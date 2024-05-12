@@ -38,7 +38,9 @@ export const GET = async (request, { params }) => {
             });
             totalUsers = allSupervisors.filter(user => user.profileID && user.profileID.canSupervise).length;
         } else {
-            users = await User.find(query).select('-password').skip(skip).limit(limit).populate('profileID', 'firstName lastName gender');
+            users = await User.find(query).select('-password').skip(skip).limit(limit).populate(
+                'profileID', 'firstName lastName gender profileImage'
+            );
             totalUsers = await User.countDocuments(query);
         }
 

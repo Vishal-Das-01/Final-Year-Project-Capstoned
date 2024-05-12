@@ -4,8 +4,6 @@ import { HttpStatusCode } from "axios";
 import { NextResponse } from "next/server";
 import Student from "@/models/Student";
 import Mentor from "@/models/Mentor";
-import Company from "@/models/Company";
-import User from "@/models/User";
 
 export const GET = async (req, res) => {
     await connectToDB();
@@ -13,14 +11,12 @@ export const GET = async (req, res) => {
     const profileID = req.headers.get('profileID');
     const email = req.headers.get('email');
 
-    const user = await User.findOne({ email });
-
     if (role === Role.Student) {
         const student = await Student.findById(profileID);
         if (!student) {
             return new NextResponse.json({ message: "Student not found." }, { status: HttpStatusCode.NOT_FOUND });
         }
-        return NextResponse.json({ student, profileImage: user.profileImage, email }, { status: HttpStatusCode.OK });
+        return NextResponse.json({ student, email }, { status: HttpStatusCode.OK });
     }
 
     if (role === Role.Mentor) {
@@ -31,7 +27,7 @@ export const GET = async (req, res) => {
         if (!mentor) {
             return new NextResponse.json({ message: "Mentor not found." }, { status: HttpStatusCode.NOT_FOUND });
         }
-        return NextResponse.json({ mentor, profileImage: user.profileImage, email }, { status: HttpStatusCode.OK });
+        return NextResponse.json({ mentor, email }, { status: HttpStatusCode.OK });
     }
 
 }
