@@ -23,6 +23,12 @@ const milestoneSchema = new Schema({
         max: 100,
         min: 0
     },
+    resources: [
+        {
+            type: String,
+            required: true
+        }
+    ],
     year: {
         type: Number,
         required: true
