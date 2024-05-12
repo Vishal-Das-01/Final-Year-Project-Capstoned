@@ -1,5 +1,6 @@
 "use client";
 
+// Imports below for creating ui
 import styles from "./CreateMilestoneForm.module.css";
 import FormTextInput from "../../../../_components/FormTextInput/FormTextInput";
 import FormRow from "../../../../_components/FormRow/FormRow";   
@@ -8,17 +9,32 @@ import FormDateInput from "../../../../_components/FormDateInput/FormDateInput";
 import FormNumberInput from "../../../../_components/FormNumberInput/FormNumberInput";
 import FormTextArea from "../../../../_components/FormTextArea/FormTextArea";
 
+// Imports below for state management & api calls
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { createNewMilestoneAPICall } from "@/utils/admin_frontend_api_calls/MilestoneAPICalls";
+
 export default function CreateMilestoneForm({setOpenModal}){
     let formId = `createMilestoneForm`;
 
-    function submitForm(){
+    // For retrieving access token
+    const authDetails = useSelector((state) => state.AuthDetails);
+    const accessToken = authDetails.accessToken;
+
+
+    function submitForm(event){
+        event.preventDefault();
         console.log("Submit Form");
     }
 
     return (
         <div className={`${styles.createMilestoneFormPrimaryContainer} w-full `}>
 
-            <form id={formId} className={`${styles.createMilestoneForm} flex flex-col items-center justify-start`}>
+            <form 
+                id={formId} 
+                className={`${styles.createMilestoneForm} flex flex-col items-center justify-start`} 
+                onSubmit={submitForm}
+            >
                 
                 <FormRow 
                     verticalPlacement={"justify-between"} 
