@@ -1,6 +1,6 @@
 import styles from "./FormNumberInput.module.css";
 
-export default function FormNumberInput({labelText, numberInputName, placeholderText, isRequired}){
+export default function FormNumberInput({labelText, numberInputName, placeholderText, isRequired, value, onChange}){
     return (
         <div className={`${styles.numberInputContainer} `}>
                     
@@ -18,6 +18,8 @@ export default function FormNumberInput({labelText, numberInputName, placeholder
                     placeholder={placeholderText}
                     className={`${styles.numberInput} font-montserrat`}
                     required
+                    value={value}
+                    onChange={onChange}
                 />
                 :
                 <input 
@@ -26,6 +28,8 @@ export default function FormNumberInput({labelText, numberInputName, placeholder
                     id={numberInputName}
                     placeholder={placeholderText}
                     className={`${styles.numberInput} font-montserrat`}
+                    value={value}
+                    onChange={onChange}
                 />
             }
             

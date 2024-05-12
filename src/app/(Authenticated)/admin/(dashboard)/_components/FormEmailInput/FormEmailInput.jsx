@@ -1,6 +1,6 @@
 import styles from "./FormEmailInput.module.css";
 
-export default function FormEmailInput({labelText, emailInputName, placeholderText, isRequired}){
+export default function FormEmailInput({labelText, emailInputName, placeholderText, isRequired, value, onChange}){
     return (
         <div className={`${styles.emailInputContainer} `}>
                     
@@ -18,6 +18,8 @@ export default function FormEmailInput({labelText, emailInputName, placeholderTe
                     placeholder={placeholderText}
                     className={`${styles.emailInput} font-montserrat`}
                     required
+                    value={value}
+                    onChange={onChange}
                 />
                 :
                 <input 
@@ -26,6 +28,8 @@ export default function FormEmailInput({labelText, emailInputName, placeholderTe
                     id={emailInputName}
                     placeholder={placeholderText}
                     className={`${styles.emailInput} font-montserrat`}
+                    value={value}
+                    onChange={onChange}
                 />
             }
             
