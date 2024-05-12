@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './MyGroups.module.css'
-import TabButtons from './_components/TabButtons'
+import TabButtons from './_components/Tab Buttons/TabButtons'
 
 function GroupPageLayout({ children }) {
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import ListTile from './_components/ListTIle/ListTile'
+import ListTile from './_components/ListTile/ListTile'
 import styles from './CurrentProjects.module.css'
 
 export const metadata = {

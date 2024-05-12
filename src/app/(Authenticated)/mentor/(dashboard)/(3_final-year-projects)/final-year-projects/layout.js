@@ -20,7 +20,7 @@ function ProjectPageLayout({ children }) {
 
       </div>
         
-      <div className='m-5'>
+      <div className="m-5">
         <TabButtons />
         {children}
       </div>
