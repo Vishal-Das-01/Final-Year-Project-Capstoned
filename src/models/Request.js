@@ -1,15 +1,20 @@
-import { RequestType } from '@/utils/constants/enums';
+import { RequestType, Role } from '@/utils/constants/enums';
 import { model, models, Schema } from 'mongoose';
 
 const requestSchema = new Schema({
     sender: {
         type: Schema.Types.ObjectId,
-        refPath: 'Student',
+        ref: 'Student',
         required: true 
+    },
+    receiverRole: {
+        type: String,
+        enum: Object.values(Role),
+        required: true
     },
     receiver: {
         type: Schema.Types.ObjectId,
-        refPath: 'User',
+        refPath: 'receiverRole',
         required: true 
     },
     type: {
