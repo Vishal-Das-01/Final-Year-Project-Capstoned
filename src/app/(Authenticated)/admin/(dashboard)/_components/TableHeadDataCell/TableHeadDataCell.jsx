@@ -4,7 +4,7 @@ export default function TableHeadDataCell({isNumberCell, text}){
     return (
         (isNumberCell) ? 
         <th scope="col" className={`px-4 py-3 text-left`}>
-            <span class="sr-only">
+            <span className="sr-only">
                 {text}
             </span>
         </th>

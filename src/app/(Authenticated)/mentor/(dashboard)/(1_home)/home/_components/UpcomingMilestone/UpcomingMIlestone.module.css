@@ -1,0 +1,10 @@
+.contentCardContainer{
+	width: 30%;
+	height: 90%;
+    background-image: url('/calendar.png');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+	box-shadow:  7px 7px 23px #c1c1c1,
+             -7px -7px 23px #ffffff;
+}   

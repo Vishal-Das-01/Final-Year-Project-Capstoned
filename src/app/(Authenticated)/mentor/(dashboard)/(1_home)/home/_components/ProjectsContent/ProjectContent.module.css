@@ -1,6 +1,11 @@
-.contentHeadingWrapper{
-
+.contentCardContainer{
+	width: 63.3333%;
+	height: 90%;
+	background-color: white;
+	box-shadow:  7px 7px 23px #c1c1c1,
+             -7px -7px 23px #ffffff;
 }
+
 
 .contentHeading{
 	font-size: 18px;
@@ -28,6 +33,7 @@
 	);
 }
 
-.milestonesInfoWrapper{
-	width: 96.5%;
+.fypProjectsWrapper{
+	width: 95%;
+    height: 85%;
 }

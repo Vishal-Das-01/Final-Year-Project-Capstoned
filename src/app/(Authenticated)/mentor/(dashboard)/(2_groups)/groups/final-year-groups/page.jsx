@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './FinalYearGroups.module.css'
+import ListTile from './_components/ListTile/ListTile'
 
 export const metadata = {
     title: 'Final Year Groups',
@@ -8,7 +9,33 @@ export const metadata = {
 
 function FinalYearGroups() {
   return (
-    <div className={`${styles.container}`}>page</div>
+    <div className={`${styles.container} m-4 overflow-y-auto`}>
+        <ListTile
+          name="Free Riders"
+          group=""
+          progress=""
+        />
+                <ListTile
+          name="Free Riders"
+          group=""
+          progress=""
+        />
+                <ListTile
+          name="Free Riders"
+          group=""
+          progress=""
+        />
+                <ListTile
+          name="Free Riders"
+          group=""
+          progress=""
+        />
+                <ListTile
+          name="Free Riders"
+          group=""
+          progress=""
+        />
+    </div>
   )
 }
 

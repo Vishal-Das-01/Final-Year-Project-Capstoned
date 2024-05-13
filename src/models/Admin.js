@@ -18,12 +18,10 @@ const adminSchema = new Schema({
     profileImage: {
         image: {
             type: String,
-            required: true
         },
         extension: {
             type: String,
             enum: Object.values(ImageFileType),
-            required: true
         }
     },
 }, { timestamps: true });
