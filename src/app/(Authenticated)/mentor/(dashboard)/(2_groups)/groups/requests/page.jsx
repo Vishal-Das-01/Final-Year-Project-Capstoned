@@ -3,6 +3,7 @@ import styles from "./Requests.module.css";
 import { FaCheckCircle } from "react-icons/fa";
 import { FaCircleXmark } from "react-icons/fa6";
 import GroupName from "./_components/GroupName/GroupName";
+import Image from "next/image";
 
 export const metadata = {
   title: "Final Year Groups: Requests",
@@ -48,7 +49,17 @@ function Requests() {
     <div className={`${styles.container} m-4 overflow-y-auto`}>
       {list.map((item, index) => (
         <div key={index}>
-          <div className="grid grid-cols-11 h-16 mt-1 mx-1 rounded-full shadow-lg bg-gray-100 pr-5 pl-10">
+          <div className="grid grid-cols-12 h-16 mt-1 mx-1 rounded-full shadow-lg bg-gray-100 pr-5 pl-10">
+            <div className="col-span-1 flex items-center">
+              <div className="relative h-12 w-12 rounded-full overflow-hidden">
+                <Image
+                  className="absolute"
+                  src="/defaultProfile.jpg"
+                  alt="profile"
+                  fill
+                />
+              </div>
+            </div>
             <GroupName groupName={item.groupName} />
             <h className="col-span-3 text-sm flex items-center">
               Requested by: {item.name}
