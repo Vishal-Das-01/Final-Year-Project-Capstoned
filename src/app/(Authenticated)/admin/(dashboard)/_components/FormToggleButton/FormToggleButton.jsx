@@ -1,8 +1,6 @@
 "use client";
 
 import styles from "./FormToggleButton.module.css";
-import ToggleButton from 'react-toggle-button';
-import { VscDebugBreakpointLogUnverified } from "react-icons/vsc";
 import { useEffect, useState } from "react";
 
 export default function FormToggleButton({inactiveLabelText, activeLabelText, isRequired, labelText, toggleInputName, setState}){

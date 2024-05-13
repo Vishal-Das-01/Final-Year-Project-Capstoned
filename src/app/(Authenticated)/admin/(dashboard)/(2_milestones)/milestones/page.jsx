@@ -74,7 +74,6 @@ export default function AdminDashboardMilestonesPage(props){
 		}
 	}, [milestones]);
 
-	// Helper function for getting 
 
 	return (
 		<div className={`${styles.primaryContainer} flex flex-row items-center justify-center w-full h-full`}>
@@ -105,7 +104,7 @@ export default function AdminDashboardMilestonesPage(props){
 
 					</TableHead>
 					
-					<tbody className={`${(loadingIndicator) ? `animate-pulse` : ""}`}>
+					<tbody>
 
 						{!loadingIndicator && milestones.map((milestone) => {
 							return (

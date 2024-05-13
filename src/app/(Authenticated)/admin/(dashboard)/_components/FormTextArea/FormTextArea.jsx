@@ -1,6 +1,6 @@
 import styles from "./FormTextArea.module.css";
 
-export default function FormTextArea({labelText, textAreaName, placeholderText, isRequired}){
+export default function FormTextArea({labelText, textAreaName, placeholderText, isRequired, value, onChange}){
     return (
         <div className={`${styles.textAreaContainer} `}>
                     
@@ -20,6 +20,8 @@ export default function FormTextArea({labelText, textAreaName, placeholderText, 
                     required
                     rows={9}
                     cols={35}
+                    value={value}
+                    onChange={onChange}
                 />
                 :
                 <textarea 
@@ -30,6 +32,8 @@ export default function FormTextArea({labelText, textAreaName, placeholderText, 
                     className={`${styles.textArea} font-montserrat`}
                     rows={9}
                     cols={35}
+                    value={value}
+                    onChange={onChange}
                 />
             }
             

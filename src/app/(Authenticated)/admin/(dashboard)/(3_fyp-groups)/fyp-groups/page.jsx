@@ -1,5 +1,6 @@
 "use client";
 
+// Imports below for UI creation
 import styles from "./FYPGroups.module.css";
 import FYPGroupsHeadingAndButton from "./_components/FYPGroupsHeadingAndButton/FYPGroupsHeadingAndButton";
 import ContentTable from "../../_components/ContentTable/ContentTable";
@@ -7,8 +8,14 @@ import TableHead from "../../_components/TableHead/TableHead";
 import TableRow from "../../_components/TableRow/TableRow";
 import TableHeadDataCell from "../../_components/TableHeadDataCell/TableHeadDataCell";
 import TableBodyDataCell from "../../_components/TableBodyDataCell/TableBodyDataCell";
-import { useState } from "react";
 import Modal from "../../_components/Modal/Modal";
+
+// Imports below for state management and api calls
+import { useEffect, useState } from "react";
+import { getAllMilestonesAPICall } from "@/utils/admin_frontend_api_calls/MilestoneAPICalls";
+import { useSelector } from "react-redux";
+import { HttpStatusCode } from "axios";
+import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 
 // export const metadata = {
 // 	title: "Admin FYP Groups",
@@ -16,9 +23,18 @@ import Modal from "../../_components/Modal/Modal";
 // }
 
 export default function AdminDashboardFYPGroupsPage(props){
+	
+	// States for managing: modal opening and closing
+	// for managing modal title
+	// for managing modal content
+	// for managing milestones shown in the table
+	// for managing skeleton loading indicator 
 	const [openModal, setOpenModal]   = useState(false);
 	const [modalTitle, setModalTitle] = useState("");
 	const [modalContent, setModalContent] = useState("");
+	const [fypGroups, setFYPGroups] = useState([]);
+	const [loadingIndicator, setLoadingIndicator] = useState(true);
+
 
 	return (
 		<div className={`${styles.primaryContainer} flex flex-row items-center justify-center w-full h-full`}>
