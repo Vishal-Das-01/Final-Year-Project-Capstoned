@@ -131,8 +131,9 @@ export default function CreateMentorAccountForm({setOpenModal}){
                         options={["Male", "Female"]}
                         isRequired={true}
                         placeholder={"Mentor's Gender"}
-                        value={mentor.mentorGender}
+                        selectedValue={mentor.mentorGender}
                         onChange={handleChange}
+                        isOnChangePassed={true}
                     />
                     
                     <FormNumberInput 
