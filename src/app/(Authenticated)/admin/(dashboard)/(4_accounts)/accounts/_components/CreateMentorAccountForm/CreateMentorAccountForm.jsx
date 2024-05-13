@@ -12,6 +12,10 @@ import FormEmailInput from "../../../../_components/FormEmailInput/FormEmailInpu
 
 // Imports for state management & API calls
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
+import { createAccountAPICall } from "@/utils/admin_frontend_api_calls/AccountsAPICalls";
+import { HttpStatusCode } from "axios";
 
 
 export default function CreateMentorAccountForm({setOpenModal}){
@@ -28,6 +32,9 @@ export default function CreateMentorAccountForm({setOpenModal}){
         "canMentorSupervise"        : false,
         "mentorEmailID"             : "",
     });
+
+    // For access token retrieval
+    const authDetails = useSelector((state) => state.AuthDetails);
 
     // For updating mentor state
     function handleChange(event){
@@ -82,9 +89,31 @@ export default function CreateMentorAccountForm({setOpenModal}){
     }
 
     // Function for when form is submitted
-    function submitForm(event){
+    async function submitForm(event){
         event.preventDefault();
-        console.log("Submit Form");
+        let dataToSend = {
+            "email"   : mentor.mentorEmailID,
+            "role"    : mentor.role,
+            "details" : {
+                "isUniversityTeacher" : mentor.isMentorUniversityTeacher,
+                "canSupervise"        : mentor.canMentorSupervise,
+                "firstName"           : mentor.mentorFirstName,
+                "lastName"            : mentor.mentorLastName,
+                "gender"              : mentor.mentorGender,
+                "contact"             : mentor.mentorContact
+            } 
+        }
+        let accessToken = authDetails.accessToken;
+        let apiURL = BACKEND_ROUTES.createUser;
+        
+        let apiCall = await createAccountAPICall(apiURL, accessToken, dataToSend);
+        if(apiCall.status === HttpStatusCode.Ok){
+            let apiCallResponse = await apiCall.json();
+            console.log("A", apiCallResponse);
+        }
+        else{
+            console.log("B", "Error");
+        }
     }
 
     return (
