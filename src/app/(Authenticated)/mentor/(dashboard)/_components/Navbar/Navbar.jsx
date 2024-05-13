@@ -4,6 +4,7 @@ import Avatar from "./_components/Avatar/Avatar.jsx";
 import NotificationIcon from "./_components/NotificationIcon/NotificationIcon.jsx";
 import {FRONTEND_ROUTES_MENTOR} from "@/utils/routes/frontend_routes";
 import CapstonedLogo from "@/components/CapstonedLogo/CapstonedLogo";
+import Clock from "./_components/Clock/Clock";
 
 export default function Navbar(props){
 	return (
@@ -19,6 +20,10 @@ export default function Navbar(props){
 				
 				</div>
 			
+			</div>
+
+			<div className=" w-full h-full flex flex-row items-center flex-1 justify-center">
+				<Clock />
 			</div>
 
 			<div className={`${styles.right} flex flex-row flex-1 `}>
