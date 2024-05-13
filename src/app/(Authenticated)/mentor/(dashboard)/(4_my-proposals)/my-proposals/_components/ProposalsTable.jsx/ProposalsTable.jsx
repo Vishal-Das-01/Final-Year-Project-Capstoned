@@ -4,9 +4,9 @@ import styles from "./ProposalsTable.module.css";
 import { cookies } from "next/headers";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import { HttpStatusCode } from "axios";
-import { redirect } from "next/dist/server/api-utils";
 import { callAPI } from "@/utils/helpers/callAPI";
 import NotFound from "./_components/NotFound/NotFound";
+import { redirect } from "next/navigation";
 
 async function ProposalsTable() {
   const proposals = await getProposals();
