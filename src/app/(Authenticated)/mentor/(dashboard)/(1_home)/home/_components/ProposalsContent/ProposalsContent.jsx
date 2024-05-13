@@ -7,7 +7,7 @@ export default function ProposalsContent(){
 
 			<div className={`mx-2 my-4`}>
 
-				<div className={`${styles.contentHeadingWrapper} flex flex-row items-center `}>
+				<div className="flex flex-row items-center">
 
 					<h1 className={`${styles.contentHeading} font-montserrat font-semibold py-2 text-black`}>
 						My Proposals (3/5)

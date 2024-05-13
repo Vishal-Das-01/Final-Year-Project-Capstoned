@@ -7,7 +7,10 @@ export const AuthDetails = createSlice({
         email: null,
         profileID: null,
         accessToken: null,
-        profileImage: null
+        profileImage: null,
+        firstName: null,
+        lastName: null,
+        gender: null,
     },
     reducers: {
         setAuthDetails: (state, action) => {
@@ -16,6 +19,9 @@ export const AuthDetails = createSlice({
             state.profileID = action.payload.profileID;
             state.accessToken = action.payload.accessToken;
             state.profileImage = action.payload.profileImage;
+            state.firstName = action.payload.firstName;
+            state.lastName = action.payload.lastName;
+            state.gender = action.payload.gender;
         },
         removeAuthDetails: (state) => {
             state.role = null;
@@ -23,6 +29,9 @@ export const AuthDetails = createSlice({
             state.profileID = null;
             state.accessToken = null;
             state.profileImage = null;
+            state.firstName = null;
+            state.lastName = null;
+            state.gender = null;
         }
     }
 })

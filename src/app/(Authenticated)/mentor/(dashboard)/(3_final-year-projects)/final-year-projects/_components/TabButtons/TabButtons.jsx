@@ -23,7 +23,7 @@ function TabButtons() {
       .substring(secondSlash + 1)
       .substring(thirdSlash + 1);
 
-    if (pageName === "past") {
+    if (pageName.startsWith("past")) {
       return (
         <ul class="flex flex-row w-full justify-evenly text-sm text-center text-gray-500 dark:text-gray-400 font-semibold">
           <li className="w-1/2 border-b-2 border-gray-300">
