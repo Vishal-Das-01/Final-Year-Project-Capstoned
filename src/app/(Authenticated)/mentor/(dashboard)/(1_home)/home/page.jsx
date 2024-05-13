@@ -1,13 +1,11 @@
 import ContentCard from "./_components/ContentCard/ContentCard.jsx";
 import WelcomeContent from "./_components/WelcomeContent/WelcomeContent.jsx";
-import MilestonesContent from "./_components/MilestonesContent/MilestonesContent.jsx";
-import MeetingsContent from "./_components/MeetingsContent/MeetingsContent.jsx";
 import FYPGroupsContent from "./_components/FYPGroupsContent/FYPGroupsContent.jsx";
-import CalendarContent from "./_components/CalendarContent/CalendarContent.jsx";
 
 import styles from "./MentorHomePage.module.css";
 import ProposalsContent from "./_components/ProposalsContent/ProposalsContent.jsx";
 import ProjectContent from "./_components/ProjectsContent/ProjectContent.jsx";
+import UpcomingMilestone from "./_components/UpcomingMilestone/UpcomingMilestone.jsx";
 
 export const metadata = {
   title: "Mentor Home",
@@ -29,20 +27,13 @@ export default function MentorDashboardHomePage() {
       </div>
 
       <div className="w-full h-1/2 flex flex-row items-center justify-around">
-        <ContentCard>
-          <FYPGroupsContent />
-        </ContentCard>
+        <FYPGroupsContent />
 
         <ContentCard>
           <ProposalsContent />
         </ContentCard>
 
-        <ContentCard>
-          <MilestonesContent
-            deadlineDate={`Jan 15, 2024`}
-            milestone={`Milestone 3`}
-          />
-        </ContentCard>
+        <UpcomingMilestone />
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ export default function AdminDashboardLayout({children}){
 					<SideMenu />
 				</div>
 				
-				<div className={`${styles.contentContainer} w-full bg-white rounded-tl-xl overflow-y-auto`}>
+				<div className={`${styles.contentContainer} w-full rounded-tl-xl overflow-y-auto`}>
 					{children}
 				</div>
 			

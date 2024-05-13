@@ -3,7 +3,6 @@ import styles from "./ProjectContent.module.css";
 import ProgressBarChart from "./_components/ProgressBarChart/ProgressBarChart";
 
 function ProjectContent() {
-  const list = [2, 3, 4, 5];
 
   return (
     <div
@@ -14,7 +13,7 @@ function ProjectContent() {
           <p
             className={`${styles.contentHeading} font-montserrat font-semibold text-black py-2`}
           >
-            Final Year Projects
+            Final Year Projects Progress
           </p>
 
           <div
