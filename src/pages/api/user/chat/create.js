@@ -1,15 +1,45 @@
 import { connectToDB } from "@/utils/helpers/connectDB";
+import User from "@/models/User";
+import Chat from "@/models/Chat";
 
 export default async function handler(req, res) {
     if(req.method === 'POST') {
         await connectToDB();
 
         try {
-            const { receiver, ...body } = req.body;
-            const profileID = req.headers.profileid;
+            const { participants } = req.body;
+
+            let profileIDExists = false;
+
+            if(participants.length < 2) {
+                return res.status(400).json({ message: 'At least 2 participants are required.' });
+            }
+
+            for (const participant of participants) {
+
+                if(participant.participant == req.headers.profileid) {
+                    profileIDExists = true;
+                }
+
+                const user = await User.findOne({ profileID: participant.participant })
+                if(!user || participant.participantRole != user.role) {
+                    return res.status(400).json({ message: 'Invalid user provided.' });
+                }
+            }
+
+            if(!profileIDExists) {
+                return res.status(400).json({ message: 'Please provide correct/necessary fields.' });
+            }
+
+            const chat = await Chat.create({ participants });
+
+            if(res.socket.server.io) {
+                res.socket.server.io.emit(`chat:${chat._id}`, chat);
+            }
             
             return res.status(200).json({ message: 'Chat created.' });
         } catch (error) {
+            console.log(error)
             if (error.name === "ValidationError") {
                 return res.status(400).json({ message: 'Please provide correct/necessary fields.' });
             }

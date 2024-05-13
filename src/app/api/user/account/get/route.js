@@ -16,7 +16,7 @@ export const GET = async (req, res) => {
         if (!student) {
             return new NextResponse.json({ message: "Student not found." }, { status: HttpStatusCode.NOT_FOUND });
         }
-        return NextResponse.json({ student, email }, { status: HttpStatusCode.OK });
+        return NextResponse.json({ student, role, email }, { status: HttpStatusCode.OK });
     }
 
     if (role === Role.Mentor) {
@@ -27,7 +27,7 @@ export const GET = async (req, res) => {
         if (!mentor) {
             return new NextResponse.json({ message: "Mentor not found." }, { status: HttpStatusCode.NOT_FOUND });
         }
-        return NextResponse.json({ mentor, email }, { status: HttpStatusCode.OK });
+        return NextResponse.json({ mentor, role, email }, { status: HttpStatusCode.OK });
     }
 
 }

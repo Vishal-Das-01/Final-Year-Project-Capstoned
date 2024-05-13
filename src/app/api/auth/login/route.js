@@ -15,6 +15,8 @@ import Milestone from '@/models/Milestone';
 import Notification from '@/models/Notification';
 import Project from '@/models/Project';
 import Proposal from '@/models/Proposal';
+import Chat from '@/models/Chat';
+import Message from '@/models/Message';
 
 export async function POST(request, response) {
     await connectToDB();
