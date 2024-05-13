@@ -48,7 +48,7 @@ async function Profile() {
             contact={profile.mentor.contact}
             teacher={profile.mentor.isUniversityTeacher}
             email={profile.email}
-            profileImage={profile.profileImage}
+            profileImage={profile.mentor.profileImage}
           />
         </div>
         <div

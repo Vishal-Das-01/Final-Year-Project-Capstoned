@@ -74,11 +74,9 @@ function ProfileUpdateModal({
           {
             const { data } = await response.json();
             const { companies, totalPages } = data;
-            console.log(companies);
 
             allCompanies = [...allCompanies, ...companies];
             currentPage++;
-            console.log(currentPage);
 
             if (currentPage > totalPages) {
               break;

@@ -1,7 +1,6 @@
 import Image from "next/image";
 import React from "react";
 import { RiProfileLine } from "react-icons/ri";
-import { useSelector } from "react-redux";
 
 function ProfileCardOne({ firstName, lastName, gender, contact ,teacher,email,profileImage }) {
   
