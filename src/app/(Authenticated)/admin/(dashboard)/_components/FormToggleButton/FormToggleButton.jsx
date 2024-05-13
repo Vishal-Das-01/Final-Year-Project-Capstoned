@@ -3,19 +3,31 @@
 import styles from "./FormToggleButton.module.css";
 import ToggleButton from 'react-toggle-button';
 import { VscDebugBreakpointLogUnverified } from "react-icons/vsc";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function FormToggleButton({inactiveLabelText, activeLabelText, isRequired, labelText, toggleInputName}){
+export default function FormToggleButton({inactiveLabelText, activeLabelText, isRequired, labelText, toggleInputName, setState}){
     const [isChecked, setIsChecked] = useState(false);
+    const [fieldName, setFieldName] = useState("");
 
-    const toggleSwitch = () => {
+    const toggleSwitch = (event) => {
+        setFieldName(event.target.name);
         setIsChecked(!isChecked);
     };
 
-    function switchColor(){
-        if(isChecked)
-            return 
-    }
+    useEffect(() => {
+        if(fieldName === "isMentorUniversityTeacher"){
+            setState((prevMentor) => ({
+                ...prevMentor,
+                "isMentorUniversityTeacher" : isChecked
+            }));
+        }
+        else if(fieldName === "canMentorSupervise"){
+            setState((prevMentor) => ({
+                ...prevMentor,
+                "canMentorSupervise" : isChecked
+            }));
+        }
+    }, [isChecked])
 
     return (
         <div className={`${styles.toggleButtonPrimaryContainer} flex flex-row items-center justify-start h-10 `}>

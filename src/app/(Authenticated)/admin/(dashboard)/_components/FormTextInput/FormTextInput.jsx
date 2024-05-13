@@ -17,9 +17,9 @@ export default function FormTextInput({labelText, textInputName, placeholderText
                     id={textInputName}
                     placeholder={placeholderText}
                     className={`${styles.textInput} font-montserrat`}
-                    required
                     value={value}
                     onChange={onChange}
+                    required
                 />
                 :
                 <input 

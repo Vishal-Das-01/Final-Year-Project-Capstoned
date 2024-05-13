@@ -19,16 +19,17 @@ export default function CreateMentorAccountForm({setOpenModal}){
 
     // For managing state of entire mentor
     const [mentor, setMentor] = useState({
+        "role"                      : "Mentor",
         "mentorFirstName"           : "",
         "mentorLastName"            : "",
         "mentorGender"              : "",
         "mentorContact"             : "",
-        "isMentorUniversityTeacher" : "",
-        "canMentorSupervise"        : "",
+        "isMentorUniversityTeacher" : false,
+        "canMentorSupervise"        : false,
         "mentorEmailID"             : "",
     });
 
-    // For first name
+    // For updating mentor state
     function handleChange(event){
         let fieldName = event.target.name;
         let {value}   = event.target;
@@ -57,18 +58,18 @@ export default function CreateMentorAccountForm({setOpenModal}){
                 "mentorContact" : value
             }));
         }
-        else if(fieldName === "isMentorUniversityTeacher"){
-            setMentor((prevMentor) => ({
-                ...prevMentor,
-                "isMentorUniversityTeacher" : value
-            }));
-        }
-        else if(fieldName === "canMentorSupervise"){
-            setMentor((prevMentor) => ({
-                ...prevMentor,
-                "canMentorSupervise" : value
-            }));
-        }
+        // else if(fieldName === "isMentorUniversityTeacher"){
+        //     setMentor((prevMentor) => ({
+        //         ...prevMentor,
+        //         "isMentorUniversityTeacher" : value
+        //     }));
+        // }
+        // else if(fieldName === "canMentorSupervise"){
+        //     setMentor((prevMentor) => ({
+        //         ...prevMentor,
+        //         "canMentorSupervise" : value
+        //     }));
+        // }
         else if(fieldName === "mentorEmailID"){
             setMentor((prevMentor) => ({
                 ...prevMentor,
@@ -78,9 +79,9 @@ export default function CreateMentorAccountForm({setOpenModal}){
         else {
             // Do nothing
         }
-        console.log(mentor);
     }
 
+    // Function for when form is submitted
     function submitForm(event){
         event.preventDefault();
         console.log("Submit Form");
@@ -158,8 +159,7 @@ export default function CreateMentorAccountForm({setOpenModal}){
                         isRequired={true}
                         labelText="Is University Teacher?"
                         toggleInputName={"isMentorUniversityTeacher"}
-                        value={mentor.isMentorUniversityTeacher}
-                        onChange={handleChange}
+                        setState={setMentor}
                     />
 
                     <FormToggleButton 
@@ -168,8 +168,7 @@ export default function CreateMentorAccountForm({setOpenModal}){
                         isRequired={true}
                         labelText="Can Mentor Supervise?"
                         toggleInputName={"canMentorSupervise"}
-                        value={mentor.canMentorSupervise}
-                        onChange={handleChange}
+                        setState={setMentor}
                     />
 
                 </FormRow>
