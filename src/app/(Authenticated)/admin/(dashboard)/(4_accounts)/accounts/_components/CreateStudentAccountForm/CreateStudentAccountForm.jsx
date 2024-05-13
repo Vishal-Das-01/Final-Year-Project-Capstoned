@@ -11,6 +11,10 @@ import FormEmailInput from "../../../../_components/FormEmailInput/FormEmailInpu
 
 // Imports for state management
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
+import { createAccountAPICall } from "@/utils/admin_frontend_api_calls/AccountsAPICalls";
+import { HttpStatusCode } from "axios";
 
 export default function CreateStudentAccountForm({setOpenModal}){
     let formId = `createStudentAccountForm`;
@@ -29,11 +33,13 @@ export default function CreateStudentAccountForm({setOpenModal}){
         "studentEmailID"           : "",
     });
 
+    // For access token retrieval
+    const authDetails = useSelector((state) => state.AuthDetails);
+
     // For updating student state
     function handleChange(event){
         let fieldName = event.target.name;
         let {value}   = event.target;
-        console.log("A", fieldName, value)
         if(fieldName === "studentID")
         {    
             setStudent((prevStudent) => ({
@@ -96,9 +102,33 @@ export default function CreateStudentAccountForm({setOpenModal}){
     }
 
     // Function for when form is submitted
-    function submitForm(event){
+    async function submitForm(event){
         event.preventDefault();
-        console.log("Submit Form");
+        let dataToSend = {
+            "email"   : student.studentEmailID,
+            "role"    : student.role,
+            "details" : {
+                "studentID"           : student.studentID,          
+                "firstName"           : student.studentFirstName,
+                "lastName"            : student.studentLastName,
+                "gender"              : student.studentGender,
+                "contact"             : student.studentContactNumber,
+                "semester"            : student.studentSemesterNumber,   
+                "gpa"                 : student.studentCGPA,
+                "program"             : student.studentProgram,
+            } 
+        }
+        let accessToken = authDetails.accessToken;
+        let apiURL = BACKEND_ROUTES.createUser;
+        
+        let apiCall = await createAccountAPICall(apiURL, accessToken, dataToSend);
+        if(apiCall.status === HttpStatusCode.Ok){
+            let apiCallResponse = await apiCall.json();
+            console.log("A", apiCallResponse);
+        }
+        else{
+            console.log("B", "Error");
+        }
     }
 
 

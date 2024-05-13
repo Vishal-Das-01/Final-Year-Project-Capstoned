@@ -17,6 +17,9 @@ import { useSelector } from "react-redux";
 import { HttpStatusCode } from "axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 
+// Import below for getting proper date
+import { extractDate } from "@/utils/helpers/func"; 
+
 // export const metadata = {
 // 	title: "Admin Milestones",
 // 	description: "Capstoned Milestones | Final Year Project (FYP) Management Platform for College & University Students.",
@@ -27,28 +30,51 @@ export default function AdminDashboardMilestonesPage(props){
 	// States for managing: modal opening and closing
 	// for managing modal title
 	// for managing modal content
+	// for managing milestones shown in the table
+	// for managing skeleton loading indicator 
 	const [openModal, setOpenModal]   = useState(false);
 	const [modalTitle, setModalTitle] = useState("");
 	const [modalContent, setModalContent] = useState("");
+	const [milestones, setMilestones] = useState([]);
+	const [loadingIndicator, setLoadingIndicator] = useState(true);
 
 	// For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
 
+	// API Call for fetching all milestones
 	async function getAllMilestones(){
 		let accessToken = authDetails.accessToken;
-		let apiResponse = await getAllMilestonesAPICall(BACKEND_ROUTES.getAllMilestones, "GET", accessToken);
+		let apiURL = BACKEND_ROUTES.getAllMilestones;
+		let apiCallMethod = "GET";
+		setLoadingIndicator(true);
+
+		let apiResponse = await getAllMilestonesAPICall(apiURL, apiCallMethod, accessToken);
 		if(apiResponse.status === HttpStatusCode.Ok){
-			let apiResponseData = await apiResponse;
-			console.log("API call: " + apiResponse.milestones);
+			let apiResponseData = await apiResponse.json();
+			setMilestones(apiResponseData);
+			// console.log("A:", apiResponseData);
 		}
 		else{
-
+			console.log("B:", "error");
 		}
 	}
 
+	// API Call for displaying milestones in the table 
+	// when the page is loaded 
 	useEffect(() => {
 		getAllMilestones();
 	}, [])
+
+
+	// Turn skeleton loading indicator off when 
+	// milestones are fetched successfully
+	useEffect(() => {
+		if(milestones.length > 0){
+			setLoadingIndicator(false);
+		}
+	}, [milestones]);
+
+	// Helper function for getting 
 
 	return (
 		<div className={`${styles.primaryContainer} flex flex-row items-center justify-center w-full h-full`}>
@@ -62,7 +88,7 @@ export default function AdminDashboardMilestonesPage(props){
 				/>
 
 				<ContentTable>
-
+			
 					<TableHead>
 
 						<TableHeadDataCell isNumberCell={true} text={`Number`}/>
@@ -79,47 +105,45 @@ export default function AdminDashboardMilestonesPage(props){
 
 					</TableHead>
 					
-					<tbody>
+					<tbody className={`${(loadingIndicator) ? `animate-pulse` : ""}`}>
 
-						<TableRow
-							setOpenModal={setOpenModal} 
-							setModalTitle={setModalTitle}
-							setModalContent={setModalContent}
-						>
+						{!loadingIndicator && milestones.map((milestone) => {
+							return (
+								<TableRow
+									setOpenModal={setOpenModal} 
+									setModalTitle={setModalTitle}
+									setModalContent={setModalContent}
+									key={milestone.title}
+									milestoneId={milestone._id}
+								>
 
-							<TableBodyDataCell text={'1'}/>
-							
-							<TableBodyDataCell text={'Hamza Akbar'}/>
+									<TableBodyDataCell 
+										text={String(milestone.assignmentNumber)} 
+									/>
 
-							<TableBodyDataCell text={'22'}/>
-							
-							<TableBodyDataCell text={'Pakistan'}/>
-							
-							<TableBodyDataCell text={'22'}/>
-							
-							<TableBodyDataCell text={'Pakistan'}/>
-						
-						</TableRow>
+									<TableBodyDataCell 
+										text={String(milestone.title)}
+									/>
 
-						<TableRow
-							setOpenModal={setOpenModal} 
-							setModalTitle={setModalTitle}
-							setModalContent={setModalContent}
-						>
-
-							<TableBodyDataCell text={'2'}/>
-							
-							<TableBodyDataCell text={'Hamza Akbar'}/>
-
-							<TableBodyDataCell text={'22'}/>
-							
-							<TableBodyDataCell text={'Pakistan'}/>
-							
-							<TableBodyDataCell text={'22'}/>
-							
-							<TableBodyDataCell text={'Pakistan'}/>
-						
-						</TableRow>
+									<TableBodyDataCell 
+										text={String(milestone.description)}
+									/>
+									
+									<TableBodyDataCell 
+										text={String(extractDate(milestone.deadline))}
+									/>
+									
+									<TableBodyDataCell 
+										text={String(milestone.percentage)}
+									/>
+									
+									<TableBodyDataCell 
+										text={String(milestone.year)}
+									/>
+									
+								</TableRow>
+							)
+						})}
 						
 					</tbody>
 					
