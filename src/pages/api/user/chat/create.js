@@ -31,15 +31,26 @@ export default async function handler(req, res) {
                 return res.status(400).json({ message: 'Please provide correct/necessary fields.' });
             }
 
+            const participantIds = participants.map(participant => participant.participant);
+            const uniqueParticipantIds = new Set(participantIds);
+
+            if (participantIds.length !== uniqueParticipantIds.size) {
+                return res.status(400).json({ message: 'Participant IDs should be unique.' });
+            }   
+
+            const existingChat = await Chat.findOne({ 'participants.participant': { $all: participantIds } });
+            if (existingChat) {
+                return res.status(400).json({ message: 'Chat with same participants already exists.' });
+            }
+
             const chat = await Chat.create({ participants });
 
             if(res.socket.server.io) {
-                res.socket.server.io.emit(`chat:${chat._id}`, chat);
+                res.socket.server.io.emit(`chats`, chat);
             }
             
             return res.status(200).json({ message: 'Chat created.' });
         } catch (error) {
-            console.log(error)
             if (error.name === "ValidationError") {
                 return res.status(400).json({ message: 'Please provide correct/necessary fields.' });
             }

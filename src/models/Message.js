@@ -9,7 +9,7 @@ const messageSchema = new Schema({
     },
     sender: {
         type: Schema.Types.ObjectId,
-        refPath: 'receiverRole',
+        refPath: 'senderRole',
         required: true 
     },
     message: {
