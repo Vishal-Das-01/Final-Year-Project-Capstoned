@@ -1,6 +1,6 @@
 import styles from "./FormTextInput.module.css";
 
-export default function FormTextInput({labelText, textInputName, placeholderText, isRequired}){
+export default function FormTextInput({labelText, textInputName, placeholderText, isRequired, value, onChange}){
     return (
         <div className={`${styles.textInputContainer} `}>
                     
@@ -18,6 +18,8 @@ export default function FormTextInput({labelText, textInputName, placeholderText
                     placeholder={placeholderText}
                     className={`${styles.textInput} font-montserrat`}
                     required
+                    value={value}
+                    onChange={onChange}
                 />
                 :
                 <input 
@@ -26,6 +28,8 @@ export default function FormTextInput({labelText, textInputName, placeholderText
                     id={textInputName}
                     placeholder={placeholderText}
                     className={`${styles.textInput} font-montserrat`}
+                    value={value}
+                    onChange={onChange}
                 />
             }
             

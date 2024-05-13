@@ -8,7 +8,9 @@ export const GET = async (request) => {
     const profileID = request.headers.get('profileID');
 
     try {
-        const sentRequests = await Request.find({sender: profileID}).populate('sender').populate('receiver');
+        const sentRequests = await Request.find({sender: profileID}).populate(
+            'receiver', 'firstName lastName gender profileImage'
+        );
 
         return NextResponse.json({message: "Success.", data: sentRequests}, {status: HttpStatusCode.Ok});
     } catch (error) {

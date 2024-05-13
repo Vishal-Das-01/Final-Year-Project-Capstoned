@@ -1,4 +1,4 @@
-import { DocFileType, Gender, Industry } from '@/utils/constants/enums';
+import { Gender, ImageFileType } from '@/utils/constants/enums';
 import { model, models, Schema } from 'mongoose';
 
 const adminSchema = new Schema({
@@ -14,7 +14,18 @@ const adminSchema = new Schema({
         type: String,
         enum: Object.values(Gender),
         required: true
-    }
+    },
+    profileImage: {
+        image: {
+            type: String,
+            required: true
+        },
+        extension: {
+            type: String,
+            enum: Object.values(ImageFileType),
+            required: true
+        }
+    },
 }, { timestamps: true });
 
 const Admin = models.Admin || model('Admin', adminSchema);

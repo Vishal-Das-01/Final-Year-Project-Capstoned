@@ -1,7 +1,7 @@
 import styles from "./FormDropDownSelect.module.css";
 import { useEffect, useState } from "react";
 
-export default function FormDropDownSelect({labelText, dropDownSelectName, options, isRequired, placeholder, selectedValue, setSelectedValue}){
+export default function FormDropDownSelect({labelText, dropDownSelectName, options, isRequired, placeholder, selectedValue, setSelectedValue, isOnChangePassed, onChange}){
     // This is this component's own internal state
     // It is only used for displaying the selected value in the drop down
     const [selectedDropDownValue, setSelectedDropDownValue] = useState(selectedValue);
@@ -31,8 +31,8 @@ export default function FormDropDownSelect({labelText, dropDownSelectName, optio
                     className={`${styles.dropDownSelect} font-montserrat`}
                     required
                     defaultValue=""
-                    value={selectedDropDownValue}
-                    onChange={onDropDownValueSelected}
+                    value={(isOnChangePassed) ? selectedValue : selectedDropDownValue}
+                    onChange={(isOnChangePassed) ? onChange : onDropDownValueSelected}
                 >
                     
                     <option value="" disabled>
@@ -53,8 +53,8 @@ export default function FormDropDownSelect({labelText, dropDownSelectName, optio
                     id={dropDownSelectName}
                     className={`${styles.dropDownSelect} font-montserrat`}
                     defaultValue=""
-                    value={selectedDropDownValue}
-                    onChange={onDropDownValueSelected}
+                    value={(isOnChangePassed) ? selectedValue : selectedDropDownValue}
+                    onChange={(isOnChangePassed) ? onChange : onDropDownValueSelected}
                 >
                     
                     <option value="" disabled>

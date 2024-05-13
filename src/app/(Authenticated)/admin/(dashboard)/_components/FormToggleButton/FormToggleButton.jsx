@@ -33,9 +33,24 @@ export default function FormToggleButton({inactiveLabelText, activeLabelText, is
                 <span className="text-sm font-medium font-montserrat">{isChecked ? activeLabelText : inactiveLabelText}</span>
 
                 {(isRequired) ? 
-                    <input name={toggleInputName} id={toggleInputName} type="checkbox" className="hidden" onChange={toggleSwitch} checked={isChecked} required/>
+                    <input 
+                        name={toggleInputName} 
+                        id={toggleInputName} 
+                        type="checkbox" 
+                        className="hidden" 
+                        onChange={toggleSwitch} 
+                        checked={isChecked} 
+                        required
+                    />
                     :
-                    <input name={toggleInputName} id={toggleInputName} type="checkbox" className="hidden" onChange={toggleSwitch} checked={isChecked} />
+                    <input 
+                        name={toggleInputName} 
+                        id={toggleInputName} 
+                        type="checkbox" 
+                        className="hidden" 
+                        onChange={toggleSwitch} 
+                        checked={isChecked} 
+                    />
                 }
 
             </label>
