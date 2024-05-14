@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import GroupDetailsModal from "../GroupDetailsModal/GroupDetailsModal";
 
-function GroupName({ groupName }) {
+function GroupName({ groupName, groupID }) {
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -15,7 +15,7 @@ function GroupName({ groupName }) {
         {groupName}
       </button>
       {openModal && (
-        <GroupDetailsModal openModal={openModal} setOpenModal={setOpenModal} />
+        <GroupDetailsModal setOpenModal={setOpenModal} groupID={groupID}/>
       )}
     </div>
   );

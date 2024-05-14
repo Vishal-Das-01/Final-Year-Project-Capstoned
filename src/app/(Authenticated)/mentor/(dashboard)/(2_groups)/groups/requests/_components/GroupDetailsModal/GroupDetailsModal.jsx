@@ -1,7 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ResourceButton from "./_components/ResourceButton/ResourceButton";
+import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
+import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
+import { HttpStatusCode } from "axios";
+import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { callAPI } from "@/utils/helpers/callAPI";
 
-function GroupDetailsModal({ openModal, setOpenModal }) {
+function GroupDetailsModal({ setOpenModal, groupID }) {
+
+  const [groupDetails, setGroupDetails] = useState(null);
+
+  const authDetails = useSelector((state) => state.AuthDetails);
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  useEffect(() => {
+
+    const getGroupDetails = async () => {
+      const accessToken = authDetails.accessToken;
+      const response = await callAPI("GET", accessToken, `${BACKEND_ROUTES.getGroupDetails}?id=${groupID}`);
+      if (response.status === HttpStatusCode.Ok) {
+        const responseData = await response.json();
+        console.log(responseData);
+        setGroupDetails(responseData.data);
+      } else if (response.status === HttpStatusCode.Unauthorized) {
+        const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+          method: "POST",
+        });
+        if (responseLogOut.status === HttpStatusCode.Ok) {
+          dispatch(removeAuthDetails());
+          router.replace(FRONTEND_ROUTES.landing_page);
+        }
+      }
+    }
+
+    getGroupDetails();
+
+  }, [authDetails.accessToken, dispatch, router, groupID]);
+
   return (
     <div
       id="static-modal"
