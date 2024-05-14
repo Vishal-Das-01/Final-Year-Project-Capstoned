@@ -3,6 +3,7 @@ import { RequestType } from "@/utils/constants/enums";
 import Request from "@/models/Request";
 import Student from "@/models/Student";
 import Mentor from "@/models/Mentor";
+import Group from "@/models/Group";
 
 export default async function handler(req, res) {
     if (req.method === 'PATCH') {
@@ -35,8 +36,11 @@ export default async function handler(req, res) {
                         return res.status(400).json({ message: 'You are already in a group.' });
                     }
 
+                    groupMember.group = group._id;
+
                     group.members.push(groupMember._id)
                     await group.save();
+                    await groupMember.save();
 
                     break;
                 case RequestType.Supervisor: 
@@ -54,9 +58,12 @@ export default async function handler(req, res) {
                     if(group.mentors.includes(supervisor._id)) {
                         return res.status(400).json({ message: 'You are already a mentor to this group.' });
                     }
+                    
+                    supervisor.groups.push({groupID : group._id, role: RequestType.Supervisor});
 
                     group.supervisor = supervisor._id;
                     await group.save();
+                    await supervisor.save();
                 
                     break;
                 case RequestType.Mentor:
@@ -69,9 +76,16 @@ export default async function handler(req, res) {
                     if(group.supervisor==mentor._id) {
                         return res.status(400).json({ message: 'You are already a supervisor to this group.' });
                     }
+                    
+                    if(group.mentors.includes(mentor._id)) {
+                        return res.status(400).json({ message: 'You are already a mentor to this group.' });
+                    }
+
+                    mentor.groups.push({groupID : group._id, role: RequestType.Mentor});
 
                     group.mentors.push(mentor._id)
                     await group.save();
+                    await mentor.save();
                 
                     break;
             }

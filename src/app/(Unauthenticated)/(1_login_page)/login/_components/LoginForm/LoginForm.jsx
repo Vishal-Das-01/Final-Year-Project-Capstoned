@@ -46,14 +46,13 @@ export default function LoginForm() {
       console.log(responseData);
       if (response.status === 200) {
         const { role, email, profileID } = jwtDecode(responseData.accessToken);
-        console.log(profileID)
         dispatch(
           setAuthDetails({
             role: role,
             email: email,
             profileID: profileID,
             accessToken: responseData.accessToken,
-            profileImage: responseData.profileImage,
+            profileImage: responseData.user.profileID.profileImage?.image,
             firstName: responseData.user.profileID.firstName,
             lastName: responseData.user.profileID.lastName,
             gender: responseData.user.profileID.gender
