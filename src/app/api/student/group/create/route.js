@@ -23,6 +23,7 @@ export const POST = async (request) => {
 
         return NextResponse.json({message: "Group created."}, {status: HttpStatusCode.Ok});
     } catch (error) {
+        console.log(error);
         if (error.name === "ValidationError") {
             return NextResponse.json({ message: "Please provide correct/necessary fields." }, { status: HttpStatusCode.BadRequest });
         }

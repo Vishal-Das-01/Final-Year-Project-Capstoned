@@ -15,4 +15,6 @@ export const BACKEND_ROUTES = {
   getAllMilestones: `${baseURL}/admin/milestone/get-all`,
   createMilestone: `${baseURL}/admin/milestone/create`,
   createUser: `${baseURL}/admin/account/create`,
+  getReceivedRequest: `${baseURL}/user/request/get/received`,
+  getGroupDetails: `${baseURL}/user/group/get`,
 };
