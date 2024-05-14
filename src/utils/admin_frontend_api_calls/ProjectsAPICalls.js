@@ -1,4 +1,4 @@
-export async function createAccountAPICall(route, token, data){
+export async function markProjectFinishedAPICall(route, token, data){
     try{
         let res = await fetch(route, {
             method: "POST",
@@ -14,9 +14,9 @@ export async function createAccountAPICall(route, token, data){
     }
 }
 
-export async function getUsersAPICall(route, token, role){
+export async function getProjectsAPICall(route, token){
     try{
-        let res = await fetch(route + `${role}`, {
+        let res = await fetch(route, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`,
