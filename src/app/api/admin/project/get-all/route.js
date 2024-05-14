@@ -9,7 +9,12 @@ export async function GET(request) {
     connectToDB();
 
     try {
-        const projects = await Project.find({ year: body.year,finished: false});
+        // Uncomment later
+        // const projects = await Project.find({ year: body.year,finished: false});
+
+        // Remove this line later when project is properly built
+        const projects = await Project.find({finished: false});
+
         return NextResponse.json( projects , { status: HttpStatusCode.OK });
     } catch (error) {
         return NextResponse.json({ message: 'Error fetching projects' }, { status: HttpStatusCode.INTERNAL_SERVER_ERROR });

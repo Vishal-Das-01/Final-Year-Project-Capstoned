@@ -12,7 +12,16 @@ export const BACKEND_ROUTES = {
   updateProfileMentor: `${baseURL}/mentor/account/update`,
   updateProposalLinkMentor: `${baseURL}/mentor/proposal/updateLink`,
   deleteProposalMentor: `${baseURL}/mentor/proposal/delete`,
-  getAllMilestones: `${baseURL}/admin/milestone/get-all`,
-  createMilestone: `${baseURL}/admin/milestone/create`,
-  createUser: `${baseURL}/admin/account/create`,
+
+  getAllMilestones: `${baseURL}/admin/milestone/get-all`, // (admin) milestones
+  createMilestone: `${baseURL}/admin/milestone/create`, // (admin) milestones
+
+  createUser: `${baseURL}/admin/account/create`, // (admin) users
+  getUsers: `${baseURL}/admin/user/get/`, // (admin) users
+
+  getAllProjects: `${baseURL}/admin/project/get-all`, // (admin) projects
+  markProjectFinished: `${baseURL}/admin/project/mark-finished/`, // (admin) projects
+
+  getFYPGroups: `${baseURL}/admin/group/get/all`, // (admin) fyp groups
+  finalizeAllFYPGroups: `${baseURL}/admin/group/finalize/all`, // (admin) fyp groups
 };

@@ -1,5 +1,6 @@
 "use client";
 
+// Imports below for UI creation
 import styles from "./ProjectsPage.module.css";
 import ContentTable from "../../_components/ContentTable/ContentTable";
 import TableHead from "../../_components/TableHead/TableHead";
@@ -7,8 +8,14 @@ import TableRow from "../../_components/TableRow/TableRow";
 import TableHeadDataCell from "../../_components/TableHeadDataCell/TableHeadDataCell"; 
 import TableBodyDataCell from "../../_components/TableBodyDataCell/TableBodyDataCell"; 
 import ProjectsHeadingAndButton from "./_components/ProjectsHeadingAndButton/ProjectsHeadingAndButton";
-import { useState } from "react";
 import Modal from "../../_components/Modal/Modal";
+
+// Imports below for state management and api calls
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { HttpStatusCode } from "axios";
+import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
+import { markProjectFinishedAPICall, getProjectsAPICall } from "@/utils/admin_frontend_api_calls/ProjectsAPICalls";
 
 // export const metadata = {
 // 	title: "Admin Projects Management",
@@ -16,10 +23,72 @@ import Modal from "../../_components/Modal/Modal";
 // }
 
 export default function AdminDashboardProjectsPage(props){
+
+	// States for managing: modal opening and closing
+	// for managing modal title
+	// for managing modal content
+	// for managing projects shown in the table
+	// for managing skeleton loading indicator 
 	const [openModal, setOpenModal]   = useState(false);
 	const [modalTitle, setModalTitle] = useState("");
 	const [modalContent, setModalContent] = useState("");
+	const [projects, setProjects] = useState([]);
+	const [loadingIndicator, setLoadingIndicator] = useState(true);
 
+	// For access token retrieval
+	const authDetails = useSelector((state) => state.AuthDetails);
+
+	// API Call for fetching all projects
+	async function getAllProjects(){
+		let accessToken = authDetails.accessToken;
+		let apiURL = BACKEND_ROUTES.getAllProjects;
+		setLoadingIndicator(true);
+
+		let apiResponse = await getProjectsAPICall(apiURL, accessToken);
+		console.log("HERE ", apiResponse);
+		// if(apiResponse.status === HttpStatusCode.Ok){
+		// 	let apiResponseData = await apiResponse.json();
+		// 	setProjects(apiResponseData);
+		// 	// console.log("A:", apiResponseData);
+		// }
+		// else{
+		// 	console.log("B:", "error");
+		// }
+	}
+
+	// API Call for marking a project finished
+	// whose id is passed
+	async function markProjectFinished(id){
+		let accessToken = authDetails.accessToken;
+		let apiURL = BACKEND_ROUTES.markProjectFinished + `${id}`;
+		setLoadingIndicator(true);
+
+		let apiResponse = await markProjectFinishedAPICall(apiURL, accessToken);
+		if(apiResponse.status === HttpStatusCode.Ok){
+			let apiResponseData = await apiResponse.json();
+			setProjects(apiResponseData);
+			// console.log("A:", apiResponseData);
+		}
+		else{
+			console.log("B:", "error");
+		}
+	}
+	
+	// API Call for displaying projects in the table 
+	// when the page is loaded 
+	useEffect(() => {
+		getAllProjects();
+	}, [])
+
+
+	// Turn skeleton loading indicator off when 
+	// projects are fetched successfully
+	useEffect(() => {
+		if(projects.length > 0){
+			setLoadingIndicator(false);
+		}
+		console.log("A:", projects)
+	}, [projects]);
 
 	return (
 		<div className={`${styles.primaryContainer} flex flex-row items-center justify-center w-full h-full`}>
@@ -50,49 +119,43 @@ export default function AdminDashboardProjectsPage(props){
 					
 					<tbody>
 
-						<TableRow
-							setOpenModal={setOpenModal} 
-							setModalTitle={setModalTitle}
-							setModalContent={setModalContent}
-						>
+						{!loadingIndicator && projects.map((project) => {
+							return (
+								<TableRow
+									setOpenModal={setOpenModal} 
+									setModalTitle={setModalTitle}
+									setModalContent={setModalContent}
+									key={project._id}
+									projectId={project._id}
+								>
 
-							<TableBodyDataCell text={'1'}/>
-								
-							<TableBodyDataCell text={'Hamza Akbar'}/>
+									<TableBodyDataCell 
+										text={String("milestone.assignmentNumber")} 
+									/>
 
-							<TableBodyDataCell text={'This is dummy text. This is dummy text. This is dummy text. This is dummy text.'}/>
-								
-							<TableBodyDataCell text={'Pakistan'}/>
-							
-							<TableBodyDataCell text={'22'}/>
-							
-							<TableBodyDataCell text={'Pakistan'}/>
+									<TableBodyDataCell 
+										text={String("milestone.title")}
+									/>
 
-							<TableBodyDataCell text={'True'}/>
-							
-						</TableRow>
-
-						<TableRow
-							setOpenModal={setOpenModal} 
-							setModalTitle={setModalTitle}
-							setModalContent={setModalContent}
-						>
-
-						<TableBodyDataCell text={'1'}/>
-								
-							<TableBodyDataCell text={'Hamza Akbar'}/>
-
-							<TableBodyDataCell text={'This is dummy text. This is dummy text. This is dummy text. This is dummy text.'}/>
-								
-							<TableBodyDataCell text={'Pakistan'}/>
-							
-							<TableBodyDataCell text={'22'}/>
-							
-							<TableBodyDataCell text={'Pakistan'}/>
-
-							<TableBodyDataCell text={'True'}/>
-						
-						</TableRow>
+									<TableBodyDataCell 
+										text={String("milestone.description")}
+									/>
+									
+									<TableBodyDataCell 
+										text={String("extractDate(milestone.deadline)")}
+									/>
+									
+									<TableBodyDataCell 
+										text={String("milestone.percentage")}
+									/>
+									
+									<TableBodyDataCell 
+										text={String("milestone.year")}
+									/>
+									
+								</TableRow>
+							)
+						})}
 						
 					</tbody>
 					
