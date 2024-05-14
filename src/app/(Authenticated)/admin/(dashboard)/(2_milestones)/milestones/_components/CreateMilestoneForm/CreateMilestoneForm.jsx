@@ -10,22 +10,102 @@ import FormNumberInput from "../../../../_components/FormNumberInput/FormNumberI
 import FormTextArea from "../../../../_components/FormTextArea/FormTextArea";
 
 // Imports below for state management & api calls
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import { createNewMilestoneAPICall } from "@/utils/admin_frontend_api_calls/MilestoneAPICalls";
+import { useSelector } from "react-redux";
+import { HttpStatusCode } from "axios";
+import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 
 export default function CreateMilestoneForm({setOpenModal}){
     let formId = `createMilestoneForm`;
 
-    // For retrieving access token
-    const authDetails = useSelector((state) => state.AuthDetails);
-    const accessToken = authDetails.accessToken;
+    // For managing state of entire milestone
+    const [milestone, setMilestone] = useState({
+        "assignmentNumber"   : "",
+        "title"              : "",
+        "description"        : "",
+        "deadline"           : "",
+        "percentage"         : "",
+        "resources"          : [],
+        "year"               : "",
+    });
 
+    // For access token retrieval
+	const authDetails = useSelector((state) => state.AuthDetails);
 
-    function submitForm(event){
-        event.preventDefault();
-        console.log("Submit Form");
+    // For updating milestone state
+    function handleChange(event){
+        let fieldName = event.target.name;
+        let {value}   = event.target;
+
+        if(fieldName === "milestoneAssignmentNumber")
+        {    
+            setMilestone((prevMilestone) => ({
+                ...prevMilestone,
+                "assignmentNumber" : value
+            }));
+        }
+        else if(fieldName === "milestoneTitle"){
+            setMilestone((prevMilestone) => ({
+                ...prevMilestone,
+                "title" : value
+            }));
+        }
+        else if(fieldName === "milestoneDeadline"){
+            setMilestone((prevMilestone) => ({
+                ...prevMilestone,
+                "deadline" : value
+            }));
+        }
+        else if(fieldName === "milestonePercentageWorth"){
+            setMilestone((prevMilestone) => ({
+                ...prevMilestone,
+                "percentage" : value
+            }));
+        }
+        else if(fieldName === "milestoneYear"){
+            setMilestone((prevMilestone) => ({
+                ...prevMilestone,
+                "year" : value
+            }));
+        }
+        else if(fieldName === "milestoneDescription"){
+            setMilestone((prevMilestone) => ({
+                ...prevMilestone,
+                "description" : value
+            }));
+        }
+        else if(fieldName === "milestoneResources"){
+            setMilestone((prevMilestone) => ({
+                ...prevMilestone,
+                "resources" : [...value]
+            }));
+        }
+        else {
+            // Do nothing
+        }
     }
+
+    // Function for when form is submitted
+    async function submitForm(event){
+        event.preventDefault();
+        let dataToSend = milestone;
+        let accessToken = authDetails.accessToken;
+        let apiURL = BACKEND_ROUTES.createMilestone;
+        
+        let apiCall = await createNewMilestoneAPICall(apiURL, accessToken, dataToSend);
+        if(apiCall.status === HttpStatusCode.Ok){
+            let apiCallResponse = await apiCall.json();
+            console.log("A", apiCallResponse);
+        }
+        else{
+            console.log("B", "Error");
+        }
+    }
+
+    useEffect(() => {
+        // console.log("A", milestone)
+    }, [milestone])
 
     return (
         <div className={`${styles.createMilestoneFormPrimaryContainer} w-full `}>
@@ -46,6 +126,8 @@ export default function CreateMilestoneForm({setOpenModal}){
                         numberInputName="milestoneAssignmentNumber"
                         placeholderText="Assignment Number"
                         isRequired={true}
+                        value={milestone.assignmentNumber} 
+                        onChange={handleChange}
                     />
 
                     <FormTextInput 
@@ -53,6 +135,8 @@ export default function CreateMilestoneForm({setOpenModal}){
                         textInputName={"milestoneTitle"} 
                         placeholderText={"Milestone Title"}
                         isRequired={true}
+                        value={milestone.title} 
+                        onChange={handleChange}
                     />
 
                 </FormRow>
@@ -64,9 +148,10 @@ export default function CreateMilestoneForm({setOpenModal}){
 
                     <FormDateInput
                         labelText="Deadline"
-                        emailInputName="milestoneDeadline"
+                        dateInputName="deadline"
                         placeholderText="Milestone Deadline"
                         isRequired={true}
+                        setState={setMilestone} 
                     />
 
                     <FormNumberInput 
@@ -74,6 +159,8 @@ export default function CreateMilestoneForm({setOpenModal}){
                         numberInputName="milestonePercentageWorth"
                         placeholderText="Percentage"
                         isRequired={true}
+                        value={milestone.percentage} 
+                        onChange={handleChange}
                     />
 
                 </FormRow>
@@ -88,6 +175,8 @@ export default function CreateMilestoneForm({setOpenModal}){
                         numberInputName="milestoneYear"
                         placeholderText="Year"
                         isRequired={true}
+                        value={milestone.year} 
+                        onChange={handleChange}
                     />
 
                 </FormRow>
@@ -102,6 +191,8 @@ export default function CreateMilestoneForm({setOpenModal}){
                         textAreaName="milestoneDescription"
                         placeholderText="Milestone Description"
                         isRequired={true}
+                        value={milestone.description}
+                        onChange={handleChange}
                     />
 
                 </FormRow>

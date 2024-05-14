@@ -12,6 +12,10 @@ import FormEmailInput from "../../../../_components/FormEmailInput/FormEmailInpu
 
 // Imports for state management & API calls
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
+import { createAccountAPICall } from "@/utils/admin_frontend_api_calls/AccountsAPICalls";
+import { HttpStatusCode } from "axios";
 
 
 export default function CreateMentorAccountForm({setOpenModal}){
@@ -19,16 +23,20 @@ export default function CreateMentorAccountForm({setOpenModal}){
 
     // For managing state of entire mentor
     const [mentor, setMentor] = useState({
+        "role"                      : "Mentor",
         "mentorFirstName"           : "",
         "mentorLastName"            : "",
         "mentorGender"              : "",
         "mentorContact"             : "",
-        "isMentorUniversityTeacher" : "",
-        "canMentorSupervise"        : "",
+        "isMentorUniversityTeacher" : false,
+        "canMentorSupervise"        : false,
         "mentorEmailID"             : "",
     });
 
-    // For first name
+    // For access token retrieval
+    const authDetails = useSelector((state) => state.AuthDetails);
+
+    // For updating mentor state
     function handleChange(event){
         let fieldName = event.target.name;
         let {value}   = event.target;
@@ -57,18 +65,18 @@ export default function CreateMentorAccountForm({setOpenModal}){
                 "mentorContact" : value
             }));
         }
-        else if(fieldName === "isMentorUniversityTeacher"){
-            setMentor((prevMentor) => ({
-                ...prevMentor,
-                "isMentorUniversityTeacher" : value
-            }));
-        }
-        else if(fieldName === "canMentorSupervise"){
-            setMentor((prevMentor) => ({
-                ...prevMentor,
-                "canMentorSupervise" : value
-            }));
-        }
+        // else if(fieldName === "isMentorUniversityTeacher"){
+        //     setMentor((prevMentor) => ({
+        //         ...prevMentor,
+        //         "isMentorUniversityTeacher" : value
+        //     }));
+        // }
+        // else if(fieldName === "canMentorSupervise"){
+        //     setMentor((prevMentor) => ({
+        //         ...prevMentor,
+        //         "canMentorSupervise" : value
+        //     }));
+        // }
         else if(fieldName === "mentorEmailID"){
             setMentor((prevMentor) => ({
                 ...prevMentor,
@@ -78,12 +86,34 @@ export default function CreateMentorAccountForm({setOpenModal}){
         else {
             // Do nothing
         }
-        console.log(mentor);
     }
 
-    function submitForm(event){
+    // Function for when form is submitted
+    async function submitForm(event){
         event.preventDefault();
-        console.log("Submit Form");
+        let dataToSend = {
+            "email"   : mentor.mentorEmailID,
+            "role"    : mentor.role,
+            "details" : {
+                "isUniversityTeacher" : mentor.isMentorUniversityTeacher,
+                "canSupervise"        : mentor.canMentorSupervise,
+                "firstName"           : mentor.mentorFirstName,
+                "lastName"            : mentor.mentorLastName,
+                "gender"              : mentor.mentorGender,
+                "contact"             : mentor.mentorContact
+            } 
+        }
+        let accessToken = authDetails.accessToken;
+        let apiURL = BACKEND_ROUTES.createUser;
+        
+        let apiCall = await createAccountAPICall(apiURL, accessToken, dataToSend);
+        if(apiCall.status === HttpStatusCode.Ok){
+            let apiCallResponse = await apiCall.json();
+            console.log("A", apiCallResponse);
+        }
+        else{
+            console.log("B", "Error");
+        }
     }
 
     return (
@@ -158,8 +188,7 @@ export default function CreateMentorAccountForm({setOpenModal}){
                         isRequired={true}
                         labelText="Is University Teacher?"
                         toggleInputName={"isMentorUniversityTeacher"}
-                        value={mentor.isMentorUniversityTeacher}
-                        onChange={handleChange}
+                        setState={setMentor}
                     />
 
                     <FormToggleButton 
@@ -168,8 +197,7 @@ export default function CreateMentorAccountForm({setOpenModal}){
                         isRequired={true}
                         labelText="Can Mentor Supervise?"
                         toggleInputName={"canMentorSupervise"}
-                        value={mentor.canMentorSupervise}
-                        onChange={handleChange}
+                        setState={setMentor}
                     />
 
                 </FormRow>

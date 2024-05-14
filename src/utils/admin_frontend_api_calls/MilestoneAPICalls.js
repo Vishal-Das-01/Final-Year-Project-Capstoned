@@ -13,10 +13,10 @@ export async function getAllMilestonesAPICall(route, apiCallMethod, token){
     }
 }
 
-export async function createNewMilestoneAPICall(route, apiCallMethod, token, data){
+export async function createNewMilestoneAPICall(route, token, data){
     try{
         let res = await fetch(route, {
-            method: apiCallMethod,
+            method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`
             },

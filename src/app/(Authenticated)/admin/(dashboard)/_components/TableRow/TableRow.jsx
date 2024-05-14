@@ -2,7 +2,7 @@
 
 import styles from "./TableRow.module.css";
 
-export default function TableRow({children, setOpenModal, setModalTitle, setModalContent}){
+export default function TableRow({children, setOpenModal, setModalTitle, setModalContent, milestoneId}){
     return (
         <tr 
             className="border-b dark:border-gray-700 hover:bg-gray-100 cursor-pointer"  
