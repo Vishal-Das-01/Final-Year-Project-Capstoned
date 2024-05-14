@@ -74,7 +74,7 @@ export async function middleware(request) {
         }
 
         if (request.nextUrl.pathname.startsWith('/api/user')) {
-            if (payload.role !== 'Mentor' && payload.role !== 'Student') return NextResponse.json({ message: 'Unauthorized' }, { status: HttpStatusCode.Forbidden })
+            if (payload.role !== 'Mentor' && payload.role !== 'Student' && payload.role !== 'Admin') return NextResponse.json({ message: 'Unauthorized' }, { status: HttpStatusCode.Forbidden })
             return NextResponse.next({
                 request: {
                     headers: newHeaders,
