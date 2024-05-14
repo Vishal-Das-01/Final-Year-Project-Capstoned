@@ -8,7 +8,7 @@ export const BACKEND_ROUTES = {
   getProfile: `${baseURL}/user/account/get`,
   getProposalsMentor: `${baseURL}/mentor/proposal/get`,
   createProposalMentor: `${baseURL}/mentor/proposal/create`,
-  getAllCompanies: `${baseURL}/user/company/get/all`,
+  getAllCompanies: `${baseURL}/user/company/get/all`, // (user) companies
   updateProfileMentor: `${baseURL}/mentor/account/update`,
   updateProposalLinkMentor: `${baseURL}/mentor/proposal/updateLink`,
   deleteProposalMentor: `${baseURL}/mentor/proposal/delete`,

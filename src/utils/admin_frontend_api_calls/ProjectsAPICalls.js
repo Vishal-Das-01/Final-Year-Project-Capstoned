@@ -10,7 +10,7 @@ export async function markProjectFinishedAPICall(route, token, data){
         return res;
     }
     catch(error){
-        console.log("createAccountAPICall: " + error);
+        console.log("markProjectFinishedAPICall: " + error);
     }
 }
 
@@ -25,6 +25,6 @@ export async function getProjectsAPICall(route, token){
         return res;
     }
     catch(error){
-        console.log("getUsersAPICall Error: " + error);
+        console.log("getProjectsAPICall Error: " + error);
     }
 }

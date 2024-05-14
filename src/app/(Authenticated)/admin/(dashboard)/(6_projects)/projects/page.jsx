@@ -45,15 +45,15 @@ export default function AdminDashboardProjectsPage(props){
 		setLoadingIndicator(true);
 
 		let apiResponse = await getProjectsAPICall(apiURL, accessToken);
-		console.log("HERE ", apiResponse);
-		// if(apiResponse.status === HttpStatusCode.Ok){
-		// 	let apiResponseData = await apiResponse.json();
-		// 	setProjects(apiResponseData);
-		// 	// console.log("A:", apiResponseData);
-		// }
-		// else{
-		// 	console.log("B:", "error");
-		// }
+		// console.log("HERE ", apiResponse);
+		if(apiResponse.status === HttpStatusCode.Ok){
+			let apiResponseData = await apiResponse.json();
+			setProjects(apiResponseData);
+			// console.log("A:", apiResponseData);
+		}
+		else{
+			console.log("B:", "error");
+		}
 	}
 
 	// API Call for marking a project finished
