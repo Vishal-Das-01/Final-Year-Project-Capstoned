@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { HttpStatusCode } from "axios";
 import { connectToDB } from "@/utils/helpers/connectDB";
 import Request from "@/models/Request";
+import Group from "@/models/Group";
+import Student from "@/models/Student";
 
 export const GET = async (request) => {
     await connectToDB();

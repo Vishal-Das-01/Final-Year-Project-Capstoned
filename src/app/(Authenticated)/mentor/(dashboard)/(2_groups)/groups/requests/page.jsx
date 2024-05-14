@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
 import { useRouter } from "next/navigation";
 import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
+import { set } from "mongoose";
 
 // export const metadata = {
 //   title: "Final Year Groups: Requests",
@@ -24,6 +25,7 @@ import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 function Requests() {
 
   const [requests, setRequests] = useState(null);
+  const [processing, setProcessing] = useState(false);
   // const requests = await getRequests();
 
   const router = useRouter();
@@ -88,10 +90,29 @@ function Requests() {
     },
   ];
 
+  const handelDelete = async (id) => {
+    setProcessing(true);
+    const accessToken = authDetails.accessToken;
+    const response = await callAPI("DELETE", accessToken, `${BACKEND_ROUTES.deleteRequest}?id=${id}`);
+    if (response.status === HttpStatusCode.Ok) {
+      setRequests(requests.filter((item) => item._id !== id));
+      setProcessing(false);
+    }
+    if (response.status === HttpStatusCode.Unauthorized) {
+      const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+        method: "POST",
+      });
+      if (responseLogOut.status === HttpStatusCode.Ok) {
+        dispatch(removeAuthDetails());
+        router.replace(FRONTEND_ROUTES.landing_page);
+      }
+    }
+
+  }
+
   return (
     
     <div className={`${styles.container} m-4 overflow-y-auto`}>
-      {/* {requests.data.length === 0 && (<NotFound />)} */}
       {requests && requests.length === 0 && <NotFound />}
       {requests && requests.map((item, index) => (
         <div key={index}>
@@ -114,10 +135,10 @@ function Requests() {
               Requested for: {item.type}
             </h>
             <div className="col-span-1 flex items-center">
-              <FaCircleXmark className="h-6 w-6 col-span-1 flex items-center text-red-200 hover:text-red-500 hover:cursor-pointer" />
+              <FaCircleXmark disabled={processing} className={`h-6 w-6 col-span-1 flex items-center text-red-200 ${!processing? "hover:text-red-500 hover:cursor-pointer" : ""}`} onClick={() => handelDelete(item._id)}/>
             </div>
             <div className="col-span-1 flex items-center">
-              <FaCheckCircle className="h-6 w-6 col-span-1 flex items-center text-green-200 hover:text-green-500 hover:cursor-pointer" />
+              <FaCheckCircle disabled={processing} className={`h-6 w-6 col-span-1 flex items-center text-green-200 ${!processing? "hover:text-green-500 hover:cursor-pointer" : ""}`} />
             </div>
           </div>
           <hr className="mt-5 mb-4 text-center border-gray-300 border-t-2 border-b-0" />
