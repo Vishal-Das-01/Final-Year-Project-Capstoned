@@ -20,6 +20,9 @@ export async function POST(request, { params }) {
 
         const group = await Group.findById(student.group);
 
+        if (group.project)
+            return NextResponse.json({ message: 'Group has already finalized a project' }, { status: HttpStatusCode.BadRequest });
+
         if (group.selectedProposal.length === 5)
             return NextResponse.json({ message: 'Group has reached the maximum number of proposals' }, { status: HttpStatusCode.BadRequest });
 

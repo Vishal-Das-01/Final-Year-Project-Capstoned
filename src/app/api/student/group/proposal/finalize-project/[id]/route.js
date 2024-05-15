@@ -6,6 +6,7 @@ import Proposal from "@/models/Proposal";
 import Student from "@/models/Student";
 import { NextResponse } from "next/server";
 import { HttpStatusCode } from "axios";
+import { Approval } from "@/utils/constants/enums";
 
 export async function POST(request, { params }) {
     connectToDB();
@@ -21,13 +22,26 @@ export async function POST(request, { params }) {
 
         const group = await Group.findById(student.group);
 
+        if (group.project)
+            return NextResponse.json({ message: 'Group has already finalized a project' }, { status: HttpStatusCode.BadRequest });
+
         if (profileID != group.lead)
             return NextResponse.json({ message: 'You are not the lead of the group' }, { status: HttpStatusCode.BadRequest });
 
-        const chosenProposal = group.selectedProposal.filter(proposals => proposals.proposal === id);
+        const chosenProposal = group.selectedProposal.filter(proposals => proposals.proposal == id);
+        
+        console.log(chosenProposal)
 
-        if (chosenProposal.status !== 'Approved')
+        if (chosenProposal[0].status !== Approval.Approved)
             return NextResponse.json({ message: 'Proposal has not been approved' }, { status: HttpStatusCode.BadRequest });
+
+        // for(const group of group.selectedProposal) {
+        //     if(group.p)
+        //     const proposal = await Proposal.findById(group.proposal);
+
+        // }
+
+        console.log(group)
 
         group.selectedProposal = [];
 
@@ -40,27 +54,19 @@ export async function POST(request, { params }) {
 
         const proposal = await Proposal.findById(id);
 
-        if (proposal.mentorship) {
-            if (proposal.proposedBy !== group.supervisor)
-                if (!group.mentors.includes(proposal.proposedBy))
-                    group.mentors.push
+        if (proposal.proposer === "Mentor" && proposal.mentorship) {
+            if (proposal.proposedBy !== group.supervisor && !group.mentors.includes(proposal.proposedBy))
+                group.mentors.push(proposal.proposedBy);
         }
 
         group.project = project._id;
-
-        const supervisor = await Mentor.findById(group.supervisor);
-
-        const assignProject = supervisor.groups;
-
-        assignProject = assignProject.filter(unassigned => unassigned.group !== group._id);
-
-        assignProject.push({ group: group._id, project: project._id });
-
-        supervisor.groups = assignProject;
-
-        await group.save();
-        await project.save();
-        await supervisor.save();
+        proposal.available = false;
+        
+        console.log(group)
+        console.log(project)
+        console.log(proposal)
+        // await group.save();
+        // await project.save();
 
         return NextResponse.json({ message: 'Project Finalized', project: project }, { status: HttpStatusCode.Ok });
 
