@@ -55,7 +55,11 @@ const groupSchema = new Schema({
     confirmed: {
         type: Boolean,
         default: false
-    }
+    },
+    year: {
+        type: Number,
+        required: true
+    },
 }, { timestamps: true })
 
 const Group = models.Group || model('Group', groupSchema);

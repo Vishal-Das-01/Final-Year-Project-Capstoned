@@ -9,12 +9,12 @@ import { callAPI } from "@/utils/helpers/callAPI";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import { HttpStatusCode } from "axios";
 // import { cookies } from "next/headers";
-import NotFound from "./_components/NotFound/NotFound";
 import { useDispatch, useSelector } from "react-redux";
 import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
 import { useRouter } from "next/navigation";
 import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
-import { set } from "mongoose";
+import NotFound from "../_components/NotFound/NotFound";
+import Loader from "../_components/Loader/Loader";
 
 // export const metadata = {
 //   title: "Final Year Groups: Requests",
@@ -26,6 +26,7 @@ function Requests() {
 
   const [requests, setRequests] = useState(null);
   const [processing, setProcessing] = useState(false);
+  const [loading, setLoading] = useState(true);
   // const requests = await getRequests();
 
   const router = useRouter();
@@ -40,6 +41,7 @@ function Requests() {
       if (response.status === HttpStatusCode.Ok) {
         const responseData = await response.json();
         console.log(responseData);
+        setLoading(false);
         setRequests(responseData.data);
       }
       if (response.status === HttpStatusCode.Unauthorized) {
@@ -132,6 +134,7 @@ function Requests() {
   return (
     
     <div className={`${styles.container} m-4 overflow-y-auto`}>
+      {loading && <Loader />}
       {requests && requests.length === 0 && <NotFound />}
       {requests && requests.map((item, index) => (
         <div key={index}>

@@ -22,8 +22,6 @@ function TabButtons() {
       .substring(secondSlash + 1)
       .substring(thirdSlash + 1);
     
-      console.log(pageName);
-
     if (pageName === "requests") {
       return (
         <ul class="flex flex-row w-full justify-evenly text-sm text-center text-gray-500 dark:text-gray-400 font-semibold">
@@ -31,6 +29,7 @@ function TabButtons() {
             <button
               onClick={() => {
                 router.replace(FRONTEND_ROUTES_MENTOR.mentor_dashboard_groups_page);
+                router.refresh();
               }}
               className="inline-flex items-center justify-center p-3 hover:text-gray-600 group"
               aria-current="page"

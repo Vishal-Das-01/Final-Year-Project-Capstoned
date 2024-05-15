@@ -8,7 +8,7 @@ import { redirect } from "next/dist/server/api-utils";
 import { callAPI } from "@/utils/helpers/callAPI";
 import NotFound from "./_components/NotFound/NotFound";
 
-async function ProposalsTable() {
+async function ProposalsTable({groupID, role}) {
   const proposals = [
     {
       _id: "1",

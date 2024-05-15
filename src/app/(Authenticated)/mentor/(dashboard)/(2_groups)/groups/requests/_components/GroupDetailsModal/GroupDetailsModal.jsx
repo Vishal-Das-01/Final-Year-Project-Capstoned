@@ -7,7 +7,7 @@ import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { callAPI } from "@/utils/helpers/callAPI";
-import Loader from "./_components/Loader/Loader";
+import Loader from "../../../_components/Loader/Loader";
 
 function GroupDetailsModal({ setOpenModal, groupID }) {
   const [groupDetails, setGroupDetails] = useState(null);
