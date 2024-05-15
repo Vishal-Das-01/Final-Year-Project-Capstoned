@@ -13,9 +13,6 @@ export async function PATCH(request,{params}) {
         const groupID = params.groupID;
         const {approval} = await request.json();
 
-        console.log(approval);
-        console.log(Approval.Rejected)
-
         if (approval !== Approval.Rejected && approval !== Approval.Approved){
             return NextResponse.json({ message: 'Invalid approval status' }, { status: HttpStatusCode.BadRequest });
         }

@@ -33,7 +33,6 @@ export async function POST(request, { params }) {
 
 
         proposal.edit = false;
-        proposal.available = false;
         proposal.selectedBy = group._id;
         group.selectedProposal.push({ proposal: id, status: Approval.Pending });
 
@@ -69,7 +68,6 @@ export async function DELETE(request, { params }) {
         group.selectedProposal = group.selectedProposal.filter(selected => selected.proposal != id);
 
         proposal.edit = true;
-        proposal.available = true;
         proposal.selectedBy = null;
 
         await group.save();

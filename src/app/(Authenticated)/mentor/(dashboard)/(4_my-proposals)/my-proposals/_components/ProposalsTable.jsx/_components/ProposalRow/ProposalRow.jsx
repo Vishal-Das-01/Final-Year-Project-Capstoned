@@ -17,7 +17,6 @@ import { HttpStatusCode } from "axios";
 import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
 import { deleteFile } from "@/utils/firebase/deleteFile";
 
-
 function ProposalRow({
   proposalID,
   title,
@@ -54,16 +53,15 @@ function ProposalRow({
   };
 
   const handleDelete = async () => {
-
     const accessToken = authDetails.accessToken;
     const response = await callAPI(
       "DELETE",
       accessToken,
       BACKEND_ROUTES.deleteProposalMentor,
-      { proposalID}
+      { proposalID }
     );
     const responseData = await response.json();
-    console.log(response,responseData);
+    console.log(response, responseData);
     if (response.status === HttpStatusCode.Ok) {
       await deleteFile(proposalDoc.file);
       router.refresh();
@@ -77,7 +75,7 @@ function ProposalRow({
         router.replace(FRONTEND_ROUTES.landing_page);
       }
     }
-  }
+  };
 
   return (
     <>
@@ -149,7 +147,12 @@ function ProposalRow({
               className="text-gray-400 hover:text-green-600"
               onClick={() => setOpenModal(true)}
             /> */}
-            <MdDelete disabled={!edit} className={`text-gray-400 ${edit? "hover:text-red-600" : ""}`} onClick={handleDelete}/>
+            <button disabled={!edit} type="button">
+              <MdDelete
+                className={`text-gray-400 ${edit ? "hover:text-red-600" : ""}`}
+                onClick={handleDelete}
+              />
+            </button>
           </div>
         </td>
       </tr>
