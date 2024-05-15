@@ -12,3 +12,19 @@ export async function getCompaniesAPICall(route, token){
         console.log("getCompaniesAPICall Error: " + error);
     }
 }
+
+export async function createNewCompanyAPICall(route, token, data){
+    try{
+        let res = await fetch(route, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify(data)
+        });
+        return res;
+    }
+    catch(error){
+        console.log("createNewCompanyAPICall Error: " + error);
+    }
+}

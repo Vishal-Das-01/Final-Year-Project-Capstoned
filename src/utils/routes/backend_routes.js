@@ -36,4 +36,7 @@ export const BACKEND_ROUTES = {
   finalizeAllFYPGroups: `${baseURL}/admin/group/finalize/all`, // (admin) fyp groups
 
   getAnnouncements: `${baseURL}/admin/notification/get/`, // (admin) announcements
+  createAnnouncement: `${baseURL}/admin/notification/create`, // (admin) announcements
+
+  createCompany: `${baseURL}/admin/company/create`, // (admin) companies
 };

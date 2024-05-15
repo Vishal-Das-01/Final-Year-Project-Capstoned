@@ -30,7 +30,6 @@ export default function FormDropDownSelect({labelText, dropDownSelectName, optio
                     id={dropDownSelectName}
                     className={`${styles.dropDownSelect} font-montserrat`}
                     required
-                    defaultValue=""
                     value={(isOnChangePassed) ? selectedValue : selectedDropDownValue}
                     onChange={(isOnChangePassed) ? onChange : onDropDownValueSelected}
                 >
@@ -52,7 +51,6 @@ export default function FormDropDownSelect({labelText, dropDownSelectName, optio
                     name={dropDownSelectName} 
                     id={dropDownSelectName}
                     className={`${styles.dropDownSelect} font-montserrat`}
-                    defaultValue=""
                     value={(isOnChangePassed) ? selectedValue : selectedDropDownValue}
                     onChange={(isOnChangePassed) ? onChange : onDropDownValueSelected}
                 >
