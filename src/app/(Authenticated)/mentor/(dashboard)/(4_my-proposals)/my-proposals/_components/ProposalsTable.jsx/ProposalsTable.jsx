@@ -47,11 +47,10 @@ async function ProposalsTable() {
                 key={proposal._id}
                 proposalID={proposal._id}
                 title={proposal.title}
-                description={
-                  proposal.description
-                }
-                status={!proposal.edit}
-                selectedBy={proposal.selectedBy}
+                description={proposal.description}
+                industries={proposal.industries}
+                edit={proposal.edit}
+                selectedBy={proposal.selectedBy?.name}
                 mentorship={proposal.mentorship}
                 active={proposal.available}
                 createdAt={proposal.createdAt}

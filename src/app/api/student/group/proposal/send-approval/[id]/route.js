@@ -17,15 +17,15 @@ export async function PATCH(request, { params }) {
         const student = await Student.findById(profileID);
 
         if (student.group === null)
-            return NextResponse.json({ message: 'Student is not in a group' }, { status: HttpStatusCode.BAD_REQUEST });
+            return NextResponse.json({ message: 'Student is not in a group' }, { status: HttpStatusCode.BadRequest });
 
         const group = await Group.findById(student.group);
 
         if (profileID != group.lead)
-            return NextResponse.json({ message: 'You are not the lead of the group' }, { status: HttpStatusCode.BAD_REQUEST });
+            return NextResponse.json({ message: 'You are not the lead of the group' }, { status: HttpStatusCode.BadRequest });
 
         if (group.supervisor === null)
-            return NextResponse.json({ message: 'Group does not have a supervisor' }, { status: HttpStatusCode.BAD_REQUEST });
+            return NextResponse.json({ message: 'Group does not have a supervisor' }, { status: HttpStatusCode.BadRequest });
 
         selectedProposal = group.selectedProposal.filter(selected => (selected.proposal !== id && selected.status !== Approval.Pending));
 
@@ -39,10 +39,10 @@ export async function PATCH(request, { params }) {
 
         await group.save();
 
-        return NextResponse.json({ message: 'Proposal sent for approval' }, { status: HttpStatusCode.OK });
+        return NextResponse.json({ message: 'Proposal sent for approval' }, { status: HttpStatusCode.Ok });
 
     } catch (error) {
-        return NextResponse.json({ message: error.message }, { status: HttpStatusCode.INTERNAL_SERVER_ERROR });
+        return NextResponse.json({ message: error.message }, { status: HttpStatusCode.InternalServerError });
     }
 
 }
