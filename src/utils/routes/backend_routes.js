@@ -15,7 +15,7 @@ export const BACKEND_ROUTES = {
   createProposalMentor: `${baseURL}/mentor/proposal/create`,
   getMentorGroups: `${baseURL}/mentor/group/get/all`,
   getMentorGroupDetails: `${baseURL}/mentor/group/get/`,
-  
+  approveOrRejectProposalMentor: `${baseURL}/mentor/proposal/approve-reject/`,
   getGroupSelectedProposal: `${baseURL}/user/group/selected-proposal/get-all`,
 
   getReceivedRequest: `${baseURL}/user/request/get/received`,
