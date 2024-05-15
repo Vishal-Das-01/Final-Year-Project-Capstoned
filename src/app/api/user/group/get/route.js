@@ -24,6 +24,10 @@ export const GET = async (request) => {
         },
       });
 
+      console.log(group)
+
+    
+
     if (!group) {
       return NextResponse.json(
         { message: "Group not found." },

@@ -4,24 +4,12 @@ import styles from "./ProposalsTable.module.css";
 import { cookies } from "next/headers";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import { HttpStatusCode } from "axios";
-import { redirect } from "next/dist/server/api-utils";
 import { callAPI } from "@/utils/helpers/callAPI";
 import NotFound from "./_components/NotFound/NotFound";
+import { redirect } from "next/navigation";
 
 async function ProposalsTable({groupID, role}) {
-  const proposals = [
-    {
-      _id: "1",
-      title: "Title",
-      description: "Description",
-      status: false,
-      selectedBy: "Selected By",
-      mentorship: true,
-      proposalDoc: "Proposal Doc",
-      createdAt: "2022-01-01",
-      updatedAt: "2022-01-01",
-    },
-  ];
+  const proposals = await getSelectedProposals(groupID);
 
   return (
     <div class="bg-white dark:bg-gray-800 border-2 relative shadow-lg rounded-xl overflow-hidden">
@@ -34,6 +22,9 @@ async function ProposalsTable({groupID, role}) {
               </th>
               <th scope="col" class="px-4 py-3 text-left">
                 Proposal Title
+              </th>
+              <th scope="col" class="px-4 py-3">
+                Status
               </th>
               <th scope="col" class="px-4 py-3">
                 Proposal Doc
@@ -49,19 +40,18 @@ async function ProposalsTable({groupID, role}) {
           <tbody>
             {proposals.length === 0 && <NotFound />}
             {proposals.length !== 0 &&
-              proposals.map((proposal) => (
+              proposals.map((item) => (
                 <ProposalRow
-                  key={proposal._id}
-                  proposalID={proposal._id}
-                  title={proposal.title}
-                  description={proposal.description}
-                  status={!proposal.edit}
-                  selectedBy={proposal.selectedBy}
-                  mentorship={proposal.mentorship}
-                  active={proposal.available}
-                  createdAt={proposal.createdAt}
-                  updatedAt={proposal.updatedAt}
-                  proposalDoc={proposal.proposalDoc}
+                  key={item.proposal._id}
+                  proposalID={item.proposal._id}
+                  title={item.proposal.title}
+                  description={item.proposal.description}
+                  createdAt={item.proposal.createdAt}
+                  updatedAt={item.proposal.updatedAt}
+                  proposalDoc={item.proposal.proposalDoc}
+                  industries={item.proposal.industries}
+                  status={item.status}
+                  role={role}
                 />
               ))}
           </tbody>
@@ -72,3 +62,18 @@ async function ProposalsTable({groupID, role}) {
 }
 
 export default ProposalsTable;
+
+async function getSelectedProposals(groupID) {
+  const accessToken = cookies().get("accessToken")?.value;
+  const response = await callAPI(
+    "GET",
+    accessToken,
+    `${BACKEND_ROUTES.getGroupSelectedProposal}/${groupID}`
+  );
+  if (response.status === HttpStatusCode.Ok) {
+    const responseData = await response.json();
+    return responseData.data.selectedProposal;
+  } else if (response.status === HttpStatusCode.Unauthorized) {
+    redirect(FRONTEND_ROUTES.login_page);
+  }
+}

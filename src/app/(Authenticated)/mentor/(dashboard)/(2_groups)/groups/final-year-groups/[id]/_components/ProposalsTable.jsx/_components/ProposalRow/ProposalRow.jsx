@@ -5,33 +5,21 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
 import { convertDate } from "@/utils/helpers/date";
 import { FaCheckCircle } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 function ProposalRow({
   proposalID,
   title,
   description,
-  status,
-  selectedBy,
-  mentorship,
-  active,
   createdAt,
   updatedAt,
   proposalDoc,
+  industries,
+  status,
+  role,
 }) {
   const [expanded, setExpanded] = useState(false);
-
-  const list = [
-    "Software Engineering",
-    "Security",
-    "Network Security",
-    "Cloud Security",
-    "Application Security",
-    "Machine Learning",
-    "Artificial Intelligence",
-    "Mobile App Development",
-    "Backend Engineering",
-    "Frontend Engineering",
-  ];
+  const router = useRouter();
 
   const tailwindColorClasses = [
     "bg-red-100",
@@ -47,6 +35,13 @@ function ProposalRow({
   const generateRandomColor = () => {
     const randomIndex = Math.floor(Math.random() * tailwindColorClasses.length);
     return tailwindColorClasses[randomIndex];
+  };
+
+  const handleApproval = (action) => {
+    if (role !== "Mentor" && status !== "Pending") {
+      console.log(action);
+      router.refresh();
+    }
   };
 
   return (
@@ -71,6 +66,7 @@ function ProposalRow({
         >
           {title}
         </th>
+        <td className="px-4 w-2/12 font-bold text-center text-blue-500">{status}</td>
         <td class="px-2 py-3 w-2/12">
           <div className="text-center justify-center items-center flex flex-row text-xl">
             <a
@@ -83,14 +79,34 @@ function ProposalRow({
             </a>
           </div>
         </td>
-        <td class="px-2 py-3 w-2/12">
-          <div className="text-center justify-center items-center flex flex-row text-xl">
-            <FaCircleXmark className="h-6 w-6 col-span-1 flex items-center text-red-200 hover:text-red-500 hover:cursor-pointer" />
+        <td class="px-2 py-3 w-1/12">
+          <div
+            type="button"
+            className="text-center justify-center items-center flex flex-row text-xl"
+          >
+            <FaCircleXmark
+              className={`h-6 w-6 col-span-1 flex items-center text-red-200 ${
+                role === "Supervisor" && status !== "Pending"
+                  ? "hover:text-red-500 hover:cursor-pointer"
+                  : ""
+              }`}
+              onClick={() => handleApproval("reject")}
+            />
           </div>
         </td>
-        <td class="px-2 py-3 w-2/12">
-          <div className="text-center justify-center items-center flex flex-row text-xl">
-            <FaCheckCircle className="h-6 w-6 col-span-1 flex items-center text-green-200 hover:text-green-500 hover:cursor-pointer" />
+        <td class="px-2 py-3 w-1/12">
+          <div
+            type="button"
+            className="text-center justify-center items-center flex flex-row text-xl"
+          >
+            <FaCheckCircle
+              className={`h-6 w-6 col-span-1 flex items-center text-green-200 ${
+                role === "Supervisor" && status !== "Pending"
+                  ? "hover:text-green-500 hover:cursor-pointer"
+                  : ""
+              }`}
+              onClick={() => handleApproval("accept")}
+            />
           </div>
         </td>
       </tr>
@@ -106,7 +122,7 @@ function ProposalRow({
                 <div className="flex flex-col w-2/3 pl-5">
                   <p className="font-semibold">Industries</p>
                   <div>
-                    {list.map((item, index) => {
+                    {industries.map((item, index) => {
                       const randomColorClass = generateRandomColor();
                       return (
                         <p

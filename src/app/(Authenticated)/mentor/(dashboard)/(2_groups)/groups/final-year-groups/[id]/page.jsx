@@ -16,7 +16,7 @@ export const metadata = {
 
 async function GroupDetails({ params: { id } }) {
   const groupDetails = await GetGroupDetails(id);
-
+  
   return (
     <div className="m-5 flex flex-col space-y-7">
       <BackButton />
