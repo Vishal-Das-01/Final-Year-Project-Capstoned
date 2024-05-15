@@ -37,12 +37,13 @@ function ProposalRow({
     return tailwindColorClasses[randomIndex];
   };
 
-  const handleApproval = (action) => {
-    if (role !== "Mentor" && status !== "Pending") {
-      console.log(action);
-      router.refresh();
-    }
+  const handleApprove = () => {
+    console.log("Approve");
   };
+
+  const handleReject = () => {
+    console.log("Reject");
+  }
 
   return (
     <>
@@ -79,18 +80,14 @@ function ProposalRow({
             </a>
           </div>
         </td>
-        <td class="px-2 py-3 w-1/12">
+        {status === "Awaiting Approval" && role === "Supervisor" && <><td class="px-2 py-3 w-1/12">
           <div
             type="button"
             className="text-center justify-center items-center flex flex-row text-xl"
           >
             <FaCircleXmark
-              className={`h-6 w-6 col-span-1 flex items-center text-red-200 ${
-                role === "Supervisor" && status !== "Pending"
-                  ? "hover:text-red-500 hover:cursor-pointer"
-                  : ""
-              }`}
-              onClick={() => handleApproval("reject")}
+              className="h-6 w-6 col-span-1 flex items-center text-red-200 hover:text-red-500 hover:cursor-pointer"
+              onClick={handleReject}
             />
           </div>
         </td>
@@ -100,15 +97,11 @@ function ProposalRow({
             className="text-center justify-center items-center flex flex-row text-xl"
           >
             <FaCheckCircle
-              className={`h-6 w-6 col-span-1 flex items-center text-green-200 ${
-                role === "Supervisor" && status !== "Pending"
-                  ? "hover:text-green-500 hover:cursor-pointer"
-                  : ""
-              }`}
-              onClick={() => handleApproval("accept")}
+              className="h-6 w-6 col-span-1 flex items-center text-green-200 hover:text-green-500 hover:cursor-pointer"
+              onClick={handleApprove}
             />
           </div>
-        </td>
+        </td></>}
       </tr>
       {expanded && (
         <tr>
