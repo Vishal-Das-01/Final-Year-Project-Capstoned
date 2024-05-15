@@ -16,7 +16,13 @@ export const GET = async (request) => {
       .populate("members", "firstName lastName")
       .populate("supervisor", "firstName lastName")
       .populate("mentors", "firstName lastName")
-      .populate("selectedProposal", "title ");
+      .populate({
+        path: "selectedProposal",
+        populate: {
+          path: "proposal",
+          select: "proposalDoc title",
+        },
+      });
 
     if (!group) {
       return NextResponse.json(

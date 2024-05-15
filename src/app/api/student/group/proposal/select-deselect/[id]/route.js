@@ -7,7 +7,7 @@ import Group from "@/models/Group";
 import { Approval } from "@/utils/constants/enums";
 
 export async function POST(request, { params }) {
-    connectToDB();
+    await connectToDB();
     try {
         const id = params.id;
 
@@ -16,24 +16,38 @@ export async function POST(request, { params }) {
         const student = await Student.findById(profileID);
 
         if (student.group === null)
-            return NextResponse.json({ message: 'Student is not in a group' }, { status: HttpStatusCode.BAD_REQUEST });
+            return NextResponse.json({ message: 'Student is not in a group' }, { status: HttpStatusCode.BadRequest });
 
         const group = await Group.findById(student.group);
 
         if (group.selectedProposal.length === 5)
-            return NextResponse.json({ message: 'Group has reached the maximum number of proposals' }, { status: HttpStatusCode.BAD_REQUEST });
+            return NextResponse.json({ message: 'Group has reached the maximum number of proposals' }, { status: HttpStatusCode.BadRequest });
 
+        const proposal = await Proposal.findById(id);
+
+        if(proposal.proposedBy === group._id)
+            return NextResponse.json({ message: 'You cannot select your own proposal' }, { status: HttpStatusCode.BadRequest });
+
+        if(proposal.selectedBy !== null) 
+            return NextResponse.json({ message: 'Proposal has already been selected' }, { status: HttpStatusCode.BadRequest });
+
+
+        proposal.edit = false;
+        proposal.available = false;
+        proposal.selectedBy = group._id;
         group.selectedProposal.push({ proposal: id, status: Approval.Pending });
 
-        const proposal = await Proposal.findOneAndUpdate({ _id: id, proposer:'Mentor' }, { edit: false, available: false, selectedBy: group._id });
+        // const proposal = await Proposal.findOneAndUpdate({ _id: id, proposer:'Mentor' }, { edit: false, available: false, selectedBy: group._id });
 
         await group.save();
+        await proposal.save();
 
-        return NextResponse.json({ message: 'Proposal selected' }, { status: HttpStatusCode.OK });
+        return NextResponse.json({ message: 'Proposal selected' }, { status: HttpStatusCode.Ok });
     } catch (error) {
-        return NextResponse.json({ message: error.message }, { status: HttpStatusCode.INTERNAL_SERVER_ERROR });
+        return NextResponse.json({ message: error.message }, { status: HttpStatusCode.InternalServerError });
     }
 }
+
 export async function DELETE(request, { params }) {
     connectToDB();
     try {

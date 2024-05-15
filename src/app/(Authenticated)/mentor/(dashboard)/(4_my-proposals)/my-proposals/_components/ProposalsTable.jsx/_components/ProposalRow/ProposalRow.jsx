@@ -22,10 +22,10 @@ function ProposalRow({
   proposalID,
   title,
   description,
-  status,
+  industries,
+  edit,
   selectedBy,
   mentorship,
-  active,
   createdAt,
   updatedAt,
   proposalDoc,
@@ -36,19 +36,6 @@ function ProposalRow({
   const router = useRouter();
   const authDetails = useSelector((state) => state.AuthDetails);
   const dispatch = useDispatch();
-
-  const list = [
-    "Software Engineering",
-    "Security",
-    "Network Security",
-    "Cloud Security",
-    "Application Security",
-    "Machine Learning",
-    "Artificial Intelligence",
-    "Mobile App Development",
-    "Backend Engineering",
-    "Frontend Engineering",
-  ];
 
   const tailwindColorClasses = [
     "bg-red-100",
@@ -125,7 +112,7 @@ function ProposalRow({
         </th>
         <td class="px-2 py-3 w-1/12">
           <div className="text-center justify-center items-center flex flex-row text-xs">
-            {status ? (
+            {!edit ? (
               <div className="bg-green-200 p-1 rounded-lg">SELECTED</div>
             ) : (
               <div className="bg-red-200 p-1 rounded-lg">UNSELECTED</div>
@@ -137,7 +124,7 @@ function ProposalRow({
         </td>
         <td class="px-2 py-3 w-1/12">
           <div className="text-center justify-center items-center flex flex-row text-xl">
-            {status ? (
+            {mentorship ? (
               <PiSealCheckFill className="text-green-600" />
             ) : (
               <PiSealFill className="text-red-600" />
@@ -162,7 +149,7 @@ function ProposalRow({
               className="text-gray-400 hover:text-green-600"
               onClick={() => setOpenModal(true)}
             /> */}
-            <MdDelete className="text-gray-400 hover:text-red-600" onClick={handleDelete}/>
+            <MdDelete disabled={!edit} className={`text-gray-400 ${edit? "hover:text-red-600" : ""}`} onClick={handleDelete}/>
           </div>
         </td>
       </tr>
@@ -178,7 +165,7 @@ function ProposalRow({
                 <div className="flex flex-col w-2/3 pl-5">
                   <p className="font-semibold">Industries</p>
                   <div>
-                    {list.map((item, index) => {
+                    {industries.map((item, index) => {
                       const randomColorClass = generateRandomColor();
                       return (
                         <p

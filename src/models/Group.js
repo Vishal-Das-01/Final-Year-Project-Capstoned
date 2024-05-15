@@ -20,7 +20,6 @@ const groupSchema = new Schema({
             proposal: {
                 type: Schema.Types.ObjectId,
                 ref: 'Proposal',
-                default: null,
             },
             status: {
                 type: String,
