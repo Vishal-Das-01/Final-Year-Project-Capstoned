@@ -12,12 +12,12 @@ export async function POST(request) {
         const student = await Student.findById(request.headers.get('profileID'));
 
         if (student.group === null)
-            return NextResponse.json({ message: 'Student is not in a group' }, { status: HttpStatusCode.BAD_REQUEST });
+            return NextResponse.json({ message: 'Student is not in a group' }, { status: HttpStatusCode.BadRequest });
 
         const group = await Group.findById(student.group);
 
         if (group.project != null)
-            return NextResponse.json({ message: 'Group already has a project' }, { status: HttpStatusCode.BAD_REQUEST });
+            return NextResponse.json({ message: 'Group already has a project' }, { status: HttpStatusCode.BadRequest });
 
         const { title, description, proposalDoc, industries } = await request.json();
 
@@ -36,10 +36,10 @@ export async function POST(request) {
         await proposal.save();
         await group.save();
 
-        return NextResponse.json({ message: 'Proposal created' }, { status: HttpStatusCode.OK });
+        return NextResponse.json({ message: 'Proposal created' }, { status: HttpStatusCode.Ok });
 
     } catch (error) {
-        return NextResponse.json({ message: error.message }, { status: HttpStatusCode.INTERNAL_SERVER_ERROR });
+        return NextResponse.json({ message: error.message }, { status: HttpStatusCode.InternalServerError });
     }
 
 }

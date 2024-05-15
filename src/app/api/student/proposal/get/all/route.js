@@ -23,11 +23,11 @@ export async function GET(request, response) {
         { status: HttpStatusCode.NotFound }
       );
 
-    const proposals = await Proposal.find({ available: true })
+    const proposals = await Proposal.find({ edit:true, available: true, proposer: "Mentor"})
       .skip(skip)
       .limit(limit);
 
-    const totalProposals = await Proposal.countDocuments({ available: true, proposer: "Mentor"});
+    const totalProposals = await Proposal.countDocuments({ edit:true, available: true, proposer: "Mentor"});
     const totalPages = Math.ceil(totalProposals / limit);
 
     return NextResponse.json(

@@ -52,7 +52,6 @@ async function ProposalsTable() {
                 edit={proposal.edit}
                 selectedBy={proposal.selectedBy?.name}
                 mentorship={proposal.mentorship}
-                active={proposal.available}
                 createdAt={proposal.createdAt}
                 updatedAt={proposal.updatedAt}
                 proposalDoc={proposal.proposalDoc}
