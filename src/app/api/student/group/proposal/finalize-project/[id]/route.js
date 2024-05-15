@@ -17,17 +17,17 @@ export async function POST(request, { params }) {
         const student = await Student.findById(profileID);
 
         if (student.group === null)
-            return NextResponse.json({ message: 'Student is not in a group' }, { status: HttpStatusCode.BAD_REQUEST });
+            return NextResponse.json({ message: 'Student is not in a group' }, { status: HttpStatusCode.BadRequest });
 
         const group = await Group.findById(student.group);
 
         if (profileID != group.lead)
-            return NextResponse.json({ message: 'You are not the lead of the group' }, { status: HttpStatusCode.BAD_REQUEST });
+            return NextResponse.json({ message: 'You are not the lead of the group' }, { status: HttpStatusCode.BadRequest });
 
         const chosenProposal = group.selectedProposal.filter(proposals => proposals.proposal === id);
 
         if (chosenProposal.status !== 'Approved')
-            return NextResponse.json({ message: 'Proposal has not been approved' }, { status: HttpStatusCode.BAD_REQUEST });
+            return NextResponse.json({ message: 'Proposal has not been approved' }, { status: HttpStatusCode.BadRequest });
 
         group.selectedProposal = [];
 
@@ -62,10 +62,10 @@ export async function POST(request, { params }) {
         await project.save();
         await supervisor.save();
 
-        return NextResponse.json({ message: 'Project Finalized', project: project }, { status: HttpStatusCode.OK });
+        return NextResponse.json({ message: 'Project Finalized', project: project }, { status: HttpStatusCode.Ok });
 
     } catch (error) {
-        return NextResponse.json({ message: 'Internal Server Error' }, { status: HttpStatusCode.INTERNAL_SERVER_ERROR });
+        return NextResponse.json({ message: 'Internal Server Error' }, { status: HttpStatusCode.InternalServerError });
     }
 
 }

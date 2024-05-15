@@ -5,7 +5,14 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
 import { convertDate } from "@/utils/helpers/date";
 import { FaCheckCircle } from "react-icons/fa";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { set } from "mongoose";
+import { callAPI } from "@/utils/helpers/callAPI";
+import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
+import { HttpStatusCode } from "axios";
+import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
+import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 
 function ProposalRow({
   proposalID,
@@ -19,7 +26,12 @@ function ProposalRow({
   role,
 }) {
   const [expanded, setExpanded] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const authDetails = useSelector((state) => state.AuthDetails);
+  const dispatch = useDispatch();
   const router = useRouter();
+  const route = usePathname();
 
   const tailwindColorClasses = [
     "bg-red-100",
@@ -37,13 +49,38 @@ function ProposalRow({
     return tailwindColorClasses[randomIndex];
   };
 
-  const handleApprove = () => {
-    console.log("Approve");
+  const handleApproveOrReject = async (action) => {
+    console.log(loading)
+    if (loading) return;
+    const groupID = route.split("/")[4];
+    setLoading(true);
+    const accessToken = authDetails.accessToken;
+    const response = await callAPI(
+      "PATCH",
+      accessToken,
+      `${BACKEND_ROUTES.approveOrRejectProposalMentor}/${groupID}/${proposalID}`,
+      { approval: action }
+    );
+    const responseData = await response.json();
+    if (response.status === HttpStatusCode.Ok) {
+      setLoading(false);
+      router.refresh();
+    } else if (response.status === HttpStatusCode.BadRequest) {
+      setLoading(false);
+      alert(responseData.message);
+    } else if (response.status === HttpStatusCode.Unauthorized) {
+      const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+        method: "POST",
+      });
+      if (responseLogOut.status === HttpStatusCode.Ok) {
+        dispatch(removeAuthDetails());
+        router.replace(FRONTEND_ROUTES.login_page);
+      }
+    } else if (response.status === HttpStatusCode.NotFound) {
+      setLoading(false);
+      alert(responseData.message);
+    }
   };
-
-  const handleReject = () => {
-    console.log("Reject");
-  }
 
   return (
     <>
@@ -67,7 +104,9 @@ function ProposalRow({
         >
           {title}
         </th>
-        <td className="px-4 w-2/12 font-bold text-center text-blue-500">{status}</td>
+        <td className="px-4 w-2/12 font-bold text-center text-blue-500">
+          {status}
+        </td>
         <td class="px-2 py-3 w-2/12">
           <div className="text-center justify-center items-center flex flex-row text-xl">
             <a
@@ -80,28 +119,36 @@ function ProposalRow({
             </a>
           </div>
         </td>
-        {status === "Awaiting Approval" && role === "Supervisor" && <><td class="px-2 py-3 w-1/12">
-          <div
-            type="button"
-            className="text-center justify-center items-center flex flex-row text-xl"
-          >
-            <FaCircleXmark
-              className="h-6 w-6 col-span-1 flex items-center text-red-200 hover:text-red-500 hover:cursor-pointer"
-              onClick={handleReject}
-            />
-          </div>
-        </td>
-        <td class="px-2 py-3 w-1/12">
-          <div
-            type="button"
-            className="text-center justify-center items-center flex flex-row text-xl"
-          >
-            <FaCheckCircle
-              className="h-6 w-6 col-span-1 flex items-center text-green-200 hover:text-green-500 hover:cursor-pointer"
-              onClick={handleApprove}
-            />
-          </div>
-        </td></>}
+        {status === "Awaiting Approval" && role === "Supervisor" && (
+          <>
+            <td class="px-2 py-3 w-1/12">
+              <div
+                type="button"
+                className="text-center justify-center items-center flex flex-row text-xl"
+              >
+                <FaCircleXmark
+                  className={`h-6 w-6 col-span-1 flex items-center text-red-200 ${loading ? "" : "hover:text-red-500 hover:cursor-pointer"}`}
+                  onClick={() => {
+                    handleApproveOrReject("Rejected");
+                  }}
+                />
+              </div>
+            </td>
+            <td class="px-2 py-3 w-1/12">
+              <div
+                type="button"
+                className="text-center justify-center items-center flex flex-row text-xl"
+              >
+                <FaCheckCircle
+                  className={`h-6 w-6 col-span-1 flex items-center text-green-200 ${loading ? "" : "hover:text-green-500 hover:cursor-pointer"}`}
+                  onClick={() => {
+                    handleApproveOrReject("Approved");
+                  }}
+                />
+              </div>
+            </td>
+          </>
+        )}
       </tr>
       {expanded && (
         <tr>

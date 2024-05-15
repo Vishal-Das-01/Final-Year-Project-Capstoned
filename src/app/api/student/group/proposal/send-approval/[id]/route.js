@@ -29,8 +29,11 @@ export async function PATCH(request, { params }) {
 
         const selectedProposal = group.selectedProposal.filter(selected => (selected.proposal == id));
 
-        if (selectedProposal[0].status !== Approval.Pending)
-            return NextResponse.json({ message: 'Proposal is not pending approval' }, { status: HttpStatusCode.BadRequest });
+        if (selectedProposal[0].status === Approval.AwaitingApproval)
+            return NextResponse.json({ message: 'Proposal already awaiting approval' }, { status: HttpStatusCode.BadRequest });
+
+        if (selectedProposal[0].status === Approval.Approved)
+            return NextResponse.json({ message: 'Proposal already approved' }, { status: HttpStatusCode.BadRequest });
 
         if (selectedProposal.length === 0)
             return NextResponse.json({ message: 'Proposal not found' }, { status: HttpStatusCode.NotFound });
@@ -47,6 +50,7 @@ export async function PATCH(request, { params }) {
         return NextResponse.json({ message: 'Proposal sent for approval' }, { status: HttpStatusCode.Ok });
 
     } catch (error) {
+
         return NextResponse.json({ message: error.message }, { status: HttpStatusCode.InternalServerError });
     }
 
