@@ -1,4 +1,4 @@
-import { Gender, Industry, ImageFileType, RequestType } from '@/utils/constants/enums';
+import { Gender, Industry, ImageFileType } from '@/utils/constants/enums';
 import { model, models, Schema } from 'mongoose';
 
 const mentorSchema = new Schema({
@@ -71,7 +71,7 @@ const mentorSchema = new Schema({
             },
             role: {
                 type: String,
-                enum: Object.values(RequestType),
+                enum: ['Mentor', 'Supervisor'],
             }
         }],
     myProposals: {
