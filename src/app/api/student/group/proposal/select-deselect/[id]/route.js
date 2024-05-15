@@ -28,7 +28,7 @@ export async function POST(request, { params }) {
         if(proposal.proposedBy === group._id)
             return NextResponse.json({ message: 'You cannot select your own proposal' }, { status: HttpStatusCode.BadRequest });
 
-        if(proposal.selectedBy !== null) 
+        if(!proposal.edit) 
             return NextResponse.json({ message: 'Proposal has already been selected' }, { status: HttpStatusCode.BadRequest });
 
 
