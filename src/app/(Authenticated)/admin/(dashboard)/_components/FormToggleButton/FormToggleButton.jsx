@@ -25,6 +25,12 @@ export default function FormToggleButton({inactiveLabelText, activeLabelText, is
                 "canMentorSupervise" : isChecked
             }));
         }
+        else if(fieldName === "companyVerified"){
+            setState((prevCompany) => ({
+                ...prevCompany,
+                "verified" : isChecked
+            }));
+        }
     }, [isChecked])
 
     return (
