@@ -44,7 +44,6 @@ const proposalSchema = new Schema({
     selectedBy: {
         type: Schema.Types.ObjectId,
         ref: 'Group',
-        default: null
     },
     available: {
         type: Boolean,
