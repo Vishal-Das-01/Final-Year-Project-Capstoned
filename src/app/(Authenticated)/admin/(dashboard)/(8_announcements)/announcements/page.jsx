@@ -1,5 +1,6 @@
 "use client";
 
+// Imports below for UI creation
 import styles from "./AnnouncementsPage.module.css";
 import ContentTable from "../../_components/ContentTable/ContentTable";
 import TableHead from "../../_components/TableHead/TableHead";
@@ -7,8 +8,15 @@ import TableRow from "../../_components/TableRow/TableRow";
 import TableHeadDataCell from "../../_components/TableHeadDataCell/TableHeadDataCell"; 
 import TableBodyDataCell from "../../_components/TableBodyDataCell/TableBodyDataCell"; 
 import AnnouncementsHeadingAndButton from "./_components/AnnouncementsHeadingAndButton/AnnouncementsHeadingAndButton";
-import { useState } from "react";
 import Modal from "../../_components/Modal/Modal";
+
+// Imports below for state management and api calls
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { HttpStatusCode } from "axios";
+import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
+import { getAnnouncementsAPICall } from "@/utils/admin_frontend_api_calls/AnnouncementsAPICalls";
+import { NotificationType } from "@/utils/constants/enums";
 
 // export const metadata = {
 // 	title: "Admin Announcements Management",
@@ -16,9 +24,54 @@ import Modal from "../../_components/Modal/Modal";
 // }
 
 export default function AdminDashboardAnnouncementsPage(props){
+
+	// States for managing: modal opening and closing
+	// for managing modal title
+	// for managing modal content
+	// for managing announcements shown in the table
+	// for managing skeleton loading indicator 
 	const [openModal, setOpenModal]   = useState(false);
 	const [modalTitle, setModalTitle] = useState("");
 	const [modalContent, setModalContent] = useState("");
+	const [announcements, setAnnouncements] = useState([]);
+	const [loadingIndicator, setLoadingIndicator] = useState(true);
+
+	// For access token retrieval
+	const authDetails = useSelector((state) => state.AuthDetails);
+
+	// API Call for fetching all announcements
+	async function fetchAnnouncements(){
+		let accessToken = authDetails.accessToken;
+		let apiURL = BACKEND_ROUTES.getAnnouncements;
+		setLoadingIndicator(true);
+
+		let apiResponse = await getAnnouncementsAPICall(apiURL, accessToken,"all");
+		// console.log("HERE ", apiResponse);
+		if(apiResponse.status === HttpStatusCode.Ok){
+			let apiResponseData = await apiResponse.json();
+			setAnnouncements(apiResponseData.data.notifications);
+			// console.log("A:", apiResponseData);
+		}
+		else{
+			console.log("B:", "error");
+		}
+	}
+
+	// API Call for displaying announcements  
+	// in the table when the page is loaded 
+	useEffect(() => {
+		fetchAnnouncements();
+	}, [])
+
+
+	// Turn skeleton loading indicator off when 
+	// announcements are fetched successfully
+	useEffect(() => {
+		if(announcements.length > 0){
+			setLoadingIndicator(false);
+		}
+		console.log("A:", announcements)
+	}, [announcements]);
 
 
 	return (
@@ -56,53 +109,43 @@ export default function AdminDashboardAnnouncementsPage(props){
 					
 					<tbody>
 
-						<TableRow
-							setOpenModal={setOpenModal} 
-							setModalTitle={setModalTitle}
-							setModalContent={setModalContent}
-						>
+						{!loadingIndicator && announcements.map((announcement) => {
+							return (
+								<TableRow
+									setOpenModal={setOpenModal} 
+									setModalTitle={setModalTitle}
+									setModalContent={setModalContent}
+									key={announcement._id}
+									companyId={announcement._id}
+								>
 
-							<TableBodyDataCell text={'1'}/>
-								
-							<TableBodyDataCell text={'Hamza Akbar'}/>
+									<TableBodyDataCell 
+										text={String("milestone.assignmentNumber")} 
+									/>
 
-							<TableBodyDataCell text={'This is dummy text. This is dummy text. This is dummy text. This is dummy text.'}/>
-								
-							<TableBodyDataCell text={'Pakistan'}/>
-							
-							<TableBodyDataCell text={'22'}/>
-							
-							<TableBodyDataCell text={'Pakistan'}/>
+									<TableBodyDataCell 
+										text={String("milestone.title")}
+									/>
 
-							<TableBodyDataCell text={'True'}/>
-
-							<TableBodyDataCell text={'True'}/>
-							
-						</TableRow>
-
-						<TableRow
-							setOpenModal={setOpenModal} 
-							setModalTitle={setModalTitle}
-							setModalContent={setModalContent}
-						>
-
-							<TableBodyDataCell text={'1'}/>
-								
-							<TableBodyDataCell text={'Hamza Akbar'}/>
-
-							<TableBodyDataCell text={'This is dummy text. This is dummy text. This is dummy text. This is dummy text.'}/>
-								
-							<TableBodyDataCell text={'Pakistan'}/>
-							
-							<TableBodyDataCell text={'22'}/>
-							
-							<TableBodyDataCell text={'Pakistan'}/>
-
-							<TableBodyDataCell text={'True'}/>
-
-							<TableBodyDataCell text={'True'}/>
-						
-						</TableRow>
+									<TableBodyDataCell 
+										text={String("milestone.description")}
+									/>
+									
+									<TableBodyDataCell 
+										text={String("extractDate(milestone.deadline)")}
+									/>
+									
+									<TableBodyDataCell 
+										text={String("milestone.percentage")}
+									/>
+									
+									<TableBodyDataCell 
+										text={String("milestone.year")}
+									/>
+									
+								</TableRow>
+							)
+						})}
 						
 					</tbody>
 					

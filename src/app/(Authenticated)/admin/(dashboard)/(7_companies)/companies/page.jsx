@@ -45,10 +45,10 @@ export default function AdminDashboardCompaniesPage(props){
 		setLoadingIndicator(true);
 
 		let apiResponse = await getCompaniesAPICall(apiURL, accessToken);
-		console.log("HERE ", apiResponse);
+		// console.log("HERE ", apiResponse);
 		if(apiResponse.status === HttpStatusCode.Ok){
 			let apiResponseData = await apiResponse.json();
-			setCompanies(apiResponseData);
+			setCompanies(apiResponseData.data.companies);
 			// console.log("A:", apiResponseData);
 		}
 		else{
