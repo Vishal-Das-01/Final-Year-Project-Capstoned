@@ -1,4 +1,4 @@
-import { Gender, Industry, ImageFileType } from '@/utils/constants/enums';
+import { Gender, Industry, ImageFileType, RequestType } from '@/utils/constants/enums';
 import { model, models, Schema } from 'mongoose';
 
 const mentorSchema = new Schema({
@@ -65,14 +65,14 @@ const mentorSchema = new Schema({
         },
     },
     groups: [{
-            group: {
+            groupID: {
                 type: Schema.Types.ObjectId,
                 ref: 'Group'
             },
-            project: {
-                type: Schema.Types.ObjectId,
-                ref: 'Project'
-            },
+            role: {
+                type: String,
+                enum: Object.values(RequestType),
+            }
         }],
     myProposals: {
         type: [{
