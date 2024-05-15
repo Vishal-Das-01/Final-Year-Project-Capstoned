@@ -1,5 +1,6 @@
 "use client";
 
+// Imports below for UI creation
 import styles from "./CompaniesPage.module.css";
 import ContentTable from "../../_components/ContentTable/ContentTable";
 import TableHead from "../../_components/TableHead/TableHead";
@@ -8,7 +9,13 @@ import TableHeadDataCell from "../../_components/TableHeadDataCell/TableHeadData
 import TableBodyDataCell from "../../_components/TableBodyDataCell/TableBodyDataCell"; 
 import CompaniesHeadingAndButton from "./_components/CompaniesHeadingAndButton/CompaniesHeadingAndButton";
 import Modal from "../../_components/Modal/Modal";
-import { useState } from "react";
+
+// Imports below for state management and api calls
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { HttpStatusCode } from "axios";
+import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
+import { getCompaniesAPICall } from "@/utils/admin_frontend_api_calls/CompaniesAPICalls";
 
 // export const metadata = {
 // 	title: "Admin Companies Management",
@@ -16,10 +23,54 @@ import { useState } from "react";
 // }
 
 export default function AdminDashboardCompaniesPage(props){
+
+	// States for managing: modal opening and closing
+	// for managing modal title
+	// for managing modal content
+	// for managing companies shown in the table
+	// for managing skeleton loading indicator 
 	const [openModal, setOpenModal]   = useState(false);
 	const [modalTitle, setModalTitle] = useState("");
 	const [modalContent, setModalContent] = useState("");
+	const [companies, setCompanies] = useState([]);
+	const [loadingIndicator, setLoadingIndicator] = useState(true);
 
+	// For access token retrieval
+	const authDetails = useSelector((state) => state.AuthDetails);
+
+	// API Call for fetching all companies
+	async function fetchAllCompanies(){
+		let accessToken = authDetails.accessToken;
+		let apiURL = BACKEND_ROUTES.getAllCompanies;
+		setLoadingIndicator(true);
+
+		let apiResponse = await getCompaniesAPICall(apiURL, accessToken);
+		// console.log("HERE ", apiResponse);
+		if(apiResponse.status === HttpStatusCode.Ok){
+			let apiResponseData = await apiResponse.json();
+			setCompanies(apiResponseData.data.companies);
+			// console.log("A:", apiResponseData);
+		}
+		else{
+			console.log("B:", "error");
+		}
+	}
+
+	// API Call for displaying companies in the table 
+	// when the page is loaded 
+	useEffect(() => {
+		fetchAllCompanies();
+	}, [])
+
+
+	// Turn skeleton loading indicator off when 
+	// companies are fetched successfully
+	useEffect(() => {
+		if(companies.length > 0){
+			setLoadingIndicator(false);
+		}
+		console.log("A:", companies)
+	}, [companies]);
 
 	return (
 		<div className={`${styles.primaryContainer} flex flex-row items-center justify-center w-full h-full`}>
@@ -54,49 +105,43 @@ export default function AdminDashboardCompaniesPage(props){
 					
 					<tbody>
 
-						<TableRow 
-							setOpenModal={setOpenModal} 
-							setModalTitle={setModalTitle}
-							setModalContent={setModalContent}
-						>
+						{!loadingIndicator && companies.map((company) => {
+							return (
+								<TableRow
+									setOpenModal={setOpenModal} 
+									setModalTitle={setModalTitle}
+									setModalContent={setModalContent}
+									key={company._id}
+									companyId={company._id}
+								>
 
-							<TableBodyDataCell text={'1'}/>
-								
-							<TableBodyDataCell text={'Hamza Akbar'}/>
+									<TableBodyDataCell 
+										text={String("milestone.assignmentNumber")} 
+									/>
 
-							<TableBodyDataCell text={'This is dummy text. This is dummy text. This is dummy text. This is dummy text.'}/>
-								
-							<TableBodyDataCell text={'Pakistan'}/>
-							
-							<TableBodyDataCell text={'22'}/>
-							
-							<TableBodyDataCell text={'Pakistan'}/>
+									<TableBodyDataCell 
+										text={String("milestone.title")}
+									/>
 
-							<TableBodyDataCell text={'True'}/>
-							
-						</TableRow>
-
-						<TableRow 
-							setOpenModal={setOpenModal} 
-							setModalTitle={setModalTitle}
-							setModalContent={setModalContent}
-						>
-
-							<TableBodyDataCell text={'1'}/>
-								
-							<TableBodyDataCell text={'Hamza Akbar'}/>
-
-							<TableBodyDataCell text={'This is dummy text. This is dummy text. This is dummy text. This is dummy text.'}/>
-								
-							<TableBodyDataCell text={'Pakistan'}/>
-							
-							<TableBodyDataCell text={'22'}/>
-							
-							<TableBodyDataCell text={'Pakistan'}/>
-
-							<TableBodyDataCell text={'True'}/>
-						
-						</TableRow>
+									<TableBodyDataCell 
+										text={String("milestone.description")}
+									/>
+									
+									<TableBodyDataCell 
+										text={String("extractDate(milestone.deadline)")}
+									/>
+									
+									<TableBodyDataCell 
+										text={String("milestone.percentage")}
+									/>
+									
+									<TableBodyDataCell 
+										text={String("milestone.year")}
+									/>
+									
+								</TableRow>
+							)
+						})}
 						
 					</tbody>
 					
