@@ -15,7 +15,7 @@ export const BACKEND_ROUTES = {
   getReceivedRequest: `${baseURL}/user/request/get/received`,
   getGroupDetails: `${baseURL}/user/group/get`,
   deleteRequest: `${baseURL}/user/request/decline`,
-  
+
   getAllMilestones: `${baseURL}/admin/milestone/get-all`, // (admin) milestones
   createMilestone: `${baseURL}/admin/milestone/create`, // (admin) milestones
   

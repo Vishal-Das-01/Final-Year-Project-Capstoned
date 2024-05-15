@@ -90,7 +90,7 @@ function Requests() {
     },
   ];
 
-  const handelDelete = async (id) => {
+  const handleDelete = async (id) => {
     setProcessing(true);
     const accessToken = authDetails.accessToken;
     const response = await callAPI("DELETE", accessToken, `${BACKEND_ROUTES.deleteRequest}?id=${id}`);
@@ -108,6 +108,25 @@ function Requests() {
       }
     }
 
+  }
+
+  const handleAccept = async (id) => {
+    setProcessing(true);
+    const accessToken = authDetails.accessToken;
+    const response = await callAPI("PATCH", accessToken, `${BACKEND_ROUTES.acceptRequest}?id=${id}`);
+    if (response.status === HttpStatusCode.Ok) {
+      setRequests(requests.filter((item) => item._id !== id));
+      setProcessing(false);
+    }
+    if (response.status === HttpStatusCode.Unauthorized) {
+      const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+        method: "POST",
+      });
+      if (responseLogOut.status === HttpStatusCode.Ok) {
+        dispatch(removeAuthDetails());
+        router.replace(FRONTEND_ROUTES.landing_page);
+      }
+    }
   }
 
   return (
@@ -135,10 +154,10 @@ function Requests() {
               Requested for: {item.type}
             </h>
             <div className="col-span-1 flex items-center">
-              <FaCircleXmark disabled={processing} className={`h-6 w-6 col-span-1 flex items-center text-red-200 ${!processing? "hover:text-red-500 hover:cursor-pointer" : ""}`} onClick={() => handelDelete(item._id)}/>
+              <FaCircleXmark disabled={processing} className={`h-6 w-6 col-span-1 flex items-center text-red-200 ${!processing? "hover:text-red-500 hover:cursor-pointer" : ""}`} onClick={() => handleDelete(item._id)}/>
             </div>
             <div className="col-span-1 flex items-center">
-              <FaCheckCircle disabled={processing} className={`h-6 w-6 col-span-1 flex items-center text-green-200 ${!processing? "hover:text-green-500 hover:cursor-pointer" : ""}`} />
+              <FaCheckCircle disabled={processing} className={`h-6 w-6 col-span-1 flex items-center text-green-200 ${!processing? "hover:text-green-500 hover:cursor-pointer" : ""}`} onClick={() => handleAccept(item._id)}/>
             </div>
           </div>
           <hr className="mt-5 mb-4 text-center border-gray-300 border-t-2 border-b-0" />

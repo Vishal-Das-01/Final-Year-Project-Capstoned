@@ -109,12 +109,9 @@ function GroupDetailsModal({ setOpenModal, groupID }) {
               </div>
               <h1 className="font-medium">Selected Proposals:</h1>
               <div className="flex flex-wrap col-span-2 gap-y-2">
-                <ResourceButton name="Proposal 1" />
-                <ResourceButton name="Pr" />
-                <ResourceButton name="Pr 3" />
-                <ResourceButton name="Prssssssssssssopos 1" />
-                <ResourceButton name="Proposal 2" />
-                <ResourceButton name="Proposal 3" />
+                {groupDetails.selectedProposal.map((item, index) => (
+                  <ResourceButton key={index} name={item.proposal.title} link={item.proposal.proposalDoc.file}/>
+                ))}
               </div>
             </div>
           )}

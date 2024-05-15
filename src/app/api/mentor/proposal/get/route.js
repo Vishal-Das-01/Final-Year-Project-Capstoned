@@ -9,11 +9,17 @@ export async function GET(request) {
 
     try {
         const profileID = request.headers.get('profileID');
-        const proposals = await Mentor.findById(profileID).populate('myProposals');
-        return NextResponse.json(proposals.myProposals, { status: HttpStatusCode.OK });
+        const proposals = await Mentor.findById(profileID).populate({
+            path: 'myProposals',
+            populate: { 
+                path: 'selectedBy',
+                select: 'name'
+            }
+        });        
+        return NextResponse.json(proposals.myProposals, { status: HttpStatusCode.Ok });
     }
     catch (error) {
-        return NextResponse.json({ message: error.message }, { status: HttpStatusCode.INTERNAL_SERVER_ERROR });
+        return NextResponse.json({ message: error.message }, { status: HttpStatusCode.InternalServerError });
     }
 }
 
