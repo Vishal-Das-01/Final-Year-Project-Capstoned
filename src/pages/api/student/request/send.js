@@ -101,6 +101,15 @@ export default async function handler(req, res) {
 
             const request = await Request.create({sender: profileID, receiverRole, receiver, type});
 
+            await request.populate({
+                path: 'sender',
+                select: 'firstName lastName gender profileImage group',
+                populate: {
+                    path: 'group',
+                    select: 'name'
+                }
+            })
+
             if(res.socket.server.io) {
                 res.socket.server.io.emit(`request:${receiver}`, request);
             }

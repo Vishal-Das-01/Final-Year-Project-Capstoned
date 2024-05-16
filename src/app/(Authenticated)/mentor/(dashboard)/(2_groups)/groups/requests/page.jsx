@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import NotFound from "../_components/NotFound/NotFound";
 import Loader from "../_components/Loader/Loader";
+import { useSocket } from "@/utils/helpers/socketProvider";
 
 // export const metadata = {
 //   title: "Final Year Groups: Requests",
@@ -24,7 +25,9 @@ import Loader from "../_components/Loader/Loader";
 
 function Requests() {
 
-  const [requests, setRequests] = useState(null);
+  const { socket, isConnected } = useSocket();
+
+  const [requests, setRequests] = useState([]);
   const [processing, setProcessing] = useState(false);
   const [loading, setLoading] = useState(true);
   // const requests = await getRequests();
@@ -33,6 +36,22 @@ function Requests() {
   const dispatch = useDispatch();
 
   const authDetails = useSelector((state) => state.AuthDetails);
+
+  useEffect(() => {
+    if(socket) {
+      socket.on(`request:${authDetails.profileID}`, (request) => {
+        console.log("Request : ", request)
+        setRequests(prevRequests => [request, ...prevRequests]);
+        console.log("Requests", requests)
+      })
+    }
+
+    return () => {
+      if(socket) {
+        socket.off(`request:${authDetails.profileID}`);
+      }
+    };
+  }, [socket])
 
   useEffect( () => {
     const getRequests = async () => {
@@ -136,7 +155,7 @@ function Requests() {
     <div className={`${styles.container} m-4 overflow-y-auto`}>
       {loading && <Loader />}
       {requests && requests.length === 0 && <NotFound />}
-      {requests && requests.map((item, index) => (
+      {requests && requests.length > 0 && requests.map((item, index) => (
         <div key={index}>
           <div className="grid grid-cols-12 h-16 mt-1 mx-1 rounded-full shadow-lg bg-gray-100 pr-5 pl-10">
             <div className="col-span-1 flex items-center">
