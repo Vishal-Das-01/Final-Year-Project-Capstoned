@@ -35,8 +35,7 @@ async function GroupDetails({ params: { id } }) {
         </h2>
         <h2 className="font-semibold">Supervisor:</h2>
         <h2 className="col-span-3">
-          {groupDetails.data.supervisor.firstName}{" "}
-          {groupDetails.data.supervisor.lastName}
+          {groupDetails.data.supervisor.firstName} {groupDetails.data.supervisor.lastName}
         </h2>
         <h2 className="font-semibold">Mentors:</h2>
         <div className="flex flex-col col-span-3">
