@@ -19,7 +19,14 @@ export async function GET(request, { params }) {
         const singleGroup = await Group.findById(group.groupID).populate(
           "supervisor mentors lead members",
           "firstName lastName"
-        ).select('-selectedProposal');
+        ).populate({
+          path: 'project',
+          select: 'proposal',
+          populate: {
+            path: 'proposal',
+            select: 'title'
+          }
+        }).select('-selectedProposal');
         return NextResponse.json(
           { message: "Success.", role: group.role, data: singleGroup },
           { status: HttpStatusCode.Ok }

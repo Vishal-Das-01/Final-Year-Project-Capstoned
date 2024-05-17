@@ -27,6 +27,9 @@ export async function PATCH(request, { params }) {
         if (group.supervisor === null)
             return NextResponse.json({ message: 'Group does not have a supervisor' }, { status: HttpStatusCode.BadRequest });
 
+        if (group.project)
+            return NextResponse.json({ message: 'Group has already finalized a project' }, { status: HttpStatusCode.BadRequest });
+
         const selectedProposal = group.selectedProposal.filter(selected => (selected.proposal == id));
 
         if (selectedProposal.length === 0)

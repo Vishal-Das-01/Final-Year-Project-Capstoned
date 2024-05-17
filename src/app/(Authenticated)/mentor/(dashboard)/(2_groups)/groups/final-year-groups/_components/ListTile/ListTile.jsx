@@ -12,7 +12,7 @@ function ListTile({ id, details, role }) {
       </h1>
       <div className="col-span-1 text-sm flex flex-col">
         <p>Your Role: {role}</p>
-        {(role !== "Supervisor") && <p>Supervisor: {details.supervisor.firstName} {details.supervisor.lastName}</p>}
+        {(role !== "Supervisor") && <p>Supervisor: {details.supervisor?.firstName} {details.supervisor?.lastName}</p>}
       </div>
       <div className="col-span-1 text-sm flex flex-col">
         <p>Group Members: {details.members.length + 1}</p>
