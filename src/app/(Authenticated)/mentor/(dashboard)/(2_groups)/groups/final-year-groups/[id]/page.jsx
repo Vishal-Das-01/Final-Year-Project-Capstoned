@@ -14,9 +14,11 @@ export const metadata = {
     "Capstoned Mentor Group Details | Final Year Project (FYP) Management Platform for College & University Students.",
 };
 
+export const revalidate = 5;
+
 async function GroupDetails({ params: { id } }) {
   const groupDetails = await GetGroupDetails(id);
-  
+
   return (
     <div className="m-5 flex flex-col space-y-7">
       <BackButton />
@@ -33,7 +35,8 @@ async function GroupDetails({ params: { id } }) {
         </h2>
         <h2 className="font-semibold">Supervisor:</h2>
         <h2 className="col-span-3">
-          {groupDetails.data.supervisor.firstName} {groupDetails.data.supervisor.lastName}
+          {groupDetails.data.supervisor.firstName}{" "}
+          {groupDetails.data.supervisor.lastName}
         </h2>
         <h2 className="font-semibold">Mentors:</h2>
         <div className="flex flex-col col-span-3">
@@ -53,16 +56,20 @@ async function GroupDetails({ params: { id } }) {
         </div>
         <h2 className="font-semibold">Project Name:</h2>
         <h2 className="col-span-3">
-          {groupDetails.data.project ? "" : "Project hasn't been confirmed yet."}
+          {groupDetails.data.project
+            ? ""
+            : "Project hasn't been confirmed yet."}
         </h2>
-        {!(groupDetails.data.project) && <>
-        <h2 className="col-span-4 mt-5 text-center font-semibold">
-          Proposals Approvals Request
-        </h2>
-        <div className="col-span-4">
-          <ProposalsTable groupID={id} role={groupDetails.role}/>
-        </div>
-        </>}
+        {!groupDetails.data.project && (
+          <>
+            <h2 className="col-span-4 mt-5 text-center font-semibold">
+              Proposals Approvals Request
+            </h2>
+            <div className="col-span-4">
+              <ProposalsTable groupID={id} role={groupDetails.role} />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
