@@ -17,13 +17,18 @@ export default async function handler(req, res) {
                 return res.status(400).json({ message: 'Invalid request.' });
             }
 
-            const student = await Student.findById(profileID).populate('group', 'members supervisor mentors');
+            const student = await Student.findById(profileID).populate('group', 'members supervisor mentors project');
             if(!student.group) {
                 return res.status(400).json({ message: 'Group does not exist' });
             }
             const group = student.group
 
+            if(student.group.project){
+                return res.status(400).json({ message: 'Project is finalized, cannot sent request.' });
+            }
+
             const requestExists=await Request.findOne({sender: profileID, receiver})
+
             if(requestExists) {
                 return res.status(400).json({ message: 'Request already exists.' });
             }

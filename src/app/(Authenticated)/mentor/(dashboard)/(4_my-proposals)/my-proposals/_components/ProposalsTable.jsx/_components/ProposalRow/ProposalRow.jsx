@@ -88,16 +88,16 @@ function ProposalRow({
           oldList={list}
         />
       )}
-      <tr class="border-b dark:border-gray-700 hover:bg-gray-100">
+      <tr class="border-b">
         <td class="px-2 py-3 w-1/12">
           {expanded ? (
             <IoMdArrowDropup
-              className="w-4 h-4 text-xl text-gray-400 hover:text-green-600"
+              className="w-6 h-6 text-xl text-gray-400 hover:text-green-600"
               onClick={() => setExpanded(false)}
             />
           ) : (
             <IoMdArrowDropdown
-              className="w-4 h-4 text-xl text-gray-400 hover:text-green-600"
+              className="w-6 h-6 text-xl text-gray-400 hover:text-green-600"
               onClick={() => setExpanded(true)}
             />
           )}

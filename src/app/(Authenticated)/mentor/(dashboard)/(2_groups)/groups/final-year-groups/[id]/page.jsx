@@ -14,8 +14,6 @@ export const metadata = {
     "Capstoned Mentor Group Details | Final Year Project (FYP) Management Platform for College & University Students.",
 };
 
-export const revalidate = 5;
-
 async function GroupDetails({ params: { id } }) {
   const groupDetails = await GetGroupDetails(id);
 
@@ -56,7 +54,7 @@ async function GroupDetails({ params: { id } }) {
         <h2 className="font-semibold">Project Name:</h2>
         <h2 className="col-span-3">
           {groupDetails.data.project
-            ? ""
+            ? groupDetails.data.project.proposal.title
             : "Project hasn't been confirmed yet."}
         </h2>
         {!groupDetails.data.project && (
