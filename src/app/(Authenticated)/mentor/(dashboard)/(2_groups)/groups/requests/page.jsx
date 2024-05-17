@@ -42,7 +42,7 @@ function Requests() {
       socket.on(`request:${authDetails.profileID}`, (request) => {
         console.log("Request : ", request)
         setRequests(prevRequests => [request, ...prevRequests]);
-        console.log("Requests", requests)
+        // console.log("Requests", requests)
       })
     }
 
@@ -51,7 +51,7 @@ function Requests() {
         socket.off(`request:${authDetails.profileID}`);
       }
     };
-  }, [socket])
+  }, [socket, authDetails.profileID])
 
   useEffect( () => {
     const getRequests = async () => {
@@ -77,39 +77,6 @@ function Requests() {
     getRequests();
 
   }, [authDetails.accessToken, dispatch, router]);
-
-  const list = [
-    {
-      groupName: "Tech Titans",
-      name: "David Lee",
-      requestType: "Supervisor",
-    },
-    {
-      groupName: "Pixel Pioneers",
-      name: "Emily Brown",
-      requestType: "Mentor",
-    },
-    {
-      groupName: "Byte Brigade",
-      name: "Michael Johnson",
-      requestType: "Supervisor",
-    },
-    {
-      groupName: "Code Crusaders",
-      name: "John Doe",
-      requestType: "Mentor",
-    },
-    {
-      groupName: "Digital Dynamos",
-      name: "Jane Smith",
-      requestType: "Supervisor",
-    },
-    {
-      groupName: "Innovation Instigators",
-      name: "David Lee",
-      requestType: "Supervisor",
-    },
-  ];
 
   const handleDelete = async (id) => {
     setProcessing(true);
@@ -153,8 +120,7 @@ function Requests() {
   return (
     
     <div className={`${styles.container} m-4 overflow-y-auto`}>
-      {loading && <Loader />}
-      {requests && requests.length === 0 && <NotFound />}
+      {requests.length === 0 && <NotFound />}
       {requests && requests.length > 0 && requests.map((item, index) => (
         <div key={index}>
           <div className="grid grid-cols-12 h-16 mt-1 mx-1 rounded-full shadow-lg bg-gray-100 pr-5 pl-10">
