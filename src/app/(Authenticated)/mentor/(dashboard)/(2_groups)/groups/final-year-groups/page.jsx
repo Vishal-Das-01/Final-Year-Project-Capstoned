@@ -20,8 +20,8 @@ async function FinalYearGroups() {
 
   return (
     <div className={`${styles.container} m-4 overflow-y-auto`}>
-      {groups.length === 0 && <NotFound />}
-      {groups.map((item, index) => (
+      {groups && groups.length === 0 && <NotFound />}
+      {groups && groups.map((item, index) => (
         <ListTile key={index} id={item._id} details={item.details} role={item.role} />
       ))}
     </div>
