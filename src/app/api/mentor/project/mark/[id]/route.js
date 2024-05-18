@@ -27,12 +27,27 @@ export async function PATCH(request, { params }) {
       );
     }
 
+    let overallMarks = 0;
+    for(const singleMemberMarks of marks) {
+      if(singleMemberMarks.marks > 100) {
+        return NextResponse.json(
+          { message: "Marks cannot be greater than the max marks" },
+          { status: HttpStatusCode.BadRequest }
+        );
+      } else {
+        overallMarks += singleMemberMarks.marks;
+      }
+    }
+
+    overallMarks = overallMarks / marks.length;
+
+    assignedMilestone.obtainedMarks = overallMarks;
     assignedMilestone.marks = marks;
     assignedMilestone.marked = true;
     await assignedMilestone.save();
 
     return NextResponse.json(
-      { message: "Milestone marked" },
+      { message: "Milestone marked", obtainedMarks: overallMarks},
       { status: HttpStatusCode.Ok }
     );
   } catch (error) {

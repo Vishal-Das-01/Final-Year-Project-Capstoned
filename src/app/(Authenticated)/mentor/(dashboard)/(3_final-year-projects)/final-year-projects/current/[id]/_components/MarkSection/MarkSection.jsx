@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-function MarkSection({ role, isMarked, setIsMarked, assignedMilestoneID, members }) {
+function MarkSection({ role, isMarked, setIsMarked, assignedMilestoneID, members, setMarksObtained }) {
   const [marking, setMarking] = useState(false);
   const [marks, setMarks] = useState(
     members.map((item) => ({ member: item.member._id, marks: item.marks }))
@@ -43,6 +43,8 @@ function MarkSection({ role, isMarked, setIsMarked, assignedMilestoneID, members
     const response = await callAPI('PATCH', accessToken, `${BACKEND_ROUTES.postMentorMilestoneMarks}/${assignedMilestoneID}`, marks);
     if (response.status === HttpStatusCode.Ok) {
       setIsMarked(true);
+      const responseData = await response.json();
+      setMarksObtained(responseData.obtainedMarks);
     } else if (response.status === HttpStatusCode.Unauthorized) {
       const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
         method: "POST",
