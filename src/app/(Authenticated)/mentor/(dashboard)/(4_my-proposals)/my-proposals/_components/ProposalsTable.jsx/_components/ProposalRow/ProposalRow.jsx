@@ -111,9 +111,9 @@ function ProposalRow({
         <td class="px-2 py-3 w-1/12">
           <div className="text-center justify-center items-center flex flex-row text-xs">
             {!edit ? (
-              <div className="bg-green-200 p-1 rounded-lg">SELECTED</div>
+              <div className="bg-red-500 py-1 px-2 rounded-lg text-white font-bold">UNAVAILABLE</div>
             ) : (
-              <div className="bg-red-200 p-1 rounded-lg">UNSELECTED</div>
+              <div className="bg-green-500 py-1 px-2 rounded-lg text-white font-bold">AVAILABLE</div>
             )}
           </div>
         </td>

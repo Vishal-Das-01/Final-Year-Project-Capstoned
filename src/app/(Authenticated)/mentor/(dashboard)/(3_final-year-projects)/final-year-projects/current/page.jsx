@@ -16,7 +16,6 @@ export const metadata = {
 
 async function CurrentProjects() {
   const projects = await getProjects();
-  console.log(projects)
 
   // const projects = [
   //   { name: 'FYP Management System', group: 'IBA Group', progress: 100 },

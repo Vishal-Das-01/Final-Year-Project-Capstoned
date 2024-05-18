@@ -25,8 +25,16 @@ const milestoneSchema = new Schema({
     },
     resources: [
         {
-            type: String,
-            required: true
+            name: {
+                type: String,
+            },
+            file: {
+                type: String,
+            },
+            extension: {
+                type: String,
+                enum: ["pdf", "docx", "pptx", "xlsx", "zip", "rar", 'jpg', 'jpeg', 'png'],
+            }
         }
     ],
     year: {

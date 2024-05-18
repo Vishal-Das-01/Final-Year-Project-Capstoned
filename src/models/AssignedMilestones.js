@@ -30,12 +30,15 @@ const assignedMilestoneSchema = new Schema({
   },
   submissionFile: [
     {
+      name: {
+        type: String,
+      },
       doc: {
         type: String,
       },
       extension: {
         type: String,
-        enum: Object.values(DocFileType),
+        enum: ["pdf", "docx", "pptx", "xlsx", "zip", "rar", 'jpg', 'jpeg', 'png'],
       },
     },
   ],
