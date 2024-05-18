@@ -10,16 +10,19 @@ export async function POST(request, { params }) {
     try {
         const id = params.id;
 
-        const projects = await Project.find({finished: false});
+        const projects = await Project.find({finished: false}).populate('milestones', 'milestoneID');
 
         for(const project of projects){
+            if(project.milestones.find(milestone => milestone.milestoneID == id)){
+                continue;
+            }
             const assignedMilestone =  new AssignedMilestone({
                 projectID: project._id,
                 milestoneID: id,
             })
             project.milestones.push(assignedMilestone._id);
-            // console.log(project);
-            // console.log(assignedMilestone)
+            console.log(project);
+            console.log(assignedMilestone)
             await assignedMilestone.save();
             await project.save();
         }
