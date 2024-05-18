@@ -33,7 +33,7 @@ const milestoneSchema = new Schema({
             },
             extension: {
                 type: String,
-                enum: ["pdf", "docx", "pptx", "xlsx", "zip", "rar", 'jpg', 'jpeg', 'png'],
+                enum: [".pdf", ".docx", ".pptx", ".xlsx", ".zip", ".rar", '.jpg', '.jpeg', '.png'],
             }
         }
     ],

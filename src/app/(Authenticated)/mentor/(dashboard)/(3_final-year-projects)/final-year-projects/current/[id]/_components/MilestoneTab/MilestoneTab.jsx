@@ -18,10 +18,14 @@ import { set } from "mongoose";
 
 function MilestoneTab({ role, marked, milestoneNumber, assignedMilestoneID }) {
   const [isMarked, setIsMarked] = useState(marked);
+
+  const [marksObtained, setMarksObtained] = useState(null);
   const [milestoneDetailsDisplay, setMilestoneDetailsDisplay] = useState(false);
   const [milestoneDetails, setMilestoneDetails] = useState(null);
   const [deadlinePassed, setDeadlinePassed] = useState(false);
-  const [loading,setLoading] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+
   const authDetails = useSelector((state) => state.AuthDetails);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -37,6 +41,7 @@ function MilestoneTab({ role, marked, milestoneNumber, assignedMilestoneID }) {
       );
       if (response.status === HttpStatusCode.Ok) {
         const responseData = await response.json();
+        setMarksObtained(responseData.data.obtainedMarks);
         setMilestoneDetails(responseData.data);
         handleDeadlinePassed(responseData.data.milestoneID.deadline);
         setLoading(false);
@@ -63,7 +68,7 @@ function MilestoneTab({ role, marked, milestoneNumber, assignedMilestoneID }) {
     if (currentDate > deadlineDate) {
       setDeadlinePassed(true);
     }
-  }
+  };
 
   return (
     <div>
@@ -92,7 +97,11 @@ function MilestoneTab({ role, marked, milestoneNumber, assignedMilestoneID }) {
             {milestoneDetails.milestoneID.description}
           </h2>
           <h2 className="font-bold">Deadline:</h2>
-          <h2 className={`col-span-3 font-semibold ${deadlinePassed ? "text-red-500" : "text-green-500"}`}>
+          <h2
+            className={`col-span-3 font-semibold ${
+              deadlinePassed ? "text-red-500" : "text-green-500"
+            }`}
+          >
             {convertDate(milestoneDetails.milestoneID.deadline)}
           </h2>
           <h2 className="font-semibold">Percentage:</h2>
@@ -102,21 +111,51 @@ function MilestoneTab({ role, marked, milestoneNumber, assignedMilestoneID }) {
           <h2 className="font-semibold">Resources:</h2>
           <div className="col-span-3 flex flex-row">
             {milestoneDetails.milestoneID.resources.map((resource, index) => (
-              <ResourceButton key={index} name={resource.name} link={resource.file}/>
+              <ResourceButton
+                key={index}
+                name={resource.name}
+                link={resource.file}
+              />
             ))}
           </div>
           <line className="col-span-4 border-t-2 border-gray-300"></line>
-          {deadlinePassed && <><h2 className="font-semibold">Submission Files:</h2>
-          {milestoneDetails.submitted ? <div className="col-span-3 flex flex-row">
-            {milestoneDetails.submissionFile.map((item,index) => (
-              <ResourceButton key={index} name={item.name} link={item.doc}/>
-            ))}
-          </div>:
-          <h2 className="col-span-3 text-red-500">No files submitted.</h2>}
-          <h2 className="font-semibold">Marks:</h2>
-          <div className="col-span-3">
-            <MarkSection role={role} isMarked={isMarked} setIsMarked={setIsMarked} assignedMilestoneID={assignedMilestoneID} members={milestoneDetails.marks}/>
-          </div></>}
+          {deadlinePassed && (
+            <>
+              <h2 className="font-semibold">Submission Files:</h2>
+              {milestoneDetails.submitted ? (
+                <div className="col-span-3 flex flex-row">
+                  {milestoneDetails.submissionFile.map((item, index) => (
+                    <ResourceButton
+                      key={index}
+                      name={item.name}
+                      link={item.doc}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <h2 className="col-span-3 text-red-500">No files submitted.</h2>
+              )}
+              {marksObtained && (
+                <>
+                  <h2 className="font-semibold">Overall Marks:</h2>
+                  <h2 className="col-span-3 font-bold text-red-500">
+                    {`${marksObtained} / 100`}
+                  </h2>
+                </>
+              )}
+              <h2 className="font-semibold">Marks:</h2>
+              <div className="col-span-3">
+                <MarkSection
+                  role={role}
+                  isMarked={isMarked}
+                  setIsMarked={setIsMarked}
+                  assignedMilestoneID={assignedMilestoneID}
+                  members={milestoneDetails.marks}
+                  setMarksObtained={setMarksObtained}
+                />
+              </div>
+            </>
+          )}
         </div>
       )}
     </div>
