@@ -43,10 +43,10 @@ async function ProjectPage({ params: { id } }) {
             link={projectDetails.project.proposal.proposalDoc.file}
           />
         </div>
-        <h2 className="font-semibold">Marks:</h2>
+        {/* <h2 className="font-semibold">Marks:</h2>
         <div className="col-span-3">
           <MainMarkSection isMarked={true} />
-        </div>
+        </div> */}
       </div>
       <MilestoneTab isMarked={true} />
       <MilestoneTab isMarked={false} />

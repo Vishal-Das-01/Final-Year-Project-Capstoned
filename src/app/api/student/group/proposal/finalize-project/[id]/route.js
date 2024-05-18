@@ -71,12 +71,13 @@ export async function POST(request, { params }) {
             group.mentors.push(proposal.proposedBy);
     }
 
+    if(proposal.proposer === "Group" && proposal.proposedBy != group._id) {
+        proposal.edit = false;
+    }
+
     group.project = project._id;
     proposal.available = false;
 
-    console.log(group);
-    console.log(project);
-    console.log(proposal);
     await proposal.save();
     await group.save();
     await project.save();
