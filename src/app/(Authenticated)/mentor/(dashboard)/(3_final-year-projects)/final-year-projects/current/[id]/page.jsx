@@ -13,7 +13,7 @@ import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 
 async function ProjectPage({ params: { id } }) {
   const projectDetails = await getProjectDetails(id);
-  console.log(projectDetails);
+  console.log(projectDetails.project.milestones);
 
   return (
     <div className="m-5 flex flex-col space-y-7">
@@ -48,9 +48,9 @@ async function ProjectPage({ params: { id } }) {
           <MainMarkSection isMarked={true} />
         </div> */}
       </div>
-      <MilestoneTab isMarked={true} />
-      <MilestoneTab isMarked={false} />
-      <MilestoneTab isMarked={false} />
+      {projectDetails.project.milestones.map((assignedMilestone, index) => (
+        <MilestoneTab key={index} marked={assignedMilestone.mark} milestoneNumber={assignedMilestone.milestoneID.assignmentNumber}  assignedMilestoneID={assignedMilestone._id} />
+      ))}
     </div>
   );
 }
