@@ -2,6 +2,8 @@ import AssignedMilestone from "@/models/AssignedMilestones";
 import { connectToDB } from "@/utils/helpers/connectDB";
 import { HttpStatusCode } from "axios";
 import { NextResponse } from "next/server";
+import Group from "@/models/Group";
+import Student from "@/models/Student";
 
 export async function GET(request, { params }) {
   await connectToDB();
@@ -10,7 +12,7 @@ export async function GET(request, { params }) {
     const assignedMilestoneID = params.id;
     const assignedMilestone = await AssignedMilestone.findById(
       assignedMilestoneID
-    ).populate("milestoneID");
+    ).populate("milestoneID").populate("marks.member", "firstName lastName");
 
     return NextResponse.json(
       {

@@ -6,6 +6,7 @@ import Mentor from "@/models/Mentor";
 import Proposal from "@/models/Proposal";
 import AssignedMilestone from "@/models/AssignedMilestones";
 import Milestone from "@/models/Milestone";
+import Group from "@/models/Group";
 
 export async function GET(request, { params }) {
   await connectToDB();

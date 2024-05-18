@@ -3,6 +3,8 @@ import Project from "@/models/Project";
 import { HttpStatusCode } from "axios";
 import { NextResponse } from "next/server";
 import AssignedMilestone from "@/models/AssignedMilestones";
+import Group from "@/models/Group";
+import Student from "@/models/Student";
 
 export async function POST(request, { params }) {
     await connectToDB();
@@ -10,19 +12,28 @@ export async function POST(request, { params }) {
     try {
         const id = params.id;
 
-        const projects = await Project.find({finished: false}).populate('milestones', 'milestoneID');
+        const projects = await Project.find({finished: false})
+                    .populate('milestones', 'milestoneID')
+                    .populate("group","lead members")
 
         for(const project of projects){
+
             if(project.milestones.find(milestone => milestone.milestoneID == id)){
                 continue;
             }
+            const marks = [];
+            marks.push({member: project.group.lead, marks: 0});   
+
+            for(const member of project.group.members){
+                marks.push({member: member, marks: 0});
+            }
+
             const assignedMilestone =  new AssignedMilestone({
                 projectID: project._id,
                 milestoneID: id,
+                marks: marks
             })
             project.milestones.push(assignedMilestone._id);
-            console.log(project);
-            console.log(assignedMilestone)
             await assignedMilestone.save();
             await project.save();
         }

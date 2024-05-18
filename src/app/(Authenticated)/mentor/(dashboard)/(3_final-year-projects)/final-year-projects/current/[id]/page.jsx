@@ -10,48 +10,62 @@ import { HttpStatusCode } from "axios";
 import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import { redirect } from "next/dist/server/api-utils";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
+import Head from "next/head";
+
+export const metadata = {
+  title: "Final Year Project: Current",
+  description:
+    "Capstoned Mentor Final Year Project | Final Year Project (FYP) Management Platform for College & University Students.",
+};
 
 async function ProjectPage({ params: { id } }) {
   const projectDetails = await getProjectDetails(id);
-  console.log(projectDetails.project.milestones);
 
   return (
-    <div className="m-5 flex flex-col space-y-7">
-      <BackButton />
-      <div className="flex flex-row justify-between items-center">
-        <h1 className="text-3xl font-semibold">
-          {projectDetails.project.proposal.title} -{" "}
-          {projectDetails.project.group.name}
-        </h1>
-        <h2 className="font-light">Fall {projectDetails.project.year}</h2>
-      </div>
-      <div className="grid grid-cols-4 gap-y-5">
-        <h2 className="font-semibold">Your Role:</h2>
-        <h2 className="col-span-3">{projectDetails.role}</h2>
-        <h2 className="font-semibold">Proposed By:</h2>
-        <h2 className="col-span-3">{projectDetails.proposedBy}</h2>
-        <h2 className="font-semibold">Progress:</h2>
-        <h2 className="col-span-3">{projectDetails.project.progress + "%"}</h2>
-        <h2 className="font-semibold">Project Description:</h2>
-        <p className="col-span-3">
-          {projectDetails.project.proposal.description}
-        </p>
-        <h2 className="font-semibold">Proposal Doc:</h2>
-        <div className="col-span-3">
-          <ResourceButton
-            name={projectDetails.project.proposal.title}
-            link={projectDetails.project.proposal.proposalDoc.file}
-          />
+      <div className="m-5 flex flex-col space-y-7">
+        <BackButton />
+        <div className="flex flex-row justify-between items-center">
+          <h1 className="text-3xl font-semibold">
+            {projectDetails.project.proposal.title} -{" "}
+            {projectDetails.project.group.name}
+          </h1>
+          <h2 className="font-light">Fall {projectDetails.project.year}</h2>
         </div>
-        {/* <h2 className="font-semibold">Marks:</h2>
+        <div className="grid grid-cols-4 gap-y-5">
+          <h2 className="font-semibold">Your Role:</h2>
+          <h2 className="col-span-3">{projectDetails.role}</h2>
+          <h2 className="font-semibold">Proposed By:</h2>
+          <h2 className="col-span-3">{projectDetails.proposedBy}</h2>
+          <h2 className="font-semibold">Progress:</h2>
+          <h2 className="col-span-3">
+            {projectDetails.project.progress + "%"}
+          </h2>
+          <h2 className="font-semibold">Project Description:</h2>
+          <p className="col-span-3">
+            {projectDetails.project.proposal.description}
+          </p>
+          <h2 className="font-semibold">Proposal Doc:</h2>
+          <div className="col-span-3">
+            <ResourceButton
+              name={projectDetails.project.proposal.title}
+              link={projectDetails.project.proposal.proposalDoc.file}
+            />
+          </div>
+          {/* <h2 className="font-semibold">Marks:</h2>
         <div className="col-span-3">
           <MainMarkSection isMarked={true} />
         </div> */}
+        </div>
+        {projectDetails.project.milestones.map((assignedMilestone, index) => (
+          <MilestoneTab
+            key={index}
+            role={projectDetails.role}
+            marked={assignedMilestone.marked}
+            milestoneNumber={assignedMilestone.milestoneID.assignmentNumber}
+            assignedMilestoneID={assignedMilestone._id}
+          />
+        ))}
       </div>
-      {projectDetails.project.milestones.map((assignedMilestone, index) => (
-        <MilestoneTab key={index} marked={assignedMilestone.mark} milestoneNumber={assignedMilestone.milestoneID.assignmentNumber}  assignedMilestoneID={assignedMilestone._id} />
-      ))}
-    </div>
   );
 }
 

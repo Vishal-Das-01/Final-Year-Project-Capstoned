@@ -20,6 +20,8 @@ export const BACKEND_ROUTES = {
   getAllMentorProjects: `${baseURL}/mentor/project/get/all`,
   getMentorProjectDetails: `${baseURL}/mentor/project/get/`,
   getMentorMilestoneDetails: `${baseURL}/mentor/project/get/assigned-milestone`,
+  postMentorMilestoneMarks: `${baseURL}/mentor/project/mark`,
+
 
   getReceivedRequest: `${baseURL}/user/request/get/received`,
   getGroupDetails: `${baseURL}/user/group/get`,
