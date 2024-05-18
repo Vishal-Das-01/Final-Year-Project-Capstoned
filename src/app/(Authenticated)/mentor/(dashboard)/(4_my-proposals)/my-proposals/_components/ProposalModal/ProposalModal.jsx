@@ -13,6 +13,7 @@ import {
 } from "@/utils/routes/frontend_routes";
 import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
 import { uploadFile } from "@/utils/firebase/uploadFile";
+import { DocFileType } from "@/utils/constants/enums";
 
 function ProposalModal({
   setOpenModal,
@@ -101,7 +102,7 @@ function ProposalModal({
             proposalID: responseData.proposalID,
             link: {
               file: fileURL,
-              extension: "pdf",
+              extension: DocFileType.PDF,
             },
           }
         );

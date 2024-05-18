@@ -19,40 +19,8 @@ const projectSchema = new Schema({
     },
     milestones: [
         {
-            ID: {
-                type: String,
-                required: true,
-                ref: 'Milestone'
-            },
-            completed:{
-                type: Boolean
-            },
-            file: [
-                {
-                    doc: {
-                        type: String,
-                    },
-                    extension: {
-                        type: String,
-                        enum: Object.values(DocFileType),
-                        required: true
-                    }
-                }
-            ],
-            marks: [
-                {
-                    member: {
-                        type: Schema.Types.ObjectId,
-                        ref: 'Student'
-                    },
-                    marks: {
-                        type: Number,
-                        required: true,
-                        min: 0,
-                        max: 100
-                    }
-                }
-            ]
+            type: Schema.Types.ObjectId,
+            ref: 'AssignedMilestone'
         }
     ],
     status: {
@@ -68,7 +36,6 @@ const projectSchema = new Schema({
         type: Number,
         min: 0,
         max: 100,
-        default: null
     },
     year: {
         type: Number,

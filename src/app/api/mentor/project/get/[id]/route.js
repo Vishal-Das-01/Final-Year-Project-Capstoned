@@ -4,6 +4,8 @@ import { HttpStatusCode } from "axios";
 import { NextResponse } from "next/server";
 import Mentor from "@/models/Mentor";
 import Proposal from "@/models/Proposal";
+import AssignedMilestone from "@/models/AssignedMilestones";
+import Milestone from "@/models/Milestone";
 
 export async function GET(request, { params }) {
   await connectToDB();
@@ -12,6 +14,7 @@ export async function GET(request, { params }) {
     const profileID = request.headers.get("profileID");
     const projectID = params.id;
     const project = await Project.findById(projectID)
+      .populate({path: "milestones", select: 'milestoneID marked',populate: {path: "milestoneID", select: "assignmentNumber"}})
       .populate("group", "name mentors supervisor")
       .populate(
         "proposal",
@@ -20,13 +23,12 @@ export async function GET(request, { params }) {
 
     let proposedBy;
     if (project.proposal.proposer === "Mentor") {
-      const proposal = await Proposal.findById(project.proposal._id).select('proposedBy proposer').populate(
-        "proposedBy",
-        "firstName lastName"
-      );
+      const proposal = await Proposal.findById(project.proposal._id)
+        .select("proposedBy proposer")
+        .populate("proposedBy", "firstName lastName");
       proposedBy = `${proposal.proposedBy.firstName} ${proposal.proposedBy.lastName}`;
     } else {
-        proposedBy = project.group.name
+      proposedBy = project.group.name;
     }
 
     if (
