@@ -15,6 +15,10 @@ import { useSelector } from "react-redux";
 import { HttpStatusCode } from "axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import { createNewMilestoneAPICall } from "@/utils/admin_frontend_api_calls/MilestoneAPICalls";
+import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
+import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
 
 export default function CreateMilestoneForm({setOpenModal}){
     let formId = `createMilestoneForm`;
@@ -32,6 +36,10 @@ export default function CreateMilestoneForm({setOpenModal}){
 
     // For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
+
+    // For routing back to landing page if 
+	const dispatch = useDispatch();
+	const router = useRouter();
 
     // For updating milestone state
     function handleChange(event){
@@ -98,6 +106,15 @@ export default function CreateMilestoneForm({setOpenModal}){
             let apiCallResponse = await apiCall.json();
             console.log("A", apiCallResponse);
         }
+        else if (apiCall.status === HttpStatusCode.Unauthorized) {
+			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+			  method: "POST",
+			});
+			if (responseLogOut.status === HttpStatusCode.Ok) {
+			  dispatch(removeAuthDetails());
+			  router.replace(FRONTEND_ROUTES.landing_page);
+			}
+		}
         else{
             console.log("B", "Error");
         }

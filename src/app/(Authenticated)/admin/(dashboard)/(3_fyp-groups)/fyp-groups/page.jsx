@@ -16,6 +16,10 @@ import { getFYPGroupsAPICall, finalizeAllFYPGroupsAPICall } from "@/utils/admin_
 import { useSelector } from "react-redux";
 import { HttpStatusCode } from "axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
+import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
+import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
 
 // export const metadata = {
 // 	title: "Admin FYP Groups",
@@ -38,6 +42,12 @@ export default function AdminDashboardFYPGroupsPage(props){
 	// For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
 
+	// For routing back to landing page if
+	// the user is not logged in or
+	// if access token has expired
+	const dispatch = useDispatch();
+	const router = useRouter();
+
 	// API Call for fetching all fyp-groups
 	async function getAllFYPGroups(){
 		let accessToken = authDetails.accessToken;
@@ -49,6 +59,15 @@ export default function AdminDashboardFYPGroupsPage(props){
 			let apiResponseData = await apiResponse.json();
 			setFYPGroups(apiResponseData.data.groups);
 			// console.log("A:", apiResponseData);
+		}
+		else if (apiResponse.status === HttpStatusCode.Unauthorized) {
+			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+			  method: "POST",
+			});
+			if (responseLogOut.status === HttpStatusCode.Ok) {
+			  dispatch(removeAuthDetails());
+			  router.replace(FRONTEND_ROUTES.landing_page);
+			}
 		}
 		else{
 			console.log("B:", "error");
@@ -65,6 +84,15 @@ export default function AdminDashboardFYPGroupsPage(props){
 		if(apiResponse.status === HttpStatusCode.Ok){
 			let apiResponseData = await apiResponse.json();
 			console.log("A:", apiResponseData);
+		}
+		else if (apiResponse.status === HttpStatusCode.Unauthorized) {
+			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+			  method: "POST",
+			});
+			if (responseLogOut.status === HttpStatusCode.Ok) {
+			  dispatch(removeAuthDetails());
+			  router.replace(FRONTEND_ROUTES.landing_page);
+			}
 		}
 		else{
 			console.log("B:", "error");

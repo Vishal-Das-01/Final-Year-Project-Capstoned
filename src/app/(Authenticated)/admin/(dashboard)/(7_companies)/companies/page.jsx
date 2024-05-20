@@ -16,6 +16,10 @@ import { useSelector } from "react-redux";
 import { HttpStatusCode } from "axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import { getCompaniesAPICall } from "@/utils/admin_frontend_api_calls/CompaniesAPICalls";
+import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
+import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
 
 // export const metadata = {
 // 	title: "Admin Companies Management",
@@ -38,6 +42,12 @@ export default function AdminDashboardCompaniesPage(props){
 	// For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
 
+	// For routing back to landing page if
+	// the user is not logged in or
+	// if access token has expired
+	const dispatch = useDispatch();
+	const router = useRouter();
+
 	// API Call for fetching all companies
 	async function fetchAllCompanies(){
 		let accessToken = authDetails.accessToken;
@@ -50,6 +60,15 @@ export default function AdminDashboardCompaniesPage(props){
 			let apiResponseData = await apiResponse.json();
 			setCompanies(apiResponseData.data.companies);
 			// console.log("A:", apiResponseData);
+		}
+		else if (apiResponse.status === HttpStatusCode.Unauthorized) {
+			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+			  method: "POST",
+			});
+			if (responseLogOut.status === HttpStatusCode.Ok) {
+			  dispatch(removeAuthDetails());
+			  router.replace(FRONTEND_ROUTES.landing_page);
+			}
 		}
 		else{
 			console.log("B:", "error");
