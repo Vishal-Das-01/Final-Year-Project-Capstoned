@@ -104,7 +104,9 @@ export default function AdminDashboardAnnouncementsPage(props){
 					setModalContent={setModalContent}
 				/>
 
-				<ContentTable>
+				<ContentTable
+					isLoading={loadingIndicator}
+				>
 
 					<TableHead>
 

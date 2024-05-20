@@ -128,7 +128,9 @@ export default function AdminDashboardFYPGroupsPage(props){
 					onClick={finalizeAllFYPGroups}
 				/>
 
-				<ContentTable>
+				<ContentTable
+					isLoading={loadingIndicator}
+				>
 
 					<TableHead>
 

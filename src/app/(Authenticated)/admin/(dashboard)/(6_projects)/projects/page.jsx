@@ -116,7 +116,9 @@ export default function AdminDashboardProjectsPage(props){
 
 				<ProjectsHeadingAndButton />
 
-				<ContentTable>
+				<ContentTable
+					isLoading={loadingIndicator}
+				>
 
 					<TableHead>
 

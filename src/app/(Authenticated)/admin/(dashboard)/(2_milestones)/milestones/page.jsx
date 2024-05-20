@@ -62,6 +62,7 @@ export default function AdminDashboardMilestonesPage(props){
 		if(apiResponse.status === HttpStatusCode.Ok){
 			let apiResponseData = await apiResponse.json();
 			setMilestones(apiResponseData);
+			setLoadingIndicator(false);
 			// console.log("A:", apiResponseData);
 		}
 		else if (apiResponse.status === HttpStatusCode.Unauthorized) {
@@ -89,7 +90,7 @@ export default function AdminDashboardMilestonesPage(props){
 	// milestones are fetched successfully
 	useEffect(() => {
 		if(milestones.length > 0){
-			setLoadingIndicator(false);
+			
 		}
 	}, [milestones]);
 
@@ -105,7 +106,9 @@ export default function AdminDashboardMilestonesPage(props){
 					setModalContent={setModalContent}
 				/>
 
-				<ContentTable>
+				<ContentTable 
+					isLoading={loadingIndicator}
+				>
 			
 					<TableHead>
 
