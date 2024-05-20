@@ -24,6 +24,8 @@ export default function SideMenuItem({href, children}){
 		let secondSlash = route.substring(firstSlash + 1).indexOf("/");
 		let pageName = route.substring(firstSlash + 1).substring(secondSlash + 1);
 		if (pageName === "other-proposals") return "my-proposals";
+		else if (pageName.includes("mentors")) return "mentors";
+		else if (pageName.includes("my-group")) return "my-group";
 	
 		return pageName;
 	}

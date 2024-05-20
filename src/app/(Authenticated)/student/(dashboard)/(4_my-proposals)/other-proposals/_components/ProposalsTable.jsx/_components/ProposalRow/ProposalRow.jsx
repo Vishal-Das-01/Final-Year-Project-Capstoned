@@ -94,7 +94,18 @@ function ProposalRow({ title, description, status, selectedBy, mentorship, activ
         </td>
         <td class="px-2 py-3 w-1/12">
           <div className="text-center justify-center items-center flex flex-row text-xl">
-            {active? <MdCheckCircle /> : <MdCancel />}
+            {active? <MdCheckCircle className="text-green-600"/> : <MdCancel className="text-red-600"/>}
+          </div>
+        </td>
+        <td class="px-2 py-3 w-1/12">
+          <div className="text-center justify-center items-center flex flex-row text-xl">
+            {active? 
+            <button className="flex flex-row p-1 items-center justify-center w-full h-full font-montserrat rounded-lg text-xs tracking-widest text-white bg-black  border-black hover:bg-white hover:border-black hover:text-black">
+              Request
+            </button> : 
+            <button disabled className="flex flex-row p-1 items-center justify-center w-full h-full font-montserrat rounded-lg text-xs tracking-widest text-white bg-gray-400 px-2.5 py-1.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:click-events-none">
+              Request
+            </button>}
           </div>
         </td>
       </tr>

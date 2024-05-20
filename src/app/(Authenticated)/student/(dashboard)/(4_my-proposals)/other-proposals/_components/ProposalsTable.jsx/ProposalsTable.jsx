@@ -31,6 +31,9 @@ function ProposalsTable() {
                 Available
               </th>
               <th scope="col" class="px-4 py-3">
+                Request
+              </th>
+              <th scope="col" class="px-4 py-3">
                 <span class="sr-only">Actions</span>
               </th>
             </tr>
@@ -42,7 +45,7 @@ function ProposalsTable() {
               status={true}
               selectedBy={"Free Riders"}
               mentorship={true}
-              active={false}
+              active={true}
             />
             <ProposalRow
               title={"FYP Management System"}
@@ -58,7 +61,7 @@ function ProposalsTable() {
               status={true}
               selectedBy={"Free Riders"}
               mentorship={true}
-              active={false}
+              active={true}
             />
             <ProposalRow
               title={"FYP Management System"}
@@ -74,7 +77,7 @@ function ProposalsTable() {
               status={true}
               selectedBy={"Free Riders"}
               mentorship={true}
-              active={false}
+              active={true}
             />
           </tbody>
         </table>

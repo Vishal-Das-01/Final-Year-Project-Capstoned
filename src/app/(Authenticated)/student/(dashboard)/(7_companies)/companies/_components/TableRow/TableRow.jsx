@@ -9,7 +9,9 @@ export default function TableRow({children, setOpenModal, setModalTitle, setModa
             className="border-b dark:border-gray-700 hover:bg-gray-100 cursor-pointer"  
             onClick={
                 () => {
-                    router.push("mentors/123")
+                    setOpenModal(true);
+                    setModalTitle("Company Details"); 
+                    setModalContent("Company Details Content")
                 }
             }
         >
