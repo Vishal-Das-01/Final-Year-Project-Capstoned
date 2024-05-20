@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./ProjectContent.module.css";
 import ProgressBarChart from "./_components/ProgressBarChart/ProgressBarChart";
 
-function ProjectContent() {
+function ProjectContent({projects}) {
 
   return (
     <div
@@ -24,7 +24,7 @@ function ProjectContent() {
         <div
           className={`${styles.fypProjectsWrapper}`}
         >
-            <ProgressBarChart />
+            <ProgressBarChart projects={projects}/>
         </div>
       </div>
     </div>

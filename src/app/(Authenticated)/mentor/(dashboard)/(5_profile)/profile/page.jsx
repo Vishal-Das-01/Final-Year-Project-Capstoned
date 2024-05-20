@@ -18,7 +18,6 @@ export const metadata = {
 
 async function Profile() {
   const profile = await getProfile();
-  console.log(profile);
 
   return (
     <div

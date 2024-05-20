@@ -8,6 +8,7 @@ export const BACKEND_ROUTES = {
   getProfile: `${baseURL}/user/account/get`,
   getAllCompanies: `${baseURL}/user/company/get/all`, // (user) companies
 
+  getMentorDashboardDetails: `${baseURL}/mentor/dashboard`,
   updateProfileMentor: `${baseURL}/mentor/account/update`,
   updateProposalLinkMentor: `${baseURL}/mentor/proposal/updateLink`,
   deleteProposalMentor: `${baseURL}/mentor/proposal/delete`,
@@ -21,7 +22,7 @@ export const BACKEND_ROUTES = {
   getMentorProjectDetails: `${baseURL}/mentor/project/get/`,
   getMentorMilestoneDetails: `${baseURL}/mentor/project/get/assigned-milestone`,
   postMentorMilestoneMarks: `${baseURL}/mentor/project/mark`,
-
+  getMentorPastProjects: `${baseURL}/mentor/project/get/past`,
 
   getReceivedRequest: `${baseURL}/user/request/get/received`,
   getGroupDetails: `${baseURL}/user/group/get`,
