@@ -1,9 +1,12 @@
+import { SocketProvider } from "@/utils/helpers/socketProvider";
 import styles from "./MentorDashboard.module.css";
 import Navbar from "./_components/Navbar/Navbar.jsx";
 import SideMenu from "./_components/SideMenu/SideMenu.jsx";
 
 export default function AdminDashboardLayout({children}){
 	return (
+		<SocketProvider>
+
 		<div className={`${styles.pageBodyContainer} w-full h-full flex flex-col`}>
 
 			<div className={`${styles.navbarContainer} flex flex-row`}>
@@ -23,5 +26,7 @@ export default function AdminDashboardLayout({children}){
 			</div>
 			
 		</div>
+
+		</SocketProvider>
 	);
 }
