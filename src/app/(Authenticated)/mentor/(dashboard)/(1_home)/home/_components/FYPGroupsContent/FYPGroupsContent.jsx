@@ -14,7 +14,8 @@ const customTheme = {
   },
 };
 
-export default function FYPGroupsContent() {
+export default function FYPGroupsContent({groups}) {
+  console.log(groups)
   return (
     <div
       className={`${styles.contentCardContainer} flex flex-col items-start rounded-xl `}
@@ -46,9 +47,16 @@ export default function FYPGroupsContent() {
               <IoCaretForwardCircleOutline className="text-2xl text-gray-300 hover:text-blue-500 transform rotate-180" />
             }
           >
-            <GroupDetails />
-            <GroupDetails />
-            <GroupDetails />
+            {groups.map((group, index) => (
+              <GroupDetails
+                key={index}
+                projectTitle={group.groupID.project.proposal.title}
+                groupName={group.groupID.name}
+                groupMembers={group.groupID.members}
+                groupLead={group.groupID.lead}
+                role={group.role}
+              />
+            ))}
           </Carousel>
         </div>
       </div>

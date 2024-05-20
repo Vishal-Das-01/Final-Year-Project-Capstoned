@@ -19,7 +19,7 @@ export default function ProposalListTile({sNo, text, selected}){
                 <div className={`${styles.text} flex flex-row items-center justify-start `}>
 
                     <p className={`${styles.common} font-montserrat text-neutral-500`}>
-                        {text}
+                        {text.length > 18 ? `${text.slice(0, 18)}...` : text}
                     </p>
 
                 </div>

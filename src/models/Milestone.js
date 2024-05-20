@@ -37,6 +37,10 @@ const milestoneSchema = new Schema({
             }
         }
     ],
+    assigned: {
+        type: Boolean,
+        default: false
+    },
     year: {
         type: Number,
         required: true

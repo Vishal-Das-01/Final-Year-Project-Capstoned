@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 import AssignedMilestone from "@/models/AssignedMilestones";
 import Group from "@/models/Group";
 import Student from "@/models/Student";
+import Milestone from "@/models/Milestone";
 
 export async function POST(request, { params }) {
     await connectToDB();
@@ -38,6 +39,8 @@ export async function POST(request, { params }) {
             await project.save();
         }
 
+        const milestone = await Milestone.findByIdAndUpdate(id, {assigned: true});
+        
         return NextResponse.json({ message: 'Milestones assigned successfully' }, { status: HttpStatusCode.Ok });
         
     } catch (error) {
