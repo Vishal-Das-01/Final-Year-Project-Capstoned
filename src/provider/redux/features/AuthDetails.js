@@ -32,10 +32,13 @@ export const AuthDetails = createSlice({
             state.firstName = null;
             state.lastName = null;
             state.gender = null;
+        },
+        setProfilePicture: (state, action) => {
+            state.profileImage = action.payload.profileImage;
         }
     }
 })
 
-export const { setAuthDetails, removeAuthDetails } = AuthDetails.actions;
+export const { setAuthDetails, removeAuthDetails, setProfilePicture } = AuthDetails.actions;
 
 export default AuthDetails.reducer;

@@ -13,6 +13,7 @@ const Approval = {
 const ImageFileType = {
     JPG: 'jpg',
     PNG: 'png',
+    JPEG: 'jpeg',
 };
 
 const DocFileType = {

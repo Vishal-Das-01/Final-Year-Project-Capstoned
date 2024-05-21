@@ -27,7 +27,7 @@ export default function ProposalListTile({sNo, text, selected}){
                 <div className={`${styles.selected} flex flex-row items-center justify-center`}>
 
                     <div className="font-montserrat">
-                        <div className={`${selected? "bg-green-500" : "bg-red-500"} rounded-full w-4 h-4`}/>
+                        <div className={`${selected? "bg-red-500" : "bg-green-500"} rounded-full w-4 h-4`}/>
                     </div>
 
                 </div>
