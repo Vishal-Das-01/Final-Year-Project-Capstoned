@@ -30,7 +30,6 @@ function MarkSection({ role, isMarked, setIsMarked, assignedMilestoneID, members
 
   const returnMarks = (id,marks) => {
     for (const x of marks) {
-      console.log(x.member, id)
       if (x.member == id) {
         return x.marks;
       }
@@ -87,13 +86,13 @@ function MarkSection({ role, isMarked, setIsMarked, assignedMilestoneID, members
                   />
                 </td>
               ) : (
-                <td className="text-center">
+                <td className="text-center pt-2">
                   {isMarked
                     ? returnMarks(item.member._id,marks)
                     : "-"}
                 </td>
               )}
-              <td className="text-center">100</td>
+              <td className="text-center pt-2">100</td>
             </tr>
           ))}
         </tbody>

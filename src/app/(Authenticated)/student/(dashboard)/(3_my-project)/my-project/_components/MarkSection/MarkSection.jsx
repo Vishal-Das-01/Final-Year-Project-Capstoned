@@ -1,9 +1,7 @@
-'use client';
-import React, { useState } from "react";
+import React from "react";
 
-function MarkSection({ isMarked}) {
-  const [marking, setMarking] = useState(false);
-  const [submit, setSubmission] = useState(false);
+function MarkSection({ isMarked, members }) {
+  console.log(members)
   return (
     <div className="flex flex-row">
       <table className="border-4 border-double border-gray-500 mr-5">
@@ -15,61 +13,18 @@ function MarkSection({ isMarked}) {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td className="pt-2">Syed Owais Ali</td>
-            {marking ? (
-              <input
-                className="border-2 text-center border-gray-300 w-36 focus:border-blue-500 focus:ring-0"
-                type="number"
-              ></input>
-            ) : (
-              <td className="text-center">{isMarked ? 30 : "-"}</td>
-            )}
-            <td className="text-center">30</td>
-          </tr>
-          <tr>
-            <td className="pt-2">Hamza Ali Akbar</td>
-            {marking ? (
-              <input
-                className="border-2 text-center border-gray-300 w-36 focus:border-blue-500 focus:ring-0"
-                type="number"
-              ></input>
-            ) : (
-              <td className="text-center">{isMarked ? 30 : "-"}</td>
-            )}
-            <td className="text-center">30</td>
-          </tr>
-          <tr>
-            <td className="pt-2">Taha Mirza</td>
-            {marking ? (
-              <input
-                className="border-2 text-center border-gray-300 w-36 focus:border-blue-500 focus:ring-0"
-                type="number"
-              ></input>
-            ) : (
-              <td className="text-center">{isMarked ? 30 : "-"}</td>
-            )}
-            <td className="text-center">30</td>
-          </tr>
+          {members.map((item, index) => (
+            <tr key={index}>
+              <td className="pl-2 pt-2">
+                {item.member.firstName} {item.member.lastName}
+              </td>
+              <td className="text-center pt-2">{isMarked ? item.marks : "-"}</td>
+              <td className="text-center pt-2">100</td>
+            </tr>
+          ))}
         </tbody>
       </table>
-      {isMarked ? (
-        <div className="flex flex-row">
-          <button disabled
-          className="h-10 bg-gray-400 text-white rounded-full px-2.5 py-1.5 text-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:click-events-none"
-        >
-          Submit
-        </button>
-        </div>
-      ) : (
-        <button
-          onClick={() => setSubmission(true)}
-          className="h-10 bg-green-500 text-white rounded-full px-2.5 py-1.5 text-sm hover:bg-green-700"
-        >
-          Submit
-        </button>
-      )}
-      </div>
+    </div>
   );
 }
 
