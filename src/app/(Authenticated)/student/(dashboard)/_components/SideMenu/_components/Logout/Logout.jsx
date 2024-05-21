@@ -19,6 +19,7 @@ function Logout() {
       if (response.status === 200) {
         dispatch(removeAuthDetails());
         router.replace(FRONTEND_ROUTES.landing_page);
+        router.refresh();
       }
     } catch (error) {
       console.log(error);

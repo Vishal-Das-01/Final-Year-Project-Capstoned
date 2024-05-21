@@ -22,7 +22,8 @@ export default async function MentorDashboardHomePage() {
 
   const dashboardDetails = await getDashboardDetails()
   const projectsContent = dashboardDetails.data.groups.map(group => ({name: group.groupID.project.proposal.title, progress: group.groupID.project.progress}))
- 
+  console.log(dashboardDetails)
+
   return (
     <div  
       className={`${styles.primaryContainer} flex flex-col items-center justify-center`}

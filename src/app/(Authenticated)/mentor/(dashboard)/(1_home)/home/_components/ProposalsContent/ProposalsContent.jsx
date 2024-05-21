@@ -1,5 +1,6 @@
 import styles from "./ProposalsContent.module.css";
 import ProposalListTile from "../_components/ProposalListTile/ProposalListTile";
+import NotFound from "../_components/NotFound/NotFound";
 
 export default function ProposalsContent({proposals}){
     return (
@@ -16,8 +17,10 @@ export default function ProposalsContent({proposals}){
 					<div className={`${styles.contentHeadingLine} ml-2 bg-blue-500 rounded-full`} /> 
 
 				</div>
+
                 <div className={`${styles.proposalsInfoWrapper} flex flex-col my-2  `}>
-					{proposals.map((proposal, index) => (
+					{proposals.length === 0 && <div className="my-3"><NotFound /></div>}
+					{proposals.length !== 0 && proposals.map((proposal, index) => (
 						<ProposalListTile key={index} sNo={index + 1} text={proposal.title} selected={!(proposal.edit)}/>						
 					))}
                 </div>

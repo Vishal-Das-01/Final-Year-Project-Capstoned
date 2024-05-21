@@ -2,6 +2,7 @@ import { Carousel, Flowbite } from "flowbite-react";
 import styles from "./FYPGroupsContent.module.css";
 import { IoCaretForwardCircleOutline } from "react-icons/io5";
 import GroupDetails from "./_components/GroupDetails/GroupDetails";
+import NotFound from "../_components/NotFound/NotFound";
 
 const customTheme = {
   indicators: {
@@ -15,7 +16,6 @@ const customTheme = {
 };
 
 export default function FYPGroupsContent({groups}) {
-  console.log(groups)
   return (
     <div
       className={`${styles.contentCardContainer} flex flex-col items-start rounded-xl `}
@@ -35,7 +35,9 @@ export default function FYPGroupsContent({groups}) {
           />
         </div>
 
-        <div
+        {groups && groups.length === 0 && <NotFound />}
+
+        {groups && groups.length !== 0 && <div
           className={`${styles.fypGroupInfoWrapper} flex flex-col my-2 h-4/5`}
         >
           <Carousel
@@ -58,7 +60,7 @@ export default function FYPGroupsContent({groups}) {
               />
             ))}
           </Carousel>
-        </div>
+        </div>}
       </div>
     </div>
   );
