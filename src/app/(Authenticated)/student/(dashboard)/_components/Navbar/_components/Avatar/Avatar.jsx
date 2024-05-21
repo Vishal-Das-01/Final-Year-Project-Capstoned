@@ -5,7 +5,7 @@ import styles from "./Avatar.module.css";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
-export default function Avatar({src, alt}){
+export default function Avatar({alt}){
 	const authDetails = useSelector((state) => state.AuthDetails);
 	const [profileImage, setProfileImage] = useState(authDetails.profileImage);
 

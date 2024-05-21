@@ -36,7 +36,6 @@ export default function Navbar(props){
 						
 						<Avatar 
 							alt="Profile Picture"
-							src="/picCircular.png"
 						/>
 					
 					</div>

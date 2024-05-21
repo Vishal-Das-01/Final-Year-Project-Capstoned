@@ -1,6 +1,5 @@
 'use client';
 import React, { useState } from "react";
-import ProposalModal from "../ProposalModal/ProposalModal";
 
 function MarkSection({ isMarked}) {
   const [marking, setMarking] = useState(false);
@@ -70,7 +69,6 @@ function MarkSection({ isMarked}) {
           Submit
         </button>
       )}
-      {submit && <ProposalModal setOpenModal={setSubmission} />}
       </div>
   );
 }

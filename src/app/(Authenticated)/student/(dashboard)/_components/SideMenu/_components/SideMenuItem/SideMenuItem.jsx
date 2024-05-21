@@ -42,8 +42,8 @@ export default function SideMenuItem({href, children}){
 		else if(children.toString() === "FYP Projects"){
 			return "fyp-projects";
 		}
-		else if(children.toString() === "Milestones"){
-			return "milestones";
+		else if(children.toString() === "My Project"){
+			return "my-project";
 		}
 		else if(children.toString() === "My Group"){
 			return "my-group";
@@ -108,7 +108,7 @@ export default function SideMenuItem({href, children}){
 		if(children.toString() === "Dashboard"){
 			return (<MdSpaceDashboard color={color}/>);
 		}
-		else if(children.toString() === "Milestones"){
+		else if(children.toString() === "My Project"){
 			return (<GoProject color={color}/>);
 		}
 		else if(children.toString() === "My Group"){
@@ -135,28 +135,28 @@ export default function SideMenuItem({href, children}){
 	return (
 		<div className={`${styles.sideMenuItemContainer} w-full flex flex-row items-center justify-center`}>
 
-			<Link href={href} className={`${styles.sideMenuItemLink} h-full flex flex-row items-center justify-center rounded-lg relative `}>
+		<Link href={href} className={`${styles.sideMenuItemLink} h-full flex flex-row items-center justify-center rounded-lg relative `}>
 
-				<div className={`w-full h-full flex flex-row items-center justify-center rounded-lg ${chooseListItemBgColor(route, children)} `}>
+			<div className={`w-full h-full flex flex-row items-center justify-center rounded-lg ${chooseListItemBgColor(route, children)} `}>
 
-					<div className={`${styles.left} h-full flex flex-row items-center justify-center font-montserrat`}>		
-						{chooseListItemIcon(route, children)}
-					</div>
-					
-					<div className={`${styles.right} h-full flex flex-row items-center justify-start font-montserrat font-semibold tracking-wide ${chooseListItemTextColor(route, children)}`}>
+				<div className={`${styles.left} h-full flex flex-row items-center justify-center font-montserrat`}>		
+					{chooseListItemIcon(route, children)}
+				</div>
+				
+				<div className={`${styles.right} h-full flex flex-row items-center justify-start font-montserrat font-semibold tracking-wide ${chooseListItemTextColor(route, children)}`}>
 
-						<p className={`font-montserrat`}>
-							{children}
-						</p>
-					
-					</div>
+					<p className={`font-montserrat`}>
+						{children}
+					</p>
 				
 				</div>
+			
+			</div>
 
-				<div className={`absolute w-full h-full rounded-lg opacity-0 bg-transparent hover:bg-white hover:opacity-30`} />
-			
-			</Link>
-			
-		</div>
+			<div className={`absolute w-full h-full rounded-lg opacity-0 bg-transparent hover:bg-white hover:opacity-30`} />
+		
+		</Link>
+		
+	</div>
 	);
 }

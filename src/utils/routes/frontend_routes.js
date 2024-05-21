@@ -22,7 +22,7 @@ export const FRONTEND_ROUTES = {
 	student_dashboard_chats_page: "/student/chats", // Student
 	student_dashboard_companies_page: "/student/companies", // Student
 	student_dashboard_mentors_page: "/student/mentors", // Student
-	student_dashboard_milestones_page: "/student/milestones", // Student
+	student_dashboard_my_project_page: "/student/my-project", // Student
 
 };
 

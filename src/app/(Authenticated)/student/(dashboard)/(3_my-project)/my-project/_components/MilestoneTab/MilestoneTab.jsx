@@ -5,16 +5,14 @@ import { TiTick } from "react-icons/ti";
 import { useState } from "react";
 import ResourceButton from "../ResourceButton/ResourceButton";
 import MarkSection from "../MarkSection/MarkSection";
-import { convertDate } from "@/utils/helpers/date";
 import { useDispatch, useSelector } from "react-redux";
-import { callAPI } from "@/utils/helpers/callAPI";
 import { useRouter } from "next/navigation";
-import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
-import { HttpStatusCode } from "axios";
-import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
-import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import Loader from "@/app/(Authenticated)/mentor/(dashboard)/(2_groups)/groups/_components/Loader/Loader";
-import { set } from "mongoose";
+import { HttpStatusCode } from "axios";
+import { callAPI } from "@/utils/helpers/callAPI";
+import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
+import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
+import { convertDate } from "@/utils/helpers/date";
 
 function MilestoneTab({ role, marked, milestoneNumber, assignedMilestoneID }) {
   const [isMarked, setIsMarked] = useState(marked);
@@ -119,43 +117,16 @@ function MilestoneTab({ role, marked, milestoneNumber, assignedMilestoneID }) {
             ))}
           </div>
           <line className="col-span-4 border-t-2 border-gray-300"></line>
-          {deadlinePassed && (
-            <>
-              <h2 className="font-semibold">Submission Files:</h2>
-              {milestoneDetails.submitted ? (
-                <div className="col-span-3 flex flex-row">
-                  {milestoneDetails.submissionFile.map((item, index) => (
-                    <ResourceButton
-                      key={index}
-                      name={item.name}
-                      link={item.doc}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <h2 className="col-span-3 text-red-500">No files submitted.</h2>
-              )}
-              {marksObtained && (
-                <>
-                  <h2 className="font-semibold">Overall Marks:</h2>
-                  <h2 className="col-span-3 font-bold text-red-500">
-                    {`${marksObtained} / 100`}
-                  </h2>
-                </>
-              )}
-              <h2 className="font-semibold">Marks:</h2>
-              <div className="col-span-3">
-                <MarkSection
-                  role={role}
-                  isMarked={isMarked}
-                  setIsMarked={setIsMarked}
-                  assignedMilestoneID={assignedMilestoneID}
-                  members={milestoneDetails.marks}
-                  setMarksObtained={setMarksObtained}
-                />
-              </div>
-            </>
-          )}
+          <h2 className="font-semibold">Submission Files:</h2>
+          <div className="col-span-3 flex flex-row">
+            {milestoneDetails.submissionFile.map((item, index) => (
+              <ResourceButton key={index} name={item.name} link={item.doc} />
+            ))}
+          </div>
+          <h2 className="font-semibold">Marks:</h2>
+          <div className="col-span-3">
+            <MarkSection isMarked={isMarked} />
+          </div>
         </div>
       )}
     </div>

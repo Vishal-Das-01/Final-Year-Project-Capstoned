@@ -8,29 +8,30 @@ export const metadata = {
 	description: "Capstoned | Final Year Project (FYP) Management Platform for College & University Students.",
 }
 
-export default function AdminDashboardLayout({children}){
+export default function StudentDashboardLayout({ children }) {
 	return (
 		<SocketProvider>
 
-		<div className={`${styles.pageBodyContainer} w-full h-full flex flex-col`}>
+			<div className={`${styles.pageBodyContainer} w-full h-full flex flex-col`}>
 
-			<div className={`${styles.navbarContainer} flex flex-row h-20 `}>
-				<Navbar />
-			</div>
-			
-			<div className={`${styles.sideMenuAndContentContainer} h-full flex flex-row`}>
+				<div className={`${styles.navbarContainer} flex flex-row`}>
+					<Navbar />
+				</div>
 
-				<div className={`${styles.sideMenuContainer} h-full bg-white`}>
-					<SideMenu />
+				<div className={`${styles.sideMenuAndContentContainer} overflow-hidden flex flex-row`}>
+
+					<div className={`${styles.sideMenuContainer} bg-white`}>
+						<SideMenu />
+					</div>
+
+					<div className={`${styles.contentContainer} w-full rounded-tl-xl overflow-y-auto`}>
+						{children}
+					</div>
+
 				</div>
-				
-				<div className={`${styles.contentContainer} w-full bg-white rounded-tl-xl`}>
-					{children}
-				</div>
-			
+
 			</div>
-			
-		</div>
+
 
 		</SocketProvider>
 	);

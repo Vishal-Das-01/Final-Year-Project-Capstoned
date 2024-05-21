@@ -20,10 +20,10 @@ export const BACKEND_ROUTES = {
   getGroupSelectedProposal: `${baseURL}/user/group/selected-proposal/get-all`,
   getAllMentorProjects: `${baseURL}/mentor/project/get/all`,
   getMentorProjectDetails: `${baseURL}/mentor/project/get/`,
-  getMentorMilestoneDetails: `${baseURL}/mentor/project/get/assigned-milestone`,
   postMentorMilestoneMarks: `${baseURL}/mentor/project/mark`,
   getMentorPastProjects: `${baseURL}/mentor/project/get/past`,
 
+  getMilestoneDetails: `${baseURL}/user/project/assigned-milestone`,
   getReceivedRequest: `${baseURL}/user/request/get/received`,
   getGroupDetails: `${baseURL}/user/group/get`,
   deleteRequest: `${baseURL}/user/request/decline`,
@@ -45,4 +45,7 @@ export const BACKEND_ROUTES = {
   createAnnouncement: `${baseURL}/admin/notification/create`, // (admin) announcements
 
   createCompany: `${baseURL}/admin/company/create`, // (admin) companies
+
+
+  getStudentProjects: `${baseURL}/student/project/get`, // (student) projects
 };

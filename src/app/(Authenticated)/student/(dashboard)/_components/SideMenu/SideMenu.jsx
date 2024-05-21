@@ -17,8 +17,8 @@ export default function SideMenu(props){
 					My Group
 				</SideMenuItem>
 
-				<SideMenuItem href={FRONTEND_ROUTES.student_dashboard_milestones_page}>
-					Milestones
+				<SideMenuItem href={FRONTEND_ROUTES.student_dashboard_my_project_page}>
+					My Project
 				</SideMenuItem>
 
 				<SideMenuItem href={FRONTEND_ROUTES.student_dashboard_my_proposals_page}>
