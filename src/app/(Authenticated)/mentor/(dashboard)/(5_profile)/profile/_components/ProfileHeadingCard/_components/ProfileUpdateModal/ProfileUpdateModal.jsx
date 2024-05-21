@@ -106,7 +106,6 @@ function ProfileUpdateModal({
       occupation: occupation,
       bio: description
     }) 
-    console.log(response)
     if(response.status === HttpStatusCode.Ok){
       setLoading(false)
       setOpenModal(false)

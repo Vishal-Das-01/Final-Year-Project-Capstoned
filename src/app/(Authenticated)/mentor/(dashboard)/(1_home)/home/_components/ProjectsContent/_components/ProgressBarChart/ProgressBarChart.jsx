@@ -26,7 +26,7 @@ function ProgressBarChart({ projects }) {
         <YAxis dataKey="progress" interval={0} type="number" domain={[0, 100]} tick={{ fontSize: 14 }} />
         <XAxis dataKey="name" type="category" interval={0} tick={{ fontSize: 10 }} />
         <Tooltip />
-        <Bar type="monotone" dataKey="progress" barSize={30} fill="#3f83f8">
+        <Bar type="monotone" dataKey="progress" barSize={30}>
           <LabelList dataKey="progress" position="top" />
           {
             projects.map((entry, index) => (

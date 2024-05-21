@@ -87,7 +87,6 @@ function ProposalModal({
       );
       if (response.status === HttpStatusCode.Ok) {
         const responseData = await response.json();
-        console.log(responseData);
         const fileURL = await uploadFile(
           proposalDoc,
           responseData.proposalID,

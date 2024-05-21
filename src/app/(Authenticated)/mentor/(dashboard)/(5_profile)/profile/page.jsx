@@ -18,7 +18,6 @@ export const metadata = {
 
 async function Profile() {
   const profile = await getProfile();
-
   return (
     <div
       className={`${styles.contentWrapper} w-full h-full py-6 px-5 flex flex-col justify-evenly items-start font-montserrat`}
@@ -41,6 +40,7 @@ async function Profile() {
           className={`${styles.contentCardContainer} h-full w-1/3 rounded-xl`}
         >
           <ProfileCardOne
+            mentorID={profile.mentor._id}
             firstName={profile.mentor.firstName}
             lastName={profile.mentor.lastName}
             gender={profile.mentor.gender}
