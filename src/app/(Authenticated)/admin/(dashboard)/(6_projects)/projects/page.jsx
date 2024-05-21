@@ -147,7 +147,7 @@ export default function AdminDashboardProjectsPage(props){
 									setModalTitle={setModalTitle}
 									setModalContent={setModalContent}
 									key={project._id}
-									projectId={project._id}
+									dataID={project._id}
 								>
 
 									<TableBodyDataCell 

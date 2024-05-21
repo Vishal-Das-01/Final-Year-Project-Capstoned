@@ -9,6 +9,7 @@ import TableRow from "../../_components/TableRow/TableRow";
 import TableHeadDataCell from "../../_components/TableHeadDataCell/TableHeadDataCell";
 import TableBodyDataCell from "../../_components/TableBodyDataCell/TableBodyDataCell";
 import Modal from "../../_components/Modal/Modal";
+import MilestoneRowContent from "./_components/MilestoneRowContent/MilestoneRowContent";
 
 // Imports below for state management and api calls
 import { useEffect, useState } from "react";
@@ -63,7 +64,7 @@ export default function AdminDashboardMilestonesPage(props){
 			let apiResponseData = await apiResponse.json();
 			setMilestones(apiResponseData);
 			setLoadingIndicator(false);
-			// console.log("A:", apiResponseData);
+			console.log("A:", apiResponseData);
 		}
 		else if (apiResponse.status === HttpStatusCode.Unauthorized) {
 			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
@@ -131,11 +132,14 @@ export default function AdminDashboardMilestonesPage(props){
 						{!loadingIndicator && milestones.map((milestone) => {
 							return (
 								<TableRow
+									key={milestone._id}
 									setOpenModal={setOpenModal} 
-									setModalTitle={setModalTitle}
 									setModalContent={setModalContent}
-									key={milestone.title}
-									milestoneId={milestone._id}
+									setModalTitle={() => setModalTitle(milestone.title)}
+									content={<MilestoneRowContent 
+												data={milestone} 
+												dataID={milestone._id}
+											/>}
 								>
 
 									<TableBodyDataCell 

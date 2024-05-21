@@ -137,7 +137,7 @@ export default function AdminDashboardAnnouncementsPage(props){
 									setModalTitle={setModalTitle}
 									setModalContent={setModalContent}
 									key={announcement._id}
-									companyId={announcement._id}
+									dataID={announcement._id}
 								>
 
 									<TableBodyDataCell 

@@ -9,6 +9,7 @@ import TableRow from "../../_components/TableRow/TableRow";
 import TableHeadDataCell from "../../_components/TableHeadDataCell/TableHeadDataCell";
 import TableBodyDataCell from "../../_components/TableBodyDataCell/TableBodyDataCell";
 import Modal from "../../_components/Modal/Modal";
+import FYPGroupsRowContent from "./_components/FYPGroupsRowContent/FYPGroupsRowContent";
 
 // Imports below for state management and api calls
 import { useEffect, useState } from "react";
@@ -155,11 +156,14 @@ export default function AdminDashboardFYPGroupsPage(props){
 						{!loadingIndicator && fypGroups.map((group) => {
 							return (
 								<TableRow
-									setOpenModal={setOpenModal} 
-									setModalTitle={setModalTitle}
-									setModalContent={setModalContent}
 									key={group._id}
-									groupId={group._id}
+									setOpenModal={setOpenModal} 
+									setModalContent={setModalContent}
+									setModalTitle={() => setModalTitle(group.name)}
+									content={<FYPGroupsRowContent 
+										data={group} 
+										dataID={group._id}
+									/>}
 								>
 
 									<TableBodyDataCell 

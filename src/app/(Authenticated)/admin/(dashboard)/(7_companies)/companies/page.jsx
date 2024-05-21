@@ -133,7 +133,7 @@ export default function AdminDashboardCompaniesPage(props){
 									setModalTitle={setModalTitle}
 									setModalContent={setModalContent}
 									key={company._id}
-									companyId={company._id}
+									dataID={company._id}
 								>
 
 									<TableBodyDataCell 

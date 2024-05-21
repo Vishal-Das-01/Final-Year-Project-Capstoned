@@ -9,6 +9,7 @@ import TableHeadDataCell from "../../_components/TableHeadDataCell/TableHeadData
 import TableBodyDataCell from "../../_components/TableBodyDataCell/TableBodyDataCell";
 import AccountHeadingAndButton from "./_components/AccountsHeadingAndButton/AccountHeadingAndButton";
 import Modal from "../../_components/Modal/Modal";
+import AccountsRowContent from "./_components/AccountsRowContent/AccountsRowContent";
 
 // Imports below for state management and api calls
 import { useEffect, useState } from "react";
@@ -130,11 +131,15 @@ export default function AdminDashboardAccountsPage(props){
 						{!loadingIndicator && users.map((user) => {
 							return (
 								<TableRow
-									setOpenModal={setOpenModal} 
-									setModalTitle={setModalTitle}
-									setModalContent={setModalContent}
 									key={user._id}
-									userId={user._id}
+									setOpenModal={setOpenModal} 
+									setModalContent={setModalContent}
+									dataID={user._id}
+									setModalTitle={() => setModalTitle(user.title)}
+									content={<AccountsRowContent 
+												data={user} 
+												dataID={user._id}
+											/>}
 								>
 
 									<TableBodyDataCell 
