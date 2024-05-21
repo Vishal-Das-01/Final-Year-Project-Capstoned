@@ -17,7 +17,7 @@ export default function Modal({children, modalHeadingText, closeModal}){
                     
                     <div className={`${styles.modalHeadingContainer}`}>
                         
-                        <h1 className={`${styles.modalHeading} font-montserrat font-semibold`}>
+                        <h1 className={`${styles.modalHeading} font-montserrat font-semibold text-ellipsis overflow-hidden whitespace-nowrap`}>
                             {modalHeadingText}
                         </h1>
 

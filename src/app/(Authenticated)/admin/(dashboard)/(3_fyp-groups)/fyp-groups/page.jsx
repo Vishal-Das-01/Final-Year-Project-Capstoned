@@ -9,6 +9,7 @@ import TableRow from "../../_components/TableRow/TableRow";
 import TableHeadDataCell from "../../_components/TableHeadDataCell/TableHeadDataCell";
 import TableBodyDataCell from "../../_components/TableBodyDataCell/TableBodyDataCell";
 import Modal from "../../_components/Modal/Modal";
+import FYPGroupsRowContent from "./_components/FYPGroupsRowContent/FYPGroupsRowContent";
 
 // Imports below for state management and api calls
 import { useEffect, useState } from "react";
@@ -16,6 +17,10 @@ import { getFYPGroupsAPICall, finalizeAllFYPGroupsAPICall } from "@/utils/admin_
 import { useSelector } from "react-redux";
 import { HttpStatusCode } from "axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
+import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
+import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
 
 // export const metadata = {
 // 	title: "Admin FYP Groups",
@@ -38,6 +43,12 @@ export default function AdminDashboardFYPGroupsPage(props){
 	// For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
 
+	// For routing back to landing page if
+	// the user is not logged in or
+	// if access token has expired
+	const dispatch = useDispatch();
+	const router = useRouter();
+
 	// API Call for fetching all fyp-groups
 	async function getAllFYPGroups(){
 		let accessToken = authDetails.accessToken;
@@ -49,6 +60,15 @@ export default function AdminDashboardFYPGroupsPage(props){
 			let apiResponseData = await apiResponse.json();
 			setFYPGroups(apiResponseData.data.groups);
 			// console.log("A:", apiResponseData);
+		}
+		else if (apiResponse.status === HttpStatusCode.Unauthorized) {
+			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+			  method: "POST",
+			});
+			if (responseLogOut.status === HttpStatusCode.Ok) {
+			  dispatch(removeAuthDetails());
+			  router.replace(FRONTEND_ROUTES.landing_page);
+			}
 		}
 		else{
 			console.log("B:", "error");
@@ -65,6 +85,15 @@ export default function AdminDashboardFYPGroupsPage(props){
 		if(apiResponse.status === HttpStatusCode.Ok){
 			let apiResponseData = await apiResponse.json();
 			console.log("A:", apiResponseData);
+		}
+		else if (apiResponse.status === HttpStatusCode.Unauthorized) {
+			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+			  method: "POST",
+			});
+			if (responseLogOut.status === HttpStatusCode.Ok) {
+			  dispatch(removeAuthDetails());
+			  router.replace(FRONTEND_ROUTES.landing_page);
+			}
 		}
 		else{
 			console.log("B:", "error");
@@ -100,7 +129,9 @@ export default function AdminDashboardFYPGroupsPage(props){
 					onClick={finalizeAllFYPGroups}
 				/>
 
-				<ContentTable>
+				<ContentTable
+					isLoading={loadingIndicator}
+				>
 
 					<TableHead>
 
@@ -125,11 +156,14 @@ export default function AdminDashboardFYPGroupsPage(props){
 						{!loadingIndicator && fypGroups.map((group) => {
 							return (
 								<TableRow
-									setOpenModal={setOpenModal} 
-									setModalTitle={setModalTitle}
-									setModalContent={setModalContent}
 									key={group._id}
-									groupId={group._id}
+									setOpenModal={setOpenModal} 
+									setModalContent={setModalContent}
+									setModalTitle={() => setModalTitle(group.name)}
+									content={<FYPGroupsRowContent 
+										data={group} 
+										dataID={group._id}
+									/>}
 								>
 
 									<TableBodyDataCell 

@@ -16,6 +16,10 @@ import { useSelector } from "react-redux";
 import { HttpStatusCode } from "axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import { createNewCompanyAPICall } from "@/utils/admin_frontend_api_calls/CompaniesAPICalls";
+import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
+import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
 
 export default function CreateCompanyForm({setOpenModal}){
     let formId = `createCompanyForm`;
@@ -35,6 +39,12 @@ export default function CreateCompanyForm({setOpenModal}){
 
     // For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
+
+    // For routing back to landing page if
+	// the user is not logged in or
+	// if access token has expired
+	const dispatch = useDispatch();
+	const router = useRouter();
 
     // For updating company state
     function handleChange(event){
@@ -101,6 +111,15 @@ export default function CreateCompanyForm({setOpenModal}){
             let apiCallResponse = await apiCall.json();
             console.log("A", apiCallResponse);
         }
+        else if (apiCall.status === HttpStatusCode.Unauthorized) {
+			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+			  method: "POST",
+			});
+			if (responseLogOut.status === HttpStatusCode.Ok) {
+			  dispatch(removeAuthDetails());
+			  router.replace(FRONTEND_ROUTES.landing_page);
+			}
+		}
         else{
             console.log("B", "Error");
         }

@@ -15,6 +15,10 @@ import { useSelector } from "react-redux";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import { createAccountAPICall } from "@/utils/admin_frontend_api_calls/AccountsAPICalls";
 import { HttpStatusCode } from "axios";
+import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
+import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
 
 export default function CreateStudentAccountForm({setOpenModal}){
     let formId = `createStudentAccountForm`;
@@ -35,6 +39,12 @@ export default function CreateStudentAccountForm({setOpenModal}){
 
     // For access token retrieval
     const authDetails = useSelector((state) => state.AuthDetails);
+
+    // For routing back to landing page if
+	// the user is not logged in or
+	// if access token has expired
+	const dispatch = useDispatch();
+	const router = useRouter();
 
     // For updating student state
     function handleChange(event){
@@ -126,6 +136,15 @@ export default function CreateStudentAccountForm({setOpenModal}){
             let apiCallResponse = await apiCall.json();
             console.log("A", apiCallResponse);
         }
+        else if (apiCall.status === HttpStatusCode.Unauthorized) {
+			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+			  method: "POST",
+			});
+			if (responseLogOut.status === HttpStatusCode.Ok) {
+			  dispatch(removeAuthDetails());
+			  router.replace(FRONTEND_ROUTES.landing_page);
+			}
+		}
         else{
             console.log("B", "Error");
         }

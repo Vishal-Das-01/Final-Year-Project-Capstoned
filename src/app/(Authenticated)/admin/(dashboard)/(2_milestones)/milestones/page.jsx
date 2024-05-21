@@ -9,6 +9,7 @@ import TableRow from "../../_components/TableRow/TableRow";
 import TableHeadDataCell from "../../_components/TableHeadDataCell/TableHeadDataCell";
 import TableBodyDataCell from "../../_components/TableBodyDataCell/TableBodyDataCell";
 import Modal from "../../_components/Modal/Modal";
+import MilestoneRowContent from "./_components/MilestoneRowContent/MilestoneRowContent";
 
 // Imports below for state management and api calls
 import { useEffect, useState } from "react";
@@ -16,6 +17,10 @@ import { getAllMilestonesAPICall } from "@/utils/admin_frontend_api_calls/Milest
 import { useSelector } from "react-redux";
 import { HttpStatusCode } from "axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
+import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
+import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
 
 // Import below for getting proper date
 import { extractDate } from "@/utils/helpers/func"; 
@@ -40,6 +45,12 @@ export default function AdminDashboardMilestonesPage(props){
 
 	// For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
+	
+	// For routing back to landing page if
+	// the user is not logged in or
+	// if access token has expired
+	const dispatch = useDispatch();
+	const router = useRouter();
 
 	// API Call for fetching all milestones
 	async function getAllMilestones(){
@@ -52,7 +63,17 @@ export default function AdminDashboardMilestonesPage(props){
 		if(apiResponse.status === HttpStatusCode.Ok){
 			let apiResponseData = await apiResponse.json();
 			setMilestones(apiResponseData);
-			// console.log("A:", apiResponseData);
+			setLoadingIndicator(false);
+			console.log("A:", apiResponseData);
+		}
+		else if (apiResponse.status === HttpStatusCode.Unauthorized) {
+			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+			  method: "POST",
+			});
+			if (responseLogOut.status === HttpStatusCode.Ok) {
+			  dispatch(removeAuthDetails());
+			  router.replace(FRONTEND_ROUTES.landing_page);
+			}
 		}
 		else{
 			console.log("B:", "error");
@@ -70,7 +91,7 @@ export default function AdminDashboardMilestonesPage(props){
 	// milestones are fetched successfully
 	useEffect(() => {
 		if(milestones.length > 0){
-			setLoadingIndicator(false);
+			
 		}
 	}, [milestones]);
 
@@ -86,7 +107,9 @@ export default function AdminDashboardMilestonesPage(props){
 					setModalContent={setModalContent}
 				/>
 
-				<ContentTable>
+				<ContentTable 
+					isLoading={loadingIndicator}
+				>
 			
 					<TableHead>
 
@@ -109,11 +132,14 @@ export default function AdminDashboardMilestonesPage(props){
 						{!loadingIndicator && milestones.map((milestone) => {
 							return (
 								<TableRow
+									key={milestone._id}
 									setOpenModal={setOpenModal} 
-									setModalTitle={setModalTitle}
 									setModalContent={setModalContent}
-									key={milestone.title}
-									milestoneId={milestone._id}
+									setModalTitle={() => setModalTitle(milestone.title)}
+									content={<MilestoneRowContent 
+												data={milestone} 
+												dataID={milestone._id}
+											/>}
 								>
 
 									<TableBodyDataCell 

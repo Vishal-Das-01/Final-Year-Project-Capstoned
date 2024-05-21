@@ -1,16 +1,15 @@
 "use client";
 
-import styles from "./TableRow.module.css";
+import { useRouter } from "next/navigation";
 
 export default function TableRow({children, setOpenModal, setModalTitle, setModalContent}){
+    const router = useRouter();
     return (
         <tr 
             className="border-b dark:border-gray-700 hover:bg-gray-100 cursor-pointer"  
             onClick={
                 () => {
-                    setOpenModal(true); 
-                    setModalTitle("Table Row");
-                    setModalContent("Table Row Contenttttt")
+                    router.push("mentors/123")
                 }
             }
         >

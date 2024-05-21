@@ -1,0 +1,9 @@
+.container{
+    height: 37.6rem;
+}
+
+.contentCardTitleContainer{
+	background-color: white;
+	box-shadow:  7px 7px 23px #c1c1c1,
+             -7px -7px 23px #ffffff;
+}

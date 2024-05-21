@@ -1,8 +1,10 @@
 'use client';
 import React, { useState } from "react";
+import ProposalModal from "../ProposalModal/ProposalModal";
 
 function MarkSection({ isMarked}) {
   const [marking, setMarking] = useState(false);
+  const [submit, setSubmission] = useState(false);
   return (
     <div className="flex flex-row">
       <table className="border-4 border-double border-gray-500 mr-5">
@@ -52,8 +54,24 @@ function MarkSection({ isMarked}) {
           </tr>
         </tbody>
       </table>
-      
-    </div>
+      {isMarked ? (
+        <div className="flex flex-row">
+          <button disabled
+          className="h-10 bg-gray-400 text-white rounded-full px-2.5 py-1.5 text-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:click-events-none"
+        >
+          Submit
+        </button>
+        </div>
+      ) : (
+        <button
+          onClick={() => setSubmission(true)}
+          className="h-10 bg-green-500 text-white rounded-full px-2.5 py-1.5 text-sm hover:bg-green-700"
+        >
+          Submit
+        </button>
+      )}
+      {submit && <ProposalModal setOpenModal={setSubmission} />}
+      </div>
   );
 }
 

@@ -9,6 +9,7 @@ import TableHeadDataCell from "../../_components/TableHeadDataCell/TableHeadData
 import TableBodyDataCell from "../../_components/TableBodyDataCell/TableBodyDataCell";
 import AccountHeadingAndButton from "./_components/AccountsHeadingAndButton/AccountHeadingAndButton";
 import Modal from "../../_components/Modal/Modal";
+import AccountsRowContent from "./_components/AccountsRowContent/AccountsRowContent";
 
 // Imports below for state management and api calls
 import { useEffect, useState } from "react";
@@ -16,6 +17,11 @@ import { useSelector } from "react-redux";
 import { HttpStatusCode } from "axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import { getUsersAPICall } from "@/utils/admin_frontend_api_calls/AccountsAPICalls";
+import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
+import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
+
 
 // export const metadata = {
 // 	title: "Admin Accounts Management",
@@ -38,6 +44,12 @@ export default function AdminDashboardAccountsPage(props){
 	// For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
 
+	// For routing back to landing page if
+	// the user is not logged in or
+	// if access token has expired
+	const dispatch = useDispatch();
+	const router = useRouter();
+
 	// API Call for fetching all fyp groups
 	async function getUsers(){
 		let accessToken = authDetails.accessToken;
@@ -49,6 +61,15 @@ export default function AdminDashboardAccountsPage(props){
 			let apiResponseData = await apiResponse.json();
 			setUsers(apiResponseData.data.users);
 			// console.log("A:", apiResponseData);
+		}
+		else if (apiResponse.status === HttpStatusCode.Unauthorized) {
+			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+			  method: "POST",
+			});
+			if (responseLogOut.status === HttpStatusCode.Ok) {
+			  dispatch(removeAuthDetails());
+			  router.replace(FRONTEND_ROUTES.landing_page);
+			}
 		}
 		else{
 			console.log("B:", "error");
@@ -83,7 +104,9 @@ export default function AdminDashboardAccountsPage(props){
 					setModalContent={setModalContent}
 				/>
 
-				<ContentTable>
+				<ContentTable
+					isLoading={loadingIndicator}
+				>
 
 					<TableHead>
 
@@ -108,11 +131,15 @@ export default function AdminDashboardAccountsPage(props){
 						{!loadingIndicator && users.map((user) => {
 							return (
 								<TableRow
-									setOpenModal={setOpenModal} 
-									setModalTitle={setModalTitle}
-									setModalContent={setModalContent}
 									key={user._id}
-									userId={user._id}
+									setOpenModal={setOpenModal} 
+									setModalContent={setModalContent}
+									dataID={user._id}
+									setModalTitle={() => setModalTitle(user.title)}
+									content={<AccountsRowContent 
+												data={user} 
+												dataID={user._id}
+											/>}
 								>
 
 									<TableBodyDataCell 

@@ -17,6 +17,10 @@ import { HttpStatusCode } from "axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import { getAnnouncementsAPICall } from "@/utils/admin_frontend_api_calls/AnnouncementsAPICalls";
 import { NotificationType } from "@/utils/constants/enums";
+import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
+import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
 
 // export const metadata = {
 // 	title: "Admin Announcements Management",
@@ -39,6 +43,12 @@ export default function AdminDashboardAnnouncementsPage(props){
 	// For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
 
+	// For routing back to landing page if
+	// the user is not logged in or
+	// if access token has expired
+	const dispatch = useDispatch();
+	const router = useRouter();
+
 	// API Call for fetching all announcements
 	async function fetchAnnouncements(){
 		let accessToken = authDetails.accessToken;
@@ -51,6 +61,15 @@ export default function AdminDashboardAnnouncementsPage(props){
 			let apiResponseData = await apiResponse.json();
 			setAnnouncements(apiResponseData.data.notifications);
 			// console.log("A:", apiResponseData);
+		}
+		else if (apiResponse.status === HttpStatusCode.Unauthorized) {
+			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+			  method: "POST",
+			});
+			if (responseLogOut.status === HttpStatusCode.Ok) {
+			  dispatch(removeAuthDetails());
+			  router.replace(FRONTEND_ROUTES.landing_page);
+			}
 		}
 		else{
 			console.log("B:", "error");
@@ -85,7 +104,9 @@ export default function AdminDashboardAnnouncementsPage(props){
 					setModalContent={setModalContent}
 				/>
 
-				<ContentTable>
+				<ContentTable
+					isLoading={loadingIndicator}
+				>
 
 					<TableHead>
 
@@ -116,7 +137,7 @@ export default function AdminDashboardAnnouncementsPage(props){
 									setModalTitle={setModalTitle}
 									setModalContent={setModalContent}
 									key={announcement._id}
-									companyId={announcement._id}
+									dataID={announcement._id}
 								>
 
 									<TableBodyDataCell 
