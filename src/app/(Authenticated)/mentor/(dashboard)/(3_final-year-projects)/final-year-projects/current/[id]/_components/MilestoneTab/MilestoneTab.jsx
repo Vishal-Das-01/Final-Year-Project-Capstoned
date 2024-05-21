@@ -14,7 +14,6 @@ import { HttpStatusCode } from "axios";
 import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
 import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import Loader from "@/app/(Authenticated)/mentor/(dashboard)/(2_groups)/groups/_components/Loader/Loader";
-import { set } from "mongoose";
 
 function MilestoneTab({ role, marked, milestoneNumber, assignedMilestoneID }) {
   const [isMarked, setIsMarked] = useState(marked);

@@ -13,14 +13,17 @@ import { callAPI } from "@/utils/helpers/callAPI";
 import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import { convertDate } from "@/utils/helpers/date";
+import SubmitButton from "../SubmitButton/SubmitButton";
 
-function MilestoneTab({ role, marked, milestoneNumber, assignedMilestoneID }) {
+function MilestoneTab({ role, marked, milestoneNumber, assignedMilestoneID, projectID }) {
   const [isMarked, setIsMarked] = useState(marked);
 
   const [marksObtained, setMarksObtained] = useState(null);
   const [milestoneDetailsDisplay, setMilestoneDetailsDisplay] = useState(false);
   const [milestoneDetails, setMilestoneDetails] = useState(null);
   const [deadlinePassed, setDeadlinePassed] = useState(false);
+
+  const [reload,setReload] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
@@ -58,6 +61,7 @@ function MilestoneTab({ role, marked, milestoneNumber, assignedMilestoneID }) {
     dispatch,
     router,
     assignedMilestoneID,
+    reload
   ]);
 
   const handleDeadlinePassed = (deadline) => {
@@ -119,14 +123,40 @@ function MilestoneTab({ role, marked, milestoneNumber, assignedMilestoneID }) {
           <line className="col-span-4 border-t-2 border-gray-300"></line>
           <h2 className="font-semibold">Submission Files:</h2>
           <div className="col-span-3 flex flex-row">
-            {milestoneDetails.submissionFile.map((item, index) => (
-              <ResourceButton key={index} name={item.name} link={item.doc} />
-            ))}
+          {!deadlinePassed ? (
+                <div className="col-span-3 flex flex-row">
+                  {milestoneDetails.submissionFile.map((item, index) => (
+                    <ResourceButton
+                      key={index}
+                      name={item.name}
+                      link={item.doc}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <h2 className="col-span-3 text-red-500">No files submitted.</h2>
+              )}
           </div>
-          <h2 className="font-semibold">Marks:</h2>
-          <div className="col-span-3">
-            <MarkSection isMarked={isMarked} />
-          </div>
+          {deadlinePassed && (
+            <>
+              {marksObtained && (
+                <>
+                  <h2 className="font-semibold">Overall Marks:</h2>
+                  <h2 className="col-span-3 font-bold text-red-500">
+                    {`${marksObtained} / 100`}
+                  </h2>
+                </>
+              )}
+              <h2 className="font-semibold">Marks:</h2>
+              <div className="col-span-3">
+                <MarkSection
+                  isMarked={isMarked}
+                  members={milestoneDetails.marks}
+                />
+              </div>
+            </>
+          )}
+          <SubmitButton deadlinePassed={deadlinePassed} submitted={milestoneDetails.submitted} assignedMilestoneID={assignedMilestoneID} setReload={setReload} reload={reload} projectID={projectID}/>
         </div>
       )}
     </div>

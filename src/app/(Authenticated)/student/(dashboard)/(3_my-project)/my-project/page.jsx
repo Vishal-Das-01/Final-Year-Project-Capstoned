@@ -59,6 +59,7 @@ async function ProjectPage() {
             marked={assignedMilestone.marked}
             milestoneNumber={assignedMilestone.milestoneID.assignmentNumber}
             assignedMilestoneID={assignedMilestone._id}
+            projectID={projectDetails.project._id}
           />
         ))}
       </div>
