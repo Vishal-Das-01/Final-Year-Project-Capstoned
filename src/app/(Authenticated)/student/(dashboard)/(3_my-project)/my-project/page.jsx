@@ -1,33 +1,31 @@
 import React from "react";
-import BackButton from "./_components/BackButton/BackButton";
 import MilestoneTab from "./_components/MilestoneTab/MilestoneTab";
 import ResourceButton from "./_components/ResourceButton/ResourceButton";
 import MarkSection from "./_components/MarkSection/MarkSection";
+import styles from "./MyProject.module.css";
 import MainMarkSection from "./_components/MainMarkSection/MainMarkSection";
 import { cookies } from "next/headers";
 import { callAPI } from "@/utils/helpers/callAPI";
-import { HttpStatusCode } from "axios";
-import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
-import Head from "next/head";
-import { redirect } from "next/navigation";
+import { HttpStatusCode } from "axios";
+import { redirect } from "next/dist/server/api-utils";
 
 export const metadata = {
-  title: "Final Year Project: Current",
-  description:
-    "Capstoned Mentor Final Year Project | Final Year Project (FYP) Management Platform for College & University Students.",
+  title: "Final Year Project",
+  description: "Capstoned Student Final Year Project | Final Year Project (FYP) Management Platform for College & University Students.",
 };
 
-async function ProjectPage({ params: { id } }) {
-  const projectDetails = await getProjectDetails(id);
+async function ProjectPage() {
+  const projectDetails = await getProjectDetails();
 
   return (
+    <div
+      className={`${styles.contentCardTitleContainer} p-3 my-9 mx-5 flex flex-col rounded-xl font-montserrat`}
+    >
       <div className="m-5 flex flex-col space-y-7">
-        <BackButton />
         <div className="flex flex-row justify-between items-center">
           <h1 className="text-3xl font-semibold">
-            {projectDetails.project.proposal.title} -{" "}
-            {projectDetails.project.group.name}
+            {projectDetails.project.proposal.title} - {projectDetails.group.name}
           </h1>
           <h2 className="font-light">Fall {projectDetails.project.year}</h2>
         </div>
@@ -35,15 +33,13 @@ async function ProjectPage({ params: { id } }) {
           <h2 className="font-semibold">Your Role:</h2>
           <h2 className="col-span-3">{projectDetails.role}</h2>
           <h2 className="font-semibold">Proposed By:</h2>
-          <h2 className="col-span-3">{projectDetails.proposedBy}</h2>
+          <h2 className="col-span-3">{projectDetails.project.proposal.proposer === "Group" ? "Proposal was created by your own group" : `${projectDetails.project.proposal.proposedBy.firstName} ${projectDetails.project.proposal.proposedBy.lastName}`}</h2>
+          <h2 className="font-semibold">Supervisor:</h2>
+          <h2 className="col-span-3">{projectDetails.group.supervisor.firstName} {projectDetails.group.supervisor.lastName}</h2>
           <h2 className="font-semibold">Progress:</h2>
-          <h2 className="col-span-3">
-            {projectDetails.project.progress + "%"}
-          </h2>
+          <h2 className="col-span-3">{projectDetails.project.progress}</h2>
           <h2 className="font-semibold">Project Description:</h2>
-          <p className="col-span-3">
-            {projectDetails.project.proposal.description}
-          </p>
+          <p className="col-span-3">{projectDetails.project.proposal.description}</p>
           <h2 className="font-semibold">Proposal Doc:</h2>
           <div className="col-span-3">
             <ResourceButton
@@ -52,9 +48,9 @@ async function ProjectPage({ params: { id } }) {
             />
           </div>
           {/* <h2 className="font-semibold">Marks:</h2>
-        <div className="col-span-3">
-          <MainMarkSection isMarked={true} />
-        </div> */}
+          <div className="col-span-3">
+            <MainMarkSection isMarked={true} />
+          </div> */}
         </div>
         {projectDetails.project.milestones.map((assignedMilestone, index) => (
           <MilestoneTab
@@ -66,22 +62,20 @@ async function ProjectPage({ params: { id } }) {
           />
         ))}
       </div>
+    </div>
   );
 }
 
 export default ProjectPage;
 
-async function getProjectDetails(id) {
+async function getProjectDetails() {
   const accessToken = cookies().get("accessToken")?.value;
-  const response = await callAPI(
-    "GET",
-    accessToken,
-    `${BACKEND_ROUTES.getMentorProjectDetails}/${id}`
-  );
-  if (response.status === HttpStatusCode.Ok) {
+  const response = await callAPI("GET", accessToken, BACKEND_ROUTES.getStudentProjects);
+  if(response.status === HttpStatusCode.Ok) {
     const responseData = await response.json();
-    return responseData.data;
-  } else if (response.status === HttpStatusCode.Unauthorized) {
+    return responseData;
+  }
+  else if (response.status === HttpStatusCode.Unauthorized){
     redirect(FRONTEND_ROUTES.login_page);
   }
 }

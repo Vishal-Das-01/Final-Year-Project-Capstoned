@@ -1,9 +1,11 @@
-import styles from "./Navbar.module.css";
-import Brand from "@/components/Brand/Brand.jsx";
-import Avatar from "./_components/Avatar/Avatar.jsx";
-import NotificationIcon from "./_components/NotificationIcon/NotificationIcon.jsx";
-import {FRONTEND_ROUTES} from "@/utils/routes/frontend_routes";
 import CapstonedLogo from "@/components/CapstonedLogo/CapstonedLogo";
+import styles from "./Navbar.module.css";
+import Brand from "@/components/Brand/Brand";
+import Clock from "./_components/Clock/Clock";
+import Avatar from "./_components/Avatar/Avatar";
+import NotificationIcon from "./_components/NotificationIcon/NotificationIcon";
+import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
+
 
 export default function Navbar(props){
 	return (
@@ -21,6 +23,10 @@ export default function Navbar(props){
 			
 			</div>
 
+			<div className=" w-full h-full flex flex-row items-center flex-1 justify-center">
+				<Clock />
+			</div>
+
 			<div className={`${styles.right} flex flex-row flex-1 `}>
 
 				<div className={`${styles.rightContentContainer} w-full h-full flex flex-row items-center justify-end `}>
@@ -29,9 +35,8 @@ export default function Navbar(props){
 
 						<NotificationIcon />
 						
-						<Avatar 
+						<Avatar
 							alt="Profile Picture"
-							src="/picCircular.png"
 						/>
 					
 					</div>

@@ -3,7 +3,7 @@ import styles from "./MentorDashboard.module.css";
 import Navbar from "./_components/Navbar/Navbar.jsx";
 import SideMenu from "./_components/SideMenu/SideMenu.jsx";
 
-export default function AdminDashboardLayout({children}){
+export default function MentorDashboardLayout({children}){
 	return (
 		<SocketProvider>
 

@@ -13,9 +13,10 @@
 }
 
 .sideMenuContainer{
-	width: 20%;
+	width: 16%;
 }
 
 .contentContainer{
 	background-color: #e0e0e0;
+	width: 84%;
 }
