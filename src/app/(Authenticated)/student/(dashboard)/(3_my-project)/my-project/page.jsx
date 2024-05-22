@@ -9,6 +9,7 @@ import { callAPI } from "@/utils/helpers/callAPI";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import { HttpStatusCode } from "axios";
 import { redirect } from "next/dist/server/api-utils";
+import NotFound from "./_components/NotFound/NotFound";
 
 export const metadata = {
   title: "Final Year Project",
@@ -17,12 +18,13 @@ export const metadata = {
 
 async function ProjectPage() {
   const projectDetails = await getProjectDetails();
-
+  console.log(projectDetails)
   return (
     <div
       className={`${styles.contentCardTitleContainer} p-3 my-9 mx-5 flex flex-col rounded-xl font-montserrat`}
     >
-      <div className="m-5 flex flex-col space-y-7">
+      {!projectDetails && <NotFound />}
+      {projectDetails && <div className="m-5 flex flex-col space-y-7">
         <div className="flex flex-row justify-between items-center">
           <h1 className="text-3xl font-semibold">
             {projectDetails.project.proposal.title} - {projectDetails.group.name}
@@ -62,7 +64,7 @@ async function ProjectPage() {
             projectID={projectDetails.project._id}
           />
         ))}
-      </div>
+      </div>}
     </div>
   );
 }

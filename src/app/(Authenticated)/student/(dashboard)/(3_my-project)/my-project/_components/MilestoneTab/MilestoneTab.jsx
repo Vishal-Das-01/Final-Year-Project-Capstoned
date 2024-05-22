@@ -14,6 +14,7 @@ import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import { convertDate } from "@/utils/helpers/date";
 import SubmitButton from "../SubmitButton/SubmitButton";
+import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
 
 function MilestoneTab({ role, marked, milestoneNumber, assignedMilestoneID, projectID }) {
   const [isMarked, setIsMarked] = useState(marked);
