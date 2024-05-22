@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import ForgetPasswordLink from "../ForgetPasswordLink/ForgetPasswordLink";
+import ForgotPasswordLink from "../ForgotPasswordLink/ForgotPasswordLink";
 import LoginInput from "../LoginInput/LoginInput";
 import LoginSubmitBtn from "../LoginSubmitBtn/LoginSubmitBtn";
 import {
@@ -96,7 +96,7 @@ export default function LoginForm() {
         setValue={setPassword}
       />
 
-      <ForgetPasswordLink href={FRONTEND_ROUTES.forget_password_page} />
+      <ForgotPasswordLink href={FRONTEND_ROUTES.forgot_password_page} />
 
       {isPending ? <LoginLoadingBtn /> : <LoginSubmitBtn btnText="Login" />}
 

@@ -1,6 +1,7 @@
 import { Montserrat, Exo_2 } from "next/font/google";
 import "./globals.css";
 import ReduxProvider from "@/provider/redux/ReduxProvider";
+import { Toaster } from "react-hot-toast";
 
 const montserrat = Montserrat({
 	subsets: ["latin"],
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
 				<ReduxProvider>
 					{children}
 				</ReduxProvider>
+				<Toaster position="bottom-right" />
 			</body>
 		</html>
 	);
