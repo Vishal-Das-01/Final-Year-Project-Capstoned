@@ -24,6 +24,7 @@ export async function GET(request, response) {
       );
 
     const proposals = await Proposal.find({ edit:true, available: true, proposer: "Mentor"})
+      .sort({ title: 1})
       .skip(skip)
       .limit(limit);
 
