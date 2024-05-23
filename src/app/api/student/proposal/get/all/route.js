@@ -20,10 +20,11 @@ export async function GET(request, response) {
     if (student.group == null)
       return NextResponse.json(
         { message: "Student must be in a group." },
-        { status: HttpStatusCode.NotFound }
+        { status: HttpStatusCode.BadRequest }
       );
 
     const proposals = await Proposal.find({ edit:true, available: true, proposer: "Mentor"})
+      .sort({ title: 1})
       .skip(skip)
       .limit(limit);
 

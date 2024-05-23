@@ -8,7 +8,7 @@ export const metadata = {
     "Capstoned Student Proposals | Final Year Project (FYP) Management Platform for College & University Students.",
 };
 
-function ProposalsPage() {
+function ProposalsPage(context) {
   return (
     <div
       className={`${styles.contentCardTitleContainer} p-3 my-9 mx-5 flex flex-col rounded-xl font-montserrat`}
@@ -24,9 +24,9 @@ function ProposalsPage() {
       </div>
 
       <div className={`${styles.container} m-4`}>
-        <ProposalsTable />
+        <ProposalsTable page={parseInt(context.searchParams.page)}/>
       </div>
-      
+
     </div>
   );
 }
