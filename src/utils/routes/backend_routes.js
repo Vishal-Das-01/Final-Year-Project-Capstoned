@@ -50,4 +50,5 @@ export const BACKEND_ROUTES = {
 
   studentSubmitMilestone: `${baseURL}/student/project/`, // (student) milestones
   getStudentProjects: `${baseURL}/student/project/get`, // (student) projects
+  studentGetAllProposals: `${baseURL}/student/proposal/get/all`, // (student) proposals
 };
