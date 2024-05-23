@@ -9,7 +9,6 @@ export async function callAPI(method, accessToken, url, data) {
         return response;
     }
     catch (error) {
-        alert("An error occurred. Please try again later.")
         console.log(error);
     }
 }

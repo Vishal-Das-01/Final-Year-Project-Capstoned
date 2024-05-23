@@ -21,12 +21,13 @@ export const FRONTEND_ROUTES = {
 	// Student
 	student_dashboard_home_page: "/student/home",
 	student_dashboard_fyp_groups_page: "/student/my-group",
-	student_dashboard_my_proposals_page: "/student/my-proposals",
+	student_dashboard_proposals_page: "/student/proposals",
 	student_dashboard_profile_page: "/student/profile",
 	student_dashboard_chats_page: "/student/chats",
 	student_dashboard_companies_page: "/student/companies",
 	student_dashboard_mentors_page: "/student/mentors",
 	student_dashboard_my_project_page: "/student/my-project",
+
 
 };
 

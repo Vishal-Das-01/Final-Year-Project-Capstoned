@@ -4,12 +4,20 @@ import { connectToDB } from "@/utils/helpers/connectDB";
 import { generateOTP } from "@/utils/helpers/generateOTP";
 import { transporter } from "@/utils/constants/emailConstant";
 import OTP from "@/models/OTP";
+import User from "@/models/User";
 
 export const POST = async (request) => {
     await connectToDB();
     const { email } = await request.json();
 
     try {
+
+        const user = await User.findOne({ email }).select("email");
+
+        if(!user) {
+            return NextResponse.json({ message: "User not found." }, { status: HttpStatusCode.NotFound });
+        }
+
         const existingOTP = await OTP.findOne({ email });
         if(existingOTP) {
             if(existingOTP.expiresAt > new Date()) {

@@ -23,8 +23,7 @@ export default function SideMenuItem({href, children}){
 		let firstSlash = route.indexOf("/");
 		let secondSlash = route.substring(firstSlash + 1).indexOf("/");
 		let pageName = route.substring(firstSlash + 1).substring(secondSlash + 1);
-		if (pageName === "other-proposals") return "my-proposals";
-		else if (pageName.includes("mentors")) return "mentors";
+		if (pageName.includes("mentors")) return "mentors";
 		else if (pageName.includes("my-group")) return "my-group";
 	
 		return pageName;
@@ -39,9 +38,6 @@ export default function SideMenuItem({href, children}){
 		if(children.toString() === "Dashboard"){
 			return "home";
 		}
-		else if(children.toString() === "FYP Projects"){
-			return "fyp-projects";
-		}
 		else if(children.toString() === "My Project"){
 			return "my-project";
 		}
@@ -49,7 +45,7 @@ export default function SideMenuItem({href, children}){
 			return "my-group";
 		}
 		else if(children.toString() === "Proposals"){
-			return "my-proposals";
+			return "proposals";
 		}
 		else if(children.toString() === "Profile"){
 			return "profile";

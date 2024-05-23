@@ -7,7 +7,6 @@ import { MdCancel, MdCheckCircle, MdDescription, MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
-import ProposalModal from "../../../ProposalModal/ProposalModal";
 import { FaCheckCircle, FaCross } from "react-icons/fa";
 
 function ProposalRow({ title, description, status, selectedBy, mentorship, active }) {
@@ -45,7 +44,6 @@ function ProposalRow({ title, description, status, selectedBy, mentorship, activ
 
   return (
     <>
-      {openModal && <ProposalModal setOpenModal={setOpenModal} oldTitle={title} oldDescription={description} oldMentorship={mentorship} oldList={list}/>}
       <tr class="border-b dark:border-gray-700 hover:bg-gray-100">
         <td class="px-2 py-3 w-1/12">
           {expanded ? (
