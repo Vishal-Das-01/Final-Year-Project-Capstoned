@@ -23,11 +23,7 @@ export const GET = async (request) => {
           select: "proposalDoc title",
         },
       });
-
-      console.log(group)
-
     
-
     if (!group) {
       return NextResponse.json(
         { message: "Group not found." },
