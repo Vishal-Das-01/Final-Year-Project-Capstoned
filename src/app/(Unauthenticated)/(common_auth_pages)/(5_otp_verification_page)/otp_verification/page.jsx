@@ -1,13 +1,13 @@
 import FormHeading from "./_components/FormHeading/FormHeading.jsx";
-import styles from "./LoginPage.module.css";
-import LoginForm from "./_components/LoginForm/LoginForm.jsx";
+import styles from "../../CommonAuthPages.module.css";
+import OTPVerificationForm from "./_components/OTPVerificationForm/OTPVerificationForm.jsx";
 
 export const metadata = {
-  title: "Capstoned Login",
-  description: "Capstoned Login Page | Final Year Project (FYP) Management Platform for College & University Students.",
+  title: "Capstoned Forgot Password",
+  description: "Capstoned Forgot Password Page | Final Year Project (FYP) Management Platform for College & University Students.",
 };
 
-export default function LoginPage(props){
+export default function OTPVerificationPage(props){
 	return (
 		<div className="w-full h-full flex items-center justify-center">
 
@@ -17,7 +17,7 @@ export default function LoginPage(props){
 
 					<FormHeading />
 
-					<LoginForm />
+					<OTPVerificationForm />
 				
 				</div>
 			

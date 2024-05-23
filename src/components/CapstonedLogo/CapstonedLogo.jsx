@@ -7,6 +7,8 @@ export default function CapstonedLogo(){
 
 			<Image 
 				src={`/logo4.png`} 
+				alt="Capstoned Logo"
+				priority
 				height={80} 
 				width={80}
 				className={`relative z-10`} 

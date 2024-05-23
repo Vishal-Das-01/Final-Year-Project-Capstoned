@@ -1,14 +1,14 @@
 "use client";
 import { useState } from "react";
-import ForgetPasswordLink from "../ForgetPasswordLink/ForgetPasswordLink";
-import LoginInput from "../LoginInput/LoginInput";
-import LoginSubmitBtn from "../LoginSubmitBtn/LoginSubmitBtn";
+import ForgotPasswordLink from "../ForgotPasswordLink/ForgotPasswordLink";
+import TextInput from "@/app/(Unauthenticated)/(common_auth_pages)/_components/TextInput/TextInput";
+import SubmitBtn from "@/app/(Unauthenticated)/(common_auth_pages)/_components/SubmitBtn/SubmitBtn";
+import LoadingBtn from "@/app/(Unauthenticated)/(common_auth_pages)/_components/LoadingBtn/LoadingBtn";
 import {
   FRONTEND_ROUTES,
   FRONTEND_ROUTES_MENTOR,
 } from "@/utils/routes/frontend_routes";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
-import LoginLoadingBtn from "../LoginLoadingBtn/LoginLoadingBtn";
 import { useDispatch } from "react-redux";
 import { setAuthDetails } from "@/provider/redux/features/AuthDetails";
 import { jwtDecode } from "jwt-decode";
@@ -80,7 +80,7 @@ export default function LoginForm() {
       onSubmit={handleSubmit}
       className="flex flex-col w-full items-center justify-center mt-3"
     >
-      <LoginInput
+      <TextInput
         label="Email"
         inputType="email"
         inputPlaceholder="Email"
@@ -88,7 +88,7 @@ export default function LoginForm() {
         setValue={setEmail}
       />
 
-      <LoginInput
+      <TextInput
         label="Password"
         inputType="password"
         inputPlaceholder="Password"
@@ -96,9 +96,9 @@ export default function LoginForm() {
         setValue={setPassword}
       />
 
-      <ForgetPasswordLink href={FRONTEND_ROUTES.forget_password_page} />
+      <ForgotPasswordLink href={FRONTEND_ROUTES.forgot_password_page} />
 
-      {isPending ? <LoginLoadingBtn /> : <LoginSubmitBtn btnText="Login" />}
+      {isPending ? <LoadingBtn /> : <SubmitBtn btnText="Login" />}
 
       <div
         className={`${styles.errorMsgContainer} w-full flex items-center justify-center h-8`}

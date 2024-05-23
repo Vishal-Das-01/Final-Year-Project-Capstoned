@@ -4,6 +4,8 @@ export const BACKEND_ROUTES = {
   login: `${baseURL}/auth/login`,
   logout: `${baseURL}/auth/logout`,
   refresh: `${baseURL}/auth/refresh`,
+  sendOTP: `${baseURL}/auth/otp/send`,
+  verifyOTP: `${baseURL}/auth/otp/verify`,
   sendRequest: 'http://localhost:3000/api/student/request/send',
   getProfile: `${baseURL}/user/account/get`,
   getAllCompanies: `${baseURL}/user/company/get/all`, // (user) companies
