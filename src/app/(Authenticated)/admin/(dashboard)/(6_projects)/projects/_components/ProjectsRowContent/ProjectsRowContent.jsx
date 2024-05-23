@@ -2,11 +2,13 @@ import styles from "./ProjectsRowContent.module.css";
 import ModalContent from "../../../../_components/ModalContent/ModalContent";
 import ModalContentHeading from "../../../../_components/ModalContentHeading/ModalContentHeading";
 import ModalContentText from "../../../../_components/ModalContentText/ModalContentText";
+import ModalDataActionButton from "../../../../_components/ModalDataActionButton/ModalDataActionButton";
 
 // Import below for getting proper date
 import { extractDate } from "@/utils/helpers/func"; 
 
 export default function ProjectsRowContent({dataID, data}){
+    console.log("ProjectsRowContent", data);
     
     return (
         <div className={`w-full h-full`}>
@@ -14,11 +16,11 @@ export default function ProjectsRowContent({dataID, data}){
             <ModalContent>
                 
                 <ModalContentHeading>
-                    Project:
+                    Group Lead:
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {`asas`}
+                    {`${data.group.lead.firstName} ${data.group.lead.lastName}`}
                 </ModalContentText>
 
             </ModalContent>
@@ -26,11 +28,35 @@ export default function ProjectsRowContent({dataID, data}){
             <ModalContent>
                 
                 <ModalContentHeading>
-                    Group Lead:
+                    Project Title:
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {`aasas`}
+                    {`${data.proposal.title}`}
+                </ModalContentText>
+
+            </ModalContent>
+
+            <ModalContent>
+                
+                <ModalContentHeading>
+                    Project Description:
+                </ModalContentHeading>
+
+                <ModalContentText>
+                    {`${data.proposal.description}`}
+                </ModalContentText>
+
+            </ModalContent>
+
+            <ModalContent>
+                
+                <ModalContentHeading>
+                    Project Finished:
+                </ModalContentHeading>
+
+                <ModalContentText>
+                    {`${data.finished ? "Yes" : "No"}`}
                 </ModalContentText>
 
             </ModalContent>
@@ -52,13 +78,11 @@ export default function ProjectsRowContent({dataID, data}){
             <ModalContent>
 
                 <ModalContentHeading>
-                    FYP Mentors:
+                    Project Status:
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {  
-                        "Group has no mentors"
-                    }
+                    {`${data.status}`}
                 </ModalContentText>
 
             </ModalContent>
@@ -66,13 +90,11 @@ export default function ProjectsRowContent({dataID, data}){
             <ModalContent>
 
                 <ModalContentHeading>
-                    FYP Supervisor:
+                    Project Progress:
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {   
-                        "Group has no supervisor."
-                    }
+                    {`${data.progress}`}
                 </ModalContentText>
 
             </ModalContent>
@@ -80,12 +102,34 @@ export default function ProjectsRowContent({dataID, data}){
             <ModalContent>
 
                 <ModalContentHeading>
-                    FYP Group Year:
+                    Project Year:
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {`data.year`}
+                    {data.year}
                 </ModalContentText>
+
+            </ModalContent>
+
+            <ModalContent>
+
+                <div className={`flex flex-row items-end justify-end h-full `}>
+
+                    <ModalDataActionButton 
+                        buttonText={"Update"} 
+                        buttonClickAction={null}
+                        dataID={dataID}
+                        isUpdate={true}
+                    />
+
+                    <ModalDataActionButton 
+                        buttonText={"Mark Finished"} 
+                        buttonClickAction={null}
+                        dataID={dataID}
+                        isUpdate={false}
+                    />
+
+                </div>
 
             </ModalContent>
 

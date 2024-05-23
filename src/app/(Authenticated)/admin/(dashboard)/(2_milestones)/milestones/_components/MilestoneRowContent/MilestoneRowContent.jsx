@@ -2,6 +2,7 @@ import styles from "./MilestoneRowContent.module.css";
 import ModalContent from "../../../../_components/ModalContent/ModalContent";
 import ModalContentHeading from "../../../../_components/ModalContentHeading/ModalContentHeading";
 import ModalContentText from "../../../../_components/ModalContentText/ModalContentText";
+import ModalDataActionButton from "../../../../_components/ModalDataActionButton/ModalDataActionButton";
 
 // Import below for getting proper date
 import { extractDate } from "@/utils/helpers/func"; 
@@ -71,7 +72,20 @@ export default function MilestoneRowContent({dataID, data}){
 
             </ModalContent>
 
-            
+            <ModalContent>
+
+                <div className={`flex flex-row items-end justify-end h-full `} style={{height: "150px"}}>
+
+                    <ModalDataActionButton 
+                        buttonText={"Update"} 
+                        buttonClickAction={null}
+                        dataID={dataID}
+                        isUpdate={true}
+                    />
+
+                </div>
+
+            </ModalContent>
         
         </div>
     );

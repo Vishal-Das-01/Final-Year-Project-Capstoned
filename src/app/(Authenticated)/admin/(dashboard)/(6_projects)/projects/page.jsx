@@ -140,17 +140,16 @@ export default function AdminDashboardProjectsPage(props){
 
 						<TableHeadDataCell isNumberCell={true} text={`Number`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Name`}/>
-
-						<TableHeadDataCell isNumberCell={false} text={`Group`}/>
+						<TableHeadDataCell isNumberCell={false} text={`Group Name`}/>
 
 						<TableHeadDataCell isNumberCell={false} text={`Progress`}/>
 
 						<TableHeadDataCell isNumberCell={false} text={`Status`}/>
 
+						<TableHeadDataCell isNumberCell={false} text={`Year`}/>
+
 						<TableHeadDataCell isNumberCell={false} text={`Finished`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Year`}/>
 
 					</TableHead>
 					
@@ -159,13 +158,13 @@ export default function AdminDashboardProjectsPage(props){
 						{
 							!loadingIndicator 
 							? 
-							projects.map((project) => {
+							projects.map((project, index) => {
 								return (
 									<TableRow
 										key={project._id}
 										setOpenModal={setOpenModal} 
 										setModalContent={setModalContent}
-										setModalTitle={() => setModalTitle("project.name")}
+										setModalTitle={() => setModalTitle(`${project.group.name}`)}
 										content={<ProjectsRowContent 
 											data={project} 
 											dataID={project._id}
@@ -173,29 +172,30 @@ export default function AdminDashboardProjectsPage(props){
 									>
 
 										<TableBodyDataCell 
-											text={String("milestone.assignmentNumber")} 
+											text={String(`${index +  1}`)} 
 										/>
 
 										<TableBodyDataCell 
-											text={String("milestone.title")}
+											text={String(`${project.group.name}`)}
+										/>
+
+										
+										<TableBodyDataCell 
+											text={String(`${project.progress}`)}
+										/>
+										
+										<TableBodyDataCell 
+											text={String(`${project.status}`)}
 										/>
 
 										<TableBodyDataCell 
-											text={String("milestone.description")}
+											text={String(`${project.year}`)}
 										/>
-										
+
 										<TableBodyDataCell 
-											text={String("extractDate(milestone.deadline)")}
+											text={String(`${project.finished ? "Yes" : "No"}`)}
 										/>
-										
-										<TableBodyDataCell 
-											text={String("milestone.percentage")}
-										/>
-										
-										<TableBodyDataCell 
-											text={String("milestone.year")}
-										/>
-										
+
 									</TableRow>
 								)
 							})
