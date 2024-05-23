@@ -1,6 +1,6 @@
-import styles from "./LoginLoadingBtn.module.css";
+import styles from "./LoadingBtn.module.css";
 
-export default function LoginLoadingBtn() {
+export default function LoadingBtn() {
   return (
     <div
       className={`${styles.btnContainer} h-16 flex items-center justify-center py-3`}
@@ -8,7 +8,7 @@ export default function LoginLoadingBtn() {
         <button
           type="submit"
           disabled
-          className={`${styles.LoginLoadingBtn} items-center justify-center w-full h-full font-montserrat font-semibold rounded-lg text-base tracking-widest text-white bg-black border-4 border-black`}
+          className={`${styles.loadingBtn} items-center justify-center w-full h-full font-montserrat font-semibold rounded-lg text-base tracking-widest text-white bg-black border-4 border-black`}
         >
          
           <div className="flex items-center justify-center">

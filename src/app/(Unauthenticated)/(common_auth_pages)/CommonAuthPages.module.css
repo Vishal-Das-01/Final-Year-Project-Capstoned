@@ -11,8 +11,8 @@
 	background: #f6f7f9;
 	box-shadow:  20px 20px 32px #d1d2d4, -20px -20px 32px #ffffff;*/
 	border-radius: 50px;
-background: #e0e0e0;
-box-shadow:  20px 20px 60px #bebebe,
+	background: #e0e0e0;
+	box-shadow:  20px 20px 60px #bebebe,
              -20px -20px 60px #ffffff;
 
 /*border-radius: 50px;
@@ -34,10 +34,6 @@ box-shadow:  20px 20px 60px #99a9bd,
 .formContainer{
 	width: 90%;
 	height: 95%;
-}
-
-.heading{
-	
 }
 
 

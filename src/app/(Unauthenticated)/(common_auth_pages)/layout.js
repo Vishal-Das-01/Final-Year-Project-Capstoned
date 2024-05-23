@@ -1,6 +1,6 @@
 import Footer from "@/app/(Unauthenticated)/_components/Footer/Footer.jsx";
-import Navbar from "@/app/(Unauthenticated)/(1_login_page)/_components/Navbar/Navbar.jsx";
-import styles from "./LoginPage.module.css";
+import Navbar from "./_components/Navbar/Navbar";
+import styles from "./CommonAuthPages.module.css";
 
 export default function Layout({children}){
 	return (

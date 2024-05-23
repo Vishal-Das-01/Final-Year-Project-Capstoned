@@ -17,6 +17,7 @@ import Project from '@/models/Project';
 import Proposal from '@/models/Proposal';
 import Chat from '@/models/Chat';
 import Message from '@/models/Message';
+import OTP from '@/models/OTP';
 
 export async function POST(request, response) {
     await connectToDB();

@@ -1,7 +1,7 @@
 "use client"
-import styles from "./LoginInput.module.css";
+import styles from "./TextInput.module.css";
 
-export default function LoginInput({label, inputType, inputPlaceholder, value, setValue}){
+export default function TextInput({label, inputType, inputPlaceholder, value, setValue}){
 	return (
 		<div className={`${styles.inputContainer} flex flex-col mt-2`}>
 			
