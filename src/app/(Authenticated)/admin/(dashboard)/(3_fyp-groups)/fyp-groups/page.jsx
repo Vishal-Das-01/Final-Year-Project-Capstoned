@@ -59,7 +59,8 @@ export default function AdminDashboardFYPGroupsPage(props){
 		if(apiResponse.status === HttpStatusCode.Ok){
 			let apiResponseData = await apiResponse.json();
 			setFYPGroups(apiResponseData.data.groups);
-			// console.log("A:", apiResponseData);
+			setLoadingIndicator(false);
+			console.log("getAllFYPGroups:", apiResponseData.data.groups);
 		}
 		else if (apiResponse.status === HttpStatusCode.Unauthorized) {
 			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
@@ -84,7 +85,7 @@ export default function AdminDashboardFYPGroupsPage(props){
 		let apiResponse = await finalizeAllFYPGroupsAPICall(apiURL, accessToken);
 		if(apiResponse.status === HttpStatusCode.Ok){
 			let apiResponseData = await apiResponse.json();
-			console.log("A:", apiResponseData);
+			console.log("finalizeAllFYPGroups:", apiResponseData);
 		}
 		else if (apiResponse.status === HttpStatusCode.Unauthorized) {
 			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
@@ -111,9 +112,9 @@ export default function AdminDashboardFYPGroupsPage(props){
 	// fyp-groups are fetched successfully
 	useEffect(() => {
 		if(fypGroups.length > 0){
-			setLoadingIndicator(false);
+			
 		}
-		console.log("A:", fypGroups)
+		// console.log("A:", fypGroups)
 	}, [fypGroups]);
 
 
@@ -137,7 +138,7 @@ export default function AdminDashboardFYPGroupsPage(props){
 
 						<TableHeadDataCell isNumberCell={true} text={`Number`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Name`}/>
+						<TableHeadDataCell isNumberCell={false} text={`Project Lead`}/>
 
 						<TableHeadDataCell isNumberCell={false} text={`Project`}/>
 
@@ -145,7 +146,7 @@ export default function AdminDashboardFYPGroupsPage(props){
 
 						<TableHeadDataCell isNumberCell={false} text={`Supervisor`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Mentors`}/>
+						<TableHeadDataCell isNumberCell={false} text={`Year`}/>
 
 						<TableHeadDataCell isNumberCell={false} text={`Confirmed`}/>
 
@@ -153,7 +154,7 @@ export default function AdminDashboardFYPGroupsPage(props){
 					
 					<tbody>
 
-						{!loadingIndicator && fypGroups.map((group) => {
+						{!loadingIndicator && fypGroups.map((group, index) => {
 							return (
 								<TableRow
 									key={group._id}
@@ -167,27 +168,41 @@ export default function AdminDashboardFYPGroupsPage(props){
 								>
 
 									<TableBodyDataCell 
-										text={String("milestone.assignmentNumber")} 
+										text={String(index + 1)} 
 									/>
 
 									<TableBodyDataCell 
-										text={String("milestone.title")}
+										text={String(`${group.lead.firstName} ${group.lead.lastName}`)}
 									/>
 
 									<TableBodyDataCell 
-										text={String("milestone.description")}
+										text={String(`${(group.project !== null) ? group.project.proposal.title : "Not Available"}`)}
 									/>
 									
 									<TableBodyDataCell 
-										text={String("extractDate(milestone.deadline)")}
+										text={String( (group.members.length > 0) ? 
+														(group.members.map((member) => {
+															return `${member.firstName} ${member.lastName}, `
+														})) 
+														: 
+														"Groups has no members."
+											)}
 									/>
 									
 									<TableBodyDataCell 
-										text={String("milestone.percentage")}
+										text={String( (group.supervisor !== null) ? 
+														`${group.supervisor.firstName} ${group.supervisor.lastName}`
+														:
+														"Group has no supervisor."
+													)}
 									/>
 									
 									<TableBodyDataCell 
-										text={String("milestone.year")}
+										text={String(`${group.year}`)}
+									/>
+
+									<TableBodyDataCell 
+										text={String(`${(group.confirmed) ? "Yes" : "No"}`)}
 									/>
 									
 								</TableRow>

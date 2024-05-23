@@ -7,9 +7,21 @@ import ModalContentText from "../../../../_components/ModalContentText/ModalCont
 import { extractDate } from "@/utils/helpers/func"; 
 
 export default function FYPGroupsRowContent({dataID, data}){
-
+    
     return (
         <div className={`w-full h-full`}>
+
+            <ModalContent>
+                
+                <ModalContentHeading>
+                    Project:
+                </ModalContentHeading>
+
+                <ModalContentText>
+                    {`${(data.project !== null) ? data.project.proposal.title : "Not Available"}`}
+                </ModalContentText>
+
+            </ModalContent>
             
             <ModalContent>
                 
@@ -18,7 +30,62 @@ export default function FYPGroupsRowContent({dataID, data}){
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {data.lead}
+                    {`${data.lead.firstName} ${data.lead.lastName}`}
+                </ModalContentText>
+
+            </ModalContent>
+
+            <ModalContent>
+
+                <ModalContentHeading>
+                    FYP Group Members:
+                </ModalContentHeading>
+
+                <ModalContentText>
+                    {   (data.members.length > 0) 
+                        ? 
+                        (data.members.map((member) => {
+                            return `${member.firstName} ${member.lastName}, `
+                        })) 
+                        : 
+                        "Group has no members"
+                    }
+                </ModalContentText>
+
+            </ModalContent>
+
+            <ModalContent>
+
+                <ModalContentHeading>
+                    FYP Mentors:
+                </ModalContentHeading>
+
+                <ModalContentText>
+                    {   (data.mentors.length > 0) 
+                        ? 
+                        (data.members.map((mentor) => {
+                            return `${mentor.firstName} ${mentor.lastName}, `
+                        })) 
+                        : 
+                        "Group has no mentors"
+                    }
+                </ModalContentText>
+
+            </ModalContent>
+
+            <ModalContent>
+
+                <ModalContentHeading>
+                    FYP Supervisor:
+                </ModalContentHeading>
+
+                <ModalContentText>
+                    {   (data.supervisor !== null) 
+                        ? 
+                        `${data.supervisor.firstName} ${data.supervisor.lastName}`
+                        :
+                        "Group has no supervisor."
+                    }
                 </ModalContentText>
 
             </ModalContent>
