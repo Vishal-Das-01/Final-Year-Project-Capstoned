@@ -1,8 +1,10 @@
 import styles from "./TableTitleAndButton.module.css";
 import TableTitle from "../TableTitle/TableTitle";
 import TableActionButton from "../TableActionButton/TableActionButton";
+import APILoadingButton from "../APILoadingButton/APILoadingButton";
 
-export default function TableTitleAndButton({tableTitle, includeButton, buttonTitle, buttonClickHandler}){
+export default function TableTitleAndButton({tableTitle, includeButton, buttonTitle, buttonClickHandler, buttonApiLoading, apiLoadingButtonWidth}){
+
     return (
         <div className={`${styles.headingAndButtonContainer} flex flex-row items-center justify-between `}>
 					
@@ -11,11 +13,18 @@ export default function TableTitleAndButton({tableTitle, includeButton, buttonTi
             </TableTitle>
 
             {
-                
-                includeButton && 
-                <TableActionButton onClickAction={buttonClickHandler}>
-                    {buttonTitle}
-                </TableActionButton>
+                buttonApiLoading
+                ?
+                <APILoadingButton width={apiLoadingButtonWidth}/>
+                :
+                <>
+                    {
+                        includeButton && 
+                        <TableActionButton onClickAction={buttonClickHandler}>
+                            {buttonTitle}
+                        </TableActionButton>
+                    }
+                </>   
             
             }
 

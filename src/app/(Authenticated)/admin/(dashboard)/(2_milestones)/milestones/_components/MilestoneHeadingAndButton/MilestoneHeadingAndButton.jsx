@@ -18,6 +18,8 @@ export default function MilestoneHeadingAndButton({setOpenModal, setModalTitle, 
                     setModalContent(<CreateMilestoneForm setOpenModal={setOpenModal}/>);
                 }
             }
+            buttonApiLoading={false}
+            apiLoadingButtonWidth={"0px"}
         />
     );
 }

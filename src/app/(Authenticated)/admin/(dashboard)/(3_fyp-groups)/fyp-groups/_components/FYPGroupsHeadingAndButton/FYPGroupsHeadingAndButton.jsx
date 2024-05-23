@@ -3,7 +3,7 @@
 import styles from "./FYPGroupsHeadingAndButton.module.css";
 import TableTitleAndButton from "../../../../_components/TableTitleAndButton/TableTitleAndButton";
 
-export default function FYPGroupsHeadingAndButton({onClick}){
+export default function FYPGroupsHeadingAndButton({onClick, buttonApiLoading}){
 
     return (
         <TableTitleAndButton 
@@ -11,6 +11,8 @@ export default function FYPGroupsHeadingAndButton({onClick}){
             includeButton = {true}
             buttonTitle = {"Finalize All Groups"}
             buttonClickHandler = {onClick}
+            buttonApiLoading={buttonApiLoading}
+            apiLoadingButtonWidth={"201px"}
         />
     );
 }

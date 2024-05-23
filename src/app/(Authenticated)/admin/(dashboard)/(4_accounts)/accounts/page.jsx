@@ -10,6 +10,7 @@ import TableBodyDataCell from "../../_components/TableBodyDataCell/TableBodyData
 import AccountHeadingAndButton from "./_components/AccountsHeadingAndButton/AccountHeadingAndButton";
 import Modal from "../../_components/Modal/Modal";
 import AccountsRowContent from "./_components/AccountsRowContent/AccountsRowContent";
+import DataTableMessage from "../../_components/DataTableMessage/DataTableMessage";
 
 // Imports below for state management and api calls
 import { useEffect, useState } from "react";
@@ -34,12 +35,17 @@ export default function AdminDashboardAccountsPage(props){
 	// for managing modal content
 	// for managing users shown in the table
 	// for managing skeleton loading indicator 
+	// for managing user role
+	// for managing when retrieved data is 0 in size
+	// for managing when error occurs in api call
 	const [openModal, setOpenModal]   = useState(false);
 	const [modalTitle, setModalTitle] = useState("");
 	const [modalContent, setModalContent] = useState("");
 	const [users, setUsers] = useState([]);
 	const [loadingIndicator, setLoadingIndicator] = useState(true);
 	const [userRole, setUserRole] = useState("all");
+	const [retrievedDataIsZero, setRetrievedDataIsZero] = useState(false);
+	const [errorRetrievingData, setErrorRetrievingData] = useState(false);
 
 	// For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
@@ -58,9 +64,11 @@ export default function AdminDashboardAccountsPage(props){
 
 		let apiResponse = await getUsersAPICall(apiURL, accessToken, userRole);
 		if(apiResponse.status === HttpStatusCode.Ok){
+			setLoadingIndicator(false);
 			let apiResponseData = await apiResponse.json();
 			setUsers(apiResponseData.data.users);
-			// console.log("A:", apiResponseData);
+
+			console.log("getUsers:", apiResponseData);
 		}
 		else if (apiResponse.status === HttpStatusCode.Unauthorized) {
 			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
@@ -72,7 +80,9 @@ export default function AdminDashboardAccountsPage(props){
 			}
 		}
 		else{
-			console.log("B:", "error");
+			setErrorRetrievingData(true);
+
+			console.log("getUsers error:", "error");
 		}
 	}
 
@@ -83,14 +93,19 @@ export default function AdminDashboardAccountsPage(props){
 	}, [])
 
 
-	// Turn skeleton loading indicator off when 
-	// users are fetched successfully
+	// When retrieved data is 0 in size.
 	useEffect(() => {
-		if(users.length > 0){
+		if(users.length === 0){
+			setRetrievedDataIsZero(true);
+		}
+	}, [users]);
+
+	// When error occurs in retrieving data.
+	useEffect(() => {
+		if(errorRetrievingData){
 			setLoadingIndicator(false);
 		}
-		console.log("A:", users)
-	}, [users]);
+	}, [errorRetrievingData])
 
 
 	return (
@@ -128,47 +143,76 @@ export default function AdminDashboardAccountsPage(props){
 					
 					<tbody>
 
-						{!loadingIndicator && users.map((user) => {
-							return (
-								<TableRow
-									key={user._id}
-									setOpenModal={setOpenModal} 
-									setModalContent={setModalContent}
-									dataID={user._id}
-									setModalTitle={() => setModalTitle(user.title)}
-									content={<AccountsRowContent 
-												data={user} 
-												dataID={user._id}
-											/>}
-								>
+						{
+							!loadingIndicator 
 
-									<TableBodyDataCell 
-										text={String("milestone.assignmentNumber")} 
-									/>
+							?
 
-									<TableBodyDataCell 
-										text={String("milestone.title")}
-									/>
+							users.map((user) => {
+								return (
+									<TableRow
+										key={user._id}
+										setOpenModal={setOpenModal} 
+										setModalContent={setModalContent}
+										dataID={user._id}
+										setModalTitle={() => setModalTitle(user.title)}
+										content={<AccountsRowContent 
+													data={user} 
+													dataID={user._id}
+												/>}
+									>
 
-									<TableBodyDataCell 
-										text={String("milestone.description")}
-									/>
-									
-									<TableBodyDataCell 
-										text={String("extractDate(milestone.deadline)")}
-									/>
-									
-									<TableBodyDataCell 
-										text={String("milestone.percentage")}
-									/>
-									
-									<TableBodyDataCell 
-										text={String("milestone.year")}
-									/>
-									
-								</TableRow>
-							)
-						})}
+										<TableBodyDataCell 
+											text={String("milestone.assignmentNumber")} 
+										/>
+
+										<TableBodyDataCell 
+											text={String("milestone.title")}
+										/>
+
+										<TableBodyDataCell 
+											text={String("milestone.description")}
+										/>
+										
+										<TableBodyDataCell 
+											text={String("extractDate(milestone.deadline)")}
+										/>
+										
+										<TableBodyDataCell 
+											text={String("milestone.percentage")}
+										/>
+										
+										<TableBodyDataCell 
+											text={String("milestone.year")}
+										/>
+										
+									</TableRow>
+								)
+							})
+
+							:
+							retrievedDataIsZero
+							
+							?
+
+							<DataTableMessage>
+								Nothing to show. Please, add some data.
+							</DataTableMessage>
+							
+							:
+
+							errorRetrievingData
+							
+							?
+
+							<DataTableMessage>
+								Error fetching users. Please, try again later.
+							</DataTableMessage>
+
+							:
+
+							<div></div>
+						}
 						
 					</tbody>
 					
