@@ -1,4 +1,4 @@
-import styles from "./AccountsRowContent.module.css";
+import styles from "./ProjectsRowContent.module.css";
 import ModalContent from "../../../../_components/ModalContent/ModalContent";
 import ModalContentHeading from "../../../../_components/ModalContentHeading/ModalContentHeading";
 import ModalContentText from "../../../../_components/ModalContentText/ModalContentText";
@@ -6,19 +6,31 @@ import ModalContentText from "../../../../_components/ModalContentText/ModalCont
 // Import below for getting proper date
 import { extractDate } from "@/utils/helpers/func"; 
 
-export default function AccountsRowContent({dataID, data}){
-    console.log("AccountsRowContent", data);
+export default function ProjectsRowContent({dataID, data}){
+    
     return (
         <div className={`w-full h-full`}>
+
+            <ModalContent>
+                
+                <ModalContentHeading>
+                    Project:
+                </ModalContentHeading>
+
+                <ModalContentText>
+                    {`asas`}
+                </ModalContentText>
+
+            </ModalContent>
             
             <ModalContent>
                 
                 <ModalContentHeading>
-                    Role:
+                    Group Lead:
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {data.role}
+                    {`aasas`}
                 </ModalContentText>
 
             </ModalContent>
@@ -26,11 +38,13 @@ export default function AccountsRowContent({dataID, data}){
             <ModalContent>
 
                 <ModalContentHeading>
-                    Account Activated:
+                    FYP Group Members:
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {`${data.activated ? "Yes" : "No"}`}
+                    {   
+                        "Group has no members"
+                    }
                 </ModalContentText>
 
             </ModalContent>
@@ -38,11 +52,13 @@ export default function AccountsRowContent({dataID, data}){
             <ModalContent>
 
                 <ModalContentHeading>
-                    Email:
+                    FYP Mentors:
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {data.email}
+                    {  
+                        "Group has no mentors"
+                    }
                 </ModalContentText>
 
             </ModalContent>
@@ -50,15 +66,29 @@ export default function AccountsRowContent({dataID, data}){
             <ModalContent>
 
                 <ModalContentHeading>
-                    Gender:
+                    FYP Supervisor:
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {data.profileID.gender}
+                    {   
+                        "Group has no supervisor."
+                    }
                 </ModalContentText>
 
             </ModalContent>
-        
+
+            <ModalContent>
+
+                <ModalContentHeading>
+                    FYP Group Year:
+                </ModalContentHeading>
+
+                <ModalContentText>
+                    {`data.year`}
+                </ModalContentText>
+
+            </ModalContent>
+
         </div>
     );
 }

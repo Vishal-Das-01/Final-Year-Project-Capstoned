@@ -68,7 +68,7 @@ export default function AdminDashboardAccountsPage(props){
 			let apiResponseData = await apiResponse.json();
 			setUsers(apiResponseData.data.users);
 
-			console.log("getUsers:", apiResponseData);
+			console.log("getUsers:", apiResponseData.data.users);
 		}
 		else if (apiResponse.status === HttpStatusCode.Unauthorized) {
 			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
@@ -129,15 +129,13 @@ export default function AdminDashboardAccountsPage(props){
 
 						<TableHeadDataCell isNumberCell={false} text={`Name`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Project`}/>
+						<TableHeadDataCell isNumberCell={false} text={`Role`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Members`}/>
+						<TableHeadDataCell isNumberCell={false} text={`Gender`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Supervisor`}/>
+						<TableHeadDataCell isNumberCell={false} text={`Email`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Mentors`}/>
-
-						<TableHeadDataCell isNumberCell={false} text={`Confirmed`}/>
+						<TableHeadDataCell isNumberCell={false} text={`Activated`}/>
 
 					</TableHead>
 					
@@ -148,14 +146,13 @@ export default function AdminDashboardAccountsPage(props){
 
 							?
 
-							users.map((user) => {
+							users.map((user, index) => {
 								return (
 									<TableRow
 										key={user._id}
 										setOpenModal={setOpenModal} 
 										setModalContent={setModalContent}
-										dataID={user._id}
-										setModalTitle={() => setModalTitle(user.title)}
+										setModalTitle={() => setModalTitle(String(`${user.role !== "Admin" ? `${user.profileID.firstName} ${user.profileID.lastName}` : `${user.profileID.firstName}`}`))}
 										content={<AccountsRowContent 
 													data={user} 
 													dataID={user._id}
@@ -163,27 +160,27 @@ export default function AdminDashboardAccountsPage(props){
 									>
 
 										<TableBodyDataCell 
-											text={String("milestone.assignmentNumber")} 
+											text={String(`${index + 1}`)} 
 										/>
 
 										<TableBodyDataCell 
-											text={String("milestone.title")}
+											text={String(`${user.role !== "Admin" ? `${user.profileID.firstName} ${user.profileID.lastName}` : `${user.profileID.firstName}`}`)}
 										/>
 
 										<TableBodyDataCell 
-											text={String("milestone.description")}
+											text={String(`${user.role}`)}
+										/>
+
+										<TableBodyDataCell 
+											text={String(`${user.profileID.gender}`)}
 										/>
 										
 										<TableBodyDataCell 
-											text={String("extractDate(milestone.deadline)")}
+											text={String(`${user.email}`)}
 										/>
-										
+
 										<TableBodyDataCell 
-											text={String("milestone.percentage")}
-										/>
-										
-										<TableBodyDataCell 
-											text={String("milestone.year")}
+											text={String(`${user.activated ? "Yes" : "No"}`)}
 										/>
 										
 									</TableRow>
