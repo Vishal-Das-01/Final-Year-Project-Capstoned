@@ -44,7 +44,7 @@ function ProposalRow({ title, description, status, selectedBy, mentorship, activ
 
   return (
     <>
-      <tr class="border-b dark:border-gray-700 hover:bg-gray-100">
+      <tr class="h-16 border-b dark:border-gray-700 hover:bg-gray-100">
         <td class="px-2 py-3 w-1/12">
           {expanded ? (
             <IoMdArrowDropup
