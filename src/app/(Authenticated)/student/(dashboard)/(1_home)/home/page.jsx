@@ -1,19 +1,33 @@
 import ContentCard from "./_components/ContentCard/ContentCard.jsx";
 import WelcomeContent from "./_components/WelcomeContent/WelcomeContent.jsx";
 import MilestonesContent from "./_components/MilestonesContent/MilestonesContent.jsx";
-import MeetingsContent from "./_components/MeetingsContent/MeetingsContent.jsx";
-import FYPGroupsContent from "./_components/FYPGroupsContent/FYPGroupsContent.jsx";
-import MessagesContent from "./_components/ProposalsContent/ProposalsContent.jsx";
-import CalendarContent from "./_components/CalendarContent/CalendarContent.jsx";
-
 import styles from "./StudentHomePage.module.css";
+import ProjectContent from "./_components/ProjectContent/ProjectContent.jsx";
+import ProposalsContent from "./_components/ProposalsContent/ProposalsContent.jsx";
+import UpcomingMilestone from "./_components/UpcomingMilestone/UpcomingMilestone.jsx";
+import FYPGroupsContent from "./_components/FYPGroupsContent/FYPGroupsContent.jsx";
 
 export const metadata = {
 	title: "Student Home",
 	description: "Capstoned Student Home | Final Year Project (FYP) Management Platform for College & University Students.",
 }
 
-export default function MentorDashboardHomePage(props){
+export default function MentorDashboardHomePage(){
+
+	const milestone = [{
+        assignmentNumber: 1,
+        title: "Milestone 1",
+        deadline: "2024-05-01T19:00:00.000Z",
+	}]
+
+	const group = {
+		projectTitle:"Project Title",
+		groupName:"Group Name",
+		groupMembers:[{name:"Member 1"}, {name:"Member 2"}],
+		groupLead:"Group Lead",
+		role:"Group Member"
+	}
+
 	return (
 		<div className={`${styles.pageContainer} w-full h-full flex flex-row items-center justify-center `}>
 			
@@ -31,15 +45,9 @@ export default function MentorDashboardHomePage(props){
 					
 					</ContentCard>
 
-					<ContentCard>
-
-						<MeetingsContent 
-							location={`Faculty Lounge`} 
-							meetingDate={`Jan 12, 2024`}
-						/>
 					
-					</ContentCard>
-
+					<FYPGroupsContent group={group}/>
+					
 				</div>
 
 				<div className={`${styles.center} w-full h-full flex flex-col flex-1 items-center justify-evenly `}>
@@ -55,7 +63,7 @@ export default function MentorDashboardHomePage(props){
 
 					<ContentCard>
 
-						<FYPGroupsContent />
+						<ProjectContent />
 
 					</ContentCard>
 
@@ -65,15 +73,11 @@ export default function MentorDashboardHomePage(props){
 
 					<ContentCard>
 
-						<MessagesContent />
+						<ProposalsContent proposals={[]}/>
 
 					</ContentCard>
 
-					<ContentCard>
-
-						<CalendarContent />
-					
-					</ContentCard>
+					<UpcomingMilestone milestone={milestone} />
 
 				</div>
 
