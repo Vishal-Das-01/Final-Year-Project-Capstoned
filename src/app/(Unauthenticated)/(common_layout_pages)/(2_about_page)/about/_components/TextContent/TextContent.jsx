@@ -86,8 +86,8 @@ export default function TextContent(){
 									{aboutData[aboutDataIndex].text}
 								</p>
 								<ul>
-									{aboutData[aboutDataIndex].features.map((feature) => {
-										return (<li className={`${styles.listItem}  text-neutral-700 my-1 text-justify font-montserrat`}>
+									{aboutData[aboutDataIndex].features.map((feature,index) => {
+										return (<li key={index} className={`${styles.listItem}  text-neutral-700 my-1 text-justify font-montserrat`}>
 													<span className={`text-blue-300 font-semibold`}>{feature.name}</span>
 													{feature.description}
 												</li>)
