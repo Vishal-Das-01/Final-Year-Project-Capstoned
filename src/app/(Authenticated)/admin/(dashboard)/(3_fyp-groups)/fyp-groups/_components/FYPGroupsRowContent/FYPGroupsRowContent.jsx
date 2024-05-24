@@ -2,6 +2,7 @@ import styles from "./FYPGroupsRowContent.module.css";
 import ModalContent from "../../../../_components/ModalContent/ModalContent";
 import ModalContentHeading from "../../../../_components/ModalContentHeading/ModalContentHeading";
 import ModalContentText from "../../../../_components/ModalContentText/ModalContentText";
+import ModalDataActionButton from "../../../../_components/ModalDataActionButton/ModalDataActionButton";
 
 // Import below for getting proper date
 import { extractDate } from "@/utils/helpers/func"; 
@@ -99,6 +100,21 @@ export default function FYPGroupsRowContent({dataID, data}){
                 <ModalContentText>
                     {data.year}
                 </ModalContentText>
+
+            </ModalContent>
+
+            <ModalContent>
+
+                <div className={`flex flex-row items-end justify-end `} style={{height: "70px"}}>
+
+                    <ModalDataActionButton 
+                        buttonText={"Update"} 
+                        buttonClickAction={null}
+                        dataID={dataID}
+                        isUpdate={true}
+                    />
+
+                </div>
 
             </ModalContent>
 

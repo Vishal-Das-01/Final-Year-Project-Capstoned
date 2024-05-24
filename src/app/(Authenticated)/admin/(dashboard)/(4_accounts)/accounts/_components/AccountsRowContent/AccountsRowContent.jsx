@@ -2,23 +2,24 @@ import styles from "./AccountsRowContent.module.css";
 import ModalContent from "../../../../_components/ModalContent/ModalContent";
 import ModalContentHeading from "../../../../_components/ModalContentHeading/ModalContentHeading";
 import ModalContentText from "../../../../_components/ModalContentText/ModalContentText";
+import ModalDataActionButton from "../../../../_components/ModalDataActionButton/ModalDataActionButton";
 
 // Import below for getting proper date
 import { extractDate } from "@/utils/helpers/func"; 
 
 export default function AccountsRowContent({dataID, data}){
-
+    console.log("AccountsRowContent", data);
     return (
         <div className={`w-full h-full`}>
             
             <ModalContent>
                 
                 <ModalContentHeading>
-                    Milestone Number:
+                    Role:
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {data.assignmentNumber}
+                    {data.role}
                 </ModalContentText>
 
             </ModalContent>
@@ -26,11 +27,11 @@ export default function AccountsRowContent({dataID, data}){
             <ModalContent>
 
                 <ModalContentHeading>
-                    Milestone Deadline:
+                    Account Activated:
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {String(extractDate(data.deadline))}
+                    {`${data.activated ? "Yes" : "No"}`}
                 </ModalContentText>
 
             </ModalContent>
@@ -38,11 +39,11 @@ export default function AccountsRowContent({dataID, data}){
             <ModalContent>
 
                 <ModalContentHeading>
-                    Milestone Description:
+                    Email:
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {data.description}
+                    {data.email}
                 </ModalContentText>
 
             </ModalContent>
@@ -50,28 +51,29 @@ export default function AccountsRowContent({dataID, data}){
             <ModalContent>
 
                 <ModalContentHeading>
-                    Milestone Year:
+                    Gender:
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {data.year}
+                    {data.profileID.gender}
                 </ModalContentText>
 
             </ModalContent>
 
             <ModalContent>
 
-                <ModalContentHeading>
-                    Milestone Percentage:
-                </ModalContentHeading>
+                <div className={`flex flex-row items-end justify-end h-full`} style={{height: "200px"}}>
 
-                <ModalContentText>
-                    {data.percentage}
-                </ModalContentText>
+                    <ModalDataActionButton 
+                        buttonText={"Update"} 
+                        buttonClickAction={null}
+                        dataID={dataID}
+                        isUpdate={true}
+                    />
+
+                </div>
 
             </ModalContent>
-
-            
         
         </div>
     );

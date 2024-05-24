@@ -25,6 +25,8 @@ export default function AccountHeadingAndButton({setOpenModal, setModalTitle, se
                     setModalContent(<CreateUserAccountForm setOpenModal={setOpenModal}/>);
                 }
             }
+            buttonApiLoading={false}
+            apiLoadingButtonWidth={"0px"}
         />
     );
     

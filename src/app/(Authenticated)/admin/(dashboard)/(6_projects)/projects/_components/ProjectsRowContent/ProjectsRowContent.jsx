@@ -1,4 +1,4 @@
-import styles from "./MilestoneRowContent.module.css";
+import styles from "./ProjectsRowContent.module.css";
 import ModalContent from "../../../../_components/ModalContent/ModalContent";
 import ModalContentHeading from "../../../../_components/ModalContentHeading/ModalContentHeading";
 import ModalContentText from "../../../../_components/ModalContentText/ModalContentText";
@@ -7,19 +7,56 @@ import ModalDataActionButton from "../../../../_components/ModalDataActionButton
 // Import below for getting proper date
 import { extractDate } from "@/utils/helpers/func"; 
 
-export default function MilestoneRowContent({dataID, data}){
-
+export default function ProjectsRowContent({dataID, data}){
+    console.log("ProjectsRowContent", data);
+    
     return (
         <div className={`w-full h-full`}>
+
+            <ModalContent>
+                
+                <ModalContentHeading>
+                    Group Lead:
+                </ModalContentHeading>
+
+                <ModalContentText>
+                    {`${data.group.lead.firstName} ${data.group.lead.lastName}`}
+                </ModalContentText>
+
+            </ModalContent>
             
             <ModalContent>
                 
                 <ModalContentHeading>
-                    Milestone Number:
+                    Project Title:
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {data.assignmentNumber}
+                    {`${data.proposal.title}`}
+                </ModalContentText>
+
+            </ModalContent>
+
+            <ModalContent>
+                
+                <ModalContentHeading>
+                    Project Description:
+                </ModalContentHeading>
+
+                <ModalContentText>
+                    {`${data.proposal.description}`}
+                </ModalContentText>
+
+            </ModalContent>
+
+            <ModalContent>
+                
+                <ModalContentHeading>
+                    Project Finished:
+                </ModalContentHeading>
+
+                <ModalContentText>
+                    {`${data.finished ? "Yes" : "No"}`}
                 </ModalContentText>
 
             </ModalContent>
@@ -27,11 +64,13 @@ export default function MilestoneRowContent({dataID, data}){
             <ModalContent>
 
                 <ModalContentHeading>
-                    Milestone Deadline:
+                    FYP Group Members:
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {String(extractDate(data.deadline))}
+                    {   
+                        "Group has no members"
+                    }
                 </ModalContentText>
 
             </ModalContent>
@@ -39,11 +78,11 @@ export default function MilestoneRowContent({dataID, data}){
             <ModalContent>
 
                 <ModalContentHeading>
-                    Milestone Description:
+                    Project Status:
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {data.description}
+                    {`${data.status}`}
                 </ModalContentText>
 
             </ModalContent>
@@ -51,7 +90,19 @@ export default function MilestoneRowContent({dataID, data}){
             <ModalContent>
 
                 <ModalContentHeading>
-                    Milestone Year:
+                    Project Progress:
+                </ModalContentHeading>
+
+                <ModalContentText>
+                    {`${data.progress}`}
+                </ModalContentText>
+
+            </ModalContent>
+
+            <ModalContent>
+
+                <ModalContentHeading>
+                    Project Year:
                 </ModalContentHeading>
 
                 <ModalContentText>
@@ -62,19 +113,7 @@ export default function MilestoneRowContent({dataID, data}){
 
             <ModalContent>
 
-                <ModalContentHeading>
-                    Milestone Percentage:
-                </ModalContentHeading>
-
-                <ModalContentText>
-                    {data.percentage}
-                </ModalContentText>
-
-            </ModalContent>
-
-            <ModalContent>
-
-                <div className={`flex flex-row items-end justify-end h-full `} style={{height: "150px"}}>
+                <div className={`flex flex-row items-end justify-end h-full `}>
 
                     <ModalDataActionButton 
                         buttonText={"Update"} 
@@ -83,10 +122,17 @@ export default function MilestoneRowContent({dataID, data}){
                         isUpdate={true}
                     />
 
+                    <ModalDataActionButton 
+                        buttonText={"Mark Finished"} 
+                        buttonClickAction={null}
+                        dataID={dataID}
+                        isUpdate={false}
+                    />
+
                 </div>
 
             </ModalContent>
-        
+
         </div>
     );
 }

@@ -10,6 +10,7 @@ import TableHeadDataCell from "../../_components/TableHeadDataCell/TableHeadData
 import TableBodyDataCell from "../../_components/TableBodyDataCell/TableBodyDataCell";
 import Modal from "../../_components/Modal/Modal";
 import FYPGroupsRowContent from "./_components/FYPGroupsRowContent/FYPGroupsRowContent";
+import DataTableMessage from "../../_components/DataTableMessage/DataTableMessage";
 
 // Imports below for state management and api calls
 import { useEffect, useState } from "react";
@@ -34,11 +35,17 @@ export default function AdminDashboardFYPGroupsPage(props){
 	// for managing modal content
 	// for managing fyp groups shown in the table
 	// for managing skeleton loading indicator 
+	// for managing when retrieved data is 0 in size
+	// for managing when error occurs in retrieval api call
+	// for managing when api button is pressed
 	const [openModal, setOpenModal]   = useState(false);
 	const [modalTitle, setModalTitle] = useState("");
 	const [modalContent, setModalContent] = useState("");
 	const [fypGroups, setFYPGroups] = useState([]);
 	const [loadingIndicator, setLoadingIndicator] = useState(true);
+	const [retrievedDataIsZero, setRetrievedDataIsZero] = useState(false);
+	const [errorRetrievingData, setErrorRetrievingData] = useState(false);
+	const [buttonApiLoading, setButtonApiLoading] = useState(false);
 
 	// For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
@@ -57,9 +64,10 @@ export default function AdminDashboardFYPGroupsPage(props){
 
 		let apiResponse = await getFYPGroupsAPICall(apiURL, accessToken);
 		if(apiResponse.status === HttpStatusCode.Ok){
+			setLoadingIndicator(false);
 			let apiResponseData = await apiResponse.json();
 			setFYPGroups(apiResponseData.data.groups);
-			setLoadingIndicator(false);
+
 			console.log("getAllFYPGroups:", apiResponseData.data.groups);
 		}
 		else if (apiResponse.status === HttpStatusCode.Unauthorized) {
@@ -72,7 +80,8 @@ export default function AdminDashboardFYPGroupsPage(props){
 			}
 		}
 		else{
-			console.log("B:", "error");
+			setErrorRetrievingData(true);
+			console.log("getAllFYPGroups error:", "error");
 		}
 	}
 
@@ -80,10 +89,11 @@ export default function AdminDashboardFYPGroupsPage(props){
 	async function finalizeAllFYPGroups(){
 		let accessToken = authDetails.accessToken;
 		let apiURL = BACKEND_ROUTES.finalizeAllFYPGroups;
-		// setLoadingIndicator(true);
+		setButtonApiLoading(true);
 
 		let apiResponse = await finalizeAllFYPGroupsAPICall(apiURL, accessToken);
 		if(apiResponse.status === HttpStatusCode.Ok){
+			setButtonApiLoading(false);
 			let apiResponseData = await apiResponse.json();
 			console.log("finalizeAllFYPGroups:", apiResponseData);
 		}
@@ -97,7 +107,9 @@ export default function AdminDashboardFYPGroupsPage(props){
 			}
 		}
 		else{
-			console.log("B:", "error");
+			setButtonApiLoading(false);
+
+			console.log("finalizeAllFYPGroups error:", "error");
 		}
 	}
 
@@ -108,14 +120,19 @@ export default function AdminDashboardFYPGroupsPage(props){
 	}, [])
 
 
-	// Turn skeleton loading indicator off when 
-	// fyp-groups are fetched successfully
+	// When retrieved data is 0 in size.
 	useEffect(() => {
-		if(fypGroups.length > 0){
-			
+		if(fypGroups.length === 0){
+			setRetrievedDataIsZero(true);
 		}
-		// console.log("A:", fypGroups)
 	}, [fypGroups]);
+
+	// When error occurs in retrieving data.
+	useEffect(() => {
+		if(errorRetrievingData){
+			setLoadingIndicator(false);
+		}
+	}, [errorRetrievingData])
 
 
 	return (
@@ -128,6 +145,7 @@ export default function AdminDashboardFYPGroupsPage(props){
 					// setModalTitle={setModalTitle}
 					// setModalContent={setModalContent}
 					onClick={finalizeAllFYPGroups}
+					buttonApiLoading={buttonApiLoading}
 				/>
 
 				<ContentTable
@@ -154,60 +172,90 @@ export default function AdminDashboardFYPGroupsPage(props){
 					
 					<tbody>
 
-						{!loadingIndicator && fypGroups.map((group, index) => {
-							return (
-								<TableRow
-									key={group._id}
-									setOpenModal={setOpenModal} 
-									setModalContent={setModalContent}
-									setModalTitle={() => setModalTitle(group.name)}
-									content={<FYPGroupsRowContent 
-										data={group} 
-										dataID={group._id}
-									/>}
-								>
+						{
+							!loadingIndicator
 
-									<TableBodyDataCell 
-										text={String(index + 1)} 
-									/>
+							?
 
-									<TableBodyDataCell 
-										text={String(`${group.lead.firstName} ${group.lead.lastName}`)}
-									/>
+							fypGroups.map((group, index) => {
+								return (
+									<TableRow
+										key={group._id}
+										setOpenModal={setOpenModal} 
+										setModalContent={setModalContent}
+										setModalTitle={() => setModalTitle(group.name)}
+										content={<FYPGroupsRowContent 
+											data={group} 
+											dataID={group._id}
+										/>}
+									>
 
-									<TableBodyDataCell 
-										text={String(`${(group.project !== null) ? group.project.proposal.title : "Not Available"}`)}
-									/>
-									
-									<TableBodyDataCell 
-										text={String( (group.members.length > 0) ? 
-														(group.members.map((member) => {
-															return `${member.firstName} ${member.lastName}, `
-														})) 
-														: 
-														"Groups has no members."
-											)}
-									/>
-									
-									<TableBodyDataCell 
-										text={String( (group.supervisor !== null) ? 
-														`${group.supervisor.firstName} ${group.supervisor.lastName}`
-														:
-														"Group has no supervisor."
-													)}
-									/>
-									
-									<TableBodyDataCell 
-										text={String(`${group.year}`)}
-									/>
+										<TableBodyDataCell 
+											text={String(index + 1)} 
+										/>
 
-									<TableBodyDataCell 
-										text={String(`${(group.confirmed) ? "Yes" : "No"}`)}
-									/>
-									
-								</TableRow>
-							)
-						})}
+										<TableBodyDataCell 
+											text={String(`${group.lead.firstName} ${group.lead.lastName}`)}
+										/>
+
+										<TableBodyDataCell 
+											text={String(`${(group.project !== null) ? group.project.proposal.title : "Not Available"}`)}
+										/>
+										
+										<TableBodyDataCell 
+											text={String( (group.members.length > 0) ? 
+															(group.members.map((member) => {
+																return `${member.firstName} ${member.lastName}, `
+															})) 
+															: 
+															"Groups has no members."
+												)}
+										/>
+										
+										<TableBodyDataCell 
+											text={String( (group.supervisor !== null) ? 
+															`${group.supervisor.firstName} ${group.supervisor.lastName}`
+															:
+															"Group has no supervisor."
+														)}
+										/>
+										
+										<TableBodyDataCell 
+											text={String(`${group.year}`)}
+										/>
+
+										<TableBodyDataCell 
+											text={String(`${(group.confirmed) ? "Yes" : "No"}`)}
+										/>
+										
+									</TableRow>
+								)
+							})
+
+							:
+
+							retrievedDataIsZero
+							
+							?
+
+							<DataTableMessage>
+								Nothing to show. Please, add some data.
+							</DataTableMessage>
+							
+							:
+
+							errorRetrievingData
+							
+							?
+
+							<DataTableMessage>
+								Error fetching groups. Please, try again later.
+							</DataTableMessage>
+
+							:
+
+							<div></div>
+						}
 
 					</tbody>
 					

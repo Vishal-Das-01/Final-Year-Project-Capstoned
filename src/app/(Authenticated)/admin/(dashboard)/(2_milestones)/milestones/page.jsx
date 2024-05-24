@@ -10,6 +10,8 @@ import TableHeadDataCell from "../../_components/TableHeadDataCell/TableHeadData
 import TableBodyDataCell from "../../_components/TableBodyDataCell/TableBodyDataCell";
 import Modal from "../../_components/Modal/Modal";
 import MilestoneRowContent from "./_components/MilestoneRowContent/MilestoneRowContent";
+import DataTableMessage from "../../_components/DataTableMessage/DataTableMessage";
+
 
 // Imports below for state management and api calls
 import { useEffect, useState } from "react";
@@ -37,11 +39,15 @@ export default function AdminDashboardMilestonesPage(props){
 	// for managing modal content
 	// for managing milestones shown in the table
 	// for managing skeleton loading indicator 
+	// for managing when retrieved data is 0 in size
+	// for managing when error occurs in retrieval api call
 	const [openModal, setOpenModal]   = useState(false);
 	const [modalTitle, setModalTitle] = useState("");
 	const [modalContent, setModalContent] = useState("");
 	const [milestones, setMilestones] = useState([]);
 	const [loadingIndicator, setLoadingIndicator] = useState(true);
+	const [retrievedDataIsZero, setRetrievedDataIsZero] = useState(false);
+	const [errorRetrievingData, setErrorRetrievingData] = useState(false);
 
 	// For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
@@ -61,10 +67,11 @@ export default function AdminDashboardMilestonesPage(props){
 
 		let apiResponse = await getAllMilestonesAPICall(apiURL, apiCallMethod, accessToken);
 		if(apiResponse.status === HttpStatusCode.Ok){
+			setLoadingIndicator(false);
 			let apiResponseData = await apiResponse.json();
 			setMilestones(apiResponseData);
-			setLoadingIndicator(false);
-			console.log("A:", apiResponseData);
+
+			console.log("getAllMilestones:", apiResponseData);
 		}
 		else if (apiResponse.status === HttpStatusCode.Unauthorized) {
 			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
@@ -76,7 +83,8 @@ export default function AdminDashboardMilestonesPage(props){
 			}
 		}
 		else{
-			console.log("B:", "error");
+			setErrorRetrievingData(true);
+			console.log("getAllMilestones error:", "error");
 		}
 	}
 
@@ -87,13 +95,19 @@ export default function AdminDashboardMilestonesPage(props){
 	}, [])
 
 
-	// Turn skeleton loading indicator off when 
-	// milestones are fetched successfully
+	// When retrieved data is 0 in size.
 	useEffect(() => {
-		if(milestones.length > 0){
-			
+		if(milestones.length === 0){
+			setRetrievedDataIsZero(true);
 		}
 	}, [milestones]);
+
+	// When error occurs in retrieving data.
+	useEffect(() => {
+		if(errorRetrievingData){
+			setLoadingIndicator(false);
+		}
+	}, [errorRetrievingData])
 
 
 	return (
@@ -129,46 +143,76 @@ export default function AdminDashboardMilestonesPage(props){
 					
 					<tbody>
 
-						{!loadingIndicator && milestones.map((milestone) => {
-							return (
-								<TableRow
-									key={milestone._id}
-									setOpenModal={setOpenModal} 
-									setModalContent={setModalContent}
-									setModalTitle={() => setModalTitle(milestone.title)}
-									content={<MilestoneRowContent 
-												data={milestone} 
-												dataID={milestone._id}
-											/>}
-								>
+						{
+							!loadingIndicator
 
-									<TableBodyDataCell 
-										text={String(milestone.assignmentNumber)} 
-									/>
+							?
 
-									<TableBodyDataCell 
-										text={String(milestone.title)}
-									/>
+							milestones.map((milestone) => {
+								return (
+									<TableRow
+										key={milestone._id}
+										setOpenModal={setOpenModal} 
+										setModalContent={setModalContent}
+										setModalTitle={() => setModalTitle(milestone.title)}
+										content={<MilestoneRowContent 
+													data={milestone} 
+													dataID={milestone._id}
+												/>}
+									>
 
-									<TableBodyDataCell 
-										text={String(milestone.description)}
-									/>
-									
-									<TableBodyDataCell 
-										text={String(extractDate(milestone.deadline))}
-									/>
-									
-									<TableBodyDataCell 
-										text={String(milestone.percentage)}
-									/>
-									
-									<TableBodyDataCell 
-										text={String(milestone.year)}
-									/>
-									
-								</TableRow>
-							)
-						})}
+										<TableBodyDataCell 
+											text={String(milestone.assignmentNumber)} 
+										/>
+
+										<TableBodyDataCell 
+											text={String(milestone.title)}
+										/>
+
+										<TableBodyDataCell 
+											text={String(milestone.description)}
+										/>
+										
+										<TableBodyDataCell 
+											text={String(extractDate(milestone.deadline))}
+										/>
+										
+										<TableBodyDataCell 
+											text={String(milestone.percentage)}
+										/>
+										
+										<TableBodyDataCell 
+											text={String(milestone.year)}
+										/>
+										
+									</TableRow>
+								)
+							})
+
+							:
+
+							retrievedDataIsZero
+							
+							?
+
+							<DataTableMessage>
+								Nothing to show. Please, add some data.
+							</DataTableMessage>
+							
+							:
+
+							errorRetrievingData
+							
+							?
+
+							<DataTableMessage>
+								Error fetching milestones. Please, try again later.
+							</DataTableMessage>
+
+							:
+
+							<div></div>
+						}
 						
 					</tbody>
 					

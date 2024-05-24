@@ -9,6 +9,8 @@ import TableHeadDataCell from "../../_components/TableHeadDataCell/TableHeadData
 import TableBodyDataCell from "../../_components/TableBodyDataCell/TableBodyDataCell"; 
 import ProjectsHeadingAndButton from "./_components/ProjectsHeadingAndButton/ProjectsHeadingAndButton";
 import Modal from "../../_components/Modal/Modal";
+import ProjectsRowContent from "./_components/ProjectsRowContent/ProjectsRowContent";
+import DataTableMessage from "../../_components/DataTableMessage/DataTableMessage";
 
 // Imports below for state management and api calls
 import { useEffect, useState } from "react";
@@ -33,11 +35,17 @@ export default function AdminDashboardProjectsPage(props){
 	// for managing modal content
 	// for managing projects shown in the table
 	// for managing skeleton loading indicator 
+	// for managing when retrieved data is 0 in size
+	// for managing when error occurs in retrieval api call
+	// for managing when api button is pressed
 	const [openModal, setOpenModal]   = useState(false);
 	const [modalTitle, setModalTitle] = useState("");
 	const [modalContent, setModalContent] = useState("");
 	const [projects, setProjects] = useState([]);
 	const [loadingIndicator, setLoadingIndicator] = useState(true);
+	const [retrievedDataIsZero, setRetrievedDataIsZero] = useState(false);
+	const [errorRetrievingData, setErrorRetrievingData] = useState(false);
+	const [buttonApiLoading, setButtonApiLoading] = useState(false);
 
 	// For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
@@ -57,9 +65,11 @@ export default function AdminDashboardProjectsPage(props){
 		let apiResponse = await getProjectsAPICall(apiURL, accessToken);
 		// console.log("HERE ", apiResponse);
 		if(apiResponse.status === HttpStatusCode.Ok){
+			setLoadingIndicator(false);
 			let apiResponseData = await apiResponse.json();
 			setProjects(apiResponseData);
-			// console.log("A:", apiResponseData);
+			
+			console.log("getAllProjects:", apiResponseData);
 		}
 		else if (apiResponse.status === HttpStatusCode.Unauthorized) {
 			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
@@ -71,7 +81,8 @@ export default function AdminDashboardProjectsPage(props){
 			}
 		}
 		else{
-			console.log("B:", "error");
+			setErrorRetrievingData(true);
+			console.log("getAllProjects error:", "error");
 		}
 	}
 
@@ -100,14 +111,19 @@ export default function AdminDashboardProjectsPage(props){
 	}, [])
 
 
-	// Turn skeleton loading indicator off when 
-	// projects are fetched successfully
+	// When retrieved data is 0 in size.
 	useEffect(() => {
-		if(projects.length > 0){
+		if(projects.length === 0){
+			setRetrievedDataIsZero(true);
+		}
+	}, [projects]);
+
+	// When error occurs in retrieving data.
+	useEffect(() => {
+		if(errorRetrievingData){
 			setLoadingIndicator(false);
 		}
-		console.log("A:", projects)
-	}, [projects]);
+	}, [errorRetrievingData])
 
 	return (
 		<div className={`${styles.primaryContainer} flex flex-row items-center justify-center w-full h-full`}>
@@ -124,59 +140,90 @@ export default function AdminDashboardProjectsPage(props){
 
 						<TableHeadDataCell isNumberCell={true} text={`Number`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Name`}/>
-
-						<TableHeadDataCell isNumberCell={false} text={`Group`}/>
+						<TableHeadDataCell isNumberCell={false} text={`Group Name`}/>
 
 						<TableHeadDataCell isNumberCell={false} text={`Progress`}/>
 
 						<TableHeadDataCell isNumberCell={false} text={`Status`}/>
 
+						<TableHeadDataCell isNumberCell={false} text={`Year`}/>
+
 						<TableHeadDataCell isNumberCell={false} text={`Finished`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Year`}/>
 
 					</TableHead>
 					
 					<tbody>
 
-						{!loadingIndicator && projects.map((project) => {
-							return (
-								<TableRow
-									setOpenModal={setOpenModal} 
-									setModalTitle={setModalTitle}
-									setModalContent={setModalContent}
-									key={project._id}
-									dataID={project._id}
-								>
+						{
+							!loadingIndicator 
+							? 
+							projects.map((project, index) => {
+								return (
+									<TableRow
+										key={project._id}
+										setOpenModal={setOpenModal} 
+										setModalContent={setModalContent}
+										setModalTitle={() => setModalTitle(`${project.group.name}`)}
+										content={<ProjectsRowContent 
+											data={project} 
+											dataID={project._id}
+										/>}
+									>
 
-									<TableBodyDataCell 
-										text={String("milestone.assignmentNumber")} 
-									/>
+										<TableBodyDataCell 
+											text={String(`${index +  1}`)} 
+										/>
 
-									<TableBodyDataCell 
-										text={String("milestone.title")}
-									/>
+										<TableBodyDataCell 
+											text={String(`${project.group.name}`)}
+										/>
 
-									<TableBodyDataCell 
-										text={String("milestone.description")}
-									/>
-									
-									<TableBodyDataCell 
-										text={String("extractDate(milestone.deadline)")}
-									/>
-									
-									<TableBodyDataCell 
-										text={String("milestone.percentage")}
-									/>
-									
-									<TableBodyDataCell 
-										text={String("milestone.year")}
-									/>
-									
-								</TableRow>
-							)
-						})}
+										
+										<TableBodyDataCell 
+											text={String(`${project.progress}`)}
+										/>
+										
+										<TableBodyDataCell 
+											text={String(`${project.status}`)}
+										/>
+
+										<TableBodyDataCell 
+											text={String(`${project.year}`)}
+										/>
+
+										<TableBodyDataCell 
+											text={String(`${project.finished ? "Yes" : "No"}`)}
+										/>
+
+									</TableRow>
+								)
+							})
+
+							:
+
+							retrievedDataIsZero
+							
+							?
+
+							<DataTableMessage>
+								Nothing to show. Please, add some data.
+							</DataTableMessage>
+							
+							:
+
+							errorRetrievingData
+							
+							?
+
+							<DataTableMessage>
+								Error fetching groups. Please, try again later.
+							</DataTableMessage>
+
+							:
+
+							<div></div>
+						}
 						
 					</tbody>
 					
