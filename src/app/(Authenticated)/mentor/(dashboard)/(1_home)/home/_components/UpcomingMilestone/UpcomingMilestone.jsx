@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./UpcomingMilestone.module.css";
+import styles from "./up.module.css";
 
 function UpcomingMilestone({milestone}) {
   
