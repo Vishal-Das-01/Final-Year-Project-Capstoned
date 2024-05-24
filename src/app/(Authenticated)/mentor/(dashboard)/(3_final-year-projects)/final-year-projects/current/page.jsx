@@ -1,5 +1,5 @@
 import React from 'react'
-import ListTile from './_components/ListTile/ListTile'
+import ListTile from './_components/LT/ListTile'
 import styles from './CurrentProjects.module.css'
 import { cookies } from 'next/headers';
 import { callAPI } from '@/utils/helpers/callAPI';
