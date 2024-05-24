@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PiSealCheckFill } from "react-icons/pi";
 import { PiSealFill } from "react-icons/pi";
 import { FaDownload } from "react-icons/fa6";
@@ -8,23 +8,38 @@ import { MdDelete } from "react-icons/md";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
 import { FaCheckCircle, FaCross } from "react-icons/fa";
+import { convertDate } from "@/utils/helpers/date";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { callAPI } from "@/utils/helpers/callAPI";
+import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
+import { HttpStatusCode } from "axios";
+import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
+import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
+import { set } from "mongoose";
 
-function ProposalRow({ title, description, status, selectedBy, mentorship, active }) {
+function ProposalRow({
+  proposalID,
+  groupID,
+  title,
+  description,
+  edit,
+  industries,
+  proposedBy,
+  mentorship,
+  proposalDoc,
+  createdAt,
+  updatedAt,
+}) {
   const [expanded, setExpanded] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
+  const [isInGroup, setIsInGroup] = useState(false);
+  const [disabled, setDisabled] = useState(!edit);
 
-  const list = [
-    "Software Engineering",
-    "Security",
-    "Network Security",
-    "Cloud Security",
-    "Application Security",
-    "Machine Learning",
-    "Artificial Intelligence",
-    "Mobile App Development",
-    "Backend Engineering",
-    "Frontend Engineering",
-  ];
+  useEffect(() => {
+    if (groupID) setIsInGroup(true);
+    else setIsInGroup(false);
+  }, [groupID]);
 
   const tailwindColorClasses = [
     "bg-red-100",
@@ -42,18 +57,47 @@ function ProposalRow({ title, description, status, selectedBy, mentorship, activ
     return tailwindColorClasses[randomIndex];
   };
 
+  const authDetails = useSelector((state) => state.AuthDetails);
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  const onRequest = async () => {
+    setDisabled(true);
+    if (isInGroup && edit) {
+      const accessToken = authDetails.accessToken;
+      const response = await callAPI(
+        "POST",
+        accessToken,
+        `${BACKEND_ROUTES.studentRequestProposal}/${proposalID}`,
+      );
+      if (response.status === HttpStatusCode.Ok) {
+        toast.success("Request sent successfully.");
+        setDisabled(false);
+        router.refresh();
+      } else if (response.status === HttpStatusCode.BadRequest) {
+        const responseData = await response.json();
+        toast.error(responseData.message);
+      } else if (response.status === HttpStatusCode.Unauthorized) {
+        dispatch(removeAuthDetails());
+        router.push(FRONTEND_ROUTES.login_page);
+      }
+    } else toast.error("You must be in a group to request a proposal.");
+
+    setDisabled(false);
+  };
+
   return (
     <>
       <tr class="h-16 border-b dark:border-gray-700 hover:bg-gray-100">
         <td class="px-2 py-3 w-1/12">
           {expanded ? (
             <IoMdArrowDropup
-              className="w-4 h-4 text-xl text-gray-400 hover:text-green-600"
+              className="w-6 h-6 text-xl text-gray-400 hover:text-green-600"
               onClick={() => setExpanded(false)}
             />
           ) : (
             <IoMdArrowDropdown
-              className="w-4 h-4 text-xl text-gray-400 hover:text-green-600"
+              className="w-6 h-6 text-xl text-gray-400 hover:text-green-600"
               onClick={() => setExpanded(true)}
             />
           )}
@@ -65,20 +109,16 @@ function ProposalRow({ title, description, status, selectedBy, mentorship, activ
           {title}
         </th>
         <td class="px-2 py-3 w-1/12">
-          <div className="text-center justify-center items-center flex flex-row text-xs">
-            {status ? (
-              <div className="bg-green-200 p-1 rounded-lg">SELECTED</div>
-            ) : (
-              <div className="bg-red-200 p-1 rounded-lg">UNSELECTED</div>
-            )}
+          <div className="text-center justify-center items-center font-bold text-blue-500 flex flex-row text-xs">
+            {proposedBy.isUniversityTeacher ? "Teacher" : "Industry"}
           </div>
         </td>
         <td class="px-2 py-3 w-2/12 text-center">
-          {selectedBy ? selectedBy : "N/A"}
+          {proposedBy.firstName} {proposedBy.lastName}
         </td>
         <td class="px-2 py-3 w-1/12">
           <div className="text-center justify-center items-center flex flex-row text-xl">
-            {status ? (
+            {mentorship ? (
               <PiSealCheckFill className="text-green-600" />
             ) : (
               <PiSealFill className="text-red-600" />
@@ -87,23 +127,25 @@ function ProposalRow({ title, description, status, selectedBy, mentorship, activ
         </td>
         <td class="px-2 py-3 w-2/12">
           <div className="text-center justify-center items-center flex flex-row text-xl">
-            <FaDownload className="text-black hover:text-blue-600" />
+            <a
+              href={proposalDoc?.file}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-black hover:text-blue-600"
+            >
+              <FaDownload />
+            </a>
           </div>
         </td>
         <td class="px-2 py-3 w-1/12">
           <div className="text-center justify-center items-center flex flex-row text-xl">
-            {active? <MdCheckCircle className="text-green-600"/> : <MdCancel className="text-red-600"/>}
-          </div>
-        </td>
-        <td class="px-2 py-3 w-1/12">
-          <div className="text-center justify-center items-center flex flex-row text-xl">
-            {active? 
-            <button className="flex flex-row p-1 items-center justify-center w-full h-full font-montserrat rounded-lg text-xs tracking-widest text-white bg-black  border-black hover:bg-white hover:border-black hover:text-black">
+            <button
+              onClick={onRequest}
+              disabled={disabled}
+              className="flex flex-row p-1 items-center justify-center w-full h-full font-montserrat rounded-lg text-xs tracking-widest text-white bg-black  border-black hover:bg-white hover:border-black hover:text-black disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:border-gray-300 disabled:text-black"
+            >
               Request
-            </button> : 
-            <button disabled className="flex flex-row p-1 items-center justify-center w-full h-full font-montserrat rounded-lg text-xs tracking-widest text-white bg-gray-400 px-2.5 py-1.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:click-events-none">
-              Request
-            </button>}
+            </button>
           </div>
         </td>
       </tr>
@@ -114,14 +156,12 @@ function ProposalRow({ title, description, status, selectedBy, mentorship, activ
               <div className=" w-full flex flex-row items-start justify-center">
                 <div className="flex flex-col w-1/3 justify-center">
                   <p className="font-semibold">Description</p>
-                  <p>
-                    {description}
-                  </p>
+                  <p>{description}</p>
                 </div>
                 <div className="flex flex-col w-2/3 pl-5">
                   <p className="font-semibold">Industries</p>
                   <div>
-                    {list.map((item, index) => {
+                    {industries.map((item, index) => {
                       const randomColorClass = generateRandomColor();
                       return (
                         <p
@@ -138,11 +178,11 @@ function ProposalRow({ title, description, status, selectedBy, mentorship, activ
               <div className="flex flex-row w-full items-center justify-evenly">
                 <p>
                   <span className="font-semibold mr-2">Last Modified:</span>
-                  <span>3:40 PM, Mon, 24th March</span>
+                  <span>{convertDate(updatedAt)}</span>
                 </p>
                 <p>
                   <span className="font-semibold mr-2">Created At:</span>
-                  <span>3:40 PM, Mon, 24th March</span>
+                  <span>{convertDate(createdAt)}</span>
                 </p>
               </div>
             </div>

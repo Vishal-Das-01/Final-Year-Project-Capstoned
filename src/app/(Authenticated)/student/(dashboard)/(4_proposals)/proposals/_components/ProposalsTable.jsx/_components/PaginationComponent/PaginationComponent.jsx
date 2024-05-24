@@ -15,6 +15,6 @@ export function PaginationComponent({totalPages, page}) {
   }
 
   return (
-      <Pagination currentPage={currentPage} totalPages={10} onPageChange={onPageChange} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
   );
 }

@@ -4,6 +4,7 @@ import { connectToDB } from "@/utils/helpers/connectDB";
 import { paginationParams } from "@/utils/helpers/paginationParams";
 import { HttpStatusCode } from "axios";
 import { NextResponse } from "next/server";
+import Mentor from "@/models/Mentor";
 
 export async function GET(request, response) {
   await connectToDB();
@@ -17,13 +18,9 @@ export async function GET(request, response) {
     });
     const student = await Student.findById(profileID);
 
-    if (student.group == null)
-      return NextResponse.json(
-        { message: "Student must be in a group." },
-        { status: HttpStatusCode.BadRequest }
-      );
-
     const proposals = await Proposal.find({ edit:true, available: true, proposer: "Mentor"})
+      .populate("proposedBy", 'firstName lastName isUniversityTeacher')
+      .collation({locale: "en" })
       .sort({ title: 1})
       .skip(skip)
       .limit(limit);
@@ -34,7 +31,7 @@ export async function GET(request, response) {
     return NextResponse.json(
       {
         message: "Success.",
-        data: { page, totalProposals, totalPages, proposals },
+        data: { page, totalProposals, totalPages, group: student.group, proposals },
       },
       { status: HttpStatusCode.Ok }
     );
