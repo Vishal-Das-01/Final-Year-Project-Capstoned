@@ -63,6 +63,9 @@ function ProposalModal({
       if (proposalDoc.size > 5000000) {
         setMsg("File size should be less than 5MB.");
         setError(true);
+      } else if (proposalDoc.type !== "application/pdf") {
+        setMsg("File should be in PDF format only.");
+        setError(true);
       } else {
         setError(true);
         setMsg("Please, enter all details.");
@@ -91,7 +94,7 @@ function ProposalModal({
           proposalDoc,
           responseData.proposalID,
           "proposals/mentor/",
-          "application/pdf"
+          proposalDoc.type
         );
         const linkUpdateResponse = await callAPI(
           "PATCH",
