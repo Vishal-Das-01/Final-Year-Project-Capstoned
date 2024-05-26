@@ -11,7 +11,8 @@ export async function DELETE(request) {
         const { proposalID } = await request.json();
         const profileID = request.headers.get('profileID');
         const proposal = await Proposal.findById(proposalID);
-        if (proposal.edit && proposal.proposedBy == 'Mentor' && proposal.proposer == profileID) {
+            
+        if (proposal.edit && proposal.proposer == 'Mentor' && proposal.proposedBy == profileID) {
             const deletedProposal = await Proposal.findByIdAndDelete(proposalID);
             const mentor = await Mentor.findById(profileID);
             const myProposals = mentor.myProposals.filter(proposal => proposal != proposalID);
