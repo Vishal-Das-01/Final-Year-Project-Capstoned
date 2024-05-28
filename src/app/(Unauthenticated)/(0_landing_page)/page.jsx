@@ -1,5 +1,4 @@
 import styles from "./LandingPage.module.css";
-import Image from "next/image";
 import PrimaryHeading from "./_components/PrimaryHeading/PrimaryHeading.jsx";
 import SecondaryHeading from "./_components/SecondaryHeading/SecondaryHeading.jsx";
 import EnterCapstonedBtn from "./_components/EnterCapstonedBtn/EnterCapstonedBtn.jsx";
