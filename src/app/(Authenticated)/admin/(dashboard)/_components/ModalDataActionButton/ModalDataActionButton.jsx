@@ -2,7 +2,8 @@
 
 import styles from "./ModalDataActionButton.module.css";
 
-export default function ModalDataActionButton({buttonText, buttonClickAction, dataID, isUpdate}){
+export default function ModalDataActionButton({buttonText, buttonClickAction, dataID, isUpdate, buttonApiLoading}){
+    
     function btnStyling(){
         if(!isUpdate)
             return `bg-blue-500 border-2 border-blue-500 hover:bg-white hover:border-2 hover:border-blue-500 hover:text-blue-500`;

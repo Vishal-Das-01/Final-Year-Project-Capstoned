@@ -1,11 +1,10 @@
-export async function markProjectFinishedAPICall(route, token, data){
+export async function markProjectFinishedAPICall(route, token){
     try{
         let res = await fetch(route, {
-            method: "POST",
+            method: "PATCH",
             headers: {
                 "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify(data)
         });
         return res;
     }
