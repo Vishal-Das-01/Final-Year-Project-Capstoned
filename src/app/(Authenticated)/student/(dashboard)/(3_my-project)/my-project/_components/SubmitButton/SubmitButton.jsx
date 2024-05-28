@@ -78,7 +78,7 @@ function SubmitButton({
         fileDetails.push({
           name: file.name,
           doc: fileURL,
-          extension: fileType,
+          extension: `.${fileType}`,
         });
         setProgress((file.size / size) * 100);
         console.log(progress);
