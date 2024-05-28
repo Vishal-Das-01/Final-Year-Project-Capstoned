@@ -23,7 +23,7 @@ async function ProposalsTable({ page }) {
           <thead className="sticky top-0 z-10 text-xs text-white bg-blue-500 uppercase text-center ">
             <tr>
               <th scope="col" class="px-4 py-3">
-                <span class="sr-only">Actions</span>
+                <span className="sr-only">Actions</span>
               </th>
               <th scope="col" class="px-4 py-3 text-left">
                 Proposal Title

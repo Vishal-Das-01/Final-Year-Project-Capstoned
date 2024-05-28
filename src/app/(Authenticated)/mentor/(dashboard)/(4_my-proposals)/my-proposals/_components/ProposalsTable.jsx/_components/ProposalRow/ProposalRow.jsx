@@ -16,6 +16,7 @@ import { callAPI } from "@/utils/helpers/callAPI";
 import { HttpStatusCode } from "axios";
 import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
 import { deleteFile } from "@/utils/firebase/deleteFile";
+import DownloadButton from "../DownloadButton/DownloadButton";
 
 function ProposalRow({
   proposalID,
@@ -130,15 +131,8 @@ function ProposalRow({
           </div>
         </td>
         <td class="px-2 py-3 w-2/12">
-          <div className="text-center justify-center items-center flex flex-row text-xl">
-            <a
-              href={proposalDoc?.file}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-black hover:text-blue-600"
-            >
-              <FaDownload />
-            </a>
+        <div className="text-center justify-center items-center flex flex-row text-xl">
+            <DownloadButton fileName={title} fileUrl={proposalDoc?.file}/>
           </div>
         </td>
         <td class="px-2 py-3 w-1/12">

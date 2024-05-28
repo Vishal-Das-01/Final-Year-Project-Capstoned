@@ -110,7 +110,7 @@ function GroupDetailsModal({ setOpenModal, groupID }) {
               <h1 className="font-medium">Selected Proposals:</h1>
               <div className="flex flex-wrap col-span-2 gap-y-2">
                 {groupDetails.selectedProposal.map((item, index) => (
-                  <ResourceButton key={index} name={item.proposal.title} link={item.proposal.proposalDoc.file}/>
+                  <ResourceButton key={index} name={item.proposal.title} link={item.proposal.proposalDoc.file} extension={".pdf"}/>
                 ))}
               </div>
             </div>

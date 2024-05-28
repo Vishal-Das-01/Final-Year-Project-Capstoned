@@ -38,8 +38,7 @@ const assignedMilestoneSchema = new Schema({
       },
       extension: {
         type: String,
-        enum: ["pdf", "docx", "pptx", "xlsx", "zip", "rar", "jpg", "jpeg", "png", "txt"]
-        ,
+        enum: [".pdf", ".docx", ".pptx", ".xlsx", ".zip", ".rar", '.jpg', '.jpeg', '.png'],
       },
     },
   ],

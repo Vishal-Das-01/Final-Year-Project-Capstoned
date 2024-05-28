@@ -114,6 +114,7 @@ function MilestoneTab({ role, marked, milestoneNumber, assignedMilestoneID }) {
                 key={index}
                 name={resource.name}
                 link={resource.file}
+                extension={resource.extension}
               />
             ))}
           </div>
@@ -128,6 +129,7 @@ function MilestoneTab({ role, marked, milestoneNumber, assignedMilestoneID }) {
                       key={index}
                       name={item.name}
                       link={item.doc}
+                      extension={item.extension}
                     />
                   ))}
                 </div>

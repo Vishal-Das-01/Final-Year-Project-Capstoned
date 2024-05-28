@@ -49,6 +49,7 @@ async function ProjectPage({ params: { id } }) {
             <ResourceButton
               name={projectDetails.project.proposal.title}
               link={projectDetails.project.proposal.proposalDoc.file}
+              extension=".pdf"
             />
           </div>
           {/* <h2 className="font-semibold">Marks:</h2>

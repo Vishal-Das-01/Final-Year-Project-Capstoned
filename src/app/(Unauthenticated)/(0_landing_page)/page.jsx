@@ -15,10 +15,12 @@ export default function LandingPage(props) {
         <div className={`${styles.left} flex flex-col h-full items-center justify-center`}>
 
           <div className="flex flex-row h-20 items-center justify-center">
+            
+            <div className="w-96"></div>
 
             <PrimaryHeading>Capstoned</PrimaryHeading>
             
-			      <div className={`${styles.lottieWrapper} pl-7`}>
+			      <div className={`${styles.lottieWrapper}`}>
 
               <SpaceshipLottie src={`/spaceship.json`} />
             
