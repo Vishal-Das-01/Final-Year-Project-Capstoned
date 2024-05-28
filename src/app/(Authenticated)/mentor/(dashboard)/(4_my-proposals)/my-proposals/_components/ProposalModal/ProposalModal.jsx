@@ -14,6 +14,7 @@ import {
 import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
 import { uploadFile } from "@/utils/firebase/uploadFile";
 import { DocFileType } from "@/utils/constants/enums";
+import UniqueScoreButton from "./_components/UniqueScoreButton/UniqueScoreButton";
 
 function ProposalModal({
   setOpenModal,
@@ -63,6 +64,9 @@ function ProposalModal({
       if (proposalDoc.size > 5000000) {
         setMsg("File size should be less than 5MB.");
         setError(true);
+      } else if (proposalDoc.type !== "application/pdf") {
+        setMsg("File should be in PDF format only.");
+        setError(true);
       } else {
         setError(true);
         setMsg("Please, enter all details.");
@@ -91,7 +95,7 @@ function ProposalModal({
           proposalDoc,
           responseData.proposalID,
           "proposals/mentor/",
-          "application/pdf"
+          proposalDoc.type
         );
         const linkUpdateResponse = await callAPI(
           "PATCH",
@@ -139,7 +143,7 @@ function ProposalModal({
       aria-hidden="true"
       class="backdrop-blur-md flex h-screen bg-gray-500 bg-opacity-50 items-center justify-center overflow-x-hidden fixed z-50 w-full md:inset-0 max-h-full overflow-y-auto"
     >
-      <div class="p-4 w-full max-w-3xl max-h-full">
+      <div class="p-4 w-full max-w-4xl max-h-full">
         <div class="bg-white shadow">
           <div class="flex items-center justify-between p-4 md:p-5 rounded-t dark:border-gray-600">
             <h3 class="font-semibold text-base text-black">
@@ -187,6 +191,8 @@ function ProposalModal({
                 maxlength="50"
               />
               <p className="text-xs">{title.length}/50</p>
+              <div className="flex-1"></div>
+              <UniqueScoreButton title={title} description={description}/>
             </div>
 
             <label

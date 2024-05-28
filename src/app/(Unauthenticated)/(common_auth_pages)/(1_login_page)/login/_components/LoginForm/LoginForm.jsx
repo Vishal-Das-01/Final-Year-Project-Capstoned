@@ -14,6 +14,7 @@ import { setAuthDetails } from "@/provider/redux/features/AuthDetails";
 import { jwtDecode } from "jwt-decode";
 import styles from "./LoginForm.module.css";
 import { useRouter } from "next/navigation";
+import { HttpStatusCode } from "axios";
 
 export default function LoginForm() {
   const dispatch = useDispatch();
@@ -43,8 +44,7 @@ export default function LoginForm() {
         }),
       })
       const responseData = await response.json();
-      console.log(responseData);
-      if (response.status === 200) {
+      if (response.status === HttpStatusCode.Ok) {
         const { role, email, profileID } = jwtDecode(responseData.accessToken);
         dispatch(
           setAuthDetails({

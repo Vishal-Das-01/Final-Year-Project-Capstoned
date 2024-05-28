@@ -12,7 +12,6 @@ import Modal from "../../_components/Modal/Modal";
 import MilestoneRowContent from "./_components/MilestoneRowContent/MilestoneRowContent";
 import DataTableMessage from "../../_components/DataTableMessage/DataTableMessage";
 
-
 // Imports below for state management and api calls
 import { useEffect, useState } from "react";
 import { getAllMilestonesAPICall } from "@/utils/admin_frontend_api_calls/MilestoneAPICalls";
@@ -158,6 +157,8 @@ export default function AdminDashboardMilestonesPage(props){
 										content={<MilestoneRowContent 
 													data={milestone} 
 													dataID={milestone._id}
+													setModalContent={setModalContent}
+													setOpenModal={setOpenModal}
 												/>}
 									>
 

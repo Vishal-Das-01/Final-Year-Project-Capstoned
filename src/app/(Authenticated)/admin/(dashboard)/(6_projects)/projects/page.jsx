@@ -11,6 +11,7 @@ import ProjectsHeadingAndButton from "./_components/ProjectsHeadingAndButton/Pro
 import Modal from "../../_components/Modal/Modal";
 import ProjectsRowContent from "./_components/ProjectsRowContent/ProjectsRowContent";
 import DataTableMessage from "../../_components/DataTableMessage/DataTableMessage";
+import toast from 'react-hot-toast';
 
 // Imports below for state management and api calls
 import { useEffect, useState } from "react";
@@ -37,7 +38,6 @@ export default function AdminDashboardProjectsPage(props){
 	// for managing skeleton loading indicator 
 	// for managing when retrieved data is 0 in size
 	// for managing when error occurs in retrieval api call
-	// for managing when api button is pressed
 	const [openModal, setOpenModal]   = useState(false);
 	const [modalTitle, setModalTitle] = useState("");
 	const [modalContent, setModalContent] = useState("");
@@ -45,7 +45,6 @@ export default function AdminDashboardProjectsPage(props){
 	const [loadingIndicator, setLoadingIndicator] = useState(true);
 	const [retrievedDataIsZero, setRetrievedDataIsZero] = useState(false);
 	const [errorRetrievingData, setErrorRetrievingData] = useState(false);
-	const [buttonApiLoading, setButtonApiLoading] = useState(false);
 
 	// For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
@@ -86,22 +85,57 @@ export default function AdminDashboardProjectsPage(props){
 		}
 	}
 
+	// Delete this code below
+	function delay(seconds) {
+		return new Promise(resolve => setTimeout(resolve, seconds * 1000));
+	}
+	// Delete this code above
+
 	// API Call for marking a project finished
 	// whose id is passed
 	async function markProjectFinished(id){
 		let accessToken = authDetails.accessToken;
 		let apiURL = BACKEND_ROUTES.markProjectFinished + `${id}`;
-		setLoadingIndicator(true);
 
-		let apiResponse = await markProjectFinishedAPICall(apiURL, accessToken);
-		if(apiResponse.status === HttpStatusCode.Ok){
-			let apiResponseData = await apiResponse.json();
-			setProjects(apiResponseData);
-			// console.log("A:", apiResponseData);
+		try{
+
+			let apiResponse = await markProjectFinishedAPICall(apiURL, accessToken);
+			if(apiResponse.status === HttpStatusCode.Ok){
+				let apiResponseData = await apiResponse.json();
+				
+				console.log("markProjectFinished:", apiResponseData);
+				return apiResponseData;
+			}
+			else if (apiResponse.status === HttpStatusCode.Unauthorized) {
+				const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+					method: "POST",
+				});
+				if (responseLogOut.status === HttpStatusCode.Ok) {
+					dispatch(removeAuthDetails());
+					router.replace(FRONTEND_ROUTES.landing_page);
+				}
+				throw new Error('Unauthorized');
+			}
+			else{
+				console.log("markProjectFinished error:", apiResponse);
+				throw new Error(`Can't finalize project. Try again.`);
+			}
 		}
-		else{
-			console.log("B:", "error");
+		catch(error){
+			throw error;
 		}
+	}
+
+	// Calls toast message
+	function callToast(id){
+		toast.promise(
+			markProjectFinished(id),
+			{
+				loading: 'Marking project as finished...',
+				success: 'Project marked as finished!',
+				error: (err) => `Failed to mark project: ${err.message}`
+			}
+		);
 	}
 	
 	// API Call for displaying projects in the table 
@@ -168,6 +202,8 @@ export default function AdminDashboardProjectsPage(props){
 										content={<ProjectsRowContent 
 											data={project} 
 											dataID={project._id}
+											markProjectFinished={callToast}
+											setModalContent={setModalContent}
 										/>}
 									>
 

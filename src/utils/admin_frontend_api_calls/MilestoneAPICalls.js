@@ -28,3 +28,19 @@ export async function createNewMilestoneAPICall(route, token, data){
         console.log("createNewMilestoneAPICall: " + error);
     }
 }
+
+export async function updateMilestoneAPICall(route, token, data){
+    try{
+        let res = await fetch(route, {
+            method: "PATCH",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        });
+        return res;
+    }
+    catch(error){
+        console.log("updateMilestoneAPICall: " + error);
+    }
+}

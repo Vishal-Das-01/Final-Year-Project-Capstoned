@@ -3,12 +3,13 @@ import Milestone from "@/models/Milestone";
 import { HttpStatusCode } from "axios";
 import { NextResponse } from "next/server";
 
-export async function GET(request, { params }) {
+export async function GET(request) {
   await connectToDB();
 
   try {
-    const { searchParams } = new URL(request.url);
-    const year = searchParams.get("year");
+    const year = request.nextUrl.searchParams.get("page")
+
+    console.log(year)
 
     if (year) {
       const milestones = await Milestone.find({ year: year });

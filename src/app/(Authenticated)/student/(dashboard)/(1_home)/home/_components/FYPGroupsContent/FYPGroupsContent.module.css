@@ -1,10 +1,13 @@
-.contentHeadingWrapper{
-
+.contentCardContainer{
+	width: 90%;
+	height: 45%;
+	background-color: white;
+	box-shadow:  7px 7px 23px #c1c1c1,
+             -7px -7px 23px #ffffff;
 }
 
 .contentHeading{
 	font-size: 18px;
-	
 }
 
 .contentHeadingLine{
@@ -28,6 +31,6 @@
 	);
 }
 
-.fypGroupsWrapper{
+.fypGroupInfoWrapper{
 	width: 96.5%;
 }

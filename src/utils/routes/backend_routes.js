@@ -1,4 +1,9 @@
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3000/api";
+const ai_baseURL = process.env.NEXT_PUBLIC_AI_BACKEND_URL
+
+export const BACKEND_AI_ROUTES = {
+  uniqueIdeaDetection: `${ai_baseURL}/unique-idea-detection`,
+}
 
 export const BACKEND_ROUTES = {
   login: `${baseURL}/auth/login`,
@@ -33,6 +38,7 @@ export const BACKEND_ROUTES = {
 
   getAllMilestones: `${baseURL}/admin/milestone/get-all`, // (admin) milestones
   createMilestone: `${baseURL}/admin/milestone/create`, // (admin) milestones
+  updateMilestone: `${baseURL}/admin/milestone/update/`, // (admin) milestones
 
   createUser: `${baseURL}/admin/account/create`, // (admin) users
   getUsers: `${baseURL}/admin/user/get/`, // (admin) users
@@ -48,6 +54,7 @@ export const BACKEND_ROUTES = {
 
   createCompany: `${baseURL}/admin/company/create`, // (admin) companies
 
+  studentRequestProposal: `${baseURL}/student/group/proposal/select-deselect`, // (student) proposals
   studentSubmitMilestone: `${baseURL}/student/project/`, // (student) milestones
   getStudentProjects: `${baseURL}/student/project/get`, // (student) projects
   studentGetAllProposals: `${baseURL}/student/proposal/get/all`, // (student) proposals

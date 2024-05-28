@@ -24,7 +24,7 @@ function ProjectContent({projects}) {
         <div
           className={`${styles.fypProjectsWrapper}`}
         >
-            <ProgressBarChart projects={projects}/>
+            {projects.length > 0 && <ProgressBarChart projects={projects}/>}
         </div>
       </div>
     </div>

@@ -1,6 +1,5 @@
 .left{
 	width: 100%;
-	
 }
 
 .landingPage{
@@ -12,10 +11,9 @@
 }
 
 .lottieWrapper{
-	height: 300px;
+	/* height: 300px;
 	width: 320px;
-	position: absolute;
 	right: 280px;
-	top: 35px;
+	top: 35px; */
 	transform: rotate(90deg);
 }
