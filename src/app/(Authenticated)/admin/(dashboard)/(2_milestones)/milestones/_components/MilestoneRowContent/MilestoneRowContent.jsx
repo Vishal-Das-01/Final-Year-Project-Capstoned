@@ -3,11 +3,13 @@ import ModalContent from "../../../../_components/ModalContent/ModalContent";
 import ModalContentHeading from "../../../../_components/ModalContentHeading/ModalContentHeading";
 import ModalContentText from "../../../../_components/ModalContentText/ModalContentText";
 import ModalDataActionButton from "../../../../_components/ModalDataActionButton/ModalDataActionButton";
+import UpdateMilestoneForm from "../UpdateMilestoneForm/UpdateMilestoneForm";
 
 // Import below for getting proper date
 import { extractDate } from "@/utils/helpers/func"; 
 
-export default function MilestoneRowContent({dataID, data}){
+export default function MilestoneRowContent({dataID, data, setModalContent, setOpenModal}){
+    console.log("MilestoneRowContent", data, dataID);
 
     return (
         <div className={`w-full h-full`}>
@@ -78,7 +80,7 @@ export default function MilestoneRowContent({dataID, data}){
 
                     <ModalDataActionButton 
                         buttonText={"Update"} 
-                        buttonClickAction={null}
+                        buttonClickAction={() => setModalContent(<UpdateMilestoneForm setOpenModal={setOpenModal} data={data}/>)}
                         dataID={dataID}
                         isUpdate={true}
                     />

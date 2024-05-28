@@ -33,6 +33,7 @@ export const BACKEND_ROUTES = {
 
   getAllMilestones: `${baseURL}/admin/milestone/get-all`, // (admin) milestones
   createMilestone: `${baseURL}/admin/milestone/create`, // (admin) milestones
+  updateMilestone: `${baseURL}/admin/milestone/update/`, // (admin) milestones
 
   createUser: `${baseURL}/admin/account/create`, // (admin) users
   getUsers: `${baseURL}/admin/user/get/`, // (admin) users

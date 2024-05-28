@@ -108,10 +108,10 @@ export default function FYPGroupsRowContent({dataID, data}){
                 <div className={`flex flex-row items-end justify-end `} style={{height: "70px"}}>
 
                     <ModalDataActionButton 
-                        buttonText={"Update"} 
+                        buttonText={"Finalize"} 
                         buttonClickAction={null}
                         dataID={dataID}
-                        isUpdate={true}
+                        isUpdate={false}
                     />
 
                 </div>

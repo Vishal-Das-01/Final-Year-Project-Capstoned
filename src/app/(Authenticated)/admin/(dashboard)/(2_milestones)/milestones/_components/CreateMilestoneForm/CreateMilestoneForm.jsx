@@ -8,6 +8,7 @@ import FormActionButton from "../../../../_components/FormActionButton/FormActio
 import FormDateInput from "../../../../_components/FormDateInput/FormDateInput";
 import FormNumberInput from "../../../../_components/FormNumberInput/FormNumberInput";
 import FormTextArea from "../../../../_components/FormTextArea/FormTextArea";
+import toast from 'react-hot-toast';
 
 // Imports below for state management & api calls
 import { useEffect, useState } from "react";
@@ -101,24 +102,44 @@ export default function CreateMilestoneForm({setOpenModal}){
         let accessToken = authDetails.accessToken;
         let apiURL = BACKEND_ROUTES.createMilestone;
         
-        let apiCall = await createNewMilestoneAPICall(apiURL, accessToken, dataToSend);
-        if(apiCall.status === HttpStatusCode.Ok){
-            let apiCallResponse = await apiCall.json();
-            console.log("A", apiCallResponse);
+        try{
+            let apiCall = await createNewMilestoneAPICall(apiURL, accessToken, dataToSend);
+            if(apiCall.status === HttpStatusCode.Ok){
+                let apiCallResponse = await apiCall.json();
+                console.log("createNewMilestone", apiCallResponse);
+                return apiCallResponse;
+            }
+            else if (apiCall.status === HttpStatusCode.Unauthorized) {
+                const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+                    method: "POST",
+                });
+                if (responseLogOut.status === HttpStatusCode.Ok) {
+                    dispatch(removeAuthDetails());
+                    router.replace(FRONTEND_ROUTES.landing_page);
+                }
+                throw new Error('Unauthorized');
+            }
+            else{
+                console.log("createNewMilestone", apiCall);
+                throw new Error(`Can't create milestone. Try again.`);
+            }
         }
-        else if (apiCall.status === HttpStatusCode.Unauthorized) {
-			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
-			  method: "POST",
-			});
-			if (responseLogOut.status === HttpStatusCode.Ok) {
-			  dispatch(removeAuthDetails());
-			  router.replace(FRONTEND_ROUTES.landing_page);
-			}
-		}
-        else{
-            console.log("B", "Error");
+        catch(error){
+            throw error;
         }
     }
+
+    // Calls toast message
+	function callToast(event){
+		toast.promise(
+			submitForm(event),
+			{
+				loading: 'Creating milestone...',
+				success: 'Milestone created!',
+				error: (err) => `Failed to create milestone: ${err.message}`
+			}
+		);
+	}
 
     useEffect(() => {
         // console.log("A", milestone)
@@ -130,7 +151,7 @@ export default function CreateMilestoneForm({setOpenModal}){
             <form 
                 id={formId} 
                 className={`${styles.createMilestoneForm} flex flex-col items-center justify-start`} 
-                onSubmit={submitForm}
+                onSubmit={callToast}
             >
                 
                 <FormRow 
@@ -220,7 +241,7 @@ export default function CreateMilestoneForm({setOpenModal}){
                 >
                     <FormActionButton 
                         buttonText={`Save`}
-                        buttonClickAction={submitForm}
+                        buttonClickAction={callToast}
                         formId={formId}
                         isCancel={false}
                     />
