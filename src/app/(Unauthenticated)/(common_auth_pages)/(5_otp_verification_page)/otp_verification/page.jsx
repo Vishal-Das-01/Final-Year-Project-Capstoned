@@ -8,6 +8,7 @@ export const metadata = {
 };
 
 export default function OTPVerificationPage(props){
+
 	return (
 		<div className="w-full h-full flex items-center justify-center">
 

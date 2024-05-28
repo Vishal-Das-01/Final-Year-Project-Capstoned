@@ -13,7 +13,6 @@ export const POST = async (request) => {
     try {
 
         const user = await User.findOne({ email }).select("email");
-
         if(!user) {
             return NextResponse.json({ message: "User not found." }, { status: HttpStatusCode.NotFound });
         }

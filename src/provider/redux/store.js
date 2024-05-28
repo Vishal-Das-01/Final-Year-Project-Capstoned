@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import AuthDetailsReducer from "./features/AuthDetails";
 import ProfileReducer from "./features/Profile";
+import OTPEmailReducer from "./features/OTPEmail";
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistReducer } from "redux-persist";
 import persistStore from "redux-persist/es/persistStore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -17,6 +18,7 @@ if (isClient) {
     const rootReducer = combineReducers({
         AuthDetails: AuthDetailsReducer,
         Profile: ProfileReducer,
+        OTPEmail: OTPEmailReducer
     })
 
     mainReducer = persistReducer(persistConfig, rootReducer);
