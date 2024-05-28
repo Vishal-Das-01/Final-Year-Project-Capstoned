@@ -2,12 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { PiSealCheckFill } from "react-icons/pi";
 import { PiSealFill } from "react-icons/pi";
-import { FaDownload } from "react-icons/fa6";
-import { MdCancel, MdCheckCircle, MdDescription, MdEdit } from "react-icons/md";
-import { MdDelete } from "react-icons/md";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
-import { FaCheckCircle, FaCross } from "react-icons/fa";
 import { convertDate } from "@/utils/helpers/date";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +13,7 @@ import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import { HttpStatusCode } from "axios";
 import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
 import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
-import { set } from "mongoose";
+import DownloadButton from "../DownloadButton/DownloadButton";
 
 function ProposalRow({
   proposalID,
@@ -127,14 +123,7 @@ function ProposalRow({
         </td>
         <td class="px-2 py-3 w-2/12">
           <div className="text-center justify-center items-center flex flex-row text-xl">
-            <a
-              href={proposalDoc?.file}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-black hover:text-blue-600"
-            >
-              <FaDownload />
-            </a>
+            <DownloadButton fileName={title} fileUrl={proposalDoc?.file}/>
           </div>
         </td>
         <td class="px-2 py-3 w-1/12">

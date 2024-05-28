@@ -5,15 +5,11 @@ import styles from "./SpaceshipLottie.module.css"
 
 export default function SpaceshipLottie({src}){
 	return (
-		<div className={`h-full w-full flex flex-row items-start justify-start`}>
-
 			<Player
 		        src={src}
-		        className="player"
+		        className="player h-96 w-96"
 		        loop
   				autoplay
 	      	/>
-		
-		</div>
 	);
 }

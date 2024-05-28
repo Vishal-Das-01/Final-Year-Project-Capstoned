@@ -1,4 +1,9 @@
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3000/api";
+const ai_baseURL = process.env.NEXT_PUBLIC_AI_BACKEND_URL
+
+export const BACKEND_AI_ROUTES = {
+  uniqueIdeaDetection: `${ai_baseURL}/unique-idea-detection`,
+}
 
 export const BACKEND_ROUTES = {
   login: `${baseURL}/auth/login`,
