@@ -4,12 +4,7 @@ import ModalContentHeading from "../../../../_components/ModalContentHeading/Mod
 import ModalContentText from "../../../../_components/ModalContentText/ModalContentText";
 import ModalDataActionButton from "../../../../_components/ModalDataActionButton/ModalDataActionButton";
 
-// Import below for getting proper date
-import { extractDate } from "@/utils/helpers/func"; 
-
-export default function ProjectsRowContent({dataID, data}){
-    console.log("ProjectsRowContent", data);
-    
+export default function ProjectsRowContent({dataID, data, markProjectFinished, setModalContent}){
     return (
         <div className={`w-full h-full`}>
 
@@ -117,18 +112,19 @@ export default function ProjectsRowContent({dataID, data}){
 
                     <ModalDataActionButton 
                         buttonText={"Update"} 
-                        buttonClickAction={null}
+                        buttonClickAction={() => setModalContent(<div>Hello</div>)}
                         dataID={dataID}
                         isUpdate={true}
                     />
 
                     <ModalDataActionButton 
                         buttonText={"Mark Finished"} 
-                        buttonClickAction={null}
+                        buttonClickAction={() => {markProjectFinished(dataID)} }
                         dataID={dataID}
                         isUpdate={false}
                     />
 
+                    
                 </div>
 
             </ModalContent>

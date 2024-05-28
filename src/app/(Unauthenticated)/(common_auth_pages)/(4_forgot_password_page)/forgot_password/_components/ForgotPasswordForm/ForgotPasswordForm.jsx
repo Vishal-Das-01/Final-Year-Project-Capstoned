@@ -8,8 +8,11 @@ import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import styles from "./ForgotPasswordForm.module.css";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { setOTPEmail } from "@/provider/redux/features/OTPEmail";
 
 export default function ForgotPasswordForm() {
+  const dispatch = useDispatch();
   const router = useRouter();
 
   const [isPending, setIsPending] = useState(false);
@@ -38,7 +41,10 @@ export default function ForgotPasswordForm() {
       const responseData = await response.json();
 
       if(response.status === 200) {
+        dispatch(setOTPEmail({ email : email }));
+
         toast.success(responseData.message);
+
         router.replace(FRONTEND_ROUTES.otp_verification_page);
       }
       else {

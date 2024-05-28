@@ -20,7 +20,18 @@ export const POST = async (request) => {
             return NextResponse.json({ message: "Invalid request." }, { status: HttpStatusCode.InternalServerError });
         }
 
-        if(existingOTP.expiresAt < new Date() || (existingOTP.expiresAt >= new Date() && existingOTP.otp != otp)) {
+        if(existingOTP.expiresAt < new Date()) {
+            return NextResponse.json({ message: "OTP has expired." }, { status: HttpStatusCode.BadRequest }); 
+        } 
+        
+        if(existingOTP.attempts === 3) {
+            return NextResponse.json({ message: "Invalid attempts exceeded." }, { status: HttpStatusCode.Forbidden }); 
+        }
+
+        if(existingOTP.expiresAt >= new Date() && existingOTP.otp != otp) {
+            existingOTP.attempts++
+            await existingOTP.save()
+
             return NextResponse.json({ message: "Invalid OTP." }, { status: HttpStatusCode.BadRequest }); 
         } 
         
@@ -45,8 +56,8 @@ export const POST = async (request) => {
         await OTP.findOneAndDelete({ email });
 
         return NextResponse.json({
-            message: 'User authenticated',
-            accessToken: accessToken,
+            message: 'Verification successful',
+            accessToken,
             user: {
                 firstLogin: user.firstLogin,
                 profileID: user.profileID

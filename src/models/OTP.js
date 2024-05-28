@@ -12,6 +12,13 @@ const otpSchema = new Schema({
         min: 100000,
         max: 999999,
     },
+    attempts: {
+        type: Number,
+        default: 0,
+        min: 0,
+        max: 3,
+        required: true
+    },
     createdAt: {
         type: Date,
         default: Date.now,

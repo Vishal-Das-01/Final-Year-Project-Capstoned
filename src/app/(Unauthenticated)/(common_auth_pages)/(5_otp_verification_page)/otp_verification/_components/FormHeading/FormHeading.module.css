@@ -2,82 +2,40 @@
   margin-bottom: 7px;
 }
 
-.secondStyledDivLineWrapper{
-  margin-top: 7px;
-}
-
 .styledDivLine{
 	height: 4px;
 	width: 80px;
 	background-image: linear-gradient(
 	  90deg,
 	  hsl(0deg 0% 83%) 0%,
-	  hsl(344deg 0% 77%) 8%,
-	  hsl(344deg 0% 72%) 17%,
-	  hsl(0deg 0% 66%) 25%,
-	  hsl(210deg 1% 62%) 33%,
-	  hsl(210deg 2% 57%) 42%,
-	  hsl(210deg 3% 52%) 50%,
-	  hsl(210deg 2% 52%) 58%,
-	  hsl(210deg 1% 51%) 67%,
-	  hsl(0deg 0% 50%) 75%,
-	  hsl(344deg 0% 44%) 83%,
-	  hsl(344deg 0% 38%) 92%,
-	  hsl(0deg 0% 32%) 100%
-	);
-
-	background-image: linear-gradient(
-	  90deg,
-	  hsl(217deg 87% 91%) 0%,
-	  hsl(218deg 93% 82%) 8%,
-	  hsl(219deg 93% 72%) 17%,
-	  hsl(217deg 91% 60%) 25%,
-	  hsl(218deg 72% 52%) 33%,
-	  hsl(218deg 72% 45%) 42%,
-	  hsl(217deg 86% 36%) 50%,
-	  hsl(217deg 87% 33%) 58%,
-	  hsl(217deg 88% 31%) 67%,
-	  hsl(217deg 89% 28%) 75%,
-	  hsl(215deg 96% 21%) 83%,
-	  hsl(215deg 94% 16%) 92%,
-	  hsl(217deg 87% 12%) 100%
-	);
-}
-
-.secondStyledDivLine{
-	height: 4px;
-	width: 80px;
-	background-image: linear-gradient(
-	  90deg,
-	  hsl(0deg 0% 32%) 0%,
-	  hsl(344deg 0% 38%) 8%,
-	  hsl(344deg 0% 44%) 17%,
-	  hsl(0deg 0% 50%) 25%,
+	  hsl(344deg 0% 72%) 8%,
+	  hsl(210deg 1% 62%) 17%,
+	  hsl(210deg 3% 52%) 25%,
 	  hsl(210deg 1% 51%) 33%,
-	  hsl(210deg 2% 52%) 42%,
-	  hsl(210deg 3% 52%) 50%,
-	  hsl(210deg 2% 57%) 58%,
-	  hsl(210deg 1% 62%) 67%,
-	  hsl(0deg 0% 66%) 75%,
-	  hsl(344deg 0% 72%) 83%,
-	  hsl(344deg 0% 77%) 92%,
+	  hsl(344deg 0% 44%) 42%,
+	  hsl(0deg 0% 32%) 50%,
+	  hsl(344deg 0% 44%) 58%,
+	  hsl(210deg 1% 51%) 67%,
+	  hsl(210deg 3% 52%) 75%,
+	  hsl(210deg 1% 62%) 83%,
+	  hsl(344deg 0% 72%) 92%,
 	  hsl(0deg 0% 83%) 100%
 	);
 
 	background-image: linear-gradient(
 	  90deg,
-	  hsl(217deg 87% 12%) 0%,
-	  hsl(215deg 94% 16%) 8%,
-	  hsl(215deg 96% 21%) 17%,
-	  hsl(217deg 89% 28%) 25%,
+	  hsl(217deg 87% 91%) 0%,
+	  hsl(219deg 93% 72%) 8%,
+	  hsl(218deg 72% 52%) 17%,
+	  hsl(217deg 86% 36%) 25%,
 	  hsl(217deg 88% 31%) 33%,
-	  hsl(217deg 87% 33%) 42%,
-	  hsl(217deg 86% 36%) 50%,
-	  hsl(218deg 72% 45%) 58%,
-	  hsl(218deg 72% 52%) 67%,
-	  hsl(217deg 91% 60%) 75%,
-	  hsl(219deg 93% 72%) 83%,
-	  hsl(218deg 93% 82%) 92%,
+	  hsl(215deg 96% 21%) 42%,
+	  hsl(217deg 87% 12%) 50%,
+	  hsl(215deg 96% 21%) 58%,
+	  hsl(217deg 88% 31%) 67%,
+	  hsl(217deg 86% 36%) 75%,
+	  hsl(218deg 72% 52%) 83%,
+	  hsl(219deg 93% 72%) 92%,
 	  hsl(217deg 87% 91%) 100%
 	);
 }

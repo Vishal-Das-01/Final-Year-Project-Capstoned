@@ -1,7 +1,7 @@
 "use client";
 
 // Imports below for creating ui
-import styles from "./CreateMilestoneForm.module.css";
+import styles from "./UpdateMilestoneForm.module.css";
 import FormTextInput from "../../../../_components/FormTextInput/FormTextInput";
 import FormRow from "../../../../_components/FormRow/FormRow";   
 import FormActionButton from "../../../../_components/FormActionButton/FormActionButton"; 
@@ -15,24 +15,24 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { HttpStatusCode } from "axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
-import { createNewMilestoneAPICall } from "@/utils/admin_frontend_api_calls/MilestoneAPICalls";
+import { updateMilestoneAPICall } from "@/utils/admin_frontend_api_calls/MilestoneAPICalls";
 import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
 import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 
-export default function CreateMilestoneForm({setOpenModal}){
-    let formId = `createMilestoneForm`;
+export default function UpdateMilestoneForm({setOpenModal, data}){
+    let formId = `updateMilestoneForm`;
 
     // For managing state of entire milestone
     const [milestone, setMilestone] = useState({
-        "assignmentNumber"   : "",
-        "title"              : "",
-        "description"        : "",
-        "deadline"           : "",
-        "percentage"         : "",
+        "assignmentNumber"   : data.assignmentNumber,
+        "title"              : data.title,
+        "description"        : data.description,
+        "deadline"           : data.deadline,
+        "percentage"         : data.percentage,
         "resources"          : [],
-        "year"               : "",
+        "year"               : data.year,
     });
 
     // For access token retrieval
@@ -100,13 +100,13 @@ export default function CreateMilestoneForm({setOpenModal}){
         event.preventDefault();
         let dataToSend = milestone;
         let accessToken = authDetails.accessToken;
-        let apiURL = BACKEND_ROUTES.createMilestone;
-        
+        let apiURL = BACKEND_ROUTES.updateMilestone + `${data._id}`;
+
         try{
-            let apiCall = await createNewMilestoneAPICall(apiURL, accessToken, dataToSend);
+            let apiCall = await updateMilestoneAPICall(apiURL, accessToken, dataToSend);
             if(apiCall.status === HttpStatusCode.Ok){
                 let apiCallResponse = await apiCall.json();
-                console.log("createNewMilestone", apiCallResponse);
+                console.log("updateMilestone:", apiCallResponse);
                 return apiCallResponse;
             }
             else if (apiCall.status === HttpStatusCode.Unauthorized) {
@@ -120,8 +120,8 @@ export default function CreateMilestoneForm({setOpenModal}){
                 throw new Error('Unauthorized');
             }
             else{
-                console.log("createNewMilestone", apiCall);
-                throw new Error(`Can't create milestone. Try again.`);
+                console.log("updateMilestone:", apiCall);
+                throw new Error(`Can't update milestone. Try again.`);
             }
         }
         catch(error){
@@ -134,23 +134,24 @@ export default function CreateMilestoneForm({setOpenModal}){
 		toast.promise(
 			submitForm(event),
 			{
-				loading: 'Creating milestone...',
-				success: 'Milestone created!',
-				error: (err) => `Failed to create milestone: ${err.message}`
+				loading: 'Updating milestone...',
+				success: 'Milestone updated!',
+				error: (err) => `Failed to update milestone: ${err.message}`
 			}
 		);
 	}
 
+    // For testing only
     useEffect(() => {
-        // console.log("A", milestone)
+        // console.log("UpdateMilestoneForm:", milestone)
     }, [milestone])
 
     return (
-        <div className={`${styles.createMilestoneFormPrimaryContainer} w-full `}>
+        <div className={`${styles.updateMilestoneFormPrimaryContainer} w-full `}>
 
             <form 
                 id={formId} 
-                className={`${styles.createMilestoneForm} flex flex-col items-center justify-start`} 
+                className={`${styles.updateMilestoneForm} flex flex-col items-center justify-start`} 
                 onSubmit={callToast}
             >
                 
@@ -190,6 +191,7 @@ export default function CreateMilestoneForm({setOpenModal}){
                         placeholderText="Milestone Deadline"
                         isRequired={true}
                         setState={setMilestone} 
+                        value={milestone.deadline}
                     />
 
                     <FormNumberInput 
