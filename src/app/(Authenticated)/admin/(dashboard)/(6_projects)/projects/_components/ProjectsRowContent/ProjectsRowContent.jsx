@@ -4,7 +4,7 @@ import ModalContentHeading from "../../../../_components/ModalContentHeading/Mod
 import ModalContentText from "../../../../_components/ModalContentText/ModalContentText";
 import ModalDataActionButton from "../../../../_components/ModalDataActionButton/ModalDataActionButton";
 
-export default function ProjectsRowContent({dataID, data, markProjectFinished}){
+export default function ProjectsRowContent({dataID, data, markProjectFinished, setModalContent}){
     return (
         <div className={`w-full h-full`}>
 
@@ -112,7 +112,7 @@ export default function ProjectsRowContent({dataID, data, markProjectFinished}){
 
                     <ModalDataActionButton 
                         buttonText={"Update"} 
-                        buttonClickAction={null}
+                        buttonClickAction={() => setModalContent(<div>Hello</div>)}
                         dataID={dataID}
                         isUpdate={true}
                     />

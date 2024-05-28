@@ -2,7 +2,7 @@
 
 import styles from "./ModalDataActionButton.module.css";
 
-export default function ModalDataActionButton({buttonText, buttonClickAction, dataID, isUpdate, buttonApiLoading}){
+export default function ModalDataActionButton({buttonText, buttonClickAction, dataID, isUpdate}){
     
     function btnStyling(){
         if(!isUpdate)

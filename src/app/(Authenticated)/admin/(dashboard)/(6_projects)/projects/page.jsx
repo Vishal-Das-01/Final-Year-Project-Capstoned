@@ -203,6 +203,7 @@ export default function AdminDashboardProjectsPage(props){
 											data={project} 
 											dataID={project._id}
 											markProjectFinished={callToast}
+											setModalContent={setModalContent}
 										/>}
 									>
 
