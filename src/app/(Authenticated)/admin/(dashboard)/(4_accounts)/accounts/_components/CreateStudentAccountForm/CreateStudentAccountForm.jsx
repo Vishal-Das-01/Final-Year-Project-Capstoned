@@ -8,6 +8,7 @@ import FormTextInput from "../../../../_components/FormTextInput/FormTextInput";
 import FormNumberInput from "../../../../_components/FormNumberInput/FormNumberInput";
 import FormDropDownSelect from "../../../../_components/FormDropDownSelect/FormDropDownSelect";
 import FormEmailInput from "../../../../_components/FormEmailInput/FormEmailInput";
+import toast from 'react-hot-toast';
 
 // Imports for state management
 import { useState } from "react";
@@ -131,25 +132,44 @@ export default function CreateStudentAccountForm({setOpenModal}){
         let accessToken = authDetails.accessToken;
         let apiURL = BACKEND_ROUTES.createUser;
         
-        let apiCall = await createAccountAPICall(apiURL, accessToken, dataToSend);
-        if(apiCall.status === HttpStatusCode.Ok){
-            let apiCallResponse = await apiCall.json();
-            console.log("A", apiCallResponse);
+        try{
+            let apiCall = await createAccountAPICall(apiURL, accessToken, dataToSend);
+            if(apiCall.status === HttpStatusCode.Ok){
+                let apiCallResponse = await apiCall.json();
+                console.log("createStudentAccount", apiCallResponse);
+                return apiCallResponse;
+            }
+            else if (apiCall.status === HttpStatusCode.Unauthorized) {
+                const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+                    method: "POST",
+                });
+                if (responseLogOut.status === HttpStatusCode.Ok) {
+                    dispatch(removeAuthDetails());
+                    router.replace(FRONTEND_ROUTES.landing_page);
+                }
+                throw new Error('Unauthorized');
+            }
+            else{
+                console.log("createStudentAccount error", apiCall);
+                throw new Error(`Can't create student account. Try again.`);
+            }
         }
-        else if (apiCall.status === HttpStatusCode.Unauthorized) {
-			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
-			  method: "POST",
-			});
-			if (responseLogOut.status === HttpStatusCode.Ok) {
-			  dispatch(removeAuthDetails());
-			  router.replace(FRONTEND_ROUTES.landing_page);
-			}
-		}
-        else{
-            console.log("B", "Error");
+        catch(error){
+            throw error;
         }
     }
 
+    // Calls toast message
+	function callToast(event){
+		toast.promise(
+			submitForm(event),
+			{
+				loading: 'Creating new student account...',
+				success: 'Student account created!',
+				error: (err) => `Failed to create student account: ${err.message}`
+			}
+		);
+	}
 
     return (
         <div className={`${styles.createStudentAccountFormPrimaryContainer} w-full `}>
@@ -157,7 +177,7 @@ export default function CreateStudentAccountForm({setOpenModal}){
             <form 
                 id={formId} 
                 className={`${styles.createStudentAccountForm} flex flex-col items-center justify-start`}
-                onSubmit={submitForm}
+                onSubmit={callToast}
             >
 
                 <FormRow
@@ -285,7 +305,7 @@ export default function CreateStudentAccountForm({setOpenModal}){
                     
                     <FormActionButton 
                         buttonText={`Save`}
-                        buttonClickAction={submitForm}
+                        buttonClickAction={callToast}
                         formId={formId}
                         isCancel={false}
                     />

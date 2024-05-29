@@ -11,10 +11,11 @@ import TableBodyDataCell from "../../_components/TableBodyDataCell/TableBodyData
 import Modal from "../../_components/Modal/Modal";
 import FYPGroupsRowContent from "./_components/FYPGroupsRowContent/FYPGroupsRowContent";
 import DataTableMessage from "../../_components/DataTableMessage/DataTableMessage";
+import toast from "react-hot-toast";
 
 // Imports below for state management and api calls
 import { useEffect, useState } from "react";
-import { getFYPGroupsAPICall, finalizeAllFYPGroupsAPICall } from "@/utils/admin_frontend_api_calls/FYPGroupsAPICalls";
+import { getFYPGroupsAPICall, finalizeAllFYPGroupsAPICall, finalizeFYPGroupAPICall, unfinalizeFYPGroupAPICall } from "@/utils/admin_frontend_api_calls/FYPGroupsAPICalls";
 import { useSelector } from "react-redux";
 import { HttpStatusCode } from "axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
@@ -75,8 +76,9 @@ export default function AdminDashboardFYPGroupsPage(props){
 			  method: "POST",
 			});
 			if (responseLogOut.status === HttpStatusCode.Ok) {
-			  dispatch(removeAuthDetails());
-			  router.replace(FRONTEND_ROUTES.landing_page);
+				toast.error("Not authorized");
+			  	dispatch(removeAuthDetails());
+			  	router.replace(FRONTEND_ROUTES.landing_page);
 			}
 		}
 		else{
@@ -96,21 +98,113 @@ export default function AdminDashboardFYPGroupsPage(props){
 			setButtonApiLoading(false);
 			let apiResponseData = await apiResponse.json();
 			console.log("finalizeAllFYPGroups:", apiResponseData);
+			toast.success("All groups finalized!");
 		}
 		else if (apiResponse.status === HttpStatusCode.Unauthorized) {
 			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
 			  method: "POST",
 			});
 			if (responseLogOut.status === HttpStatusCode.Ok) {
-			  dispatch(removeAuthDetails());
-			  router.replace(FRONTEND_ROUTES.landing_page);
+				toast.error("Not Authorized");
+			  	dispatch(removeAuthDetails());
+			  	router.replace(FRONTEND_ROUTES.landing_page);
 			}
 		}
 		else{
 			setButtonApiLoading(false);
-
-			console.log("finalizeAllFYPGroups error:", "error");
+			console.log("finalizeAllFYPGroups error:", apiResponse);
+			toast.error("Groups not finalized. Try again.");
 		}
+	}
+
+	// API call for finalizing particular group
+	async function finalizeFYPGroup(id){
+		let accessToken = authDetails.accessToken;
+		let apiURL = BACKEND_ROUTES.finalizeGroup + `${id}`;
+
+		try{
+			let apiResponse = await finalizeFYPGroupAPICall(apiURL, accessToken);
+			if(apiResponse.status === HttpStatusCode.Ok){
+				let apiResponseData = await apiResponse.json();
+				console.log("finalizeFYPGroup:", apiResponseData);
+				return apiResponseData;
+			}
+			else if (apiResponse.status === HttpStatusCode.Unauthorized) {
+				const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+					method: "POST",
+				});
+				if (responseLogOut.status === HttpStatusCode.Ok) {
+					dispatch(removeAuthDetails());
+					router.replace(FRONTEND_ROUTES.landing_page);
+				}
+				throw new Error('Unauthorized');
+			}
+			else{
+				console.log("finalizeFYPGroup error:", apiResponse);
+				throw new Error(`Can't finalize group. Try again.`);
+			}
+		}
+		catch(error){
+			throw error;
+		}
+	}
+
+	// API call for unfinalizing particular group
+	async function unfinalizeFYPGroup(id){
+		let accessToken = authDetails.accessToken;
+		let apiURL = BACKEND_ROUTES.unfinalizeGroup + `${id}`;
+
+		try{
+
+			let apiResponse = await unfinalizeFYPGroupAPICall(apiURL, accessToken);
+			if(apiResponse.status === HttpStatusCode.Ok){
+				let apiResponseData = await apiResponse.json();
+				console.log("unfinalizeFYPGroup:", apiResponseData);
+				return apiResponseData;
+			}
+			else if (apiResponse.status === HttpStatusCode.Unauthorized) {
+				const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+					method: "POST",
+				});
+				if (responseLogOut.status === HttpStatusCode.Ok) {
+					toast.error("Not Authorized");
+					dispatch(removeAuthDetails());
+					router.replace(FRONTEND_ROUTES.landing_page);
+				}
+				throw new Error('Unauthorized');
+			}
+			else{
+				console.log("unfinalizeFYPGroup error:", apiResponse);
+				throw new Error(`Can't unfinalize group. Try again.`);
+			}
+		}
+		catch(error){
+			throw error;
+		}
+	}
+
+	// Calls toast message when group finalized
+	function callFinalizeGroupToast(id){
+		toast.promise(
+			finalizeFYPGroup(id),
+			{
+				loading: 'Finalizing group...',
+				success: 'Group finalized!',
+				error: (err) => `Failed to finalize group. Try again.`
+			}
+		);
+	}
+
+	// Calls toast message when group unfinalized
+	function callUnfinalizeGroupToast(id){
+		toast.promise(
+			unfinalizeFYPGroup(id),
+			{
+				loading: 'Unfinalizing group...',
+				success: 'Group unfinalized!',
+				error: (err) => `Failed to unfinalize group. Try again.`
+			}
+		);
 	}
 
 	// API Call for displaying fyp-groups in the table 
@@ -187,6 +281,8 @@ export default function AdminDashboardFYPGroupsPage(props){
 										content={<FYPGroupsRowContent 
 											data={group} 
 											dataID={group._id}
+											callFinalizeGroupToast={callFinalizeGroupToast}
+											callUnfinalizeGroupToast={callUnfinalizeGroupToast}
 										/>}
 									>
 
