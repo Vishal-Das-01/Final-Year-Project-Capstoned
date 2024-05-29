@@ -33,11 +33,15 @@ export default function AdminDashboardCompaniesPage(props){
 	// for managing modal content
 	// for managing companies shown in the table
 	// for managing skeleton loading indicator 
+	// for managing when retrieved data is 0 in size
+	// for managing when error occurs in retrieval api call
 	const [openModal, setOpenModal]   = useState(false);
 	const [modalTitle, setModalTitle] = useState("");
 	const [modalContent, setModalContent] = useState("");
 	const [companies, setCompanies] = useState([]);
 	const [loadingIndicator, setLoadingIndicator] = useState(true);
+	const [retrievedDataIsZero, setRetrievedDataIsZero] = useState(false);
+	const [errorRetrievingData, setErrorRetrievingData] = useState(false);
 
 	// For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
@@ -55,11 +59,11 @@ export default function AdminDashboardCompaniesPage(props){
 		setLoadingIndicator(true);
 
 		let apiResponse = await getCompaniesAPICall(apiURL, accessToken);
-		// console.log("HERE ", apiResponse);
 		if(apiResponse.status === HttpStatusCode.Ok){
 			let apiResponseData = await apiResponse.json();
+			setLoadingIndicator(false);
 			setCompanies(apiResponseData.data.companies);
-			// console.log("A:", apiResponseData);
+			console.log("fetchAllCompanies:", apiResponseData);
 		}
 		else if (apiResponse.status === HttpStatusCode.Unauthorized) {
 			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
@@ -71,7 +75,8 @@ export default function AdminDashboardCompaniesPage(props){
 			}
 		}
 		else{
-			console.log("B:", "error");
+			setErrorRetrievingData(true);
+			console.log("fetchAllCompanies error:", apiResponse);
 		}
 	}
 
@@ -81,15 +86,19 @@ export default function AdminDashboardCompaniesPage(props){
 		fetchAllCompanies();
 	}, [])
 
-
-	// Turn skeleton loading indicator off when 
-	// companies are fetched successfully
+	// When retrieved data is 0 in size.
 	useEffect(() => {
-		if(companies.length > 0){
+		if(companies.length === 0){
+			setRetrievedDataIsZero(true);
+		}
+	}, [companies]);
+
+	// When error occurs in retrieving data.
+	useEffect(() => {
+		if(errorRetrievingData){
 			setLoadingIndicator(false);
 		}
-		console.log("A:", companies)
-	}, [companies]);
+	}, [errorRetrievingData])
 
 	return (
 		<div className={`${styles.primaryContainer} flex flex-row items-center justify-center w-full h-full`}>

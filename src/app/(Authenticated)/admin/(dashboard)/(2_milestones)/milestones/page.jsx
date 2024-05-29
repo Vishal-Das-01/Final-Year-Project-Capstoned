@@ -66,8 +66,8 @@ export default function AdminDashboardMilestonesPage(props){
 
 		let apiResponse = await getAllMilestonesAPICall(apiURL, apiCallMethod, accessToken);
 		if(apiResponse.status === HttpStatusCode.Ok){
-			setLoadingIndicator(false);
 			let apiResponseData = await apiResponse.json();
+			setLoadingIndicator(false);
 			setMilestones(apiResponseData);
 
 			console.log("getAllMilestones:", apiResponseData);
