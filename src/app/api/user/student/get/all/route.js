@@ -9,17 +9,16 @@ export const GET = async (request) => {
 
     try {
         const { page, limit, skip } = paginationParams(
-            {page: request.nextUrl.searchParams.get('page'), limit: request.nextUrl.searchParams.get('limit')}
+            { page: request.nextUrl.searchParams.get('page'), limit: request.nextUrl.searchParams.get('limit') }
         )
 
-        const students = await Student.find().select('studentID firstName lastName gender').
-        skip(skip).limit(limit);
+        const students = await Student.find().select('studentID firstName lastName gender profileImage gpa group resume industriesOfInterest').populate('group', 'name').sort({ firstName: 1 }).skip(skip).limit(limit);
 
         const totalStudents = await Student.countDocuments();
-        const totalPages = Math.ceil(totalStudents/limit);
+        const totalPages = Math.ceil(totalStudents / limit);
 
-        return NextResponse.json({message: "Success.", data: {page, totalStudents, totalPages, students}}, {status: HttpStatusCode.Ok});
+        return NextResponse.json({ message: "Success.", data: { page, totalStudents, totalPages, students } }, { status: HttpStatusCode.Ok });
     } catch (error) {
-        return NextResponse.json({message: "Failed to retrieve students."}, {status: HttpStatusCode.InternalServerError});
+        return NextResponse.json({ message: "Failed to retrieve students." }, { status: HttpStatusCode.InternalServerError });
     }
 }
