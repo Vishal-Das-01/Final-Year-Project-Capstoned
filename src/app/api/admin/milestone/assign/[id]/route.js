@@ -13,6 +13,19 @@ export async function POST(request, { params }) {
     try {
         const id = params.id;
 
+        const milestoneToAssign = await Milestone.findById(id);
+
+        const allMilestones = await Milestone.find({year: milestoneToAssign.year, assigned: true});
+
+        let percentage = 0;
+        for( const mile of allMilestones) {
+            percentage = percentage + mile.percentage;
+        }
+
+        if (percentage + milestone.percentage > 100) {
+            return NextResponse.json({ message: 'The total weightage of milestones cannot exceed 100%' }, { status: HttpStatusCode.BadRequest });
+        }
+
         const projects = await Project.find({finished: false})
                     .populate('milestones', 'milestoneID')
                     .populate("group","lead members")

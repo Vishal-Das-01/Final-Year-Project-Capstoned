@@ -61,7 +61,7 @@ export async function POST(request, { params }) {
       proposal: id,
       group: group._id,
       milestones: [],
-      year: new Date().getFullYear(),
+      year: (new Date().getFullYear()),
     });
 
     const proposal = await Proposal.findById(id).select("proposer proposedBy mentorship");

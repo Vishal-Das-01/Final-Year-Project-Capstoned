@@ -28,7 +28,7 @@ export default async function MentorDashboardHomePage() {
     <div  
       className={`${styles.primaryContainer} flex flex-col items-center justify-center`}
     >
-      <div className="w-full h-1/2 flex flex-row items-center justify-around">
+      <div className="flex flex-row items-center justify-around w-full h-1/2">
         <ContentCard>
           <WelcomeContent name={dashboardDetails.data.firstName + ' ' + dashboardDetails.data.lastName} deadlineCount={2} meetingCount={4} />
         </ContentCard>
@@ -36,7 +36,7 @@ export default async function MentorDashboardHomePage() {
         <ProjectContent projects={projectsContent}/>
       </div>
 
-      <div className="w-full h-1/2 flex flex-row items-center justify-around">
+      <div className="flex flex-row items-center justify-around w-full h-1/2">
         <FYPGroupsContent groups={dashboardDetails.data.groups}/>
 
         <ContentCard>
@@ -50,7 +50,13 @@ export default async function MentorDashboardHomePage() {
 }
 
 async function getDashboardDetails(){
-  const year = new Date().getFullYear();
+  var year = new Date().getFullYear();
+  const month = new Date().getMonth();
+  
+  if(month > 6){
+    year = year + 1;
+  }
+
   const accessToken = cookies().get('accessToken')?.value;
   const response = await callAPI(
     "GET",

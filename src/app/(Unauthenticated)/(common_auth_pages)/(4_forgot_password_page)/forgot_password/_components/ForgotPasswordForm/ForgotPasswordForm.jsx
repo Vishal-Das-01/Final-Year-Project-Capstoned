@@ -37,17 +37,16 @@ export default function ForgotPasswordForm() {
         body: JSON.stringify({
           email: email,
         }),
-      })
+      });
       const responseData = await response.json();
 
-      if(response.status === 200) {
-        dispatch(setOTPEmail({ email : email }));
+      if (response.status === 200) {
+        dispatch(setOTPEmail({ email: email }));
 
         toast.success(responseData.message);
 
         router.replace(FRONTEND_ROUTES.otp_verification_page);
-      }
-      else {
+      } else {
         toast.error(responseData.message);
       }
     } catch (error) {
@@ -60,7 +59,7 @@ export default function ForgotPasswordForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col w-full items-center justify-center mt-3"
+      className="flex flex-col items-center justify-center w-full mt-3"
     >
       <TextInput
         label="Email"
