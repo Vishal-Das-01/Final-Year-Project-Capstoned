@@ -9,13 +9,16 @@ import TableHeadDataCell from "../../_components/TableHeadDataCell/TableHeadData
 import TableBodyDataCell from "../../_components/TableBodyDataCell/TableBodyDataCell"; 
 import CompaniesHeadingAndButton from "./_components/CompaniesHeadingAndButton/CompaniesHeadingAndButton";
 import Modal from "../../_components/Modal/Modal";
+import DataTableMessage from "../../_components/DataTableMessage/DataTableMessage";
+import CompanyRowContent from "./_components/CompanyRowContent/CompanyRowContent";
+import toast from "react-hot-toast";
 
 // Imports below for state management and api calls
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { HttpStatusCode } from "axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
-import { getCompaniesAPICall } from "@/utils/admin_frontend_api_calls/CompaniesAPICalls";
+import { getCompaniesAPICall, deleteCompanyAPICall } from "@/utils/admin_frontend_api_calls/CompaniesAPICalls";
 import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
 import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import { useDispatch } from "react-redux";
@@ -33,11 +36,15 @@ export default function AdminDashboardCompaniesPage(props){
 	// for managing modal content
 	// for managing companies shown in the table
 	// for managing skeleton loading indicator 
+	// for managing when retrieved data is 0 in size
+	// for managing when error occurs in retrieval api call
 	const [openModal, setOpenModal]   = useState(false);
 	const [modalTitle, setModalTitle] = useState("");
 	const [modalContent, setModalContent] = useState("");
 	const [companies, setCompanies] = useState([]);
 	const [loadingIndicator, setLoadingIndicator] = useState(true);
+	const [retrievedDataIsZero, setRetrievedDataIsZero] = useState(false);
+	const [errorRetrievingData, setErrorRetrievingData] = useState(false);
 
 	// For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
@@ -55,11 +62,12 @@ export default function AdminDashboardCompaniesPage(props){
 		setLoadingIndicator(true);
 
 		let apiResponse = await getCompaniesAPICall(apiURL, accessToken);
-		// console.log("HERE ", apiResponse);
 		if(apiResponse.status === HttpStatusCode.Ok){
 			let apiResponseData = await apiResponse.json();
+			setLoadingIndicator(false);
 			setCompanies(apiResponseData.data.companies);
-			// console.log("A:", apiResponseData);
+			
+			console.log("fetchAllCompanies:", apiResponseData);
 		}
 		else if (apiResponse.status === HttpStatusCode.Unauthorized) {
 			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
@@ -71,8 +79,61 @@ export default function AdminDashboardCompaniesPage(props){
 			}
 		}
 		else{
-			console.log("B:", "error");
+			setErrorRetrievingData(true);
+			console.log("fetchAllCompanies error:", apiResponse);
 		}
+	}
+
+	// API call for deleteing particular company
+	async function deleteCompany(id){
+		let accessToken = authDetails.accessToken;
+		let apiURL = BACKEND_ROUTES.deleteCompany + `id=${id}`;
+
+		try{
+			let apiResponse = await deleteCompanyAPICall(apiURL, accessToken);
+			if(apiResponse.status === HttpStatusCode.Ok){
+				let apiResponseData = await apiResponse.json();
+				console.log("deleteCompany:", apiResponseData);
+				return apiResponseData;
+			}
+			else if (apiResponse.status === HttpStatusCode.Unauthorized) {
+				const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+					method: "POST",
+				});
+				if (responseLogOut.status === HttpStatusCode.Ok) {
+					dispatch(removeAuthDetails());
+					router.replace(FRONTEND_ROUTES.landing_page);
+				}
+				throw new Error('Unauthorized');
+			}
+			else{
+				console.log("deleteCompany error:", apiResponse);
+				throw new Error(`Can't delete company. Try again.`);
+			}
+		}
+		catch(error){
+			throw error;
+		}
+	}
+
+	// Calls toast message when company is delete
+	function callDeleteCompanyToast(id){
+		const deleteCompanyResult = deleteCompany(id);
+
+		toast.promise(
+			deleteCompanyResult,
+			{
+				loading: 'Deleting company...',
+				success: 'Company deleted!',
+				error: (err) => `Failed to delete company. Try again.`
+			}
+		);
+
+		deleteCompanyResult.then(() => {
+			setOpenModal(false);
+		}).catch((error) => {
+			console.log("deleteCompanyResult error", error);
+		});		
 	}
 
 	// API Call for displaying companies in the table 
@@ -81,15 +142,27 @@ export default function AdminDashboardCompaniesPage(props){
 		fetchAllCompanies();
 	}, [])
 
-
-	// Turn skeleton loading indicator off when 
-	// companies are fetched successfully
+	// When retrieved data is 0 in size.
 	useEffect(() => {
-		if(companies.length > 0){
+		if(companies.length === 0){
+			setRetrievedDataIsZero(true);
+		}
+	}, [companies]);
+
+	// When error occurs in retrieving data.
+	useEffect(() => {
+		if(errorRetrievingData){
 			setLoadingIndicator(false);
 		}
-		console.log("A:", companies)
-	}, [companies]);
+	}, [errorRetrievingData])
+
+	// Reload the data when data is changed when modal closes
+	// such as when company is created, updated or deleted
+	useEffect(() => {
+		if(!openModal){
+			fetchAllCompanies();
+		}
+	}, [openModal])
 
 	return (
 		<div className={`${styles.primaryContainer} flex flex-row items-center justify-center w-full h-full`}>
@@ -112,13 +185,11 @@ export default function AdminDashboardCompaniesPage(props){
 
 						<TableHeadDataCell isNumberCell={false} text={`Name`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Image`}/>
-
 						<TableHeadDataCell isNumberCell={false} text={`Number`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`City`}/>
+						<TableHeadDataCell isNumberCell={false} text={`Email`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Projects`}/>
+						<TableHeadDataCell isNumberCell={false} text={`City`}/>
 
 						<TableHeadDataCell isNumberCell={false} text={`Verified`}/>
 
@@ -126,43 +197,79 @@ export default function AdminDashboardCompaniesPage(props){
 					
 					<tbody>
 
-						{!loadingIndicator && companies.map((company) => {
-							return (
-								<TableRow
-									setOpenModal={setOpenModal} 
-									setModalTitle={setModalTitle}
-									setModalContent={setModalContent}
-									key={company._id}
-									dataID={company._id}
-								>
+						{
+							!loadingIndicator
 
-									<TableBodyDataCell 
-										text={String("milestone.assignmentNumber")} 
-									/>
+							? 
+							
+							companies.map((company, index) => {
+								return (
+									<TableRow
+										key={company._id}
+										setOpenModal={setOpenModal} 
+										setModalContent={setModalContent}
+										setModalTitle={() => setModalTitle(company.name)}
+										content={<CompanyRowContent 
+											data={company} 
+											dataID={company._id}
+											setModalContent={setModalContent}
+											setOpenModal={setOpenModal}
+											callDeleteCompanyToast={callDeleteCompanyToast}
+										/>}
+									>
 
-									<TableBodyDataCell 
-										text={String("milestone.title")}
-									/>
+										<TableBodyDataCell 
+											text={String(index + 1)} 
+										/>
 
-									<TableBodyDataCell 
-										text={String("milestone.description")}
-									/>
-									
-									<TableBodyDataCell 
-										text={String("extractDate(milestone.deadline)")}
-									/>
-									
-									<TableBodyDataCell 
-										text={String("milestone.percentage")}
-									/>
-									
-									<TableBodyDataCell 
-										text={String("milestone.year")}
-									/>
-									
-								</TableRow>
-							)
-						})}
+										<TableBodyDataCell 
+											text={String(`${company.name}`)}
+										/>
+
+										<TableBodyDataCell 
+											text={String(`${"Number"}`)}
+										/>
+
+										<TableBodyDataCell 
+											text={String(`${"Email"}`)}
+										/>
+
+										<TableBodyDataCell 
+											text={String(`${"City"}`)}
+										/>
+
+										<TableBodyDataCell 
+											text={String(`${company.verified ? "Yes" : "No"}`)}
+										/>
+										
+									</TableRow>
+								)
+							})
+
+							:
+
+							retrievedDataIsZero
+							
+							?
+
+							<DataTableMessage>
+								Nothing to show. Please, add some data.
+							</DataTableMessage>
+							
+							:
+
+							errorRetrievingData
+							
+							?
+
+							<DataTableMessage>
+								Error fetching companies. Please, try again later.
+							</DataTableMessage>
+
+							:
+
+							<div></div>
+						}
 						
 					</tbody>
 					

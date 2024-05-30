@@ -131,14 +131,20 @@ export default function CreateMilestoneForm({setOpenModal}){
 
     // Calls toast message
 	function callToast(event){
+        const submitFormResult = submitForm(event);
+
 		toast.promise(
-			submitForm(event),
+			submitFormResult,
 			{
 				loading: 'Creating milestone...',
 				success: 'Milestone created!',
 				error: (err) => `Failed to create milestone: ${err.message}`
 			}
 		);
+
+        submitFormResult.then(() => {
+            setOpenModal(false);
+        });
 	}
 
     useEffect(() => {

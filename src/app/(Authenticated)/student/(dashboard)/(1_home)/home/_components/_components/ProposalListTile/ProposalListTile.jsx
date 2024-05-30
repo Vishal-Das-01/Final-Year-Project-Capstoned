@@ -1,14 +1,12 @@
 import styles from "./ProposalListTile.module.css";
-import { MdOutlineCancel } from "react-icons/md";
-import { MdOutlineCheckCircle } from "react-icons/md";
 
-export default function ProposalListTile({sNo, text, selected}){
+export default function ProposalListTile({sNo, title, proposer, proposedBy}){
     return (
         <div className={`${styles.listTileWrapper} flex flex-col w-full `}>
             
             <div className={`${styles.listTileContentWrapper} flex justify-between flex-row w-full`}>
                 
-                <div className={`${styles.sNo} flex flex-row items-center justify-start `}>
+                <div className="w-1/12">
 
                     <p className={`${styles.common} font-montserrat text-neutral-500`}>
                         {sNo}
@@ -16,18 +14,18 @@ export default function ProposalListTile({sNo, text, selected}){
 
                 </div>
 
-                <div className={`${styles.text} flex flex-row items-center justify-start `}>
+                <div className="w-6/12">
 
                     <p className={`${styles.common} font-montserrat text-neutral-500`}>
-                        {text}
+                    {title.length > 15 ? title.substring(0, 15) + "..." : title}
                     </p>
 
                 </div>
 
-                <div className={`${styles.selected} flex flex-row items-center justify-center`}>
+                <div className="w-5/12">
 
-                    <p className={`font-montserrat`}>
-                        {selected ? <div className={`${styles.status} bg-green-200`}> SELECTED </div> :<div className={`${styles.status} bg-red-200`}> UNSELECTED </div> }
+                    <p className={`${styles.common} text-center`}>
+                        {proposer === 'Group'? <div className="bg-blue-200 rounded-full"> Your Group </div> :<div className="bg-yellow-200 rounded-full"> {proposedBy.firstName + " " + proposedBy.lastName} </div> }
                     </p>
 
                 </div>

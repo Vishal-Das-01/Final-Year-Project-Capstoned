@@ -107,6 +107,13 @@ export default function AdminDashboardAccountsPage(props){
 		}
 	}, [errorRetrievingData])
 
+	// Reload the data when data is changed when modal closes
+	// such as when accounts are created
+	useEffect(() => {
+		if(!openModal){
+			getUsers();
+		}
+	}, [openModal])
 
 	return (
 		<div className={`${styles.primaryContainer} flex flex-row items-center justify-center w-full h-full`}>

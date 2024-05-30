@@ -3,6 +3,7 @@ import { connectToDB } from "@/utils/helpers/connectDB";
 import { NextResponse } from "next/server";
 import { HttpStatusCode } from "axios";
 import Proposal from "@/models/Proposal";
+import Group from "@/models/Group";
 
 export async function GET(request) {
     connectToDB();

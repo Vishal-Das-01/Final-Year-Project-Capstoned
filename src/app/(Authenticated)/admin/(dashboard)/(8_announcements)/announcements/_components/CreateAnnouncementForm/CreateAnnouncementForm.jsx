@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { HttpStatusCode } from "axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
-import { createNewAnnouncementAPICall } from "@/utils/admin_frontend_api_calls/AnnouncementsAPICalls";
+import { postAnnouncementAPICall } from "@/utils/admin_frontend_api_calls/AnnouncementsAPICalls";
 
 export default function CreateAnnouncementForm({setOpenModal}){
     let formId = `createAnnouncementForm`;
@@ -83,18 +83,34 @@ export default function CreateAnnouncementForm({setOpenModal}){
         let accessToken = authDetails.accessToken;
         let apiURL = BACKEND_ROUTES.createAnnouncement;
         
-        let apiCall = await createNewAnnouncementAPICall(apiURL, accessToken, dataToSend);
-        if(apiCall.status === HttpStatusCode.Ok){
-            let apiCallResponse = await apiCall.json();
-            console.log("A", apiCallResponse);
+        try{
+            let apiCall = await postAnnouncementAPICall(apiURL, accessToken, dataToSend);
+            if(apiCall.status === HttpStatusCode.Ok){
+                let apiCallResponse = await apiCall.json();
+                console.log("PostAnnouncementForm", apiCallResponse);
+            }
+            else if (apiCall.status === HttpStatusCode.Unauthorized) {
+                const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+                    method: "POST",
+                });
+                if (responseLogOut.status === HttpStatusCode.Ok) {
+                    dispatch(removeAuthDetails());
+                    router.replace(FRONTEND_ROUTES.landing_page);
+                }
+                throw new Error('Unauthorized');
+            }
+            else{
+                console.log("PostAnnouncementForm error", apiCall);
+                throw new Error(`Can't post notification. Try again.`);
+            }
         }
-        else{
-            console.log("B", "Error");
+        catch(error){
+            throw error;
         }
     }
 
+    // When announcement type is changed
     useEffect(() => {
-        console.log("Z", announcement)
         if(announcement.type === "To Individual"){
             setIsNotificationTypeToIndividual(true);
         }

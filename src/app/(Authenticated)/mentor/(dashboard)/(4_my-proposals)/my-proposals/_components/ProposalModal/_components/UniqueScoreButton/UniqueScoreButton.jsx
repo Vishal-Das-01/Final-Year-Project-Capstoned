@@ -2,7 +2,6 @@
 import { BACKEND_AI_ROUTES } from "@/utils/routes/backend_routes";
 import { HttpStatusCode } from "axios";
 import jsPDF from "jspdf";
-import { set } from "mongoose";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -20,45 +19,37 @@ function UniqueScoreButton({ title, description }) {
     }
   }, [title, description]);
 
-  const formatTextForPDF = (data) => {
-    const { top_results, analysis } = data;
-
-    const formattedTopResults = top_results
-      .split('\n')
-      .map(line => line.trim())
-      .map(line => (line.startsWith('PROJECT') ? '\n' : '') + line)
-      .join('\n');
-
-    const formattedAnalysis = analysis
-      .split('\n')
-      .map(line => line.trim())
-      .join('\n');
-
-    return { formattedTopResults, formattedAnalysis };
-  };
 
   const downloadReport = () => {
     const doc = new jsPDF();
 
-    const { formattedTopResults, formattedAnalysis } = formatTextForPDF(report);
+    const { top_results, analysis } = report;
     const maxWidth = 180;
     const lineHeight = 6;
     const leftMargin = 20;
-    const topMargin = 20;
-    const bottomMargin = 20;
-    const fontSize = 15; 
+    const topMargin = 30;
+    const bottomMargin = 30;
 
-    const linesPerPage = Math.floor((doc.internal.pageSize.getHeight() - topMargin - bottomMargin) / lineHeight);
+    const fontSize = 12; 
 
-    const addTextToPDF = (text) => {
+    let y = topMargin;
+
+    const addTextToPDF = (text,bold) => {
       const lines = doc.splitTextToSize(text, maxWidth);
-      let y = topMargin;
       let remainingLines = lines.length;
+      const linesPerPage = Math.floor((doc.internal.pageSize.getHeight() - y - bottomMargin) / lineHeight);
+
+
       while (remainingLines > 0) {
         const linesToAdd = Math.min(linesPerPage, remainingLines);
         const linesToAddThisPage = lines.slice(lines.length - remainingLines, lines.length - remainingLines + linesToAdd);
         linesToAddThisPage.forEach(line => {
           doc.setFontSize(fontSize);
+          if(bold)
+            doc.setFont('times', 'bold');
+          else
+            doc.setFont('times', 'normal');
+          line.trim()
           doc.text(line, leftMargin, y);
           y += lineHeight;
         });
@@ -70,10 +61,25 @@ function UniqueScoreButton({ title, description }) {
       }
     };
 
-    addTextToPDF(formattedTopResults);
+    addTextToPDF('PROJECT TITLE: ',true);
+    addTextToPDF(title,false);
+    addTextToPDF('\nPROJECT DESCRIPTION: ',true);
+    addTextToPDF(description,false);
+    addTextToPDF('\n\nUnique Idea Detection Report',true);
+
+    addTextToPDF('\nTop Results:\n',true);
+
+    addTextToPDF(top_results,false);
 
     doc.addPage();
-    addTextToPDF('Analysis:\n\n' + formattedAnalysis);
+
+    y = topMargin;
+
+    addTextToPDF('Analysis:\n',true);
+
+    const formattedAnalysis = analysis.replace(/\*\*/g, '');
+
+    addTextToPDF(formattedAnalysis,false);
 
     doc.save('Report.pdf');
   };
@@ -113,7 +119,7 @@ function UniqueScoreButton({ title, description }) {
         disabled={disable || loading}
         className="text-sm bg-black border-2 font-normal border-black text-white p-1.5 rounded-lg hover:bg-gray-100 hover:text-black disabled:cursor-not-allowed disabled:bg-gray-300 disabled:border-gray-300 disabled:text-black"
       >
-        {loading ? "Generating Report ... " : "Calculate Unique Idea Report"}
+        {loading ? "Generating Report ... " : "Generate Unique Idea Report"}
       </button>
       {report && !loading && <button type="button" onClick={downloadReport} className="text-sm hover:text-blue-500">Report.pdf</button>}
     </div>

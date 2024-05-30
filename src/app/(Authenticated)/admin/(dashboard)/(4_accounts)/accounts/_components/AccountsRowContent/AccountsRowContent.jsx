@@ -64,12 +64,12 @@ export default function AccountsRowContent({dataID, data}){
 
                 <div className={`flex flex-row items-end justify-end h-full`} style={{height: "200px"}}>
 
-                    <ModalDataActionButton 
+                    {/* <ModalDataActionButton 
                         buttonText={"Update"} 
                         buttonClickAction={null}
                         dataID={dataID}
                         isUpdate={true}
-                    />
+                    /> */}
 
                 </div>
 

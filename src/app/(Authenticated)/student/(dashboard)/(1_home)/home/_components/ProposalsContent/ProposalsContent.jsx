@@ -11,7 +11,7 @@ export default function ProposalsContent({proposals}){
 				<div className="flex flex-row items-center">
 
 					<h1 className={`${styles.contentHeading} font-montserrat font-semibold py-2 text-black`}>
-						My Proposals ({proposals.length}/5)
+						Selected Proposals ({proposals?.length || 0}/5)
 					</h1>
 
 					<div className={`${styles.contentHeadingLine} ml-2 bg-blue-500 rounded-full`} /> 
@@ -19,9 +19,9 @@ export default function ProposalsContent({proposals}){
 				</div>
 
                 <div className={`${styles.proposalsInfoWrapper} flex flex-col my-2  `}>
-					{proposals.length === 0 && <div className="my-3"><NotFound /></div>}
-					{proposals.length !== 0 && proposals.map((proposal, index) => (
-						<ProposalListTile key={index} sNo={index + 1} text={proposal.title} selected={!(proposal.edit)}/>						
+					{(!proposals || proposals.length === 0) && <div className="my-3"><NotFound /></div>}
+					{proposals && proposals.length !== 0 && proposals.map((item, index) => (
+						<ProposalListTile key={index} sNo={index + 1} title={item.proposal.title} proposer={item.proposal.proposer} proposedBy={item.proposal.proposedBy}/>						
 					))}
                 </div>
                 

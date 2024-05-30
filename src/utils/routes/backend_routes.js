@@ -48,12 +48,19 @@ export const BACKEND_ROUTES = {
 
   getFYPGroups: `${baseURL}/admin/group/get/all`, // (admin) fyp groups
   finalizeAllFYPGroups: `${baseURL}/admin/group/finalize/all`, // (admin) fyp groups
+  finalizeGroup: `${baseURL}/admin/group/finalize?`, // (admin) fyp groups
+  unfinalizeGroup: `${baseURL}/admin/group/unfinalize?`, // (admin) fyp groups
 
   getAnnouncements: `${baseURL}/admin/notification/get/`, // (admin) announcements
-  createAnnouncement: `${baseURL}/admin/notification/create`, // (admin) announcements
+  postAnnouncement: `http://localhost:3000/pages/api/admin/notification/post`, // (admin) announcements
+  updateAnnouncement: `http://localhost:3000/pages/api/admin/notification/update`, // (admin) announcements
+  deleteAnnouncement: `http://localhost:3000/pages/api/admin/notification/delete`, // (admin) announcements
 
   createCompany: `${baseURL}/admin/company/create`, // (admin) companies
+  deleteCompany: `${baseURL}/admin/company/delete?`, // (admin) companies
+  updateCompany: `${baseURL}/admin/company/update?`, // (admin) companies
 
+  getStudentDashboardDetails: `${baseURL}/student/dashboard`,
   studentRequestProposal: `${baseURL}/student/group/proposal/select-deselect`, // (student) proposals
   studentSubmitMilestone: `${baseURL}/student/project/`, // (student) milestones
   getStudentProjects: `${baseURL}/student/project/get`, // (student) projects

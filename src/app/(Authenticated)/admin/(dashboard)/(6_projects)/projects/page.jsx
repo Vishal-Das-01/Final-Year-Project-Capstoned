@@ -128,14 +128,20 @@ export default function AdminDashboardProjectsPage(props){
 
 	// Calls toast message
 	function callToast(id){
+		const markProjectFinishedResult = markProjectFinished(id);
+
 		toast.promise(
-			markProjectFinished(id),
+			markProjectFinishedResult,
 			{
 				loading: 'Marking project as finished...',
 				success: 'Project marked as finished!',
 				error: (err) => `Failed to mark project: ${err.message}`
 			}
 		);
+
+		markProjectFinishedResult.then(() => {
+            setOpenModal(false);
+        });
 	}
 	
 	// API Call for displaying projects in the table 
@@ -158,6 +164,14 @@ export default function AdminDashboardProjectsPage(props){
 			setLoadingIndicator(false);
 		}
 	}, [errorRetrievingData])
+
+	// Reload the data when data is changed when modal closes
+	// such as when project is marked finished
+	useEffect(() => {
+		if(!openModal){
+			getAllProjects();
+		}
+	}, [openModal])
 
 	return (
 		<div className={`${styles.primaryContainer} flex flex-row items-center justify-center w-full h-full`}>
@@ -253,7 +267,7 @@ export default function AdminDashboardProjectsPage(props){
 							?
 
 							<DataTableMessage>
-								Error fetching groups. Please, try again later.
+								Error fetching projects. Please, try again later.
 							</DataTableMessage>
 
 							:

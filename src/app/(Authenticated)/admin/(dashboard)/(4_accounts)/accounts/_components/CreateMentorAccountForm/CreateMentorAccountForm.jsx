@@ -9,6 +9,7 @@ import FormDropDownSelect from "../../../../_components/FormDropDownSelect/FormD
 import FormNumberInput from "../../../../_components/FormNumberInput/FormNumberInput";
 import FormActionButton from "../../../../_components/FormActionButton/FormActionButton";
 import FormEmailInput from "../../../../_components/FormEmailInput/FormEmailInput";
+import toast from 'react-hot-toast';
 
 // Imports for state management & API calls
 import { useState } from "react";
@@ -116,24 +117,50 @@ export default function CreateMentorAccountForm({setOpenModal}){
         let accessToken = authDetails.accessToken;
         let apiURL = BACKEND_ROUTES.createUser;
         
-        let apiCall = await createAccountAPICall(apiURL, accessToken, dataToSend);
-        if(apiCall.status === HttpStatusCode.Ok){
-            let apiCallResponse = await apiCall.json();
-            console.log("A", apiCallResponse);
+        try{
+            let apiCall = await createAccountAPICall(apiURL, accessToken, dataToSend);
+            if(apiCall.status === HttpStatusCode.Ok){
+                let apiCallResponse = await apiCall.json();
+                console.log("createMentorAccount", apiCallResponse);
+                return apiCallResponse;
+            }
+            else if (apiCall.status === HttpStatusCode.Unauthorized) {
+                const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+                    method: "POST",
+                });
+                if (responseLogOut.status === HttpStatusCode.Ok) {
+                    dispatch(removeAuthDetails());
+                    router.replace(FRONTEND_ROUTES.landing_page);
+                }
+                throw new Error('Unauthorized');
+            }
+            else{
+                console.log("createMentorAccount", apiCall);
+                throw new Error(`Can't create mentor account. Try again.`);
+            }
         }
-        else if (apiCall.status === HttpStatusCode.Unauthorized) {
-			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
-			  method: "POST",
-			});
-			if (responseLogOut.status === HttpStatusCode.Ok) {
-			  dispatch(removeAuthDetails());
-			  router.replace(FRONTEND_ROUTES.landing_page);
-			}
-		}
-        else{
-            console.log("B", "Error");
+        catch(error){
+            throw error;
         }
     }
+
+    // Calls toast message
+	function callToast(event){
+        const submitFormResult = submitForm(event);
+
+		toast.promise(
+			submitFormResult,
+			{
+				loading: 'Creating new mentor account...',
+				success: 'Mentor account created!',
+				error: (err) => `Failed to create mentor account: ${err.message}`
+			}
+		);
+
+        submitFormResult.then(() => {
+            setOpenModal(false);
+        });
+	}
 
     return (
         <div className={`${styles.createMentorAccountFormPrimaryContainer} w-full `}>
@@ -141,7 +168,7 @@ export default function CreateMentorAccountForm({setOpenModal}){
             <form 
                 id={formId} 
                 className={`${styles.createMentorAccountForm} flex flex-col items-center justify-start`}
-                onSubmit={submitForm}
+                onSubmit={callToast}
             >
 
                 <FormRow
@@ -244,7 +271,7 @@ export default function CreateMentorAccountForm({setOpenModal}){
                     
                     <FormActionButton 
                         buttonText={`Save`}
-                        buttonClickAction={submitForm}
+                        buttonClickAction={callToast}
                         formId={formId}
                         isCancel={false}
                     />

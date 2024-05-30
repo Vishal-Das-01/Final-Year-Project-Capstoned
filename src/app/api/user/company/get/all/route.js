@@ -12,7 +12,7 @@ export const GET = async (request) => {
             {page: request.nextUrl.searchParams.get('page'), limit: request.nextUrl.searchParams.get('limit')}
         )
 
-        const companies = await Company.find().select('name profileImage verified').skip(skip).limit(limit);
+        const companies = await Company.find().select('-affiliatedProjects').skip(skip).limit(limit);
 
         const totalCompanies = await Company.countDocuments();
         const totalPages = Math.ceil(totalCompanies/limit);

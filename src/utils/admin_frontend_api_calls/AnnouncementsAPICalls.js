@@ -13,7 +13,7 @@ export async function getAnnouncementsAPICall(route, token, announcementType){
     }
 }
 
-export async function createNewAnnouncementAPICall(route, token, data){
+export async function postAnnouncementAPICall(route, token, data){
     try{
         let res = await fetch(route, {
             method: "POST",
@@ -25,6 +25,38 @@ export async function createNewAnnouncementAPICall(route, token, data){
         return res;
     }
     catch(error){
-        console.log("createNewAnnouncementAPICall Error: " + error);
+        console.log("postAnnouncementAPICall Error: " + error);
+    }
+}
+
+export async function updateAnnouncementAPICall(route, token, data){
+    try{
+        let res = await fetch(route, {
+            method: "PATCH",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify(data)
+        });
+        return res;
+    }
+    catch(error){
+        console.log("updateAnnouncementAPICall Error: " + error);
+    }
+}
+
+export async function deleteAnnouncementAPICall(route, token, data){
+    try{
+        let res = await fetch(route, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify(data)
+        });
+        return res;
+    }
+    catch(error){
+        console.log("deleteAnnouncementAPICall Error: " + error);
     }
 }

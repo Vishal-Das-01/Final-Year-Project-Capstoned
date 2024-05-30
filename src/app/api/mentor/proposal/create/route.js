@@ -8,9 +8,16 @@ export async function POST(request) {
     connectToDB();
     try {
 
-        const mentor = await Mentor.findById(request.headers.get('profileID'));
+        const mentor = await Mentor.findById(request.headers.get('profileID')).populate('myProposals', 'available');
 
-        if (mentor.myProposals.length === 5) {
+        let numOfProposals = 0;
+        mentor.myProposals.forEach(proposal => {
+            if (proposal.available) {
+                numOfProposals++;
+            }
+        });
+
+        if (numOfProposals === 5) {
             return NextResponse.json({ message: 'You have reached the maximum number of proposals' }, { status: HttpStatusCode.BadRequest });
         }
 

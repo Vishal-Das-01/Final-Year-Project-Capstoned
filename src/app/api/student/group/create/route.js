@@ -6,7 +6,7 @@ import Student from "@/models/Student";
 
 export const POST = async (request) => {
     await connectToDB();
-    const { name, profileImage } = await request.json();
+    const { name } = await request.json();
     const profileID = request.headers.get('profileID');
 
     try {
@@ -15,7 +15,7 @@ export const POST = async (request) => {
             return NextResponse.json({message: "Group already exists."}, {status: HttpStatusCode.Conflict});
         } 
 
-        const group=new Group({lead: profileID, name, profileImage, year: new Date().getFullYear()});
+        const group = new Group({lead: profileID, name, year: (new Date().getFullYear())});
         await group.save();
 
         student.group=group._id;
