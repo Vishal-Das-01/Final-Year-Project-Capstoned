@@ -25,7 +25,7 @@ export const FRONTEND_ROUTES = {
 	student_dashboard_profile_page: "/student/profile",
 	student_dashboard_chats_page: "/student/chats",
 	student_dashboard_companies_page: "/student/companies",
-	student_dashboard_mentors_page: "/student/mentors",
+	student_dashboard_users_page: "/student/users",
 	student_dashboard_my_project_page: "/student/my-project",
 
 

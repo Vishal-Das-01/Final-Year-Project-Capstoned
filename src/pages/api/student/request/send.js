@@ -3,6 +3,7 @@ import { RequestType, Role } from "@/utils/constants/enums";
 import Request from "@/models/Request";
 import Student from "@/models/Student";
 import Mentor from "@/models/Mentor";
+import Group from "@/models/Group";
 
 export default async function handler(req, res) {
     if(req.method === 'POST') {
@@ -121,6 +122,7 @@ export default async function handler(req, res) {
         
             return res.status(200).json({ message: 'Request sent.' });
         } catch (error) {
+            console.log(error);
             if (error.name === "ValidationError") {
                 return res.status(400).json({ message: 'Please provide correct/necessary fields.' });
             }

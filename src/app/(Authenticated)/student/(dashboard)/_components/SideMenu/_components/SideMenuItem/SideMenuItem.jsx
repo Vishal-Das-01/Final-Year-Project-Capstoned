@@ -56,8 +56,8 @@ export default function SideMenuItem({href, children}){
 		else if(children.toString() === "Companies"){
 			return "companies";
 		}
-		else if(children.toString() === "Mentors"){
-			return "mentors";
+		else if(children.toString() === "Users"){
+			return "users";
 		}
 	}
 
@@ -122,7 +122,7 @@ export default function SideMenuItem({href, children}){
 		else if(children.toString() === "Companies"){
 			return (<FaBuilding color={color}/>);
 		}
-		else if(children.toString() === "Mentors"){
+		else if(children.toString() === "Users"){
 			return (<FaChalkboardTeacher color={color}/>);
 		}
 
