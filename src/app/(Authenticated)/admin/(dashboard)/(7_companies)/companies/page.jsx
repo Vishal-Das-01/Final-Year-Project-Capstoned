@@ -9,6 +9,8 @@ import TableHeadDataCell from "../../_components/TableHeadDataCell/TableHeadData
 import TableBodyDataCell from "../../_components/TableBodyDataCell/TableBodyDataCell"; 
 import CompaniesHeadingAndButton from "./_components/CompaniesHeadingAndButton/CompaniesHeadingAndButton";
 import Modal from "../../_components/Modal/Modal";
+import DataTableMessage from "../../_components/DataTableMessage/DataTableMessage";
+import CompanyRowContent from "./_components/CompanyRowContent/CompanyRowContent";
 
 // Imports below for state management and api calls
 import { useEffect, useState } from "react";
@@ -63,6 +65,7 @@ export default function AdminDashboardCompaniesPage(props){
 			let apiResponseData = await apiResponse.json();
 			setLoadingIndicator(false);
 			setCompanies(apiResponseData.data.companies);
+			
 			console.log("fetchAllCompanies:", apiResponseData);
 		}
 		else if (apiResponse.status === HttpStatusCode.Unauthorized) {
@@ -121,13 +124,11 @@ export default function AdminDashboardCompaniesPage(props){
 
 						<TableHeadDataCell isNumberCell={false} text={`Name`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Image`}/>
-
 						<TableHeadDataCell isNumberCell={false} text={`Number`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`City`}/>
+						<TableHeadDataCell isNumberCell={false} text={`Email`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Projects`}/>
+						<TableHeadDataCell isNumberCell={false} text={`City`}/>
 
 						<TableHeadDataCell isNumberCell={false} text={`Verified`}/>
 
@@ -135,43 +136,78 @@ export default function AdminDashboardCompaniesPage(props){
 					
 					<tbody>
 
-						{!loadingIndicator && companies.map((company) => {
-							return (
-								<TableRow
-									setOpenModal={setOpenModal} 
-									setModalTitle={setModalTitle}
-									setModalContent={setModalContent}
-									key={company._id}
-									dataID={company._id}
-								>
+						{
+							!loadingIndicator
 
-									<TableBodyDataCell 
-										text={String("milestone.assignmentNumber")} 
-									/>
+							? 
+							
+							companies.map((company, index) => {
+								return (
+									<TableRow
+										key={company._id}
+										setOpenModal={setOpenModal} 
+										setModalContent={setModalContent}
+										setModalTitle={() => setModalTitle(company.name)}
+										content={<CompanyRowContent 
+											data={company} 
+											dataID={company._id}
+											setModalContent={setModalContent}
+											setOpenModal={setOpenModal}
+										/>}
+									>
 
-									<TableBodyDataCell 
-										text={String("milestone.title")}
-									/>
+										<TableBodyDataCell 
+											text={String(index + 1)} 
+										/>
 
-									<TableBodyDataCell 
-										text={String("milestone.description")}
-									/>
-									
-									<TableBodyDataCell 
-										text={String("extractDate(milestone.deadline)")}
-									/>
-									
-									<TableBodyDataCell 
-										text={String("milestone.percentage")}
-									/>
-									
-									<TableBodyDataCell 
-										text={String("milestone.year")}
-									/>
-									
-								</TableRow>
-							)
-						})}
+										<TableBodyDataCell 
+											text={String(`${company.name}`)}
+										/>
+
+										<TableBodyDataCell 
+											text={String(`${"Number"}`)}
+										/>
+
+										<TableBodyDataCell 
+											text={String(`${"Email"}`)}
+										/>
+
+										<TableBodyDataCell 
+											text={String(`${"City"}`)}
+										/>
+
+										<TableBodyDataCell 
+											text={String(`${company.verified ? "Yes" : "No"}`)}
+										/>
+										
+									</TableRow>
+								)
+							})
+
+							:
+
+							retrievedDataIsZero
+							
+							?
+
+							<DataTableMessage>
+								Nothing to show. Please, add some data.
+							</DataTableMessage>
+							
+							:
+
+							errorRetrievingData
+							
+							?
+
+							<DataTableMessage>
+								Error fetching companies. Please, try again later.
+							</DataTableMessage>
+
+							:
+
+							<div></div>
+						}
 						
 					</tbody>
 					

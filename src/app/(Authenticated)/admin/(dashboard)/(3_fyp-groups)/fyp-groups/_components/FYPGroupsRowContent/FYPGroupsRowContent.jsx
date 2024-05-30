@@ -124,6 +124,7 @@ export default function FYPGroupsRowContent({dataID, data, callFinalizeGroupToas
                         buttonClickAction={() => callFinalizeGroupToast(dataID)}
                         dataID={dataID}
                         isUpdate={false}
+                        isDelete={false}
                     />
 
                     <ModalDataActionButton 
@@ -131,6 +132,7 @@ export default function FYPGroupsRowContent({dataID, data, callFinalizeGroupToas
                         buttonClickAction={() => callUnfinalizeGroupToast(dataID)}
                         dataID={dataID}
                         isUpdate={true}
+                        isDelete={false}
                     />
 
                 </div>

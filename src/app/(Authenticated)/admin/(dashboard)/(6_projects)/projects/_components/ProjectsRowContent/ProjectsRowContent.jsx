@@ -122,6 +122,7 @@ export default function ProjectsRowContent({dataID, data, markProjectFinished, s
                         buttonClickAction={() => {markProjectFinished(dataID)} }
                         dataID={dataID}
                         isUpdate={false}
+                        isDelete={false}
                     />
 
                     

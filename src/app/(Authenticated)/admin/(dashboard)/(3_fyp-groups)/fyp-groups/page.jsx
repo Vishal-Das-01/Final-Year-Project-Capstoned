@@ -120,7 +120,7 @@ export default function AdminDashboardFYPGroupsPage(props){
 	// API call for finalizing particular group
 	async function finalizeFYPGroup(id){
 		let accessToken = authDetails.accessToken;
-		let apiURL = BACKEND_ROUTES.finalizeGroup + `${id}`;
+		let apiURL = BACKEND_ROUTES.finalizeGroup + `id=${id}`;
 
 		try{
 			let apiResponse = await finalizeFYPGroupAPICall(apiURL, accessToken);
@@ -152,7 +152,7 @@ export default function AdminDashboardFYPGroupsPage(props){
 	// API call for unfinalizing particular group
 	async function unfinalizeFYPGroup(id){
 		let accessToken = authDetails.accessToken;
-		let apiURL = BACKEND_ROUTES.unfinalizeGroup + `${id}`;
+		let apiURL = BACKEND_ROUTES.unfinalizeGroup + `id=${id}`;
 
 		try{
 

@@ -253,7 +253,7 @@ export default function AdminDashboardProjectsPage(props){
 							?
 
 							<DataTableMessage>
-								Error fetching groups. Please, try again later.
+								Error fetching projects. Please, try again later.
 							</DataTableMessage>
 
 							:
