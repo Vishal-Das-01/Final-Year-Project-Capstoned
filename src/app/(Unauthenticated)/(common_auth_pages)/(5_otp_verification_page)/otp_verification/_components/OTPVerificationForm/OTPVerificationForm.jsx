@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import OTPInputField from "../OTPInputField/OTPInputField";
 import { useSelector } from "react-redux";
+import ChangePasswordModal from "@/components/ChangePasswordModal/ChangePasswordModal";
 
 export default function OTPVerificationForm() {
   const router = useRouter();
@@ -16,6 +17,7 @@ export default function OTPVerificationForm() {
   const [otpValues, setOTPValues] = useState(Array(6).fill(''));
   const [resendTimer, setResendTimer] = useState(10);
   const [isTimerRunning, setIsTimerRunning] = useState(true);
+  const [openModal, setOpenModal] = useState(false)
 
   const otpEmail = useSelector((state) => state.OTPEmail.email);
 
@@ -120,6 +122,8 @@ export default function OTPVerificationForm() {
           </button>
         </div>
       )}
+
+      {true && <ChangePasswordModal setOpenModal={setOpenModal} />}
 
     </form>
   );
