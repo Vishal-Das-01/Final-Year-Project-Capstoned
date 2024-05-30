@@ -25,10 +25,10 @@ export default async function MentorDashboardHomePage() {
 
   return (
     <div
-      className={`${styles.pageContainer} w-full h-full flex flex-row items-center justify-center `}
+      className={`${styles.pageContainer} w-full h-full flex flex-row items-center justify-center overflow-hidden`}
     >
       <div
-        className={`${styles.primaryContainer} overflow-auto flex flex-row `}
+        className={`${styles.primaryContainer} flex flex-row `}
       >
         <div
           className={`${styles.left} w-full h-full flex flex-col flex-1 items-center justify-evenly `}

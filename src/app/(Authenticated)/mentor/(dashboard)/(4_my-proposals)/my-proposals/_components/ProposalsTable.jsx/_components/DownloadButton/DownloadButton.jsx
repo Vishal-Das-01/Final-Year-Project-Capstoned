@@ -1,10 +1,15 @@
 import { getFile } from "@/utils/firebase/getFile";
 import React from "react";
+import toast from "react-hot-toast";
 import { FaDownload } from "react-icons/fa";
 
 function DownloadButton({ fileName, fileUrl }) {
   const handleDownload = async () => {
-    await getFile(fileUrl, fileName, "application/pdf");
+    if (!fileUrl) {
+      toast.error("Resume not found");
+    } else {
+      await getFile(fileUrl, fileName, "application/pdf");
+    }
   };
 
   return (
@@ -15,4 +20,3 @@ function DownloadButton({ fileName, fileUrl }) {
 }
 
 export default DownloadButton;
-  

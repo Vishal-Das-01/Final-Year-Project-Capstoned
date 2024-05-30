@@ -37,8 +37,8 @@ export default function SideMenu(props){
 					Companies
 				</SideMenuItem>
 
-				<SideMenuItem href={FRONTEND_ROUTES.student_dashboard_mentors_page}>
-					Mentors
+				<SideMenuItem href={FRONTEND_ROUTES.student_dashboard_users_page}>
+					Users
 				</SideMenuItem>
 
 
