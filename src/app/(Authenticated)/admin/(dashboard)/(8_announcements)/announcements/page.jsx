@@ -10,6 +10,7 @@ import TableBodyDataCell from "../../_components/TableBodyDataCell/TableBodyData
 import AnnouncementsHeadingAndButton from "./_components/AnnouncementsHeadingAndButton/AnnouncementsHeadingAndButton";
 import Modal from "../../_components/Modal/Modal";
 import DataTableMessage from "../../_components/DataTableMessage/DataTableMessage";
+import AnnouncementsRowContent from "./_components/AnnouncementsRowContent/AnnouncementsRowContent";
 
 // Imports below for state management and api calls
 import { useEffect, useState } from "react";
@@ -156,11 +157,16 @@ export default function AdminDashboardAnnouncementsPage(props){
 							announcements.map((announcement, index) => {
 								return (
 									<TableRow
-										setOpenModal={setOpenModal} 
-										setModalTitle={setModalTitle}
-										setModalContent={setModalContent}
 										key={announcement._id}
-										dataID={announcement._id}
+										setOpenModal={setOpenModal} 
+										setModalContent={setModalContent}
+										setModalTitle={() => setModalTitle(announcement.headline)}
+										content={<AnnouncementsRowContent 
+											data={announcement} 
+											dataID={announcement._id}
+											setModalContent={setModalContent}
+											setOpenModal={setOpenModal}
+										/>}
 									>
 
 										<TableBodyDataCell 
