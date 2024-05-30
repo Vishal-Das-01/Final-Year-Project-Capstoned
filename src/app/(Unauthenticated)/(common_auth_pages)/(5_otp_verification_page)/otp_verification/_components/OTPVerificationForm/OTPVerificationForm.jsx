@@ -114,7 +114,7 @@ export default function OTPVerificationForm() {
         <p className="text-[#565656]">Resend in {Math.floor(resendTimer / 60)}:{("0" + (resendTimer % 60)).slice(-2)}</p>
       ) : (
         <div className="flex items-center">
-          <p className="text-[#565656] mr-1">Didn't receive code?</p>
+          <p className="text-[#565656] mr-1">{"Didn't receive code?"}</p>
           <button onClick={handleResend} disabled={isPending} className="text-[#2563eb] hover:underline">
             Resend
           </button>
