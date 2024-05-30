@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { HttpStatusCode } from "axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
-import { getAnnouncementsAPICall } from "@/utils/admin_frontend_api_calls/AnnouncementsAPICalls";
+import { getAnnouncementsAPICall, deleteAnnouncementAPICall } from "@/utils/admin_frontend_api_calls/AnnouncementsAPICalls";
 import { NotificationType } from "@/utils/constants/enums";
 import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
 import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
@@ -38,6 +38,7 @@ export default function AdminDashboardAnnouncementsPage(props){
 	// for managing skeleton loading indicator 
 	// for managing when retrieved data is 0 in size
 	// for managing when error occurs in retrieval api call
+	// for managing when data is changed so that modal closes
 	const [openModal, setOpenModal]   = useState(false);
 	const [modalTitle, setModalTitle] = useState("");
 	const [modalContent, setModalContent] = useState("");
@@ -45,6 +46,7 @@ export default function AdminDashboardAnnouncementsPage(props){
 	const [loadingIndicator, setLoadingIndicator] = useState(true);
 	const [retrievedDataIsZero, setRetrievedDataIsZero] = useState(false);
 	const [errorRetrievingData, setErrorRetrievingData] = useState(false);
+	const [dataChanged, setDataChanged] = useState(false);
 
 	// For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
@@ -84,6 +86,59 @@ export default function AdminDashboardAnnouncementsPage(props){
 		}
 	}
 
+	// API call for deleting announcement
+	async function deleteAnnouncement(id){
+		let accessToken = authDetails.accessToken;
+		let apiURL = BACKEND_ROUTES.getAnnouncements;
+
+		try{
+			let apiResponse = await deleteAnnouncementAPICall(apiURL, accessToken);
+			if(apiResponse.status === HttpStatusCode.Ok){
+				let apiResponseData = await apiResponse.json();
+				console.log("deleteAnnouncement", apiResponseData);
+				return apiResponseData;
+			}
+			else if (apiResponse.status === HttpStatusCode.Unauthorized) {
+				const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+					method: "POST",
+				});
+				if (responseLogOut.status === HttpStatusCode.Ok) {
+					dispatch(removeAuthDetails());
+					router.replace(FRONTEND_ROUTES.landing_page);
+				}
+				throw new Error('Unauthorized');
+			}
+			else{
+				console.log("deleteAnnouncement error", apiResponse);
+				throw new Error(`Can't delete announcement. Try again.`);
+			}
+		}
+		catch(error){
+			throw error;
+		}
+	}
+
+	// Calls toast message when announcement is deleted
+	function callDeleteAnnouncementToast(id){
+		const deleteAnnouncementResult = deleteAnnouncement(id);
+
+		toast.promise(
+			deleteAnnouncementResult,
+			{
+				loading: 'Deleting announcement...',
+				success: 'Announcement deleted!',
+				error: (err) => `Failed to delete announcement. Try again.`
+			}
+		);
+
+		deleteAnnouncementResult.then(() => {
+			setOpenModal(false);
+			setDataChanged(true);
+		}).catch((error) => {
+			console.log("deleteAnnouncementResult error", error);
+		});		
+	}
+
 	// API Call for displaying announcements  
 	// in the table when the page is loaded 
 	useEffect(() => {
@@ -108,10 +163,11 @@ export default function AdminDashboardAnnouncementsPage(props){
 	// Reload the data when data is changed when modal closes
 	// such as when announcement is created, posted, updated or deleted
 	useEffect(() => {
-		if(!openModal){
+		if(!openModal && dataChanged){
 			fetchAllAnnouncements();
+			setDataChanged(false);
 		}
-	}, [openModal])
+	}, [dataChanged, openModal])
 
 
 	return (
@@ -123,6 +179,7 @@ export default function AdminDashboardAnnouncementsPage(props){
 					setOpenModal={setOpenModal}
 					setModalTitle={setModalTitle}
 					setModalContent={setModalContent}
+					setDataChanged={setDataChanged}
 				/>
 
 				<ContentTable
@@ -166,6 +223,8 @@ export default function AdminDashboardAnnouncementsPage(props){
 											dataID={announcement._id}
 											setModalContent={setModalContent}
 											setOpenModal={setOpenModal}
+											callDeleteAnnouncementToast={callDeleteAnnouncementToast}
+											setDataChanged={setDataChanged}
 										/>}
 									>
 

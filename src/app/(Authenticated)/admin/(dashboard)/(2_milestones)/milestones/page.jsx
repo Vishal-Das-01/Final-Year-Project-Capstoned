@@ -40,6 +40,7 @@ export default function AdminDashboardMilestonesPage(props){
 	// for managing skeleton loading indicator 
 	// for managing when retrieved data is 0 in size
 	// for managing when error occurs in retrieval api call
+	// for managing when data is changed so that modal closes
 	const [openModal, setOpenModal]   = useState(false);
 	const [modalTitle, setModalTitle] = useState("");
 	const [modalContent, setModalContent] = useState("");
@@ -47,6 +48,7 @@ export default function AdminDashboardMilestonesPage(props){
 	const [loadingIndicator, setLoadingIndicator] = useState(true);
 	const [retrievedDataIsZero, setRetrievedDataIsZero] = useState(false);
 	const [errorRetrievingData, setErrorRetrievingData] = useState(false);
+	const [dataChanged, setDataChanged] = useState(false);
 
 	// For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
@@ -111,10 +113,11 @@ export default function AdminDashboardMilestonesPage(props){
 	// Reload the data when data is changed when modal closes
 	// such as when milestones is created or updated
 	useEffect(() => {
-		if(!openModal){
+		if(!openModal && dataChanged){
 			getAllMilestones();
+			setDataChanged(false);
 		}
-	}, [openModal])
+	}, [dataChanged, openModal])
 
 	return (
 		<div className={`${styles.primaryContainer} flex flex-row items-center justify-center w-full h-full`}>
@@ -125,6 +128,7 @@ export default function AdminDashboardMilestonesPage(props){
 					setOpenModal={setOpenModal}
 					setModalTitle={setModalTitle}
 					setModalContent={setModalContent}
+					setDataChanged={setDataChanged}
 				/>
 
 				<ContentTable 
@@ -166,6 +170,7 @@ export default function AdminDashboardMilestonesPage(props){
 													dataID={milestone._id}
 													setModalContent={setModalContent}
 													setOpenModal={setOpenModal}
+													setDataChanged={setDataChanged}
 												/>}
 									>
 

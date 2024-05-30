@@ -38,6 +38,7 @@ export default function AdminDashboardCompaniesPage(props){
 	// for managing skeleton loading indicator 
 	// for managing when retrieved data is 0 in size
 	// for managing when error occurs in retrieval api call
+	// for managing when data is changed so that modal closes
 	const [openModal, setOpenModal]   = useState(false);
 	const [modalTitle, setModalTitle] = useState("");
 	const [modalContent, setModalContent] = useState("");
@@ -45,6 +46,7 @@ export default function AdminDashboardCompaniesPage(props){
 	const [loadingIndicator, setLoadingIndicator] = useState(true);
 	const [retrievedDataIsZero, setRetrievedDataIsZero] = useState(false);
 	const [errorRetrievingData, setErrorRetrievingData] = useState(false);
+	const [dataChanged, setDataChanged] = useState(false);
 
 	// For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
@@ -131,6 +133,7 @@ export default function AdminDashboardCompaniesPage(props){
 
 		deleteCompanyResult.then(() => {
 			setOpenModal(false);
+			setDataChanged(true);
 		}).catch((error) => {
 			console.log("deleteCompanyResult error", error);
 		});		
@@ -159,10 +162,11 @@ export default function AdminDashboardCompaniesPage(props){
 	// Reload the data when data is changed when modal closes
 	// such as when company is created, updated or deleted
 	useEffect(() => {
-		if(!openModal){
+		if(!openModal && dataChanged){
 			fetchAllCompanies();
+			setDataChanged(false);
 		}
-	}, [openModal])
+	}, [dataChanged, openModal])
 
 	return (
 		<div className={`${styles.primaryContainer} flex flex-row items-center justify-center w-full h-full`}>
@@ -173,6 +177,7 @@ export default function AdminDashboardCompaniesPage(props){
 					setOpenModal={setOpenModal}
 					setModalTitle={setModalTitle}
 					setModalContent={setModalContent}
+					setDataChanged={setDataChanged}
 				/>
 
 				<ContentTable

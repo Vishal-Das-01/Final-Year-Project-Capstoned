@@ -52,9 +52,9 @@ export const BACKEND_ROUTES = {
   unfinalizeGroup: `${baseURL}/admin/group/unfinalize?`, // (admin) fyp groups
 
   getAnnouncements: `${baseURL}/admin/notification/get/`, // (admin) announcements
-  postAnnouncement: `http://localhost:3000/pages/api/admin/notification/post`, // (admin) announcements
-  updateAnnouncement: `http://localhost:3000/pages/api/admin/notification/update`, // (admin) announcements
-  deleteAnnouncement: `http://localhost:3000/pages/api/admin/notification/delete`, // (admin) announcements
+  postAnnouncement: `${baseURL}/admin/notification/post`, // (admin) announcements
+  updateAnnouncement: `${baseURL}/admin/notification/update`, // (admin) announcements
+  deleteAnnouncement: `${baseURL}/admin/notification/delete`, // (admin) announcements
 
   createCompany: `${baseURL}/admin/company/create`, // (admin) companies
   deleteCompany: `${baseURL}/admin/company/delete?`, // (admin) companies

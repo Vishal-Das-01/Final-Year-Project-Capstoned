@@ -8,7 +8,7 @@ import UpdateMilestoneForm from "../UpdateMilestoneForm/UpdateMilestoneForm";
 // Import below for getting proper date
 import { extractDate } from "@/utils/helpers/func"; 
 
-export default function MilestoneRowContent({dataID, data, setModalContent, setOpenModal}){
+export default function MilestoneRowContent({dataID, data, setModalContent, setOpenModal, setDataChanged}){
 
     return (
         <div className={`w-full h-full`}>
@@ -79,7 +79,7 @@ export default function MilestoneRowContent({dataID, data, setModalContent, setO
 
                     <ModalDataActionButton 
                         buttonText={"Update"} 
-                        buttonClickAction={() => setModalContent(<UpdateMilestoneForm setOpenModal={setOpenModal} data={data}/>)}
+                        buttonClickAction={() => setModalContent(<UpdateMilestoneForm setOpenModal={setOpenModal} data={data} setDataChanged={setDataChanged}/>)}
                         dataID={dataID}
                         isUpdate={true}
                         isDelete={false}

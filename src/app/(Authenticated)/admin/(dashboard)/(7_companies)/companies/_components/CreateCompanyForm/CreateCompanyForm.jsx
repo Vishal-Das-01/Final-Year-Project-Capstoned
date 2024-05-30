@@ -22,7 +22,7 @@ import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 
-export default function CreateCompanyForm({setOpenModal}){
+export default function CreateCompanyForm({setOpenModal, setDataChanged}){
     let formId = `createCompanyForm`;
 
     // For managing state of entire company
@@ -149,12 +149,13 @@ export default function CreateCompanyForm({setOpenModal}){
 
         submitFormResult.then(() => {
             setOpenModal(false);
+            setDataChanged(true);
         });
 	}
 
     // For testing only
     useEffect(() => {
-        console.log("Company", company)
+        // console.log("Company", company)
     }, [company])
 
     return (

@@ -21,7 +21,7 @@ import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 
-export default function CreateMilestoneForm({setOpenModal}){
+export default function CreateMilestoneForm({setOpenModal, setDataChanged}){
     let formId = `createMilestoneForm`;
 
     // For managing state of entire milestone
@@ -144,6 +144,7 @@ export default function CreateMilestoneForm({setOpenModal}){
 
         submitFormResult.then(() => {
             setOpenModal(false);
+            setDataChanged(true);
         });
 	}
 

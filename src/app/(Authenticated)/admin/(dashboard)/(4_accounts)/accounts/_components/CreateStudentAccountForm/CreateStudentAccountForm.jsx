@@ -21,7 +21,7 @@ import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 
-export default function CreateStudentAccountForm({setOpenModal}){
+export default function CreateStudentAccountForm({setOpenModal, setDataChanged}){
     let formId = `createStudentAccountForm`;
 
     // For managing state of entire student
@@ -174,6 +174,7 @@ export default function CreateStudentAccountForm({setOpenModal}){
 
         submitFormResult.then(() => {
             setOpenModal(false);
+            setDataChanged(true);
         });
 	}
 

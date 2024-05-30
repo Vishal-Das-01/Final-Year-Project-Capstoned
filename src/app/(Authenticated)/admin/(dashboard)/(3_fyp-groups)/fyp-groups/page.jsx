@@ -39,6 +39,7 @@ export default function AdminDashboardFYPGroupsPage(props){
 	// for managing when retrieved data is 0 in size
 	// for managing when error occurs in retrieval api call
 	// for managing when api button is pressed
+	// for managing when data is changed so that modal closes
 	const [openModal, setOpenModal]   = useState(false);
 	const [modalTitle, setModalTitle] = useState("");
 	const [modalContent, setModalContent] = useState("");
@@ -47,6 +48,7 @@ export default function AdminDashboardFYPGroupsPage(props){
 	const [retrievedDataIsZero, setRetrievedDataIsZero] = useState(false);
 	const [errorRetrievingData, setErrorRetrievingData] = useState(false);
 	const [buttonApiLoading, setButtonApiLoading] = useState(false);
+	const [dataChanged, setDataChanged] = useState(false);
 
 	// For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
@@ -199,6 +201,7 @@ export default function AdminDashboardFYPGroupsPage(props){
 
 		finalizeGroupResult.then(() => {
 			setOpenModal(false);
+			setDataChanged(true);
 		}).catch((error) => {
 			console.log("callFinalizeGroupToast error", error);
 		});		
@@ -219,6 +222,7 @@ export default function AdminDashboardFYPGroupsPage(props){
 
 		unfinalizeGroupResult.then(() => {
 			setOpenModal(false);
+			setDataChanged(true);
 		}).catch((error) => {
 			console.log("callUnfinalizeGroupToast error", error);
 		});		
@@ -249,10 +253,11 @@ export default function AdminDashboardFYPGroupsPage(props){
 	// Reload the data when data is changed when modal closes
 	// such as when group is finalized or unfinalized
 	useEffect(() => {
-		if(!openModal){
+		if(!openModal && dataChanged){
 			getAllFYPGroups();
+			setDataChanged(false);
 		}
-	}, [openModal])
+	}, [dataChanged, openModal])
 
 	return (
 		<div className={`${styles.primaryContainer} flex flex-row items-center justify-center w-full h-full`}>

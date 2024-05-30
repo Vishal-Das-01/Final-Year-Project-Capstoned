@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 import { HttpStatusCode } from "axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 
-export default function UpdateAnnouncementForm({data, dataID, setOpenModal}){
+export default function UpdateAnnouncementForm({data, dataID, setOpenModal, setDataChanged}){
     let formId = `updateAnnouncementForm`;
 
     // For managing state of entire announcement
@@ -109,6 +109,26 @@ export default function UpdateAnnouncementForm({data, dataID, setOpenModal}){
         }
     }
 
+    // Calls toast message
+	function callToast(event){
+        const submitFormResult = submitForm(event);
+
+		toast.promise(
+			submitFormResult,
+			{
+				loading: 'Updating announcement...',
+				success: 'Announcement updated!',
+				error: (err) => `Failed to update announcement: ${err.message}`
+			}
+		);
+
+        submitFormResult.then(() => {
+            setOpenModal(false);
+            setDataChanged(true);
+        });
+	}
+
+    // When announcement type is changed
     useEffect(() => {
         if(announcement.type === "To Individual"){
             setIsNotificationTypeToIndividual(true);
@@ -118,13 +138,18 @@ export default function UpdateAnnouncementForm({data, dataID, setOpenModal}){
         }
     }, [announcement])
 
+    // for testing
+    useEffect(() => {
+        // console.log("UpdateAnnouncementForm", announcement);
+    }, [announcement])
+
     return (
         <div className={`${styles.createAnnouncementFormPrimaryContainer} w-full `}>
 
             <form 
                 id={formId} 
                 className={`${styles.createAnnouncementForm} flex flex-col items-center justify-start`}
-                onSubmit={submitForm}
+                onSubmit={callToast}
             >
                 
                 <FormRow 
@@ -207,7 +232,7 @@ export default function UpdateAnnouncementForm({data, dataID, setOpenModal}){
                 >
                     <FormActionButton 
                         buttonText={`Save`}
-                        buttonClickAction={submitForm}
+                        buttonClickAction={callToast}
                         formId={formId}
                         isCancel={false}
                     />

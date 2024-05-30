@@ -5,7 +5,7 @@ import ModalContentText from "../../../../_components/ModalContentText/ModalCont
 import ModalDataActionButton from "../../../../_components/ModalDataActionButton/ModalDataActionButton";
 import UpdateAnnouncementForm from "../UpdateAnnouncementForm/UpdateAnnouncementForm";
 
-export default function AnnouncementsRowContent({dataID, data, setModalContent, setOpenModal}){
+export default function AnnouncementsRowContent({dataID, data, setModalContent, setOpenModal, callDeleteAnnouncementToast, setDataChanged}){
     return (
         <div className={`w-full h-full`}>
 
@@ -73,17 +73,17 @@ export default function AnnouncementsRowContent({dataID, data, setModalContent, 
 
                 <div className={`flex flex-row items-end justify-end h-full `} style={{height: "150px"}}>
                                         
-                    <ModalDataActionButton 
+                    {/* <ModalDataActionButton 
                         buttonText={"Post"} 
                         buttonClickAction={null}
                         dataID={dataID}
                         isUpdate={false}
                         isDelete={false}
-                    />
+                    /> */}
 
                     <ModalDataActionButton 
                         buttonText={"Update"} 
-                        buttonClickAction={() => setModalContent(<UpdateAnnouncementForm setOpenModal={setOpenModal} data={data} dataID={dataID}/>)}
+                        buttonClickAction={() => setModalContent(<UpdateAnnouncementForm setOpenModal={setOpenModal} data={data} dataID={dataID} setDataChanged={setDataChanged}/>)}
                         dataID={dataID}
                         isUpdate={true}
                         isDelete={false}
@@ -91,7 +91,7 @@ export default function AnnouncementsRowContent({dataID, data, setModalContent, 
 
                     <ModalDataActionButton 
                         buttonText={"Delete"} 
-                        buttonClickAction={null}
+                        buttonClickAction={() => callDeleteAnnouncementToast(dataID)}
                         dataID={dataID}
                         isUpdate={false}
                         isDelete={true}

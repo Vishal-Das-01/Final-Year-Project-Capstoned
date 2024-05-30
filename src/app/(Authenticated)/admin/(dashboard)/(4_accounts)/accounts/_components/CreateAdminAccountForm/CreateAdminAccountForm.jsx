@@ -20,7 +20,7 @@ import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 
-export default function CreateAdminAccountForm({setOpenModal}){
+export default function CreateAdminAccountForm({setOpenModal, setDataChanged}){
     let formId = `createAdminAccountForm`;
 
     // For managing state of entire admin
@@ -132,6 +132,7 @@ export default function CreateAdminAccountForm({setOpenModal}){
 
         submitFormResult.then(() => {
             setOpenModal(false);
+            setDataChanged(true);
         });
 	}
 

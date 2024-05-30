@@ -16,7 +16,7 @@ import { HttpStatusCode } from "axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import { postAnnouncementAPICall } from "@/utils/admin_frontend_api_calls/AnnouncementsAPICalls";
 
-export default function CreateAnnouncementForm({setOpenModal}){
+export default function CreateAnnouncementForm({setOpenModal, setDataChanged}){
     let formId = `createAnnouncementForm`;
 
     // For managing state of entire announcement
@@ -101,13 +101,32 @@ export default function CreateAnnouncementForm({setOpenModal}){
             }
             else{
                 console.log("PostAnnouncementForm error", apiCall);
-                throw new Error(`Can't post notification. Try again.`);
+                throw new Error("Can't post notification. Try again.");
             }
         }
         catch(error){
             throw error;
         }
     }
+
+    // Calls toast message
+	function callToast(event){
+        const submitFormResult = submitForm(event);
+
+		toast.promise(
+			submitFormResult,
+			{
+				loading: 'Posting announcement...',
+				success: 'Announcement posted!',
+				error: (err) => `Failed to post announcement: ${err.message}`
+			}
+		);
+
+        submitFormResult.then(() => {
+            setOpenModal(false);
+            setDataChanged(true);
+        });
+	}
 
     // When announcement type is changed
     useEffect(() => {
@@ -119,13 +138,18 @@ export default function CreateAnnouncementForm({setOpenModal}){
         }
     }, [announcement])
 
+    // for testing
+    useEffect(() => {
+        // console.log("CreateAnnouncementForm", announcement);
+    }, [announcement])
+
     return (
         <div className={`${styles.createAnnouncementFormPrimaryContainer} w-full `}>
 
             <form 
                 id={formId} 
                 className={`${styles.createAnnouncementForm} flex flex-col items-center justify-start`}
-                onSubmit={submitForm}
+                onSubmit={callToast}
             >
                 
                 <FormRow 
@@ -208,7 +232,7 @@ export default function CreateAnnouncementForm({setOpenModal}){
                 >
                     <FormActionButton 
                         buttonText={`Save`}
-                        buttonClickAction={submitForm}
+                        buttonClickAction={callToast}
                         formId={formId}
                         isCancel={false}
                     />

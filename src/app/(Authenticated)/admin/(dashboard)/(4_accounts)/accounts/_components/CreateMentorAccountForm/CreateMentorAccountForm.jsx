@@ -23,7 +23,7 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 
 
-export default function CreateMentorAccountForm({setOpenModal}){
+export default function CreateMentorAccountForm({setOpenModal, setDataChanged}){
     let formId = `createMentorAccountForm`;
 
     // For managing state of entire mentor
@@ -159,6 +159,7 @@ export default function CreateMentorAccountForm({setOpenModal}){
 
         submitFormResult.then(() => {
             setOpenModal(false);
+            setDataChanged(true);
         });
 	}
 
