@@ -108,6 +108,13 @@ export default function AdminDashboardMilestonesPage(props){
 		}
 	}, [errorRetrievingData])
 
+	// Reload the data when data is changed when modal closes
+	// such as when milestones is created or updated
+	useEffect(() => {
+		if(!openModal){
+			getAllMilestones();
+		}
+	}, [openModal])
 
 	return (
 		<div className={`${styles.primaryContainer} flex flex-row items-center justify-center w-full h-full`}>

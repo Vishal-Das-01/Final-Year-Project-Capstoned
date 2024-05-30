@@ -55,6 +55,7 @@ export const BACKEND_ROUTES = {
   createAnnouncement: `${baseURL}/admin/notification/create`, // (admin) announcements
 
   createCompany: `${baseURL}/admin/company/create`, // (admin) companies
+  deleteCompany: `${baseURL}/admin/company/delete?`, // (admin) companies
 
   studentRequestProposal: `${baseURL}/student/group/proposal/select-deselect`, // (student) proposals
   studentSubmitMilestone: `${baseURL}/student/project/`, // (student) milestones

@@ -161,14 +161,20 @@ export default function CreateStudentAccountForm({setOpenModal}){
 
     // Calls toast message
 	function callToast(event){
+        const submitFormResult = submitForm(event);
+
 		toast.promise(
-			submitForm(event),
+			submitFormResult,
 			{
 				loading: 'Creating new student account...',
 				success: 'Student account created!',
 				error: (err) => `Failed to create student account: ${err.message}`
 			}
 		);
+
+        submitFormResult.then(() => {
+            setOpenModal(false);
+        });
 	}
 
     return (

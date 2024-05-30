@@ -9,6 +9,7 @@ import FormNumberInput from "../../../../_components/FormNumberInput/FormNumberI
 import FormToggleButton from "../../../../_components/FormToggleButton/FormToggleButton";
 import FormFileInput from "../../../../_components/FormFileInput/FormFileInput";
 import FormActionButton from "../../../../_components/FormActionButton/FormActionButton";
+import toast from "react-hot-toast";
 
 // Imports below for state management & api calls
 import { useEffect, useState } from "react";
@@ -106,27 +107,54 @@ export default function CreateCompanyForm({setOpenModal}){
         let accessToken = authDetails.accessToken;
         let apiURL = BACKEND_ROUTES.createCompany;
         
-        let apiCall = await createNewCompanyAPICall(apiURL, accessToken, dataToSend);
-        if(apiCall.status === HttpStatusCode.Ok){
-            let apiCallResponse = await apiCall.json();
-            console.log("A", apiCallResponse);
+        try{
+            let apiCall = await createNewCompanyAPICall(apiURL, accessToken, dataToSend);
+            if(apiCall.status === HttpStatusCode.Ok){
+                let apiCallResponse = await apiCall.json();
+                console.log("CreateCompanyForm", apiCallResponse);
+                return apiCallResponse;
+            }
+            else if (apiCall.status === HttpStatusCode.Unauthorized) {
+                const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+                    method: "POST",
+                });
+                if (responseLogOut.status === HttpStatusCode.Ok) {
+                    dispatch(removeAuthDetails());
+                    router.replace(FRONTEND_ROUTES.landing_page);
+                }
+                throw new Error('Unauthorized');
+            }
+            else{
+                console.log("CreateCompanyForm error", apiCall);
+                throw new Error(`Can't create company. Try again.`);
+            }
         }
-        else if (apiCall.status === HttpStatusCode.Unauthorized) {
-			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
-			  method: "POST",
-			});
-			if (responseLogOut.status === HttpStatusCode.Ok) {
-			  dispatch(removeAuthDetails());
-			  router.replace(FRONTEND_ROUTES.landing_page);
-			}
-		}
-        else{
-            console.log("B", "Error");
+        catch(error){
+            throw error;
         }
     }
 
+    // Calls toast message
+	function callToast(event){
+        const submitFormResult = submitForm(event);
+        
+		toast.promise(
+			submitFormResult,
+			{
+				loading: 'Creating company...',
+				success: 'Company created!',
+				error: (err) => `Failed to create company: ${err.message}`
+			}
+		);
+
+        submitFormResult.then(() => {
+            setOpenModal(false);
+        });
+	}
+
+    // For testing only
     useEffect(() => {
-        console.log("Z", company)
+        console.log("Company", company)
     }, [company])
 
     return (
@@ -135,7 +163,7 @@ export default function CreateCompanyForm({setOpenModal}){
             <form 
                 id={formId} 
                 className={`${styles.createCompanyForm} flex flex-col items-center justify-start`}
-                onSubmit={submitForm}
+                onSubmit={callToast}
             >
                 
                 <FormRow 
@@ -259,7 +287,7 @@ export default function CreateCompanyForm({setOpenModal}){
                 >
                     <FormActionButton 
                         buttonText={`Save`}
-                        buttonClickAction={submitForm}
+                        buttonClickAction={callToast}
                         formId={formId}
                         isCancel={false}
                     />

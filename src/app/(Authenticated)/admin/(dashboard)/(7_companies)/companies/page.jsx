@@ -11,13 +11,14 @@ import CompaniesHeadingAndButton from "./_components/CompaniesHeadingAndButton/C
 import Modal from "../../_components/Modal/Modal";
 import DataTableMessage from "../../_components/DataTableMessage/DataTableMessage";
 import CompanyRowContent from "./_components/CompanyRowContent/CompanyRowContent";
+import toast from "react-hot-toast";
 
 // Imports below for state management and api calls
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { HttpStatusCode } from "axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
-import { getCompaniesAPICall } from "@/utils/admin_frontend_api_calls/CompaniesAPICalls";
+import { getCompaniesAPICall, deleteCompanyAPICall } from "@/utils/admin_frontend_api_calls/CompaniesAPICalls";
 import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
 import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import { useDispatch } from "react-redux";
@@ -83,6 +84,58 @@ export default function AdminDashboardCompaniesPage(props){
 		}
 	}
 
+	// API call for deleteing particular company
+	async function deleteCompany(id){
+		let accessToken = authDetails.accessToken;
+		let apiURL = BACKEND_ROUTES.deleteCompany + `id=${id}`;
+
+		try{
+			let apiResponse = await deleteCompanyAPICall(apiURL, accessToken);
+			if(apiResponse.status === HttpStatusCode.Ok){
+				let apiResponseData = await apiResponse.json();
+				console.log("deleteCompany:", apiResponseData);
+				return apiResponseData;
+			}
+			else if (apiResponse.status === HttpStatusCode.Unauthorized) {
+				const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+					method: "POST",
+				});
+				if (responseLogOut.status === HttpStatusCode.Ok) {
+					dispatch(removeAuthDetails());
+					router.replace(FRONTEND_ROUTES.landing_page);
+				}
+				throw new Error('Unauthorized');
+			}
+			else{
+				console.log("deleteCompany error:", apiResponse);
+				throw new Error(`Can't delete company. Try again.`);
+			}
+		}
+		catch(error){
+			throw error;
+		}
+	}
+
+	// Calls toast message when company is delete
+	function callDeleteCompanyToast(id){
+		const deleteCompanyResult = deleteCompany(id);
+
+		toast.promise(
+			deleteCompanyResult,
+			{
+				loading: 'Deleting company...',
+				success: 'Company deleted!',
+				error: (err) => `Failed to delete company. Try again.`
+			}
+		);
+
+		deleteCompanyResult.then(() => {
+			setOpenModal(false);
+		}).catch((error) => {
+			console.log("deleteCompanyResult error", error);
+		});		
+	}
+
 	// API Call for displaying companies in the table 
 	// when the page is loaded 
 	useEffect(() => {
@@ -102,6 +155,14 @@ export default function AdminDashboardCompaniesPage(props){
 			setLoadingIndicator(false);
 		}
 	}, [errorRetrievingData])
+
+	// Reload the data when data is changed when modal closes
+	// such as when company is created, updated or deleted
+	useEffect(() => {
+		if(!openModal){
+			fetchAllCompanies();
+		}
+	}, [openModal])
 
 	return (
 		<div className={`${styles.primaryContainer} flex flex-row items-center justify-center w-full h-full`}>
@@ -153,6 +214,7 @@ export default function AdminDashboardCompaniesPage(props){
 											dataID={company._id}
 											setModalContent={setModalContent}
 											setOpenModal={setOpenModal}
+											callDeleteCompanyToast={callDeleteCompanyToast}
 										/>}
 									>
 

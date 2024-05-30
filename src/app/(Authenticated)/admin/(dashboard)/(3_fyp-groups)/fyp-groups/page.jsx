@@ -99,6 +99,7 @@ export default function AdminDashboardFYPGroupsPage(props){
 			let apiResponseData = await apiResponse.json();
 			console.log("finalizeAllFYPGroups:", apiResponseData);
 			toast.success("All groups finalized!");
+			getAllFYPGroups();
 		}
 		else if (apiResponse.status === HttpStatusCode.Unauthorized) {
 			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
@@ -185,26 +186,42 @@ export default function AdminDashboardFYPGroupsPage(props){
 
 	// Calls toast message when group finalized
 	function callFinalizeGroupToast(id){
+		const finalizeGroupResult = finalizeFYPGroup(id);
+
 		toast.promise(
-			finalizeFYPGroup(id),
+			finalizeGroupResult,
 			{
 				loading: 'Finalizing group...',
 				success: 'Group finalized!',
 				error: (err) => `Failed to finalize group. Try again.`
 			}
 		);
+
+		finalizeGroupResult.then(() => {
+			setOpenModal(false);
+		}).catch((error) => {
+			console.log("callFinalizeGroupToast error", error);
+		});		
 	}
 
 	// Calls toast message when group unfinalized
 	function callUnfinalizeGroupToast(id){
+		const unfinalizeGroupResult = unfinalizeFYPGroup(id);
+
 		toast.promise(
-			unfinalizeFYPGroup(id),
+			unfinalizeGroupResult,
 			{
 				loading: 'Unfinalizing group...',
 				success: 'Group unfinalized!',
 				error: (err) => `Failed to unfinalize group. Try again.`
 			}
 		);
+
+		unfinalizeGroupResult.then(() => {
+			setOpenModal(false);
+		}).catch((error) => {
+			console.log("callUnfinalizeGroupToast error", error);
+		});		
 	}
 
 	// API Call for displaying fyp-groups in the table 
@@ -228,6 +245,14 @@ export default function AdminDashboardFYPGroupsPage(props){
 		}
 	}, [errorRetrievingData])
 
+
+	// Reload the data when data is changed when modal closes
+	// such as when group is finalized or unfinalized
+	useEffect(() => {
+		if(!openModal){
+			getAllFYPGroups();
+		}
+	}, [openModal])
 
 	return (
 		<div className={`${styles.primaryContainer} flex flex-row items-center justify-center w-full h-full`}>

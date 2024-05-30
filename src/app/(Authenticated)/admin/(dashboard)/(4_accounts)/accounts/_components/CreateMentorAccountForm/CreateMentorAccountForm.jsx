@@ -146,14 +146,20 @@ export default function CreateMentorAccountForm({setOpenModal}){
 
     // Calls toast message
 	function callToast(event){
+        const submitFormResult = submitForm(event);
+
 		toast.promise(
-			submitForm(event),
+			submitFormResult,
 			{
 				loading: 'Creating new mentor account...',
 				success: 'Mentor account created!',
 				error: (err) => `Failed to create mentor account: ${err.message}`
 			}
 		);
+
+        submitFormResult.then(() => {
+            setOpenModal(false);
+        });
 	}
 
     return (

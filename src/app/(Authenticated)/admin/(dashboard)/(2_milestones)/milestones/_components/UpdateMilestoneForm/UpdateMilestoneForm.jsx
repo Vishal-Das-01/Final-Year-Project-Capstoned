@@ -131,14 +131,20 @@ export default function UpdateMilestoneForm({setOpenModal, data}){
 
     // Calls toast message
 	function callToast(event){
+        const submitFormResult = submitForm(event);
+
 		toast.promise(
-			submitForm(event),
+			submitFormResult,
 			{
 				loading: 'Updating milestone...',
 				success: 'Milestone updated!',
 				error: (err) => `Failed to update milestone: ${err.message}`
 			}
 		);
+
+        submitFormResult.then(() => {
+            setOpenModal(false);
+        });
 	}
 
     // For testing only
