@@ -4,12 +4,12 @@ import { IoCaretForwardCircleOutline } from "react-icons/io5";
 import GroupDetails from "./_components/GroupDetails/GroupDetails";
 import NotFound from "../_components/NotFound/NotFound";
 
-export default function FYPGroupsContent({ group }) {
+export default function FYPGroupsContent({ studentID, group }) {
   return (
     <div
       className={`${styles.contentCardContainer} flex flex-col items-start rounded-xl `}
     >
-      <div className="h-full w-full mx-2 my-4">
+      <div className="w-full h-full mx-2 my-4">
         <div
           className={`${styles.contentHeadingWrapper} flex flex-row items-center `}
         >
@@ -28,14 +28,15 @@ export default function FYPGroupsContent({ group }) {
 
         {group && (
           <div
-            className={`${styles.fypGroupInfoWrapper} flex flex-col my-2 h-4/5`}
+            className={`${styles.fypGroupInfoWrapper} flex flex-col mt-2 h-4/5`}
           >
             <GroupDetails
-              projectTitle={group.projectTitle}
-              groupName={group.groupName}
-              groupMembers={group.groupMembers}
-              groupLead={group.groupLead}
-              role={group.role}
+              studentID={studentID}
+              projectTitle={group.project.proposal.title}
+              groupName={group.name}
+              groupMembers={group.members}
+              groupLead={group.lead}
+              groupSupervisor={group.supervisor}
             />
           </div>
         )}

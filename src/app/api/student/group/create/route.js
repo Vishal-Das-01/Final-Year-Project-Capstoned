@@ -15,7 +15,7 @@ export const POST = async (request) => {
             return NextResponse.json({message: "Group already exists."}, {status: HttpStatusCode.Conflict});
         } 
 
-        const group=new Group({lead: profileID, name, profileImage, year: new Date().getFullYear()});
+        const group = new Group({lead: profileID, name, profileImage, year: (new Date().getFullYear()) + 1});
         await group.save();
 
         student.group=group._id;
