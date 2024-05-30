@@ -7,7 +7,7 @@ import ModalDataActionButton from "../../../../_components/ModalDataActionButton
 // Import below for getting proper date
 import { extractDate } from "@/utils/helpers/func"; 
 
-export default function FYPGroupsRowContent({dataID, data}){
+export default function FYPGroupsRowContent({dataID, data, callFinalizeGroupToast, callUnfinalizeGroupToast}){
     
     return (
         <div className={`w-full h-full`}>
@@ -105,13 +105,34 @@ export default function FYPGroupsRowContent({dataID, data}){
 
             <ModalContent>
 
+                <ModalContentHeading>
+                    Group Finalized:
+                </ModalContentHeading>
+
+                <ModalContentText>
+                    {data.confirmed ? "Yes" : "No"}
+                </ModalContentText>
+
+            </ModalContent>
+
+            <ModalContent>
+
                 <div className={`flex flex-row items-end justify-end `} style={{height: "70px"}}>
 
                     <ModalDataActionButton 
                         buttonText={"Finalize"} 
-                        buttonClickAction={null}
+                        buttonClickAction={() => callFinalizeGroupToast(dataID)}
                         dataID={dataID}
                         isUpdate={false}
+                        isDelete={false}
+                    />
+
+                    <ModalDataActionButton 
+                        buttonText={"Unfinalize"} 
+                        buttonClickAction={() => callUnfinalizeGroupToast(dataID)}
+                        dataID={dataID}
+                        isUpdate={true}
+                        isDelete={false}
                     />
 
                 </div>

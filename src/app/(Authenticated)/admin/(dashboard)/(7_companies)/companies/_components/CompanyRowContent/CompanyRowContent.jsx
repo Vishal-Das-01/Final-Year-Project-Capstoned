@@ -1,25 +1,22 @@
-import styles from "./AccountsRowContent.module.css";
+import styles from "./CompanyRowContent.module.css";
 import ModalContent from "../../../../_components/ModalContent/ModalContent";
 import ModalContentHeading from "../../../../_components/ModalContentHeading/ModalContentHeading";
 import ModalContentText from "../../../../_components/ModalContentText/ModalContentText";
 import ModalDataActionButton from "../../../../_components/ModalDataActionButton/ModalDataActionButton";
 
-// Import below for getting proper date
-import { extractDate } from "@/utils/helpers/func"; 
+export default function CompanyRowContent({dataID, data, setModalContent, setOpenModal}){
 
-export default function AccountsRowContent({dataID, data}){
-    console.log("AccountsRowContent", data);
     return (
         <div className={`w-full h-full`}>
             
             <ModalContent>
                 
                 <ModalContentHeading>
-                    Role:
+                    Company Name:
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {data.role}
+                    {data.name}
                 </ModalContentText>
 
             </ModalContent>
@@ -27,11 +24,11 @@ export default function AccountsRowContent({dataID, data}){
             <ModalContent>
 
                 <ModalContentHeading>
-                    Account Activated:
+                    Company Contact Number:
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {`${data.activated ? "Yes" : "No"}`}
+                    {String(`${"Company Number"}`)}
                 </ModalContentText>
 
             </ModalContent>
@@ -39,11 +36,11 @@ export default function AccountsRowContent({dataID, data}){
             <ModalContent>
 
                 <ModalContentHeading>
-                    Email:
+                    Company Email:
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {data.email}
+                    {`${"Company Email"}`}
                 </ModalContentText>
 
             </ModalContent>
@@ -51,25 +48,45 @@ export default function AccountsRowContent({dataID, data}){
             <ModalContent>
 
                 <ModalContentHeading>
-                    Gender:
+                    Web URL:
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {data.profileID.gender}
+                    {`${"Web URL"}`}
                 </ModalContentText>
 
             </ModalContent>
 
             <ModalContent>
 
-                <div className={`flex flex-row items-end justify-end h-full`} style={{height: "200px"}}>
+                <ModalContentHeading>
+                    City:
+                </ModalContentHeading>
 
-                    {/* <ModalDataActionButton 
+                <ModalContentText>
+                    {`${"City"}`}
+                </ModalContentText>
+
+            </ModalContent>
+
+            <ModalContent>
+
+                <div className={`flex flex-row items-end justify-end h-full `} style={{height: "150px"}}>
+
+                    <ModalDataActionButton 
                         buttonText={"Update"} 
-                        buttonClickAction={null}
+                        buttonClickAction={() => setModalContent(<div>Update Company</div>)}
                         dataID={dataID}
                         isUpdate={true}
-                    /> */}
+                    />
+
+                    <ModalDataActionButton 
+                        buttonText={"Delete"} 
+                        buttonClickAction={null}
+                        dataID={dataID}
+                        isUpdate={false}
+                        isDelete={true}
+                    />
 
                 </div>
 

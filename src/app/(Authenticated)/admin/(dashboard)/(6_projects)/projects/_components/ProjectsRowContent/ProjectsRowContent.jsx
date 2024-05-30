@@ -109,19 +109,20 @@ export default function ProjectsRowContent({dataID, data, markProjectFinished, s
             <ModalContent>
 
                 <div className={`flex flex-row items-end justify-end h-full `}>
-
+{/*                     
                     <ModalDataActionButton 
                         buttonText={"Update"} 
                         buttonClickAction={() => setModalContent(<div>Hello</div>)}
                         dataID={dataID}
                         isUpdate={true}
-                    />
+                    /> */}
 
                     <ModalDataActionButton 
                         buttonText={"Mark Finished"} 
                         buttonClickAction={() => {markProjectFinished(dataID)} }
                         dataID={dataID}
                         isUpdate={false}
+                        isDelete={false}
                     />
 
                     
