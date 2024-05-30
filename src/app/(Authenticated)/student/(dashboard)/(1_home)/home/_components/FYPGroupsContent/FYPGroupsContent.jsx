@@ -32,7 +32,7 @@ export default function FYPGroupsContent({ studentID, group }) {
           >
             <GroupDetails
               studentID={studentID}
-              projectTitle={group.project.proposal.title}
+              projectTitle={group.project?.proposal.title}
               groupName={group.name}
               groupMembers={group.members}
               groupLead={group.lead}
