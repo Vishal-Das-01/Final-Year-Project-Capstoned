@@ -29,6 +29,22 @@ export async function createNewCompanyAPICall(route, token, data){
     }
 }
 
+export async function updateCompanyAPICall(route, token, data){
+    try{
+        let res = await fetch(route, {
+            method: "PATCH",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify(data)
+        });
+        return res;
+    }
+    catch(error){
+        console.log("updateCompanyAPICall Error: " + error);
+    }
+}
+
 export async function deleteCompanyAPICall(route, token){
     try{
         let res = await fetch(route, {

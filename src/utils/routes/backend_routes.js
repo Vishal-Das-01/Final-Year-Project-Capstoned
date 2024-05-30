@@ -56,6 +56,7 @@ export const BACKEND_ROUTES = {
 
   createCompany: `${baseURL}/admin/company/create`, // (admin) companies
   deleteCompany: `${baseURL}/admin/company/delete?`, // (admin) companies
+  updateCompany: `${baseURL}/admin/company/update?`, // (admin) companies
 
   getStudentDashboardDetails: `${baseURL}/student/dashboard`,
   studentRequestProposal: `${baseURL}/student/group/proposal/select-deselect`, // (student) proposals
