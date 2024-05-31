@@ -1,7 +1,7 @@
-import styles from "./MessagesContent.module.css";
+import styles from "./DesignContent.module.css";
 import MessageListTile from "../_components/MessageListTile/MessageListTile";
 
-export default function MessagesContent(){
+export default function DesignContent(){
     return (
         <div className={`h-full w-full`}>
 
