@@ -11,6 +11,7 @@ import AnnouncementsHeadingAndButton from "./_components/AnnouncementsHeadingAnd
 import Modal from "../../_components/Modal/Modal";
 import DataTableMessage from "../../_components/DataTableMessage/DataTableMessage";
 import AnnouncementsRowContent from "./_components/AnnouncementsRowContent/AnnouncementsRowContent";
+import toast from "react-hot-toast";
 
 // Imports below for state management and api calls
 import { useEffect, useState } from "react";
@@ -89,7 +90,7 @@ export default function AdminDashboardAnnouncementsPage(props){
 	// API call for deleting announcement
 	async function deleteAnnouncement(id){
 		let accessToken = authDetails.accessToken;
-		let apiURL = BACKEND_ROUTES.getAnnouncements;
+		let apiURL = BACKEND_ROUTES.deleteAnnouncement + `?id=${id}`;
 
 		try{
 			let apiResponse = await deleteAnnouncementAPICall(apiURL, accessToken);
@@ -127,7 +128,7 @@ export default function AdminDashboardAnnouncementsPage(props){
 			{
 				loading: 'Deleting announcement...',
 				success: 'Announcement deleted!',
-				error: (err) => `Failed to delete announcement. Try again.`
+				error: (err) => err.message
 			}
 		);
 
@@ -135,7 +136,7 @@ export default function AdminDashboardAnnouncementsPage(props){
 			setOpenModal(false);
 			setDataChanged(true);
 		}).catch((error) => {
-			console.log("deleteAnnouncementResult error", error);
+			console.log(error);
 		});		
 	}
 
@@ -249,7 +250,7 @@ export default function AdminDashboardAnnouncementsPage(props){
 										/>
 										
 										<TableBodyDataCell 
-											text={String(`${announcement.sender.firstName.includes("Admin") ? announcement.sender.firstName : announcement.sender.firstName + " " + announcement.sender.lastName}`)}
+											text={String(`${announcement.sender ? (announcement.sender.firstName.includes("Admin") ? announcement.sender.firstName : announcement.sender.firstName + " " + announcement.sender.lastName) : "N/A"}`)}
 										/>
 
 										<TableBodyDataCell 
