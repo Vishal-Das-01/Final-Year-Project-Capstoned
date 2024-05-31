@@ -7,15 +7,18 @@ import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import OTPInputField from "../OTPInputField/OTPInputField";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ChangePasswordModal from "@/components/ChangePasswordModal/ChangePasswordModal";
+import { setAuthDetails } from "@/provider/redux/features/AuthDetails";
+import { jwtDecode } from "jwt-decode";
 
 export default function OTPVerificationForm() {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [isPending, setIsPending] = useState(false);
   const [otpValues, setOTPValues] = useState(Array(6).fill(''));
-  const [resendTimer, setResendTimer] = useState(10);
+  const [resendTimer, setResendTimer] = useState(120);
   const [isTimerRunning, setIsTimerRunning] = useState(true);
   const [openModal, setOpenModal] = useState(false)
 
@@ -43,7 +46,22 @@ export default function OTPVerificationForm() {
 
       if(response.status === 200) {
         toast.success(responseData.message);
-        router.replace(FRONTEND_ROUTES.otp_verification_page);
+        
+        const { role, email, profileID } = jwtDecode(responseData.accessToken);
+        dispatch(
+          setAuthDetails({
+            role: role,
+            email: email,
+            profileID: profileID,
+            accessToken: responseData.accessToken,
+            profileImage: responseData.user.profileID.profileImage?.image,
+            firstName: responseData.user.profileID.firstName,
+            lastName: responseData.user.profileID.lastName,
+            gender: responseData.user.profileID.gender
+          })
+        );
+
+        setOpenModal(true);
       }
       else if(response.status === 403) {
         toast.error(responseData.message);
@@ -75,7 +93,7 @@ export default function OTPVerificationForm() {
       const responseData = await response.json();
 
       if(response.status === 200) {
-        setResendTimer(10);
+        setResendTimer(120);
         setIsTimerRunning(true);
 
         toast.success(responseData.message);
@@ -123,7 +141,7 @@ export default function OTPVerificationForm() {
         </div>
       )}
 
-      {true && <ChangePasswordModal setOpenModal={setOpenModal} />}
+      {openModal && <ChangePasswordModal setOpenModal={setOpenModal} />}
 
     </form>
   );

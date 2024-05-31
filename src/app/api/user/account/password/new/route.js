@@ -23,7 +23,6 @@ export const PATCH = async (request) => {
 
         return NextResponse.json({message: "Password updated."}, {status: HttpStatusCode.Ok});
     } catch (error) {
-        console.log(error)
         return NextResponse.json({message: "Failed to update password."}, {status: HttpStatusCode.InternalServerError});
     }
 }
