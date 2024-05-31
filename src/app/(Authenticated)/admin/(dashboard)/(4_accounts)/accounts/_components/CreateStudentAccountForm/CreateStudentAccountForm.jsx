@@ -21,7 +21,7 @@ import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 
-export default function CreateStudentAccountForm({setOpenModal}){
+export default function CreateStudentAccountForm({setOpenModal, setDataChanged}){
     let formId = `createStudentAccountForm`;
 
     // For managing state of entire student
@@ -161,14 +161,21 @@ export default function CreateStudentAccountForm({setOpenModal}){
 
     // Calls toast message
 	function callToast(event){
+        const submitFormResult = submitForm(event);
+
 		toast.promise(
-			submitForm(event),
+			submitFormResult,
 			{
 				loading: 'Creating new student account...',
 				success: 'Student account created!',
 				error: (err) => `Failed to create student account: ${err.message}`
 			}
 		);
+
+        submitFormResult.then(() => {
+            setOpenModal(false);
+            setDataChanged(true);
+        });
 	}
 
     return (

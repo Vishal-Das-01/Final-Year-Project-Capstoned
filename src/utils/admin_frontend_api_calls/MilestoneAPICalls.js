@@ -44,3 +44,18 @@ export async function updateMilestoneAPICall(route, token, data){
         console.log("updateMilestoneAPICall: " + error);
     }
 }
+
+export async function assignMilestoneAPICall(route, token){
+    try{
+        let res = await fetch(route, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
+        });
+        return res;
+    }
+    catch(error){
+        console.log("assignMilestoneAPICall: " + error);
+    }
+}

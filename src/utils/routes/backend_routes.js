@@ -13,6 +13,7 @@ export const BACKEND_ROUTES = {
   verifyOTP: `${baseURL}/auth/otp/verify`,
   sendRequest: 'http://localhost:3000/api/student/request/send',
   getProfile: `${baseURL}/user/account/get`,
+  newPassword: `${baseURL}/user/account/password/new`,
   getAllCompanies: `${baseURL}/user/company/get/all`, // (user) companies
 
   getMentorDashboardDetails: `${baseURL}/mentor/dashboard`,
@@ -39,6 +40,7 @@ export const BACKEND_ROUTES = {
   getAllMilestones: `${baseURL}/admin/milestone/get-all`, // (admin) milestones
   createMilestone: `${baseURL}/admin/milestone/create`, // (admin) milestones
   updateMilestone: `${baseURL}/admin/milestone/update/`, // (admin) milestones
+  assignMilestone: `${baseURL}/admin/milestone/assign/`, // (admin) milestones
 
   createUser: `${baseURL}/admin/account/create`, // (admin) users
   getUsers: `${baseURL}/admin/user/get/`, // (admin) users
@@ -52,9 +54,13 @@ export const BACKEND_ROUTES = {
   unfinalizeGroup: `${baseURL}/admin/group/unfinalize?`, // (admin) fyp groups
 
   getAnnouncements: `${baseURL}/admin/notification/get/`, // (admin) announcements
-  createAnnouncement: `${baseURL}/admin/notification/create`, // (admin) announcements
+  postAnnouncement: `${baseURL}/admin/notification/post`, // (admin) announcements
+  updateAnnouncement: `${baseURL}/admin/notification/update`, // (admin) announcements
+  deleteAnnouncement: `${baseURL}/admin/notification/delete`, // (admin) announcements
 
   createCompany: `${baseURL}/admin/company/create`, // (admin) companies
+  deleteCompany: `${baseURL}/admin/company/delete?`, // (admin) companies
+  updateCompany: `${baseURL}/admin/company/update?`, // (admin) companies
 
   getStudentDashboardDetails: `${baseURL}/student/dashboard`,
   studentRequestProposal: `${baseURL}/student/group/proposal/select-deselect`, // (student) proposals

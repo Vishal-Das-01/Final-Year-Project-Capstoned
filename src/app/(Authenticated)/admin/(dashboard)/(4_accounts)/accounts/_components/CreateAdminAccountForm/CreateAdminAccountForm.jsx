@@ -20,7 +20,7 @@ import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 
-export default function CreateAdminAccountForm({setOpenModal}){
+export default function CreateAdminAccountForm({setOpenModal, setDataChanged}){
     let formId = `createAdminAccountForm`;
 
     // For managing state of entire admin
@@ -119,14 +119,21 @@ export default function CreateAdminAccountForm({setOpenModal}){
 
     // Calls toast message
 	function callToast(event){
+        const submitFormResult = submitForm(event);
+
 		toast.promise(
-			submitForm(event),
+			submitFormResult,
 			{
 				loading: 'Creating new admin account...',
 				success: 'Admin account created!',
 				error: (err) => `Failed to create admin account: ${err.message}`
 			}
 		);
+
+        submitFormResult.then(() => {
+            setOpenModal(false);
+            setDataChanged(true);
+        });
 	}
 
     return (

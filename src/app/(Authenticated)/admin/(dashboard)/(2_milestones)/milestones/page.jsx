@@ -11,10 +11,11 @@ import TableBodyDataCell from "../../_components/TableBodyDataCell/TableBodyData
 import Modal from "../../_components/Modal/Modal";
 import MilestoneRowContent from "./_components/MilestoneRowContent/MilestoneRowContent";
 import DataTableMessage from "../../_components/DataTableMessage/DataTableMessage";
+import toast from "react-hot-toast";
 
 // Imports below for state management and api calls
 import { useEffect, useState } from "react";
-import { getAllMilestonesAPICall } from "@/utils/admin_frontend_api_calls/MilestoneAPICalls";
+import { getAllMilestonesAPICall, assignMilestoneAPICall } from "@/utils/admin_frontend_api_calls/MilestoneAPICalls";
 import { useSelector } from "react-redux";
 import { HttpStatusCode } from "axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
@@ -40,6 +41,7 @@ export default function AdminDashboardMilestonesPage(props){
 	// for managing skeleton loading indicator 
 	// for managing when retrieved data is 0 in size
 	// for managing when error occurs in retrieval api call
+	// for managing when data is changed so that modal closes
 	const [openModal, setOpenModal]   = useState(false);
 	const [modalTitle, setModalTitle] = useState("");
 	const [modalContent, setModalContent] = useState("");
@@ -47,6 +49,7 @@ export default function AdminDashboardMilestonesPage(props){
 	const [loadingIndicator, setLoadingIndicator] = useState(true);
 	const [retrievedDataIsZero, setRetrievedDataIsZero] = useState(false);
 	const [errorRetrievingData, setErrorRetrievingData] = useState(false);
+	const [dataChanged, setDataChanged] = useState(false);
 
 	// For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
@@ -87,6 +90,59 @@ export default function AdminDashboardMilestonesPage(props){
 		}
 	}
 
+	// Function for assigning milestone
+    async function assignMilestone(id){
+        let accessToken = authDetails.accessToken;
+        let apiURL = BACKEND_ROUTES.assignMilestone + `${id}`;
+
+        try{
+            let apiCall = await assignMilestoneAPICall(apiURL, accessToken);
+            if(apiCall.status === HttpStatusCode.Ok){
+                let apiCallResponse = await apiCall.json();
+                console.log("assignMilestone:", apiCallResponse);
+                return apiCallResponse;
+            }
+            else if (apiCall.status === HttpStatusCode.Unauthorized) {
+                const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+                    method: "POST",
+                });
+                if (responseLogOut.status === HttpStatusCode.Ok) {
+                    dispatch(removeAuthDetails());
+                    router.replace(FRONTEND_ROUTES.landing_page);
+                }
+                throw new Error('Unauthorized');
+            }
+            else{
+                console.log("assignMilestone:", apiCall);
+                throw new Error(`Can't assign milestone. Try again.`);
+            }
+        }
+        catch(error){
+            throw error;
+        }
+    }
+
+	// Calls toast message
+	function callAssignMilestoneToast(id){
+        const assignMilestoneResult = assignMilestone(id);
+
+		toast.promise(
+			assignMilestoneResult,
+			{
+				loading: 'Assigning milestone...',
+				success: 'Milestone assigned!',
+				error: (err) => `${err.message}`
+			}
+		);
+
+        assignMilestoneResult.then(() => {
+            setOpenModal(false);
+            setDataChanged(true);
+        }).catch((error) => {
+			console.log(error.message)
+		});
+	}
+
 	// API Call for displaying milestones in the table 
 	// when the page is loaded 
 	useEffect(() => {
@@ -108,6 +164,14 @@ export default function AdminDashboardMilestonesPage(props){
 		}
 	}, [errorRetrievingData])
 
+	// Reload the data when data is changed when modal closes
+	// such as when milestones is created or updated
+	useEffect(() => {
+		if(!openModal && dataChanged){
+			getAllMilestones();
+			setDataChanged(false);
+		}
+	}, [dataChanged, openModal])
 
 	return (
 		<div className={`${styles.primaryContainer} flex flex-row items-center justify-center w-full h-full`}>
@@ -118,6 +182,7 @@ export default function AdminDashboardMilestonesPage(props){
 					setOpenModal={setOpenModal}
 					setModalTitle={setModalTitle}
 					setModalContent={setModalContent}
+					setDataChanged={setDataChanged}
 				/>
 
 				<ContentTable 
@@ -159,6 +224,8 @@ export default function AdminDashboardMilestonesPage(props){
 													dataID={milestone._id}
 													setModalContent={setModalContent}
 													setOpenModal={setOpenModal}
+													setDataChanged={setDataChanged}
+													callAssignMilestoneToast={callAssignMilestoneToast}
 												/>}
 									>
 

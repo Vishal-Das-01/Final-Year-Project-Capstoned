@@ -21,7 +21,7 @@ import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 
-export default function UpdateMilestoneForm({setOpenModal, data}){
+export default function UpdateMilestoneForm({setOpenModal, data, setDataChanged}){
     let formId = `updateMilestoneForm`;
 
     // For managing state of entire milestone
@@ -131,14 +131,21 @@ export default function UpdateMilestoneForm({setOpenModal, data}){
 
     // Calls toast message
 	function callToast(event){
+        const submitFormResult = submitForm(event);
+
 		toast.promise(
-			submitForm(event),
+			submitFormResult,
 			{
 				loading: 'Updating milestone...',
 				success: 'Milestone updated!',
 				error: (err) => `Failed to update milestone: ${err.message}`
 			}
 		);
+
+        submitFormResult.then(() => {
+            setOpenModal(false);
+            setDataChanged(true);
+        });
 	}
 
     // For testing only

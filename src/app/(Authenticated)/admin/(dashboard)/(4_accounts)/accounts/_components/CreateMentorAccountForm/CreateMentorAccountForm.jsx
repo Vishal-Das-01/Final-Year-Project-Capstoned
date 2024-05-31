@@ -23,7 +23,7 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 
 
-export default function CreateMentorAccountForm({setOpenModal}){
+export default function CreateMentorAccountForm({setOpenModal, setDataChanged}){
     let formId = `createMentorAccountForm`;
 
     // For managing state of entire mentor
@@ -146,14 +146,21 @@ export default function CreateMentorAccountForm({setOpenModal}){
 
     // Calls toast message
 	function callToast(event){
+        const submitFormResult = submitForm(event);
+
 		toast.promise(
-			submitForm(event),
+			submitFormResult,
 			{
 				loading: 'Creating new mentor account...',
 				success: 'Mentor account created!',
 				error: (err) => `Failed to create mentor account: ${err.message}`
 			}
 		);
+
+        submitFormResult.then(() => {
+            setOpenModal(false);
+            setDataChanged(true);
+        });
 	}
 
     return (

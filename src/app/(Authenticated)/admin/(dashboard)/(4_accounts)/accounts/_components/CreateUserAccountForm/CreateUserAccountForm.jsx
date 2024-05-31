@@ -6,18 +6,18 @@ import CreateStudentAccountForm from "../CreateStudentAccountForm/CreateStudentA
 import FormRow from "../../../../_components/FormRow/FormRow";
 import FormDropDownSelect from "../../../../_components/FormDropDownSelect/FormDropDownSelect";
 
-export default function CreateUserAccountForm({setOpenModal}){
+export default function CreateUserAccountForm({setOpenModal, setDataChanged}){
     // This state is for choosing the form type chosen in the FormDropDownSelect child component
     const [formType, setFormType] = useState("");
 
     // Function for setting the form type chosen in the FormDropDownSelect child component
     function chooseFormType(formType){
         if(formType == "admin")
-            return <CreateAdminAccountForm setOpenModal={setOpenModal}/>;
+            return <CreateAdminAccountForm setOpenModal={setOpenModal} setDataChanged={setDataChanged}/>;
         else if(formType == "mentor")
-            return <CreateMentorAccountForm setOpenModal={setOpenModal}/>;
+            return <CreateMentorAccountForm setOpenModal={setOpenModal} setDataChanged={setDataChanged}/>;
         else if(formType == "student")
-            return <CreateStudentAccountForm setOpenModal={setOpenModal}/>;
+            return <CreateStudentAccountForm setOpenModal={setOpenModal} setDataChanged={setDataChanged}/>;
         else
             return <></>;
     }

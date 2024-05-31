@@ -38,6 +38,7 @@ export default function AdminDashboardProjectsPage(props){
 	// for managing skeleton loading indicator 
 	// for managing when retrieved data is 0 in size
 	// for managing when error occurs in retrieval api call
+	// for managing when data is changed so that modal closes
 	const [openModal, setOpenModal]   = useState(false);
 	const [modalTitle, setModalTitle] = useState("");
 	const [modalContent, setModalContent] = useState("");
@@ -45,6 +46,7 @@ export default function AdminDashboardProjectsPage(props){
 	const [loadingIndicator, setLoadingIndicator] = useState(true);
 	const [retrievedDataIsZero, setRetrievedDataIsZero] = useState(false);
 	const [errorRetrievingData, setErrorRetrievingData] = useState(false);
+	const [dataChanged, setDataChanged] = useState(false);
 
 	// For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
@@ -128,14 +130,21 @@ export default function AdminDashboardProjectsPage(props){
 
 	// Calls toast message
 	function callToast(id){
+		const markProjectFinishedResult = markProjectFinished(id);
+
 		toast.promise(
-			markProjectFinished(id),
+			markProjectFinishedResult,
 			{
 				loading: 'Marking project as finished...',
 				success: 'Project marked as finished!',
 				error: (err) => `Failed to mark project: ${err.message}`
 			}
 		);
+
+		markProjectFinishedResult.then(() => {
+            setOpenModal(false);
+			setDataChanged(true);
+        });
 	}
 	
 	// API Call for displaying projects in the table 
@@ -158,6 +167,15 @@ export default function AdminDashboardProjectsPage(props){
 			setLoadingIndicator(false);
 		}
 	}, [errorRetrievingData])
+
+	// Reload the data when data is changed when modal closes
+	// such as when project is marked finished
+	useEffect(() => {
+		if(!openModal && dataChanged){
+			getAllProjects();
+			setDataChanged(false);
+		}
+	}, [dataChanged, openModal])
 
 	return (
 		<div className={`${styles.primaryContainer} flex flex-row items-center justify-center w-full h-full`}>

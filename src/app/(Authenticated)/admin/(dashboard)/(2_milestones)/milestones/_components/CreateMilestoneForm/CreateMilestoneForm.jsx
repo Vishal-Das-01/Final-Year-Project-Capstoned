@@ -21,7 +21,7 @@ import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 
-export default function CreateMilestoneForm({setOpenModal}){
+export default function CreateMilestoneForm({setOpenModal, setDataChanged}){
     let formId = `createMilestoneForm`;
 
     // For managing state of entire milestone
@@ -131,14 +131,21 @@ export default function CreateMilestoneForm({setOpenModal}){
 
     // Calls toast message
 	function callToast(event){
+        const submitFormResult = submitForm(event);
+
 		toast.promise(
-			submitForm(event),
+			submitFormResult,
 			{
 				loading: 'Creating milestone...',
 				success: 'Milestone created!',
 				error: (err) => `Failed to create milestone: ${err.message}`
 			}
 		);
+
+        submitFormResult.then(() => {
+            setOpenModal(false);
+            setDataChanged(true);
+        });
 	}
 
     useEffect(() => {

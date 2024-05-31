@@ -7,7 +7,7 @@ import CreateMentorAccountForm from "../CreateMentorAccountForm/CreateMentorAcco
 import CreateStudentAccountForm from "../CreateStudentAccountForm/CreateStudentAccountForm";
 import CreateUserAccountForm from "../CreateUserAccountForm/CreateUserAccountForm";
 
-export default function AccountHeadingAndButton({setOpenModal, setModalTitle, setModalContent}){
+export default function AccountHeadingAndButton({setOpenModal, setModalTitle, setModalContent, setDataChanged}){
 
     function createAccountHandler(){
         console.log("Create Account");
@@ -22,7 +22,7 @@ export default function AccountHeadingAndButton({setOpenModal, setModalTitle, se
                 () => {
                     setOpenModal(true); 
                     setModalTitle("Create Account");
-                    setModalContent(<CreateUserAccountForm setOpenModal={setOpenModal}/>);
+                    setModalContent(<CreateUserAccountForm setOpenModal={setOpenModal} setDataChanged={setDataChanged}/>);
                 }
             }
             buttonApiLoading={false}

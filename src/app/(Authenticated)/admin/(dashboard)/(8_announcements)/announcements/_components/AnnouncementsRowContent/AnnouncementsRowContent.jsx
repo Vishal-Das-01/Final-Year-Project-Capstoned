@@ -1,46 +1,30 @@
-import styles from "./MilestoneRowContent.module.css";
+import styles from "./AnnouncementsRowContent.module.css";
 import ModalContent from "../../../../_components/ModalContent/ModalContent";
 import ModalContentHeading from "../../../../_components/ModalContentHeading/ModalContentHeading";
 import ModalContentText from "../../../../_components/ModalContentText/ModalContentText";
 import ModalDataActionButton from "../../../../_components/ModalDataActionButton/ModalDataActionButton";
-import UpdateMilestoneForm from "../UpdateMilestoneForm/UpdateMilestoneForm";
+import UpdateAnnouncementForm from "../UpdateAnnouncementForm/UpdateAnnouncementForm";
 
-// Import below for getting proper date
-import { extractDate } from "@/utils/helpers/func"; 
-
-export default function MilestoneRowContent({dataID, data, setModalContent, setOpenModal, setDataChanged, callAssignMilestoneToast}){
-
+export default function AnnouncementsRowContent({dataID, data, setModalContent, setOpenModal, callDeleteAnnouncementToast, setDataChanged}){
     return (
         <div className={`w-full h-full`}>
+
+            <ModalContent>
+                
+                <ModalContentHeading>
+                    Announcement Sender:
+                </ModalContentHeading>
+
+                <ModalContentText>
+                    {String(`${data.sender.firstName.includes("Admin") ? data.sender.firstName : data.sender.firstName + " " + data.sender.lastName}`)}
+                </ModalContentText>
+
+            </ModalContent>
             
             <ModalContent>
                 
                 <ModalContentHeading>
-                    Milestone Number:
-                </ModalContentHeading>
-
-                <ModalContentText>
-                    {data.assignmentNumber}
-                </ModalContentText>
-
-            </ModalContent>
-
-            <ModalContent>
-
-                <ModalContentHeading>
-                    Milestone Deadline:
-                </ModalContentHeading>
-
-                <ModalContentText>
-                    {String(extractDate(data.deadline))}
-                </ModalContentText>
-
-            </ModalContent>
-
-            <ModalContent>
-
-                <ModalContentHeading>
-                    Milestone Description:
+                    Announcement Description:
                 </ModalContentHeading>
 
                 <ModalContentText>
@@ -50,13 +34,25 @@ export default function MilestoneRowContent({dataID, data, setModalContent, setO
             </ModalContent>
 
             <ModalContent>
-
+                
                 <ModalContentHeading>
-                    Milestone Year:
+                    Announcement Priority:
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {data.year}
+                    {data.priority}
+                </ModalContentText>
+
+            </ModalContent>
+
+            <ModalContent>
+                
+                <ModalContentHeading>
+                    Announcement Type:
+                </ModalContentHeading>
+
+                <ModalContentText>
+                    {data.type}
                 </ModalContentText>
 
             </ModalContent>
@@ -64,11 +60,11 @@ export default function MilestoneRowContent({dataID, data, setModalContent, setO
             <ModalContent>
 
                 <ModalContentHeading>
-                    Milestone Percentage:
+                    Announcement Activated:
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {data.percentage}
+                    {data.activated ? "Yes" : "No"}
                 </ModalContentText>
 
             </ModalContent>
@@ -76,27 +72,36 @@ export default function MilestoneRowContent({dataID, data, setModalContent, setO
             <ModalContent>
 
                 <div className={`flex flex-row items-end justify-end h-full `} style={{height: "150px"}}>
+                                        
+                    {/* <ModalDataActionButton 
+                        buttonText={"Post"} 
+                        buttonClickAction={null}
+                        dataID={dataID}
+                        isUpdate={false}
+                        isDelete={false}
+                    /> */}
 
                     <ModalDataActionButton 
                         buttonText={"Update"} 
-                        buttonClickAction={() => setModalContent(<UpdateMilestoneForm setOpenModal={setOpenModal} data={data} setDataChanged={setDataChanged}/>)}
+                        buttonClickAction={() => setModalContent(<UpdateAnnouncementForm setOpenModal={setOpenModal} data={data} dataID={dataID} setDataChanged={setDataChanged}/>)}
                         dataID={dataID}
                         isUpdate={true}
                         isDelete={false}
                     />
 
                     <ModalDataActionButton 
-                        buttonText={"Assign Milestone"} 
-                        buttonClickAction={() => callAssignMilestoneToast(dataID)}
+                        buttonText={"Delete"} 
+                        buttonClickAction={() => callDeleteAnnouncementToast(dataID)}
                         dataID={dataID}
                         isUpdate={false}
-                        isDelete={false}
+                        isDelete={true}
                     />
 
+                    
                 </div>
 
             </ModalContent>
-        
+
         </div>
     );
 }

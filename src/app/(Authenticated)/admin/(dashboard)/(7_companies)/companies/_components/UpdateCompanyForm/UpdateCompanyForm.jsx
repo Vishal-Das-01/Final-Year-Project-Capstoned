@@ -1,7 +1,8 @@
+
 "use client";
 
 // Imports below for creating ui
-import styles from "./CreateCompanyForm.module.css";
+import styles from "./UpdateCompanyForm.module.css";
 import FormTextInput from "../../../../_components/FormTextInput/FormTextInput";
 import FormRow from "../../../../_components/FormRow/FormRow";
 import FormEmailInput from "../../../../_components/FormEmailInput/FormEmailInput";
@@ -16,26 +17,26 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { HttpStatusCode } from "axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
-import { createNewCompanyAPICall } from "@/utils/admin_frontend_api_calls/CompaniesAPICalls";
+import { updateCompanyAPICall } from "@/utils/admin_frontend_api_calls/CompaniesAPICalls";
 import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
 import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 
-export default function CreateCompanyForm({setOpenModal, setDataChanged}){
-    let formId = `createCompanyForm`;
+export default function UpdateCompanyForm({setOpenModal, data, dataID}){
+    let formId = `updateCompanyForm`;
 
     // For managing state of entire company
     const [company, setCompany] = useState({
-        "name": "",
-        "phone": "",
-        "email": "",
-        "profileImage": "",
-        "webURL": "",
-        "linkedinURL": "",
-        "city": "",
-        "address": "",
-        "verified": false,
+        "name": data.name,
+        "phone": data.phone,
+        "email": data.email,
+        "profileImage": data.profileImage,
+        "webURL": data.webURL,
+        "linkedinURL": data.linkedinURL,
+        "city": data.city,
+        "address": data.address,
+        "verified": data.verified,
     });
 
     // For access token retrieval
@@ -105,13 +106,13 @@ export default function CreateCompanyForm({setOpenModal, setDataChanged}){
         event.preventDefault();
         let dataToSend = company;
         let accessToken = authDetails.accessToken;
-        let apiURL = BACKEND_ROUTES.createCompany;
+        let apiURL = BACKEND_ROUTES.updateCompany + `id=${data._id}`;
         
         try{
-            let apiCall = await createNewCompanyAPICall(apiURL, accessToken, dataToSend);
+            let apiCall = await updateCompanyAPICall(apiURL, accessToken, dataToSend);
             if(apiCall.status === HttpStatusCode.Ok){
                 let apiCallResponse = await apiCall.json();
-                console.log("CreateCompanyForm", apiCallResponse);
+                console.log("UpdateCompanyForm", apiCallResponse);
                 return apiCallResponse;
             }
             else if (apiCall.status === HttpStatusCode.Unauthorized) {
@@ -125,8 +126,8 @@ export default function CreateCompanyForm({setOpenModal, setDataChanged}){
                 throw new Error('Unauthorized');
             }
             else{
-                console.log("CreateCompanyForm error", apiCall);
-                throw new Error(`Can't create company. Try again.`);
+                console.log("UpdateCompanyForm error", apiCall);
+                throw new Error(`Can't update company. Try again.`);
             }
         }
         catch(error){
@@ -141,29 +142,28 @@ export default function CreateCompanyForm({setOpenModal, setDataChanged}){
 		toast.promise(
 			submitFormResult,
 			{
-				loading: 'Creating company...',
-				success: 'Company created!',
-				error: (err) => `Failed to create company: ${err.message}`
+				loading: 'Update company...',
+				success: 'Company updated!',
+				error: (err) => `Failed to update company: ${err.message}`
 			}
 		);
 
         submitFormResult.then(() => {
             setOpenModal(false);
-            setDataChanged(true);
         });
 	}
 
     // For testing only
     useEffect(() => {
-        // console.log("Company", company)
+        console.log("Company", company)
     }, [company])
 
     return (
-        <div className={`${styles.createCompanyFormPrimaryContainer} w-full `}>
+        <div className={`${styles.updateCompanyFormPrimaryContainer} w-full `}>
 
             <form 
                 id={formId} 
-                className={`${styles.createCompanyForm} flex flex-col items-center justify-start`}
+                className={`${styles.updateCompanyForm} flex flex-col items-center justify-start`}
                 onSubmit={callToast}
             >
                 

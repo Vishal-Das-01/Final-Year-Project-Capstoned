@@ -4,7 +4,7 @@ import styles from "./MilestoneHeadingAndButton.module.css";
 import TableTitleAndButton from "../../../../_components/TableTitleAndButton/TableTitleAndButton";
 import CreateMilestoneForm from "../CreateMilestoneForm/CreateMilestoneForm";
 
-export default function MilestoneHeadingAndButton({setOpenModal, setModalTitle, setModalContent}){
+export default function MilestoneHeadingAndButton({setOpenModal, setModalTitle, setModalContent, setDataChanged}){
 
     return (
         <TableTitleAndButton 
@@ -15,7 +15,7 @@ export default function MilestoneHeadingAndButton({setOpenModal, setModalTitle, 
                 () => {
                     setOpenModal(true); 
                     setModalTitle("Create Milestsone");
-                    setModalContent(<CreateMilestoneForm setOpenModal={setOpenModal}/>);
+                    setModalContent(<CreateMilestoneForm setOpenModal={setOpenModal} setDataChanged={setDataChanged}/>);
                 }
             }
             buttonApiLoading={false}

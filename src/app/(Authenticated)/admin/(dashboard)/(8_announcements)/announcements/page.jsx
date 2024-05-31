@@ -9,13 +9,15 @@ import TableHeadDataCell from "../../_components/TableHeadDataCell/TableHeadData
 import TableBodyDataCell from "../../_components/TableBodyDataCell/TableBodyDataCell"; 
 import AnnouncementsHeadingAndButton from "./_components/AnnouncementsHeadingAndButton/AnnouncementsHeadingAndButton";
 import Modal from "../../_components/Modal/Modal";
+import DataTableMessage from "../../_components/DataTableMessage/DataTableMessage";
+import AnnouncementsRowContent from "./_components/AnnouncementsRowContent/AnnouncementsRowContent";
 
 // Imports below for state management and api calls
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { HttpStatusCode } from "axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
-import { getAnnouncementsAPICall } from "@/utils/admin_frontend_api_calls/AnnouncementsAPICalls";
+import { getAnnouncementsAPICall, deleteAnnouncementAPICall } from "@/utils/admin_frontend_api_calls/AnnouncementsAPICalls";
 import { NotificationType } from "@/utils/constants/enums";
 import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
 import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
@@ -34,11 +36,17 @@ export default function AdminDashboardAnnouncementsPage(props){
 	// for managing modal content
 	// for managing announcements shown in the table
 	// for managing skeleton loading indicator 
+	// for managing when retrieved data is 0 in size
+	// for managing when error occurs in retrieval api call
+	// for managing when data is changed so that modal closes
 	const [openModal, setOpenModal]   = useState(false);
 	const [modalTitle, setModalTitle] = useState("");
 	const [modalContent, setModalContent] = useState("");
 	const [announcements, setAnnouncements] = useState([]);
 	const [loadingIndicator, setLoadingIndicator] = useState(true);
+	const [retrievedDataIsZero, setRetrievedDataIsZero] = useState(false);
+	const [errorRetrievingData, setErrorRetrievingData] = useState(false);
+	const [dataChanged, setDataChanged] = useState(false);
 
 	// For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
@@ -50,17 +58,18 @@ export default function AdminDashboardAnnouncementsPage(props){
 	const router = useRouter();
 
 	// API Call for fetching all announcements
-	async function fetchAnnouncements(){
+	async function fetchAllAnnouncements(){
 		let accessToken = authDetails.accessToken;
 		let apiURL = BACKEND_ROUTES.getAnnouncements;
 		setLoadingIndicator(true);
 
 		let apiResponse = await getAnnouncementsAPICall(apiURL, accessToken,"all");
-		// console.log("HERE ", apiResponse);
 		if(apiResponse.status === HttpStatusCode.Ok){
 			let apiResponseData = await apiResponse.json();
+			setLoadingIndicator(false);
 			setAnnouncements(apiResponseData.data.notifications);
-			// console.log("A:", apiResponseData);
+
+			console.log("fetchAllAnnouncements", apiResponseData);
 		}
 		else if (apiResponse.status === HttpStatusCode.Unauthorized) {
 			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
@@ -72,25 +81,93 @@ export default function AdminDashboardAnnouncementsPage(props){
 			}
 		}
 		else{
-			console.log("B:", "error");
+			setErrorRetrievingData(true);
+			console.log("fetchAllAnnouncements error", apiResponse);
 		}
+	}
+
+	// API call for deleting announcement
+	async function deleteAnnouncement(id){
+		let accessToken = authDetails.accessToken;
+		let apiURL = BACKEND_ROUTES.getAnnouncements;
+
+		try{
+			let apiResponse = await deleteAnnouncementAPICall(apiURL, accessToken);
+			if(apiResponse.status === HttpStatusCode.Ok){
+				let apiResponseData = await apiResponse.json();
+				console.log("deleteAnnouncement", apiResponseData);
+				return apiResponseData;
+			}
+			else if (apiResponse.status === HttpStatusCode.Unauthorized) {
+				const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+					method: "POST",
+				});
+				if (responseLogOut.status === HttpStatusCode.Ok) {
+					dispatch(removeAuthDetails());
+					router.replace(FRONTEND_ROUTES.landing_page);
+				}
+				throw new Error('Unauthorized');
+			}
+			else{
+				console.log("deleteAnnouncement error", apiResponse);
+				throw new Error(`Can't delete announcement. Try again.`);
+			}
+		}
+		catch(error){
+			throw error;
+		}
+	}
+
+	// Calls toast message when announcement is deleted
+	function callDeleteAnnouncementToast(id){
+		const deleteAnnouncementResult = deleteAnnouncement(id);
+
+		toast.promise(
+			deleteAnnouncementResult,
+			{
+				loading: 'Deleting announcement...',
+				success: 'Announcement deleted!',
+				error: (err) => `Failed to delete announcement. Try again.`
+			}
+		);
+
+		deleteAnnouncementResult.then(() => {
+			setOpenModal(false);
+			setDataChanged(true);
+		}).catch((error) => {
+			console.log("deleteAnnouncementResult error", error);
+		});		
 	}
 
 	// API Call for displaying announcements  
 	// in the table when the page is loaded 
 	useEffect(() => {
-		fetchAnnouncements();
+		fetchAllAnnouncements();
 	}, [])
 
 
-	// Turn skeleton loading indicator off when 
-	// announcements are fetched successfully
+	// When retrieved data is 0 in size.
 	useEffect(() => {
-		if(announcements.length > 0){
+		if(announcements.length === 0){
+			setRetrievedDataIsZero(true);
+		}
+	}, [announcements]);
+
+	// When error occurs in retrieving data.
+	useEffect(() => {
+		if(errorRetrievingData){
 			setLoadingIndicator(false);
 		}
-		console.log("A:", announcements)
-	}, [announcements]);
+	}, [errorRetrievingData])
+
+	// Reload the data when data is changed when modal closes
+	// such as when announcement is created, posted, updated or deleted
+	useEffect(() => {
+		if(!openModal && dataChanged){
+			fetchAllAnnouncements();
+			setDataChanged(false);
+		}
+	}, [dataChanged, openModal])
 
 
 	return (
@@ -102,6 +179,7 @@ export default function AdminDashboardAnnouncementsPage(props){
 					setOpenModal={setOpenModal}
 					setModalTitle={setModalTitle}
 					setModalContent={setModalContent}
+					setDataChanged={setDataChanged}
 				/>
 
 				<ContentTable
@@ -122,51 +200,91 @@ export default function AdminDashboardAnnouncementsPage(props){
 
 						<TableHeadDataCell isNumberCell={false} text={`Sender`}/>
 
-						<TableHeadDataCell isNumberCell={false} text={`Receiver`}/>
-
 						<TableHeadDataCell isNumberCell={false} text={`Activated`}/>
 
 					</TableHead>
 					
 					<tbody>
 
-						{!loadingIndicator && announcements.map((announcement) => {
-							return (
-								<TableRow
-									setOpenModal={setOpenModal} 
-									setModalTitle={setModalTitle}
-									setModalContent={setModalContent}
-									key={announcement._id}
-									dataID={announcement._id}
-								>
+						{
+							!loadingIndicator 
+							
+							? 
+							
+							announcements.map((announcement, index) => {
+								return (
+									<TableRow
+										key={announcement._id}
+										setOpenModal={setOpenModal} 
+										setModalContent={setModalContent}
+										setModalTitle={() => setModalTitle(announcement.headline)}
+										content={<AnnouncementsRowContent 
+											data={announcement} 
+											dataID={announcement._id}
+											setModalContent={setModalContent}
+											setOpenModal={setOpenModal}
+											callDeleteAnnouncementToast={callDeleteAnnouncementToast}
+											setDataChanged={setDataChanged}
+										/>}
+									>
 
-									<TableBodyDataCell 
-										text={String("milestone.assignmentNumber")} 
-									/>
+										<TableBodyDataCell 
+											text={String(index +  1)} 
+										/>
 
-									<TableBodyDataCell 
-										text={String("milestone.title")}
-									/>
+										<TableBodyDataCell 
+											text={String(`${announcement.headline}`)}
+										/>
 
-									<TableBodyDataCell 
-										text={String("milestone.description")}
-									/>
-									
-									<TableBodyDataCell 
-										text={String("extractDate(milestone.deadline)")}
-									/>
-									
-									<TableBodyDataCell 
-										text={String("milestone.percentage")}
-									/>
-									
-									<TableBodyDataCell 
-										text={String("milestone.year")}
-									/>
-									
-								</TableRow>
-							)
-						})}
+										<TableBodyDataCell 
+											text={String(`${announcement.description}`)}
+										/>
+										
+										<TableBodyDataCell 
+											text={String(`${announcement.priority}`)}
+										/>
+										
+										<TableBodyDataCell 
+											text={String(`${announcement.type}`)}
+										/>
+										
+										<TableBodyDataCell 
+											text={String(`${announcement.sender.firstName.includes("Admin") ? announcement.sender.firstName : announcement.sender.firstName + " " + announcement.sender.lastName}`)}
+										/>
+
+										<TableBodyDataCell 
+											text={String(`${announcement.activated ? "Yes" : "No"}`)}
+										/>
+										
+									</TableRow>
+								)
+							})
+
+							:
+
+							retrievedDataIsZero
+							
+							?
+
+							<DataTableMessage>
+								Nothing to show. Please, add some data.
+							</DataTableMessage>
+							
+							:
+
+							errorRetrievingData
+							
+							?
+
+							<DataTableMessage>
+								Error fetching announcements. Please, try again later.
+							</DataTableMessage>
+
+							:
+
+							<div></div>
+
+						}
 						
 					</tbody>
 					

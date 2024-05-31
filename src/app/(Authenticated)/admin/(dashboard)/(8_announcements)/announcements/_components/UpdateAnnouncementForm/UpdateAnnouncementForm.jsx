@@ -1,7 +1,7 @@
 "use client";
 
 // Imports below for creating ui
-import styles from "./CreateAnnouncementForm.module.css"; 
+import styles from "./UpdateAnnouncementForm.module.css" 
 import FormRow from "../../../../_components/FormRow/FormRow";    
 import FormActionButton from "../../../../_components/FormActionButton/FormActionButton";  
 import FormTextArea from "../../../../_components/FormTextArea/FormTextArea";
@@ -14,18 +14,17 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { HttpStatusCode } from "axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
-import { postAnnouncementAPICall } from "@/utils/admin_frontend_api_calls/AnnouncementsAPICalls";
 
-export default function CreateAnnouncementForm({setOpenModal, setDataChanged}){
-    let formId = `createAnnouncementForm`;
+export default function UpdateAnnouncementForm({data, dataID, setOpenModal, setDataChanged}){
+    let formId = `updateAnnouncementForm`;
 
     // For managing state of entire announcement
     const [announcement, setAnnouncement] = useState({
-        "headline" : "",
-        "description" : "",
-        "priority" : "",
-        "type" : "",
-        "receiver" : ""
+        "headline" : data.headline,
+        "description" : data.description,
+        "priority" : data.priority,
+        "type" : data.type,
+        "receiver" : data.receiver
     });
 
     // For managing if To Individual has  
@@ -81,13 +80,14 @@ export default function CreateAnnouncementForm({setOpenModal, setDataChanged}){
         event.preventDefault();
         let dataToSend = announcement;
         let accessToken = authDetails.accessToken;
-        let apiURL = BACKEND_ROUTES.createAnnouncement;
+        let apiURL = BACKEND_ROUTES.updateAnnouncement;
         
         try{
-            let apiCall = await postAnnouncementAPICall(apiURL, accessToken, dataToSend);
+            let apiCall = await updateAnnouncementAPICall(apiURL, accessToken, dataToSend);
             if(apiCall.status === HttpStatusCode.Ok){
                 let apiCallResponse = await apiCall.json();
-                console.log("PostAnnouncementForm", apiCallResponse);
+                console.log("UpdateAnnouncementForm", apiCallResponse);
+                return apiCallResponse;
             }
             else if (apiCall.status === HttpStatusCode.Unauthorized) {
                 const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
@@ -100,8 +100,8 @@ export default function CreateAnnouncementForm({setOpenModal, setDataChanged}){
                 throw new Error('Unauthorized');
             }
             else{
-                console.log("PostAnnouncementForm error", apiCall);
-                throw new Error("Can't post notification. Try again.");
+                console.log("UpdateAnnouncementForm error", apiCall);
+                throw new Error(`Can't update notification. Try again.`);
             }
         }
         catch(error){
@@ -116,9 +116,9 @@ export default function CreateAnnouncementForm({setOpenModal, setDataChanged}){
 		toast.promise(
 			submitFormResult,
 			{
-				loading: 'Posting announcement...',
-				success: 'Announcement posted!',
-				error: (err) => `Failed to post announcement: ${err.message}`
+				loading: 'Updating announcement...',
+				success: 'Announcement updated!',
+				error: (err) => `Failed to update announcement: ${err.message}`
 			}
 		);
 
@@ -140,7 +140,7 @@ export default function CreateAnnouncementForm({setOpenModal, setDataChanged}){
 
     // for testing
     useEffect(() => {
-        // console.log("CreateAnnouncementForm", announcement);
+        // console.log("UpdateAnnouncementForm", announcement);
     }, [announcement])
 
     return (
