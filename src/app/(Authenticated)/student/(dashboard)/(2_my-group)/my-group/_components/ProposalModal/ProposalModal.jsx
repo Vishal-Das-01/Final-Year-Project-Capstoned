@@ -87,13 +87,6 @@ function ProposalModal({ setOpenModal, oldTitle, oldDescription, oldMentorship, 
               type="file"
             />
 
-            <div className="flex flex-row items-center justify-start mb-3">
-              <label htmlFor="dropdown" className="text-sm mr-5 text-black">
-                Year:
-              </label>
-                <DropDown list={list} handleAdd={handleAdd} placeHolder={"2024"} />
-            </div>
-
           </form>
 
           <div class="flex items-center justify-end p-4 md:p-5 border-gray-200 rounded-b dark:border-gray-600">
