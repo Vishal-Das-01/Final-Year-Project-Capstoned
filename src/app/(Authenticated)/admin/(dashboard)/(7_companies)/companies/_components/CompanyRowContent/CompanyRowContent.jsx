@@ -29,7 +29,7 @@ export default function CompanyRowContent({dataID, data, setModalContent, setOpe
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {String(`${"Company Number"}`)}
+                    {String(`${data.phone ? data.phone : "N/A"}`)}
                 </ModalContentText>
 
             </ModalContent>
@@ -41,7 +41,7 @@ export default function CompanyRowContent({dataID, data, setModalContent, setOpe
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {`${"Company Email"}`}
+                    {`${data.email ? data.email : "N/A"}`}
                 </ModalContentText>
 
             </ModalContent>
@@ -53,7 +53,7 @@ export default function CompanyRowContent({dataID, data, setModalContent, setOpe
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {`${"Web URL"}`}
+                    {`${data.webURL ? data.webURL : "N/A"}`}
                 </ModalContentText>
 
             </ModalContent>
@@ -65,7 +65,19 @@ export default function CompanyRowContent({dataID, data, setModalContent, setOpe
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {`${"City"}`}
+                    {`${data.city ? data.city : "N/A"}`}
+                </ModalContentText>
+
+            </ModalContent>
+
+            <ModalContent>
+
+                <ModalContentHeading>
+                    Company Verified:
+                </ModalContentHeading>
+
+                <ModalContentText>
+                    {`${data.verified ? "Yes" : "No"}`}
                 </ModalContentText>
 
             </ModalContent>

@@ -142,7 +142,7 @@ export default function UpdateCompanyForm({setOpenModal, data, dataID, setDataCh
 		toast.promise(
 			submitFormResult,
 			{
-				loading: 'Update company...',
+				loading: 'Updating company...',
 				success: 'Company updated!',
 				error: (err) => `Failed to update company. Try again.`
 			}

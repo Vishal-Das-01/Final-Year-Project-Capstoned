@@ -229,19 +229,19 @@ export default function AdminDashboardCompaniesPage(props){
 										/>
 
 										<TableBodyDataCell 
-											text={String(`${company.name}`)}
+											text={String(`${company.name ? company.name : "N/A"}`)}
 										/>
 
 										<TableBodyDataCell 
-											text={String(`${"Number"}`)}
+											text={String(`${company.phone ? company.phone : "N/A"}`)}
 										/>
 
 										<TableBodyDataCell 
-											text={String(`${"Email"}`)}
+											text={String(`${company.email ? company.email : "N/A"}`)}
 										/>
 
 										<TableBodyDataCell 
-											text={String(`${"City"}`)}
+											text={String(`${company.city ? company.city : "N/A"}`)}
 										/>
 
 										<TableBodyDataCell 
