@@ -14,6 +14,7 @@ function StudentRow({
   resume,
   industries,
   group,
+  type
 }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -110,7 +111,7 @@ function StudentRow({
                 </div>
               </div>
               <div className="flex flex-row items-center justify-end w-full">
-                <ChatButton id={studentID} />
+                <ChatButton id={studentID} type={type}/>
               </div>
             </div>
           </td>

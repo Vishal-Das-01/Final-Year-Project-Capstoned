@@ -46,8 +46,10 @@ function ChatButton({ id, type }) {
     } else if (response.status === HttpStatusCode.BadRequest) {
       const responseData = await response.json();
       toast.error(responseData.message);
+      setLoading(false);
+    } else {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
