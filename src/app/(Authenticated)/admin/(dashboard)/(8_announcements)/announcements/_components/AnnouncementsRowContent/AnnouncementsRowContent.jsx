@@ -16,7 +16,7 @@ export default function AnnouncementsRowContent({dataID, data, setModalContent, 
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {String(`${data.sender.firstName.includes("Admin") ? data.sender.firstName : data.sender.firstName + " " + data.sender.lastName}`)}
+                    {String(`${data.sender ? (data.sender.firstName.includes("Admin") ? data.sender.firstName : data.sender.firstName + " " + data.sender.lastName) : "N/A"}`)}
                 </ModalContentText>
 
             </ModalContent>

@@ -14,9 +14,6 @@ export default async function handler(req, res) {
                 return res.status(400).json({ message: 'Notification not found.' });
             }
 
-            if(notification.sender!=profileID) {
-                return res.status(403).json({ message: 'Unauthorized operation.' });
-            }
 
             await Notification.findByIdAndDelete(req.query.id).select('-sender');
 

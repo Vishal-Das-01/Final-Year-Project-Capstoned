@@ -60,7 +60,7 @@ export default function AdminDashboardCompaniesPage(props){
 	// API Call for fetching all companies
 	async function fetchAllCompanies(){
 		let accessToken = authDetails.accessToken;
-		let apiURL = BACKEND_ROUTES.getAllCompanies;
+		let apiURL = BACKEND_ROUTES.getAllCompanies  + `?limit=${10000}`;
 		setLoadingIndicator(true);
 
 		let apiResponse = await getCompaniesAPICall(apiURL, accessToken);

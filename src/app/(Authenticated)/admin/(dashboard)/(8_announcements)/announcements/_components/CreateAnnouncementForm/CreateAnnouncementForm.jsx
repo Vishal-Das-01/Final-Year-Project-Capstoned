@@ -7,7 +7,9 @@ import FormActionButton from "../../../../_components/FormActionButton/FormActio
 import FormTextArea from "../../../../_components/FormTextArea/FormTextArea";
 import FormTextInput from "../../../../_components/FormTextInput/FormTextInput";
 import FormDropDownSelect from "../../../../_components/FormDropDownSelect/FormDropDownSelect";
+import FormUserDropDownSelect from "../../../../_components/FormUserDropDownSelect/FormUserDropDownSelect";
 import { NotificationType, NotificationPriority } from "@/utils/constants/enums";
+import toast from "react-hot-toast";
 
 // Imports below for state management & api calls
 import { useEffect, useState } from "react";
@@ -15,6 +17,7 @@ import { useSelector } from "react-redux";
 import { HttpStatusCode } from "axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import { postAnnouncementAPICall } from "@/utils/admin_frontend_api_calls/AnnouncementsAPICalls";
+import { getUsersAPICall } from "@/utils/admin_frontend_api_calls/AccountsAPICalls";
 
 export default function CreateAnnouncementForm({setOpenModal, setDataChanged}){
     let formId = `createAnnouncementForm`;
@@ -27,6 +30,9 @@ export default function CreateAnnouncementForm({setOpenModal, setDataChanged}){
         "type" : "",
         "receiver" : ""
     });
+
+    // For managing users state
+    const [users, setUsers] = useState([]);
 
     // For managing if To Individual has  
     // been chosen as Notfication Type
@@ -88,6 +94,7 @@ export default function CreateAnnouncementForm({setOpenModal, setDataChanged}){
             if(apiCall.status === HttpStatusCode.Ok){
                 let apiCallResponse = await apiCall.json();
                 console.log("PostAnnouncementForm", apiCallResponse);
+                return apiCallResponse;
             }
             else if (apiCall.status === HttpStatusCode.Unauthorized) {
                 const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
@@ -109,6 +116,35 @@ export default function CreateAnnouncementForm({setOpenModal, setDataChanged}){
         }
     }
 
+    // Function for fetching all users
+    // when To Individual Is Chosen
+	async function getUsers(){
+		let accessToken = authDetails.accessToken;
+		let apiURL = BACKEND_ROUTES.getUsers;
+
+		let apiResponse = await getUsersAPICall(apiURL, accessToken, "all");
+		if(apiResponse.status === HttpStatusCode.Ok){
+			let apiResponseData = await apiResponse.json();
+			setUsers(apiResponseData.data.users);
+
+			console.log("getUsers in CreateAnnouncementForm:", apiResponseData.data.users);
+		}
+		else if (apiResponse.status === HttpStatusCode.Unauthorized) {
+			const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+			  method: "POST",
+			});
+			if (responseLogOut.status === HttpStatusCode.Ok) {
+			  dispatch(removeAuthDetails());
+			  router.replace(FRONTEND_ROUTES.landing_page);
+			}
+		}
+		else{
+			setErrorRetrievingData(true);
+
+			console.log("getUsers in CreateAnnouncementForm error:", "error");
+		}
+	}
+
     // Calls toast message
 	function callToast(event){
         const submitFormResult = submitForm(event);
@@ -118,13 +154,15 @@ export default function CreateAnnouncementForm({setOpenModal, setDataChanged}){
 			{
 				loading: 'Posting announcement...',
 				success: 'Announcement posted!',
-				error: (err) => `Failed to post announcement: ${err.message}`
+				error: (err) => `${err.message}`
 			}
 		);
 
         submitFormResult.then(() => {
             setOpenModal(false);
             setDataChanged(true);
+        }).catch((error) => {
+            console.log("CreateAnnouncementFormToast", error.message);
         });
 	}
 
@@ -137,6 +175,13 @@ export default function CreateAnnouncementForm({setOpenModal, setDataChanged}){
             setIsNotificationTypeToIndividual(false);
         }
     }, [announcement])
+
+    // When To Individual is chosen
+    useEffect(() => {
+        if(isNotificationTypeToIndividual && users.length === 0){
+            getUsers();
+        }
+    }, [isNotificationTypeToIndividual])
 
     // for testing
     useEffect(() => {
@@ -198,13 +243,23 @@ export default function CreateAnnouncementForm({setOpenModal, setDataChanged}){
                     {
                         isNotificationTypeToIndividual 
                         && 
-                        <FormTextInput 
+                        // <FormTextInput 
+                        //     labelText="Receiver"
+                        //     textInputName="announcementReceiver"
+                        //     placeholderText="Announcement Receiver"
+                        //     isRequired={true}
+                        //     value={announcement.receiver} 
+                        //     onChange={handleChange}
+                        // />
+                        <FormUserDropDownSelect 
                             labelText="Receiver"
-                            textInputName="announcementReceiver"
-                            placeholderText="Announcement Receiver"
+                            dropDownSelectName="announcementReceiver"
+                            options={users}
                             isRequired={true}
-                            value={announcement.receiver} 
+                            placeholder={"Announcement Receiver"}
+                            selectedValue={announcement.receiver}
                             onChange={handleChange}
+                            isOnChangePassed={true}
                         />         
                     }
 

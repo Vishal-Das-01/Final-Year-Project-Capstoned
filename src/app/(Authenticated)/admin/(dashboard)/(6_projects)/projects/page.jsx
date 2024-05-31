@@ -60,7 +60,7 @@ export default function AdminDashboardProjectsPage(props){
 	// API Call for fetching all projects
 	async function getAllProjects(){
 		let accessToken = authDetails.accessToken;
-		let apiURL = BACKEND_ROUTES.getAllProjects;
+		let apiURL = BACKEND_ROUTES.getAllProjects  + `?limit=${10000}`;
 		setLoadingIndicator(true);
 
 		let apiResponse = await getProjectsAPICall(apiURL, accessToken);

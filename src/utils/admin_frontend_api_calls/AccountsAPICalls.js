@@ -16,7 +16,7 @@ export async function createAccountAPICall(route, token, data){
 
 export async function getUsersAPICall(route, token, role){
     try{
-        let res = await fetch(route + `${role}`, {
+        let res = await fetch(route + `${role}?limit=10000`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`,

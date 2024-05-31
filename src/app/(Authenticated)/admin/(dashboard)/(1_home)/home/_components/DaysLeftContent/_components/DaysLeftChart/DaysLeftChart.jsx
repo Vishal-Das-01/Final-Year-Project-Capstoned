@@ -76,7 +76,7 @@ export default function DaysLeftChart({startDate, endDate, currentDate}) {
           },
           text: {
             fill: "rgb(55, 65, 81)",
-            fontSize: "9px",
+            fontSize: "12px",
             fontFamily: "Poppins",
           },
         }}

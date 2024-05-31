@@ -3,6 +3,7 @@ const ai_baseURL = process.env.NEXT_PUBLIC_AI_BACKEND_URL
 
 export const BACKEND_AI_ROUTES = {
   uniqueIdeaDetection: `${ai_baseURL}/unique-idea-detection`,
+  automatedProjectAssessment: `${ai_baseURL}/automated-project-assessment`,
 }
 
 export const BACKEND_ROUTES = {
@@ -59,7 +60,7 @@ export const BACKEND_ROUTES = {
   unfinalizeGroup: `${baseURL}/admin/group/unfinalize?`, // (admin) fyp groups
 
   getAnnouncements: `${baseURL}/admin/notification/get/`, // (admin) announcements
-  postAnnouncement: `${baseURL}/admin/notification/post`, // (admin) announcements
+  createAnnouncement: `${baseURL}/admin/notification/post`, // (admin) announcements
   updateAnnouncement: `${baseURL}/admin/notification/update`, // (admin) announcements
   deleteAnnouncement: `${baseURL}/admin/notification/delete`, // (admin) announcements
 
@@ -77,5 +78,10 @@ export const BACKEND_ROUTES = {
   getStudentSingleChat: `${baseURL}/user/chat/get/`,
   sendStudentMessage: `${baseURL}/user/chat/message/send`,
   createStudentChat: `${baseURL}/user/chat/create`,
+  
+  updateProfileStudent: `${baseURL}/student/account/update`,
+  
+  getSearchAllMentors: `${baseURL}/user/mentor/get/all`,
+  getSearchAllStudents: `${baseURL}/user/student/get/all`,
 
 };

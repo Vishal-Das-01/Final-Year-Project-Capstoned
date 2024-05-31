@@ -63,7 +63,7 @@ export default function AdminDashboardMilestonesPage(props){
 	// API Call for fetching all milestones
 	async function getAllMilestones(){
 		let accessToken = authDetails.accessToken;
-		let apiURL = BACKEND_ROUTES.getAllMilestones;
+		let apiURL = BACKEND_ROUTES.getAllMilestones + `?limit=${10000}`;
 		let apiCallMethod = "GET";
 		setLoadingIndicator(true);
 

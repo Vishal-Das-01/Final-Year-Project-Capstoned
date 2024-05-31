@@ -1,6 +1,6 @@
 export async function getAnnouncementsAPICall(route, token, announcementType){
     try{
-        let res = await fetch(route + `${announcementType}`, {
+        let res = await fetch(route + `${announcementType}?limit=${10000}`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -15,6 +15,7 @@ export async function getAnnouncementsAPICall(route, token, announcementType){
 
 export async function postAnnouncementAPICall(route, token, data){
     try{
+        console.log(data)
         let res = await fetch(route, {
             method: "POST",
             headers: {
@@ -45,14 +46,13 @@ export async function updateAnnouncementAPICall(route, token, data){
     }
 }
 
-export async function deleteAnnouncementAPICall(route, token, data){
+export async function deleteAnnouncementAPICall(route, token){
     try{
         let res = await fetch(route, {
             method: "DELETE",
             headers: {
                 "Authorization": `Bearer ${token}`,
             },
-            body: JSON.stringify(data)
         });
         return res;
     }
