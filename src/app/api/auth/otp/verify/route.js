@@ -73,6 +73,7 @@ export const POST = async (request) => {
         if (error.name === "ValidationError") {
             return NextResponse.json({ message: "Please provide correct/necessary fields.", request }, { status: HttpStatusCode.BadRequest });
         }
+        console.log(error)
         return NextResponse.json({message: "Failed to verify OTP."}, {status: HttpStatusCode.InternalServerError});
     }
 }
