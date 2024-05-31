@@ -5,7 +5,7 @@ import styles from "./Avatar.module.css";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 
-export default function Avatar({src, alt}){
+export default function Avatar({alt}){
 	const authDetails = useSelector((state) => state.AuthDetails);
 	const [profileImage, setProfileImage] = useState(authDetails.profileImage);
 
@@ -20,8 +20,8 @@ export default function Avatar({src, alt}){
 						className={`rounded-full`}
 						src={profileImage || "/defaultProfile.jpg"} 
 						alt={alt}
-						height={40}
-						width={40}
+						height={100}
+						width={100}
 					/>
 				
 				</div>
