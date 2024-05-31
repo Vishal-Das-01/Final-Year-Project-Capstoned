@@ -75,7 +75,7 @@ export default function MilestoneRowContent({dataID, data, setModalContent, setO
 
             <ModalContent>
 
-                <div className={`flex flex-row items-end justify-end h-full `} style={{height: "150px"}}>
+                <div className={`flex flex-row items-end justify-end h-full `} style={{height: "115px"}}>
 
                     <ModalDataActionButton 
                         buttonText={"Update"} 
