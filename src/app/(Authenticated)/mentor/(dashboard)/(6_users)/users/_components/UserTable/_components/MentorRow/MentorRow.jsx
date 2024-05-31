@@ -14,7 +14,8 @@ function MentorRow({
   supervisor,
   profileImage,
   industries,
-  officeHours
+  officeHours,
+  type
 }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -145,7 +146,7 @@ function MentorRow({
                 </div>
               </div>
               <div className="flex flex-row items-center justify-end w-full">
-                <ChatButton id={mentorID} />
+                <ChatButton id={mentorID} type={type}/>
               </div>
             </div>
           </td>

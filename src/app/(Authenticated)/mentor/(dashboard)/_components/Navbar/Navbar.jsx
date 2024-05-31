@@ -22,7 +22,7 @@ export default function Navbar(props){
 			
 			</div>
 
-			<div className=" w-full h-full flex flex-row items-center flex-1 justify-center">
+			<div className="flex flex-row items-center justify-center flex-1 w-full h-full ">
 				<Clock />
 			</div>
 
@@ -30,7 +30,7 @@ export default function Navbar(props){
 
 				<div className={`${styles.rightContentContainer} w-full h-full flex flex-row items-center justify-end `}>
 					
-					<div className={`${styles.rightContent} flex flex-row items-center justify-between h-full `}>
+					<div className={`${styles.rightContent} flex flex-row items-center justify-end h-full`}>
 
 						<NotificationIcon />
 						

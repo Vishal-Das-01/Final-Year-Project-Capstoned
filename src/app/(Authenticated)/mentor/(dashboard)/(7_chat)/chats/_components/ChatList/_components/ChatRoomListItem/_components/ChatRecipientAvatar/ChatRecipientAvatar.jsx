@@ -6,7 +6,8 @@ export default function ChatRecipientAvatar({avatar}){
         <div className={`${styles.chatRecipientAvatarContainer} p-2 `}>
                     
             <Image 
-                className={`${styles.chatRecipientAvatar}`} 
+                alt="Recipient Avatar"
+                className={`${styles.chatRecipientAvatar} rounded-full`} 
                 src={avatar} 
                 width={51} 
                 height={51}

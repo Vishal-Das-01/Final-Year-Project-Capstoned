@@ -75,6 +75,7 @@ function UserTable({
                   resume={user.resume}
                   industries={user.industriesOfInterest}
                   group={user.group}
+                  type={"Student"}
                 />
               ))}
               {!loading &&
@@ -93,6 +94,7 @@ function UserTable({
                   industries={user.industries}
                   supervisor={user.canSupervise}
                   officeHours={user.officeHours}
+                  type={"Mentor"}
                 />
               ))}
               <div className="h-10"></div>
