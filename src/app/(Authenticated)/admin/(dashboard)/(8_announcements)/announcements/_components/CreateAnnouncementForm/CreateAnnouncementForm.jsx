@@ -154,7 +154,7 @@ export default function CreateAnnouncementForm({setOpenModal, setDataChanged}){
 			{
 				loading: 'Posting announcement...',
 				success: 'Announcement posted!',
-				error: (err) => `${err.message}`
+				error: (err) => `Failed to post announcement. Try again.`
 			}
 		);
 
@@ -162,7 +162,7 @@ export default function CreateAnnouncementForm({setOpenModal, setDataChanged}){
             setOpenModal(false);
             setDataChanged(true);
         }).catch((error) => {
-            console.log("CreateAnnouncementFormToast", error.message);
+            console.log("CreateAnnouncementFormToast error", error.message);
         });
 	}
 

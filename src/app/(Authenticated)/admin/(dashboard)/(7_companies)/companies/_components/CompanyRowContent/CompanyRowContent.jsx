@@ -5,7 +5,7 @@ import ModalContentText from "../../../../_components/ModalContentText/ModalCont
 import ModalDataActionButton from "../../../../_components/ModalDataActionButton/ModalDataActionButton";
 import UpdateCompanyForm from "../UpdateCompanyForm/UpdateCompanyForm";
 
-export default function CompanyRowContent({dataID, data, setModalContent, setOpenModal, callDeleteCompanyToast}){
+export default function CompanyRowContent({dataID, data, setModalContent, setOpenModal, callDeleteCompanyToast, setDataChanged}){
 
     return (
         <div className={`w-full h-full`}>
@@ -76,7 +76,7 @@ export default function CompanyRowContent({dataID, data, setModalContent, setOpe
 
                     <ModalDataActionButton 
                         buttonText={"Update"} 
-                        buttonClickAction={() => setModalContent(<UpdateCompanyForm setOpenModal={setOpenModal} data={data} dataID={dataID}/>)}
+                        buttonClickAction={() => setModalContent(<UpdateCompanyForm setOpenModal={setOpenModal} data={data} dataID={dataID} setDataChanged={setDataChanged}/>)}
                         dataID={dataID}
                         isUpdate={true}
                     />

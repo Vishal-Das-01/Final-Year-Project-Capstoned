@@ -138,14 +138,16 @@ export default function CreateMilestoneForm({setOpenModal, setDataChanged}){
 			{
 				loading: 'Creating milestone...',
 				success: 'Milestone created!',
-				error: (err) => `Failed to create milestone: ${err.message}`
+				error: (err) => `Failed to create milestone.Try again.`
 			}
 		);
 
         submitFormResult.then(() => {
             setOpenModal(false);
             setDataChanged(true);
-        });
+        }).catch((error) => {
+			console.log("CreateMilestoneFormToast error", error.message);
+		});
 	}
 
     useEffect(() => {

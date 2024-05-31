@@ -168,14 +168,16 @@ export default function CreateStudentAccountForm({setOpenModal, setDataChanged})
 			{
 				loading: 'Creating new student account...',
 				success: 'Student account created!',
-				error: (err) => `Failed to create student account: ${err.message}`
+				error: (err) => `Failed to create student account. Try again.`
 			}
 		);
 
         submitFormResult.then(() => {
             setOpenModal(false);
             setDataChanged(true);
-        });
+        }).catch((error) => {
+			console.log("CreateStudentAccountFormToast error", error);
+		});	
 	}
 
     return (

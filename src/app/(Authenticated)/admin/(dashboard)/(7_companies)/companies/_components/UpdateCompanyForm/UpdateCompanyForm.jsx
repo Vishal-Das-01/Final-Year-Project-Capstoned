@@ -23,7 +23,7 @@ import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 
-export default function UpdateCompanyForm({setOpenModal, data, dataID}){
+export default function UpdateCompanyForm({setOpenModal, data, dataID, setDataChanged}){
     let formId = `updateCompanyForm`;
 
     // For managing state of entire company
@@ -144,18 +144,21 @@ export default function UpdateCompanyForm({setOpenModal, data, dataID}){
 			{
 				loading: 'Update company...',
 				success: 'Company updated!',
-				error: (err) => `Failed to update company: ${err.message}`
+				error: (err) => `Failed to update company. Try again.`
 			}
 		);
 
         submitFormResult.then(() => {
             setOpenModal(false);
-        });
+            setDataChanged(true);
+        }).catch((error) => {
+			console.log("UpdateCompanyFormToast error", error);
+		});	
 	}
 
     // For testing only
     useEffect(() => {
-        console.log("Company", company)
+        // console.log("Company", company)
     }, [company])
 
     return (

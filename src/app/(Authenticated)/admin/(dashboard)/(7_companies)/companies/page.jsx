@@ -135,7 +135,7 @@ export default function AdminDashboardCompaniesPage(props){
 			setOpenModal(false);
 			setDataChanged(true);
 		}).catch((error) => {
-			console.log("deleteCompanyResult error", error);
+			console.log("deleteCompanyResultToast error", error);
 		});		
 	}
 
@@ -220,6 +220,7 @@ export default function AdminDashboardCompaniesPage(props){
 											setModalContent={setModalContent}
 											setOpenModal={setOpenModal}
 											callDeleteCompanyToast={callDeleteCompanyToast}
+											setDataChanged={setDataChanged}
 										/>}
 									>
 

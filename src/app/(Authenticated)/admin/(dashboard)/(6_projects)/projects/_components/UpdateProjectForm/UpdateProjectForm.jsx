@@ -117,19 +117,21 @@ export default function UpdateProjectForm({setOpenModal, data}){
 
     // Calls toast message
 	function callToast(event){
+        const updateProjectFormResult = submitForm(event);
+
 		toast.promise(
-			submitForm(event),
+			updateProjectFormResult,
 			{
 				loading: 'Updating project...',
 				success: 'Project updated!',
-				error: (err) => `Failed to update project: ${err.message}`
+				error: (err) => `Failed to update project. Try again.`
 			}
 		);
 	}
 
     // For testing only
     useEffect(() => {
-        console.log("UpdateProjectForm:", project)
+        // console.log("UpdateProjectForm:", project)
     }, [project])
 
     return (

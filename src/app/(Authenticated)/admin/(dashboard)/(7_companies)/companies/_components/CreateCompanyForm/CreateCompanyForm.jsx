@@ -143,14 +143,16 @@ export default function CreateCompanyForm({setOpenModal, setDataChanged}){
 			{
 				loading: 'Creating company...',
 				success: 'Company created!',
-				error: (err) => `Failed to create company: ${err.message}`
+				error: (err) => `Failed to create company. Try again.`
 			}
 		);
 
         submitFormResult.then(() => {
             setOpenModal(false);
             setDataChanged(true);
-        });
+        }).catch((error) => {
+			console.log("CreateCompanyFormToast error", error);
+		});	
 	}
 
     // For testing only
