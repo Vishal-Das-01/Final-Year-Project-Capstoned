@@ -30,6 +30,10 @@ export default function SideMenu(props){
 					Profile
 				</SideMenuItem>
 
+				<SideMenuItem href={FRONTEND_ROUTES_MENTOR.mentor_dashboard_users_page}>
+					Users
+				</SideMenuItem>
+
 				<SideMenuItem href={FRONTEND_ROUTES_MENTOR.mentor_dashboard_chats_page}>
 					Chats
 				</SideMenuItem>

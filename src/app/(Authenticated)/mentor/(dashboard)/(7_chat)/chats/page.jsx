@@ -1,7 +1,7 @@
 import styles from "./ChatPage.module.css";
 import ChatList from "./_components/ChatList/ChatList.jsx";
-import ChatMessageDisplayBox from "./_components/ChatMessageDisplayBox/ChatMessageDisplayBox";
-import ChatMessageInputField from "./_components/ChatMessageInputField/ChatMessageInputField";
+import ChatMessageDisplayBox from "./_components/ChatMessageDisplayBox/ChatMessageDisplayBox.jsx";
+import ChatMessageInputField from "./_components/ChatMessageInputField/ChatMessageInputField.jsx";
 
 export default function ChatPage(props){
     return (
