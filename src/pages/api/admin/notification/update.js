@@ -7,6 +7,7 @@ export default async function handler(req, res) {
         await connectToDB();
 
         let updates = {}
+        req.body = JSON.parse(req.body)
         if(req.body.headline !== undefined) updates.headline = req.body.headline;
         if(req.body.description !== undefined) updates.description = req.body.description;
         if(req.body.priority !== undefined) updates.priority = req.body.priority;
