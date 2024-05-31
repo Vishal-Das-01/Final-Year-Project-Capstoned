@@ -41,5 +41,6 @@ export const FRONTEND_ROUTES_MENTOR = {
 	mentor_dashboard_my_proposals_page: "/mentor/my-proposals",
 	mentor_dashboard_profile_page: "/mentor/profile",
 	mentor_dashboard_chats_page: "/mentor/chats",
+	mentor_dashboard_users_page: "/mentor/users",
 };
 

@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import { serialize } from 'cookie';
 import OTP from "@/models/OTP";
 import User from '@/models/User';
+import Student from "@/models/Student";
 
 export const POST = async (request) => {
     await connectToDB();

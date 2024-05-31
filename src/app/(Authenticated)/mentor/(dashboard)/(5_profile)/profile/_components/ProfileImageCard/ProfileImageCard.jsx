@@ -7,11 +7,10 @@ import { callAPI } from "@/utils/helpers/callAPI";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import { HttpStatusCode } from "axios";
-import { set } from "mongoose";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
-import { MdAdd } from "react-icons/md";
+import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
 function ProfileImageCard({ profileImage, mentorID }) {
@@ -34,6 +33,7 @@ function ProfileImageCard({ profileImage, mentorID }) {
     if (tempImage === image) {
       console.log("No changes made.");
     } else {
+
       setLoading(true);
       
       if (image !== "/defaultProfile.jpg") {
@@ -99,14 +99,14 @@ function ProfileImageCard({ profileImage, mentorID }) {
         };
         reader.readAsDataURL(file);
       } else {
-        alert("Please select a JPG or PNG file.");
+        toast.error("Invalid file type. Please upload a JPEG or PNG image.");
       }
     }
   };
 
   return (
     <>
-      <div className="relative h-36 w-36 rounded-full overflow-hidden mb-3 text-center">
+      <div className="relative mb-3 overflow-hidden text-center rounded-full h-36 w-36">
         {updating ? (
           <Image alt={"Failed to load image."} src={tempImage} fill />
         ) : (
@@ -154,7 +154,7 @@ function ProfileImageCard({ profileImage, mentorID }) {
         <button
           type="submit"
           onClick={() => setUpdating(true)}
-          className="w-1/6 text-center text-xs font-montserrat font-semibold rounded-lg tracking-widest text-white bg-black border-2 border-black hover:bg-white hover:border-2 hover:black hover:text-black hover:font-semibold hover:font-montserrat hover:text-xs"
+          className="w-1/6 text-xs font-semibold tracking-widest text-center text-white bg-black border-2 border-black rounded-lg font-montserrat hover:bg-white hover:border-2 hover:black hover:text-black hover:font-semibold hover:font-montserrat hover:text-xs"
         >
           Edit
         </button>

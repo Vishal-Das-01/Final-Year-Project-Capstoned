@@ -6,7 +6,7 @@ import { MdSpaceDashboard } from "react-icons/md";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { CgProfile } from "react-icons/cg";
 import { GoProject } from "react-icons/go";
-import { FaRegFileAlt } from "react-icons/fa";
+import { FaChalkboardTeacher, FaRegFileAlt } from "react-icons/fa";
 import { FaRocketchat } from "react-icons/fa";
 import styles from "./SideMenuItem.module.css";
 
@@ -42,6 +42,9 @@ export default function SideMenuItem({href, children}){
 		}
 		else if(children.toString() === "Profile"){
 			return "profile";
+		}
+		else if(children.toString() === "Users"){
+			return "users";
 		}
 		else if(children.toString() === "Chats"){
 			return "chats";
@@ -102,6 +105,9 @@ export default function SideMenuItem({href, children}){
 		}
 		else if(children.toString() === "Profile"){
 			return (<CgProfile color={color}/>);
+		}
+		else if(children.toString() === "Users"){
+			return (<FaChalkboardTeacher color={color}/>);
 		}
 		else if(children.toString() === "Chats"){
 			return (<FaRocketchat color={color}/>);
