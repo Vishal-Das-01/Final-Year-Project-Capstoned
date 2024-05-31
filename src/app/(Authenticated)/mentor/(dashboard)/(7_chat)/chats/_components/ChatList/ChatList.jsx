@@ -9,6 +9,7 @@ import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
 import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import Loader from "../Loader/Loader";
+import NotFound from "../NotFound/NotFound";
 
 export default function ChatList({ chatID, setChatID }) {
   
@@ -55,7 +56,7 @@ export default function ChatList({ chatID, setChatID }) {
           className={`${styles.tertiaryContainer} flex flex-col items-center justify-start overflow-y-auto my-10`}
         >
           {loading && <Loader />}
-
+          {!loading && chats.length === 0 && <NotFound/>}
           {!loading && chats.length > 0 && (
             <ChatRoomList chats={chats} chatID={chatID} setChatID={setChatID} />
           )}

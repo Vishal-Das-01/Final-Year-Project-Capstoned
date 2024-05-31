@@ -71,9 +71,7 @@ export default function ChatRoomListItem({
         >
           <ChatRecipientName name={getName(participants)} />
 
-          <ChatRecipientMessage
-            message={message.length === 0 ? "No message" : message[0].message}
-          />
+          <ChatRecipientMessage message={message} />
         </div>
       </div>
 
