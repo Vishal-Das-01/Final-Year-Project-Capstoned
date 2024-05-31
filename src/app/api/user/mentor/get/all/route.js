@@ -23,23 +23,21 @@ export const GET = async (request) => {
         let totalPages;
 
         if (supervisor) {
-            mentors = await Mentor.find({ canSupervise: true }).
+            mentors = await Mentor.find({ canSupervise: true, firstName: { $regex: search, $options: "i" } }).
                 select('firstName lastName gender isUniversityTeacher canSupervise occupation profileImage groups officeHours roomNum company industries')
                 .populate('company', 'name')
                 .sort({ firstName: 1 }).skip(skip).limit(limit);
-            totalMentors = await Mentor.countDocuments({ canSupervise: true });
+            totalMentors = await Mentor.countDocuments({ canSupervise: true, firstName: { $regex: search, $options: "i" } });
             totalPages = Math.ceil(totalMentors / limit);
         }
         else {
-            mentors = await Mentor.find().
+            mentors = await Mentor.find({ firstName: { $regex: search, $options: "i" } }).
                 select('firstName lastName gender isUniversityTeacher canSupervise occupation profileImage groups officeHours roomNum company industries')
                 .populate('company', 'name')
                 .sort({ firstName: 1 }).skip(skip).limit(limit);
-            totalMentors = await Mentor.countDocuments();
+            totalMentors = await Mentor.countDocuments({ firstName: { $regex: search, $options: "i" } });
             totalPages = Math.ceil(totalMentors / limit);
         }
-
-        console.log(mentors);
 
         return NextResponse.json({ message: "Success.", data: { page, totalMentors, totalPages, mentors } }, { status: HttpStatusCode.Ok });
     } catch (error) {
