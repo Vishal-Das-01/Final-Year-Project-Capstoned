@@ -71,7 +71,7 @@ export default function ChatRoomListItem({
         >
           <ChatRecipientName name={getName(participants)} />
 
-          <ChatRecipientMessage message={message} />
+          <ChatRecipientMessage message={message} ID={ID} chatID={chatID}/>
         </div>
       </div>
 
