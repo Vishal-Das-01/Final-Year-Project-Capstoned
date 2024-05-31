@@ -8,20 +8,12 @@ import Image from "next/image";
 import { callAPI } from "@/utils/helpers/callAPI";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import { HttpStatusCode } from "axios";
-// import { cookies } from "next/headers";
 import { useDispatch, useSelector } from "react-redux";
 import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
 import { useRouter } from "next/navigation";
 import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import NotFound from "../_components/NotFound/NotFound";
-import Loader from "../_components/Loader/Loader";
 import { useSocket } from "@/utils/helpers/socketProvider";
-
-// export const metadata = {
-//   title: "Final Year Groups: Requests",
-//   description:
-//     "Capstoned Mentor Requests | Final Year Project (FYP) Management Platform for College & University Students.",
-// };
 
 function Requests() {
 
@@ -30,7 +22,6 @@ function Requests() {
   const [requests, setRequests] = useState([]);
   const [processing, setProcessing] = useState(false);
   const [loading, setLoading] = useState(true);
-  // const requests = await getRequests();
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -123,9 +114,9 @@ function Requests() {
       {requests.length === 0 && <NotFound />}
       {requests && requests.length > 0 && requests.map((item, index) => (
         <div key={index}>
-          <div className="grid grid-cols-12 h-16 mt-1 mx-1 rounded-full shadow-lg bg-gray-100 pr-5 pl-10">
-            <div className="col-span-1 flex items-center">
-              <div className="relative h-12 w-12 rounded-full overflow-hidden">
+          <div className="grid h-16 grid-cols-12 pl-10 pr-5 mx-1 mt-1 bg-gray-100 rounded-full shadow-lg">
+            <div className="flex items-center col-span-1">
+              <div className="relative w-12 h-12 overflow-hidden rounded-full">
                 <Image
                   className="absolute"
                   src={(item.sender.profileImage?.image) ? item.sender.profileImage.image : "/defaultProfile.jpg"}
@@ -135,20 +126,20 @@ function Requests() {
               </div>
             </div>
             <GroupName groupName={item.sender.group.name} groupID={item.sender.group._id}/>
-            <h className="col-span-3 text-sm flex items-center">
+            <h className="flex items-center col-span-3 text-sm">
               Requested by: {item.sender.firstName} {item.sender.lastName}
             </h>
-            <h className="col-span-3 text-sm flex items-center">
+            <h className="flex items-center col-span-3 text-sm">
               Requested for: {item.type}
             </h>
-            <div className="col-span-1 flex items-center">
+            <div className="flex items-center col-span-1">
               <FaCircleXmark disabled={processing} className={`h-6 w-6 col-span-1 flex items-center text-red-200 ${!processing? "hover:text-red-500 hover:cursor-pointer" : ""}`} onClick={() => handleDelete(item._id)}/>
             </div>
-            <div className="col-span-1 flex items-center">
+            <div className="flex items-center col-span-1">
               <FaCheckCircle disabled={processing} className={`h-6 w-6 col-span-1 flex items-center text-green-200 ${!processing? "hover:text-green-500 hover:cursor-pointer" : ""}`} onClick={() => handleAccept(item._id)}/>
             </div>
           </div>
-          <hr className="mt-5 mb-4 text-center border-gray-300 border-t-2 border-b-0" />
+          <hr className="mt-5 mb-4 text-center border-t-2 border-b-0 border-gray-300" />
         </div>
       ))}
     </div>

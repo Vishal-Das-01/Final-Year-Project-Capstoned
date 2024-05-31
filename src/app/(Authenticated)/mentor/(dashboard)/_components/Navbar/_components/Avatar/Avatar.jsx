@@ -20,8 +20,8 @@ export default function Avatar({alt}){
 						className={`rounded-full`}
 						src={profileImage || "/defaultProfile.jpg"} 
 						alt={alt}
-						height={40}
-						width={40}
+						height={100}
+						width={100}
 					/>
 				
 				</div>
