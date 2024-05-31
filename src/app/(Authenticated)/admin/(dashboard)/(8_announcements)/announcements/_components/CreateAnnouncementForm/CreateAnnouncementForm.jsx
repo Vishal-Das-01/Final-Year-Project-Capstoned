@@ -90,11 +90,11 @@ export default function CreateAnnouncementForm({setOpenModal, setDataChanged}){
         let apiURL = BACKEND_ROUTES.createAnnouncement;
         
         try{
-            console.log("HERE A", dataToSend)
             let apiCall = await postAnnouncementAPICall(apiURL, accessToken, dataToSend);
             if(apiCall.status === HttpStatusCode.Ok){
                 let apiCallResponse = await apiCall.json();
                 console.log("PostAnnouncementForm", apiCallResponse);
+                return apiCallResponse;
             }
             else if (apiCall.status === HttpStatusCode.Unauthorized) {
                 const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
