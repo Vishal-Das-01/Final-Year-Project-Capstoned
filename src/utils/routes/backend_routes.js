@@ -29,6 +29,11 @@ export const BACKEND_ROUTES = {
   getMentorProjectDetails: `${baseURL}/mentor/project/get/`,
   postMentorMilestoneMarks: `${baseURL}/mentor/project/mark`,
   getMentorPastProjects: `${baseURL}/mentor/project/get/past`,
+  getMentorChatRooms: `${baseURL}/user/chat/get/all`,
+  getMentorSingleChat: `${baseURL}/user/chat/get/`,
+  getSearchAllMentors: `${baseURL}/user/mentor/get/all`,
+  sendMentorMessage: `${baseURL}/user/chat/message/send`,
+  createMentorChat: `${baseURL}/user/chat/create`,
 
   getGroupSelectedProposal: `${baseURL}/user/group/selected-proposal/get-all`,
   getMilestoneDetails: `${baseURL}/user/project/assigned-milestone`,
@@ -67,7 +72,6 @@ export const BACKEND_ROUTES = {
   studentSubmitMilestone: `${baseURL}/student/project/`, // (student) milestones
   getStudentProjects: `${baseURL}/student/project/get`, // (student) projects
   studentGetAllProposals: `${baseURL}/student/proposal/get/all`, // (student) proposals
-
-  getSearchAllMentors: `${baseURL}/user/mentor/get/all`,
   getSearchAllStudents: `${baseURL}/user/student/get/all`,
+
 };

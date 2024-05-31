@@ -7,7 +7,8 @@ export default async function handler(req, res) {
         await connectToDB();
 
         try {
-            const { participants } = req.body;
+            const { participants } = JSON.parse(req.body);
+            console.log(participants)
 
             let profileIDExists = false;
 
@@ -51,6 +52,7 @@ export default async function handler(req, res) {
             
             return res.status(200).json({ message: 'Chat created.' });
         } catch (error) {
+            console.log(error)
             if (error.name === "ValidationError") {
                 return res.status(400).json({ message: 'Please provide correct/necessary fields.' });
             }
