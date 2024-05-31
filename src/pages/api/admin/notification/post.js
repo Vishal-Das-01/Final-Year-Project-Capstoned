@@ -8,6 +8,7 @@ export default async function handler(req, res) {
         await connectToDB();
 
         try {
+            req.body = JSON.parse(req.body)
             const { receiver, ...body } = req.body;
             const profileID = req.headers.profileid;
 

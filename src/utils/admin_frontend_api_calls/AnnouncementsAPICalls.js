@@ -15,12 +15,13 @@ export async function getAnnouncementsAPICall(route, token, announcementType){
 
 export async function postAnnouncementAPICall(route, token, data){
     try{
+        console.log(data)
         let res = await fetch(route, {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`,
             },
-            body: data
+            body: JSON.stringify(data)
         });
         return res;
     }
