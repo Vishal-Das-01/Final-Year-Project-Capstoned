@@ -1,15 +1,9 @@
 "use client";
 
-import styles from "./ProgressContent.module.css";
-import ListTile from "../_components/ListTile/ListTile";
-import ProgressChart from "./_components/ProgressChart/ProgressChart";
+import styles from "./DaysLeftContent.module.css";
+import DaysLeftChart from "./_components/DaysLeftChart/DaysLeftChart.jsx";
 
-export default function ProgressContent(props){
-	const currentDate = new Date();
-    const startOfYear = new Date(currentDate.getFullYear(), 0, 1);
-    const diff = currentDate - startOfYear;
-    const oneDay = 1000 * 60 * 60 * 24;
-    const daysPassed = Math.floor(diff / oneDay);
+export default function DaysLeftContent({startDate, endDate, currentDate}){
 
 	return (
 		<div className={`h-full w-full`}>
@@ -19,7 +13,7 @@ export default function ProgressContent(props){
 				<div className={`${styles.contentHeadingWrapper} flex flex-row items-center `}>
 
 					<h1 className={`${styles.contentHeading} font-montserrat font-semibold py-2 text-black`}>
-						Capstone Progress
+						Capstone Time Left
 					</h1>
 
 					<div className={`${styles.contentHeadingLine} ml-2 bg-blue-500 rounded-full`} /> 
@@ -28,9 +22,10 @@ export default function ProgressContent(props){
 
 				<div className={`${styles.progressInfoWrapper} flex flex-col my-2 items-center justify-center`}>
 					
-					<ProgressChart 
-						daysPassed={daysPassed} 
-						totalDays={365}
+					<DaysLeftChart 
+						startDate={startDate}
+						endDate={endDate}
+						currentDate={currentDate}
 					/>
 
 				</div>

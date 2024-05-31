@@ -1,6 +1,8 @@
-import styles from "./CalendarContent.module.css";
+"use client";
 
-export default function CalendarContent({date}){
+import styles from "./ClockContent.module.css";
+
+export default function ClockContent({date}){
 	return (
 		<div className={`h-full w-full`}>
 
@@ -9,15 +11,15 @@ export default function CalendarContent({date}){
 				<div className={`${styles.contentHeadingWrapper} flex flex-row items-center `}>
 
 					<h1 className={`${styles.contentHeading} font-montserrat font-semibold py-2 text-black`}>
-						Calendar
+						Capstoned Time
 					</h1>
 
 					<div className={`${styles.contentHeadingLine} ml-2 bg-blue-500 rounded-full`} /> 
 
 				</div>
 
-				<div className={`${styles.calendarInfoWrapper} flex flex-col my-2`}>
-
+				<div className={`${styles.clockInfoWrapper} flex flex-col my-2`}>
+					
 				</div>
 
 			</div>
@@ -25,3 +27,4 @@ export default function CalendarContent({date}){
 		</div>
 	);
 }
+
