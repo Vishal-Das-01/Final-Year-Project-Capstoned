@@ -1,14 +1,19 @@
 .chatMessageDisplayBoxPrimaryContainer{
-       
+    height: 85%;
+    border-radius: 10px;
+    box-shadow:  7px 7px 23px #c1c1c1,
+    -7px -7px 23px #ffffff;
 }
 
 .chatMessageDisplayBox{
     border-radius: 10px;
-    height: 540px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 5px;
+    height: 95%;
+    width: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
 }
+
 
 .chatMessageDisplayBox::-webkit-scrollbar {
     margin-top: 8px;

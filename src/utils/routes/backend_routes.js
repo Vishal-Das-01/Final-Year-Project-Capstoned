@@ -73,5 +73,9 @@ export const BACKEND_ROUTES = {
   getStudentProjects: `${baseURL}/student/project/get`, // (student) projects
   studentGetAllProposals: `${baseURL}/student/proposal/get/all`, // (student) proposals
   getSearchAllStudents: `${baseURL}/user/student/get/all`,
+  getStudentChatRooms: `${baseURL}/user/chat/get/all`,
+  getStudentSingleChat: `${baseURL}/user/chat/get/`,
+  sendStudentMessage: `${baseURL}/user/chat/message/send`,
+  createStudentChat: `${baseURL}/user/chat/create`,
 
 };

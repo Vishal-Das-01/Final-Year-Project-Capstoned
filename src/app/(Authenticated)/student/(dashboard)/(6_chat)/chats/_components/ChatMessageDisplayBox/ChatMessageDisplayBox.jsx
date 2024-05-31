@@ -1,90 +1,97 @@
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./ChatMessageDisplayBox.module.css";
 import ChatMessageBubble from "./_components/ChatMessageBubble/ChatMessageBubble";
+import { useEffect, useState } from "react";
+import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
+import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
+import { HttpStatusCode } from "axios";
+import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
+import { useRouter } from "next/navigation";
+import { callAPI } from "@/utils/helpers/callAPI";
+import ScrollToBottom from "react-scroll-to-bottom";
+import { set } from "mongoose";
+import Loader from "../Loader/Loader";
+import NotFound from "../NotFound/NotFound";
+import { useSocket } from "@/utils/helpers/socketProvider";
 
-export default function ChatMessageDisplayBox(props){
-    return (
-        <div className={`${styles.chatMessageDisplayBoxPrimaryContainer} w-full h-full `}>
+export default function ChatMessageDisplayBox({ chatID }) {
+  const { socket, isConnected } = useSocket();
 
-            <div className={`${styles.chatMessageDisplayBoxSecondaryContainer} w-full h-full flex overflow-y-auto  `}>
-                
-                <div className={`${styles.chatMessageDisplayBox} w-full flex flex-col text-clip overflow-y-auto bg-white  font-montserrat`}>
-                   
-                   <ChatMessageBubble 
-                   text={"The rusty swing set creaked in the twilight, whispering secrets to the wind."} 
-                   color={"white"} 
-                   recipient={true}
-                   name={`Hamza Akbar`}
-                   imageSrc={"/picCircular.png"}
-                   />
+  const [profileID, setProfileID] = useState(
+    useSelector((state) => state.AuthDetails.profileID)
+  );
+  const accessToken = useSelector((state) => state.AuthDetails.accessToken);
 
-                   <ChatMessageBubble 
-                   text={"Raindrops tattooed the windowpane, a rhythmic lullaby for the sleeping city"} 
-                   color={"white"} 
-                   recipient={false}
-                   name={`Hamza Akbar`}
-                   imageSrc={"/picCircular.png"}
-                   />
+  const dispatch = useDispatch();
+  const router = useRouter();
 
-                   <ChatMessageBubble 
-                   text={"Sunlight streamed through the dusty attic window, illuminating forgotten treasures."} 
-                   color={"white"} 
-                   recipient={true}
-                   name={`Hamza Akbar`}
-                   imageSrc={"/picCircular.png"}
-                   />
+  const [messages, setMessages] = useState([]);
 
-                   <ChatMessageBubble 
-                   text={"The aroma of freshly baked bread wafted from the kitchen, a warm hug for the soul."} 
-                   color={"white"} 
-                   recipient={false}
-                   name={`Hamza Akbar`}
-                   imageSrc={"/picCircular.png"}
-                   />
+  const [loading, setLoading] = useState(false);
 
-                   <ChatMessageBubble 
-                   text={"Hello"} 
-                   color={"white"} 
-                   recipient={true}
-                   name={`Hamza Akbar`}
-                   imageSrc={"/picCircular.png"}
-                   />
-                   
-                   <ChatMessageBubble 
-                   text={"Hello"} 
-                   color={"white"} 
-                   recipient={false}
-                   name={`Hamza Akbar`}
-                   imageSrc={"/picCircular.png"}
-                   />
+  useEffect(() => {
+    if(socket) {
+      socket.on(`chat:${chatID}`, (message) => {
+        console.log("Messages : ", message)
+        setMessages(prevMessages => [...prevMessages, message]);
+      })
+    }
 
-                   <ChatMessageBubble 
-                   text={"Hello"} 
-                   color={"white"} 
-                   recipient={true}
-                   name={`Hamza Akbar`}
-                   imageSrc={"/picCircular.png"}
-                   />
+    return () => {
+      if(socket) {
+        socket.off(`chat:${chatID}`);
+      }
+    };
+  }, [socket, chatID])
 
-                   <ChatMessageBubble 
-                   text={"Hello"} 
-                   color={"white"} 
-                   recipient={false}
-                   name={`Hamza Akbar`}
-                   imageSrc={"/picCircular.png"}
-                   />
+  useEffect(() => {
+    const getMessages = async () => {
+      setLoading(true);
+      const response = await callAPI(
+        "GET",
+        accessToken,
+        `${BACKEND_ROUTES.getStudentSingleChat}?id=${chatID}`
+      );
+      if (response.status === HttpStatusCode.Ok) {
+        const responseData = await response.json();
+        setMessages(responseData.data.messages);
+      } else if (response.status === HttpStatusCode.Unauthorized) {
+        dispatch(removeAuthDetails());
+        router.push(FRONTEND_ROUTES.login_page);
+      }
+      setLoading(false);
+    };
+    if (chatID) getMessages();
+  }, [chatID]);
 
-                   <ChatMessageBubble 
-                   text={"Hello"} 
-                   color={"white"} 
-                   recipient={true}
-                   name={`Hamza Akbar`}
-                   imageSrc={"/picCircular.png"}
-                   />
-
-                </div>
-               
-            </div>
-
-        </div>
-    );
+  return (
+    <div
+      className={`${styles.chatMessageDisplayBoxPrimaryContainer} w-full bg-white`}
+    >
+      <div
+        className={`${styles.chatMessageDisplayBox} w-full flex overflow-y-auto bg-white font-montserrat scroll`}
+      >
+        {loading && <Loader />}
+        {!loading && chatID !== null && messages.length === 0 && <NotFound />}
+        {!loading && messages.length > 0 && (
+          <ScrollToBottom className="w-full">
+            {messages.map((message, index) => (
+              <ChatMessageBubble
+                key={index}
+                text={message.message}
+                recipient={message.sender._id === profileID ? false : true}
+                name={message.sender.firstName + " " + message.sender.lastName}
+                role={message.senderRole}
+                imageSrc={
+                  message.sender.profileImage
+                    ? message.sender.profileImage.image
+                    : "/defaultProfile.jpg"
+                }
+              />
+            ))}
+          </ScrollToBottom>
+        )}
+      </div>
+    </div>
+  );
 }

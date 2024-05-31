@@ -29,7 +29,7 @@ export default function ChatList({ chatID, setChatID }) {
       const response = await callAPI(
         "GET",
         accessToken,
-        BACKEND_ROUTES.getMentorChatRooms
+        BACKEND_ROUTES.getStudentChatRooms
       );
       if (response.status === HttpStatusCode.Ok) {
         const responseData = await response.json();

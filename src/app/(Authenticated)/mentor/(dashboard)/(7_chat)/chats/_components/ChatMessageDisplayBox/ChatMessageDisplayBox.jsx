@@ -81,6 +81,7 @@ export default function ChatMessageDisplayBox({ chatID }) {
                 text={message.message}
                 recipient={message.sender._id === profileID ? false : true}
                 name={message.sender.firstName + " " + message.sender.lastName}
+                role={message.senderRole}
                 imageSrc={
                   message.sender.profileImage
                     ? message.sender.profileImage.image
