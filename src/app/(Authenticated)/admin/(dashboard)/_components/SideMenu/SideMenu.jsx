@@ -33,9 +33,9 @@ export default function SideMenu(props){
 					Accounts
 				</SideMenuItem>
 
-				<SideMenuItem href={FRONTEND_ROUTES.admin_dashboard_chat_page} icon={<FaRocketchat/>}>
+				{/* <SideMenuItem href={FRONTEND_ROUTES.admin_dashboard_chat_page} icon={<FaRocketchat/>}>
 					Chat
-				</SideMenuItem>
+				</SideMenuItem> */}
 
 				<SideMenuItem href={FRONTEND_ROUTES.admin_dashboard_projects_page} icon={<AiFillProject/>}>
 					Projects

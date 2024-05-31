@@ -32,7 +32,7 @@ export default function NotificationContent({notifications}){
 						:
 
 						notifications.map((notification) => {
-							return <NotificationListTile notificationText={notification}/>
+							return <NotificationListTile key={notification} notificationText={notification}/>
 						})
 					}
 					

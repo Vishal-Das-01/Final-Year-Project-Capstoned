@@ -2,6 +2,7 @@ import styles from "./MilestonesContent.module.css";
 import UpcomingMilestone from "./_components/UpcomingMilestone/UpcomingMilestone";
 
 export default function MilestonesContent({milestone}){
+	
 	return (
 		<div className={`h-full w-full `}>
 
