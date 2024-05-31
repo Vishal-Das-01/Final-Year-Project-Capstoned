@@ -21,6 +21,7 @@ export default function ChatList({ chatID, setChatID }) {
 
   const { accessToken } = authDetails;
 
+  
   useEffect(() => {
     const getChats = async () => {
       setLoading(true);

@@ -13,7 +13,6 @@ import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
 import { useRouter } from "next/navigation";
 import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 import NotFound from "../_components/NotFound/NotFound";
-import Loader from "../_components/Loader/Loader";
 import { useSocket } from "@/utils/helpers/socketProvider";
 
 function Requests() {

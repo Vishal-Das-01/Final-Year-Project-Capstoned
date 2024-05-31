@@ -12,8 +12,11 @@ import ScrollToBottom from "react-scroll-to-bottom";
 import { set } from "mongoose";
 import Loader from "../Loader/Loader";
 import NotFound from "../NotFound/NotFound";
+import { useSocket } from "@/utils/helpers/socketProvider";
 
 export default function ChatMessageDisplayBox({ chatID }) {
+  const { socket, isConnected } = useSocket();
+
   const [profileID, setProfileID] = useState(
     useSelector((state) => state.AuthDetails.profileID)
   );
@@ -25,6 +28,21 @@ export default function ChatMessageDisplayBox({ chatID }) {
   const [messages, setMessages] = useState([]);
 
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if(socket) {
+      socket.on(`chat:${chatID}`, (message) => {
+        console.log("Messages : ", message)
+        setMessages(prevMessages => [...prevMessages, message]);
+      })
+    }
+
+    return () => {
+      if(socket) {
+        socket.off(`chat:${chatID}`);
+      }
+    };
+  }, [socket, chatID])
 
   useEffect(() => {
     const getMessages = async () => {
