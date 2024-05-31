@@ -2,7 +2,7 @@ import styles from "./WelcomeContent.module.css";
 import { IoTimerOutline } from "react-icons/io5";
 import { FiMessageSquare } from "react-icons/fi";
 
-export default function WelcomeContent({name, deadlineCount, meetingCount}){
+export default function WelcomeContent({name, notificationCount, messageCount}){
 	return (
 		<div className={`${styles.welcomeContentWrapper} w-full h-full rounded-3xl`}>
 			
@@ -23,7 +23,7 @@ export default function WelcomeContent({name, deadlineCount, meetingCount}){
 						<div className={`${styles.welcomeMessageWrapper}`}>
 
 							<p className={`${styles.welcomeMessage} font-montserrat font-semibold my-2 text-neutral-600`}>
-								{`You have ${deadlineCount} upcoming deadlines.`}
+								{`You have ${notificationCount} new notifications.`}
 							</p>
 
 						</div>
@@ -39,7 +39,7 @@ export default function WelcomeContent({name, deadlineCount, meetingCount}){
 						<div className={`${styles.welcomeMessageWrapper}`}>
 
 							<p className={`${styles.welcomeMessage} font-montserrat font-semibold my-2 text-neutral-600`}>
-								{`You have ${meetingCount} unread messages.`}
+								{`You have ${messageCount} unread messages.`}
 							</p>
 
 						</div>

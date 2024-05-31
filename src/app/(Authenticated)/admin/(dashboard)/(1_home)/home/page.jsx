@@ -1,10 +1,10 @@
 import ContentCard from "./_components/ContentCard/ContentCard.jsx";
 import WelcomeContent from "./_components/WelcomeContent/WelcomeContent.jsx";
 import MilestonesContent from "./_components/MilestonesContent/MilestonesContent.jsx";
-import MeetingsContent from "./_components/MeetingsContent/MeetingsContent.jsx";
+import DaysLeftContent from "./_components/DaysLeftContent/DaysLeftContent.jsx";
 import FYPGroupsContent from "./_components/FYPGroupsContent/FYPGroupsContent.jsx";
 import MessagesContent from "./_components/MessagesContent/MessagesContent.jsx";
-import CalendarContent from "./_components/CalendarContent/CalendarContent.jsx";
+import NotificationContent from "./_components/NotificationContent/NotificationContent.jsx";
 
 import styles from "./AdminHomePage.module.css";
 
@@ -25,17 +25,16 @@ export default function AdminDashboardHomePage(props){
 
 						<WelcomeContent 
 							name={`Hamza`} 
-							deadlineCount={2}
-							meetingCount = {4}
+							notificationCount={2}
+							messageCount = {4}
 						/>
 					
 					</ContentCard>
 
 					<ContentCard>
 
-						<MeetingsContent 
-							location={`Faculty Lounge`} 
-							meetingDate={`Jan 12, 2024`}
+						<NotificationContent 
+							notifications={[]}
 						/>
 					
 					</ContentCard>
@@ -55,7 +54,7 @@ export default function AdminDashboardHomePage(props){
 
 					<ContentCard>
 
-						<FYPGroupsContent />
+						<MessagesContent />
 
 					</ContentCard>
 
@@ -64,14 +63,20 @@ export default function AdminDashboardHomePage(props){
 				<div className={`${styles.right} w-full h-full flex flex-col flex-1 items-center justify-evenly `}>
 
 					<ContentCard>
-
-						<MessagesContent />
+						
+						<DaysLeftContent 
+							startDate={"2023-09-01"}
+							endDate={"2024-05-31"}
+							currentDate={`2024-03-23`}
+						/>
 
 					</ContentCard>
 
 					<ContentCard>
 
-						<CalendarContent />
+						<FYPGroupsContent 
+							fypGroupCount={24}
+						/>
 					
 					</ContentCard>
 

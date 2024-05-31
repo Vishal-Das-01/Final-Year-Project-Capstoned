@@ -1,0 +1,28 @@
+.noNotificationSecondaryContainer{
+    animation: moveUpDown 6s linear infinite;
+}
+
+.dialogueBox{
+    position: absolute;
+    width: 120px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    top: 50px;
+    right: 30px;
+    
+}
+
+.dialogue{
+    font-size: 13px;
+}
+
+@keyframes moveUpDown {
+    0%, 100% {
+      transform: translateY(20);
+    }
+    50% {
+      transform: translateY(20px); /* Adjust this value to control the distance */
+    }
+  }
