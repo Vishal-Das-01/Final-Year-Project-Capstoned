@@ -1,0 +1,16 @@
+.divider{
+    border: 1.5px solid #e6e6e6;
+}
+
+.tileContentWrapper{
+    height: 35px;
+}
+
+.notificationTextWrapper{
+    width: 70%;
+}
+
+.notificationText{
+    font-weight: 400;
+    font-size: 15px;
+}

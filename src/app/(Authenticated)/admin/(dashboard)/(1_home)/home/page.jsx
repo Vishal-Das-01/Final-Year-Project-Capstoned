@@ -4,7 +4,7 @@ import MilestonesContent from "./_components/MilestonesContent/MilestonesContent
 import DaysLeftContent from "./_components/DaysLeftContent/DaysLeftContent.jsx";
 import FYPGroupsContent from "./_components/FYPGroupsContent/FYPGroupsContent.jsx";
 import MessagesContent from "./_components/MessagesContent/MessagesContent.jsx";
-import ClockContent from "./_components/ClockContent/ClockContent.jsx";
+import NotificationContent from "./_components/NotificationContent/NotificationContent.jsx";
 
 import styles from "./AdminHomePage.module.css";
 
@@ -33,7 +33,9 @@ export default function AdminDashboardHomePage(props){
 
 					<ContentCard>
 
-						<ClockContent />
+						<NotificationContent 
+							notifications={[]}
+						/>
 					
 					</ContentCard>
 
@@ -52,7 +54,7 @@ export default function AdminDashboardHomePage(props){
 
 					<ContentCard>
 
-						<FYPGroupsContent />
+						<MessagesContent />
 
 					</ContentCard>
 
@@ -72,7 +74,9 @@ export default function AdminDashboardHomePage(props){
 
 					<ContentCard>
 
-						<MessagesContent />
+						<FYPGroupsContent 
+							fypGroupCount={24}
+						/>
 					
 					</ContentCard>
 
