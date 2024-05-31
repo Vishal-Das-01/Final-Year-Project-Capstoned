@@ -58,7 +58,7 @@ export default function AdminDashboardAccountsPage(props){
 	const dispatch = useDispatch();
 	const router = useRouter();
 
-	// API Call for fetching all fyp groups
+	// API Call for fetching all users
 	async function getUsers(){
 		let accessToken = authDetails.accessToken;
 		let apiURL = BACKEND_ROUTES.getUsers;

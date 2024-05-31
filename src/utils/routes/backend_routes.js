@@ -60,7 +60,7 @@ export const BACKEND_ROUTES = {
   unfinalizeGroup: `${baseURL}/admin/group/unfinalize?`, // (admin) fyp groups
 
   getAnnouncements: `${baseURL}/admin/notification/get/`, // (admin) announcements
-  postAnnouncement: `${baseURL}/admin/notification/post`, // (admin) announcements
+  createAnnouncement: `${baseURL}/admin/notification/post`, // (admin) announcements
   updateAnnouncement: `${baseURL}/admin/notification/update`, // (admin) announcements
   deleteAnnouncement: `${baseURL}/admin/notification/delete`, // (admin) announcements
 

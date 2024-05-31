@@ -20,7 +20,7 @@ export async function postAnnouncementAPICall(route, token, data){
             headers: {
                 "Authorization": `Bearer ${token}`,
             },
-            body: JSON.stringify(data)
+            body: data
         });
         return res;
     }
