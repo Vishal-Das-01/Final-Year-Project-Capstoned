@@ -1,7 +1,7 @@
 import styles from "./ChatMessageBubble.module.css";
 import Image from "next/image";
 
-export default function ChatMessageBubble({text, recipient, name, imageSrc}){
+export default function ChatMessageBubble({text, recipient, name, role, imageSrc}){
     return (
         <div className={`${styles.bubblePrimaryContainer} flex flex-row items-center ${(recipient == true) ? `justify-start` : ` justify-end`} w-full  my-1 py-1`}>
             
@@ -16,7 +16,7 @@ export default function ChatMessageBubble({text, recipient, name, imageSrc}){
                 <div className={`${styles.bubbleTertiaryContainer} flex flex-col w-full h-full bg-white ${(recipient == true) ? `rounded-tr-lg` : `rounded-tl-lg`} border-2 border-black`}>
                     
                     <p className={`${styles.messageOwnerName} font-montserrat ${(recipient == true) ? `text-blue-700` : `text-green-700`} font-semibold`}>
-                        {name}
+                        {name + " (" + role + ")"}
                     </p>
 
                     <p className={`${styles.chatMessage} font-montserrat `}>
