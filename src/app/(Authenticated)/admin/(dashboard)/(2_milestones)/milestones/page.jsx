@@ -11,10 +11,11 @@ import TableBodyDataCell from "../../_components/TableBodyDataCell/TableBodyData
 import Modal from "../../_components/Modal/Modal";
 import MilestoneRowContent from "./_components/MilestoneRowContent/MilestoneRowContent";
 import DataTableMessage from "../../_components/DataTableMessage/DataTableMessage";
+import toast from "react-hot-toast";
 
 // Imports below for state management and api calls
 import { useEffect, useState } from "react";
-import { getAllMilestonesAPICall } from "@/utils/admin_frontend_api_calls/MilestoneAPICalls";
+import { getAllMilestonesAPICall, assignMilestoneAPICall } from "@/utils/admin_frontend_api_calls/MilestoneAPICalls";
 import { useSelector } from "react-redux";
 import { HttpStatusCode } from "axios";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
@@ -87,6 +88,59 @@ export default function AdminDashboardMilestonesPage(props){
 			setErrorRetrievingData(true);
 			console.log("getAllMilestones error:", "error");
 		}
+	}
+
+	// Function for assigning milestone
+    async function assignMilestone(id){
+        let accessToken = authDetails.accessToken;
+        let apiURL = BACKEND_ROUTES.assignMilestone + `${id}`;
+
+        try{
+            let apiCall = await assignMilestoneAPICall(apiURL, accessToken);
+            if(apiCall.status === HttpStatusCode.Ok){
+                let apiCallResponse = await apiCall.json();
+                console.log("assignMilestone:", apiCallResponse);
+                return apiCallResponse;
+            }
+            else if (apiCall.status === HttpStatusCode.Unauthorized) {
+                const responseLogOut = await fetch(BACKEND_ROUTES.logout, {
+                    method: "POST",
+                });
+                if (responseLogOut.status === HttpStatusCode.Ok) {
+                    dispatch(removeAuthDetails());
+                    router.replace(FRONTEND_ROUTES.landing_page);
+                }
+                throw new Error('Unauthorized');
+            }
+            else{
+                console.log("assignMilestone:", apiCall);
+                throw new Error(`Can't assign milestone. Try again.`);
+            }
+        }
+        catch(error){
+            throw error;
+        }
+    }
+
+	// Calls toast message
+	function callAssignMilestoneToast(id){
+        const assignMilestoneResult = assignMilestone(id);
+
+		toast.promise(
+			assignMilestoneResult,
+			{
+				loading: 'Assigning milestone...',
+				success: 'Milestone assigned!',
+				error: (err) => `${err.message}`
+			}
+		);
+
+        assignMilestoneResult.then(() => {
+            setOpenModal(false);
+            setDataChanged(true);
+        }).catch((error) => {
+			console.log(error.message)
+		});
 	}
 
 	// API Call for displaying milestones in the table 
@@ -171,6 +225,7 @@ export default function AdminDashboardMilestonesPage(props){
 													setModalContent={setModalContent}
 													setOpenModal={setOpenModal}
 													setDataChanged={setDataChanged}
+													callAssignMilestoneToast={callAssignMilestoneToast}
 												/>}
 									>
 
