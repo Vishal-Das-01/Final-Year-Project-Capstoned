@@ -13,6 +13,7 @@ export const BACKEND_ROUTES = {
   verifyOTP: `${baseURL}/auth/otp/verify`,
   sendRequest: 'http://localhost:3000/api/student/request/send',
   getProfile: `${baseURL}/user/account/get`,
+  newPassword: `${baseURL}/user/account/password/new`,
   getAllCompanies: `${baseURL}/user/company/get/all`, // (user) companies
 
   getMentorDashboardDetails: `${baseURL}/mentor/dashboard`,
