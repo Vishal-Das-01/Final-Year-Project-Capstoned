@@ -35,6 +35,7 @@ export default function AdminDashboardHomePage(props){
 	const [hasDataLoaded, setHasDataLoaded] = useState(false);
 	const [hasErrorOccurred, setHasErrorOccurred] = useState(false);
 	const [notifications, setNotifications] = useState([]);
+	const [notificationIDs, setNotificationIDs] = useState([]);
 
 	// For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
@@ -82,9 +83,18 @@ export default function AdminDashboardHomePage(props){
 
 	// For testing
 	useEffect(() => {
-		console.log("Admin Dashboard Home Page", fetchedData.notifications, typeof fetchedData.notifications);
+		// console.log("Admin Dashboard Home Page", fetchedData.notifications, typeof fetchedData.notifications);
 		if(hasDataLoaded){
-			setNotifications([]);
+			let notificationArr = []
+			let notificationIDArr = [];
+			fetchedData.notifications.map((notif) => {
+				notificationArr.push(notif.headline);
+				notificationIDArr.push(notif._id);
+			})
+
+			console.log("HERE ", notificationArr.length)
+			setNotifications(notificationArr);
+			setNotificationIDs(notificationIDArr);
 		}
 	}, [fetchedData])
 
@@ -127,6 +137,7 @@ export default function AdminDashboardHomePage(props){
 
 							<NotificationContent 
 								notifications={notifications}
+								notificationIDs={notificationIDs}
 							/>
 
 							:
