@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { IoAdd } from "react-icons/io5";
 import ProposalModal from "../ProposalModal/ProposalModal";
 
-function HelpingButton() {
+function HelpingButton({group}) {
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -16,7 +16,7 @@ function HelpingButton() {
         className="flex flex-row p-1 items-center justify-center w-full h-full font-montserrat font-semibold rounded-lg text-sm tracking-widest text-white bg-black border-4 border-black hover:bg-white hover:border-4 hover:border-black hover:text-black"
       >
         <IoAdd className="mr-2 w-4 h-4" />
-        Create Group
+        {!group ? "Edit Group": "Create Group"}
       </button>
       {openModal && <ProposalModal setOpenModal={setOpenModal} />}
     </div>

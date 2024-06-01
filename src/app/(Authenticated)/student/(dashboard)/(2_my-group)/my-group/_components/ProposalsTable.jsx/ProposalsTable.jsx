@@ -10,7 +10,8 @@ import { redirect } from "next/navigation";
 
 async function ProposalsTable({groupID, role}) {
   const proposals = await getSelectedProposals(groupID);
-
+  console.log(proposals)
+  
   return (
     <div class="bg-white dark:bg-gray-800 border-2 relative shadow-lg rounded-xl overflow-hidden">
       <div class={`overflow-y-auto ${styles.container}`}>
