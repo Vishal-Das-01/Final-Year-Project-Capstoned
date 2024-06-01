@@ -74,8 +74,6 @@ export const BACKEND_ROUTES = {
   updateCompany: `${baseURL}/admin/company/update?`, // (admin) companies
 
   fetchAdminDashboardData: `${baseURL}/admin/dashboard`, // (admin) dashboard home page
-
-  fetchAdminDashboardData: `${baseURL}/admin/dashboard`, // (admin) dashboard home page
   sendRequest: `${baseURL}/student/request/send`,
   getStudentDashboardDetails: `${baseURL}/student/dashboard`,
   studentRequestProposal: `${baseURL}/student/group/proposal/select-deselect`, // (student) proposals
