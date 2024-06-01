@@ -153,14 +153,16 @@ export default function CreateMentorAccountForm({setOpenModal, setDataChanged}){
 			{
 				loading: 'Creating new mentor account...',
 				success: 'Mentor account created!',
-				error: (err) => `Failed to create mentor account: ${err.message}`
+				error: (err) => `Failed to create mentor account. Try again.`
 			}
 		);
 
         submitFormResult.then(() => {
             setOpenModal(false);
             setDataChanged(true);
-        });
+        }).catch((error) => {
+			console.log("CreateMentorAccountFormToast error", error);
+		});	
 	}
 
     return (

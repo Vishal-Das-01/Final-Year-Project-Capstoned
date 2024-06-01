@@ -1,5 +1,6 @@
 import styles from "./Modal.module.css";
 import { IoMdClose } from "react-icons/io";
+import ContentHeadingLine from "../ContentHeadingLine/ContentHeadingLine";
 
 export default function Modal({children, modalHeadingText, closeModal}){
 
@@ -11,15 +12,17 @@ export default function Modal({children, modalHeadingText, closeModal}){
             aria-hidden="true"
         >
 
-            <div className={`${styles.modalContentPrimaryContainer} z-10`}>
+            <div className={`${styles.modalContentPrimaryContainer} z-10 rounded-lg`}>
             
                 <div className={`${styles.modalHeaderContainer} w-full flex flex-row items-center justify-between `}>
                     
-                    <div className={`${styles.modalHeadingContainer}`}>
+                    <div className={`${styles.modalHeadingContainer} flex flex-row items-center`}>
                         
                         <h1 className={`${styles.modalHeading} font-montserrat font-semibold text-ellipsis overflow-hidden whitespace-nowrap`}>
                             {modalHeadingText}
                         </h1>
+
+                        <ContentHeadingLine />
 
                     </div>
 

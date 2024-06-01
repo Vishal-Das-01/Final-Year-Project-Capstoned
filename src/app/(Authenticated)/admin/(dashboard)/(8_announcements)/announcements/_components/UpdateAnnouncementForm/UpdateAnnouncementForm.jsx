@@ -154,7 +154,7 @@ export default function UpdateAnnouncementForm({data, dataID, setOpenModal, setD
 			{
 				loading: 'Updating announcement...',
 				success: 'Announcement updated!',
-				error: (err) => `Failed to update announcement: ${err.message}`
+				error: (err) => `Failed to update announcement. Try again.`
 			}
 		);
 
@@ -162,7 +162,7 @@ export default function UpdateAnnouncementForm({data, dataID, setOpenModal, setD
             setOpenModal(false);
             setDataChanged(true);
         }).catch((error) => {
-            console.log("CreateAnnouncementFormToast", error.message);
+            console.log("CreateAnnouncementFormToast error", error.message);
         });
 	}
 

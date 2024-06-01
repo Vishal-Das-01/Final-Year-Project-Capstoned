@@ -138,14 +138,16 @@ export default function UpdateMilestoneForm({setOpenModal, data, setDataChanged}
 			{
 				loading: 'Updating milestone...',
 				success: 'Milestone updated!',
-				error: (err) => `Failed to update milestone: ${err.message}`
+				error: (err) => `Failed to update milestone. Try again.`
 			}
 		);
 
         submitFormResult.then(() => {
             setOpenModal(false);
             setDataChanged(true);
-        });
+        }).catch((error) => {
+			console.log("UpdateMilestoneFormToast error", error.message);
+		});	
 	}
 
     // For testing only

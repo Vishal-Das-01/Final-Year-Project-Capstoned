@@ -7,12 +7,10 @@ export default function NoNotificationIcon(){
             
             <div className={`${styles.noNotificationSecondaryContainer} relative w-full h-full flex items-center justify-center`}>
 
-                <Image src={"/logo4.png"} width={150} height={150}/>
+                <div className={`${styles.dialogueBox} w-full h-[200px]  flex items-center justify-center`}>
 
-                <div className={`${styles.dialogueBox} border-2 border-blue-500`}>
-
-                    <p className={`${styles.dialogue} font-montserrat text-blue-500`}>
-                        You have no new notifications
+                    <p className={`${styles.dialogue} font-montserrat text-blue-500 `}>
+                        You have no new notifications.
                     </p>
                 
                 </div>

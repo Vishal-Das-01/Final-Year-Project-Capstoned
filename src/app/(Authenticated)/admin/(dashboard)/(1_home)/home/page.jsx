@@ -7,9 +7,8 @@ import WelcomeContent from "./_components/WelcomeContent/WelcomeContent.jsx";
 import MilestonesContent from "./_components/MilestonesContent/MilestonesContent.jsx";
 import DaysLeftContent from "./_components/DaysLeftContent/DaysLeftContent.jsx";
 import FYPGroupsContent from "./_components/FYPGroupsContent/FYPGroupsContent.jsx";
-import MessagesContent from "./_components/MessagesContent/MessagesContent.jsx";
+import DesignContent from "./_components/DesignContent/DesignContent.jsx";
 import NotificationContent from "./_components/NotificationContent/NotificationContent.jsx";
-import toast from "react-hot-toast";
 
 // Imports below for state management and api calls
 import { useEffect, useState } from "react";
@@ -35,6 +34,7 @@ export default function AdminDashboardHomePage(props){
 	const [hasDataLoaded, setHasDataLoaded] = useState(false);
 	const [hasErrorOccurred, setHasErrorOccurred] = useState(false);
 	const [notifications, setNotifications] = useState([]);
+	const [notificationIDs, setNotificationIDs] = useState([]);
 
 	// For access token retrieval
 	const authDetails = useSelector((state) => state.AuthDetails);
@@ -80,11 +80,21 @@ export default function AdminDashboardHomePage(props){
 		getDashboardData();
 	}, [])
 
-	// For testing
+	// For setting notifications to an array
+	// when data is successfully fetched
 	useEffect(() => {
-		console.log("Admin Dashboard Home Page", fetchedData.notifications, typeof fetchedData.notifications);
+		// console.log("Admin Dashboard Home Page", fetchedData.notifications, typeof fetchedData.notifications);
 		if(hasDataLoaded){
-			setNotifications([]);
+			let notificationArr = []
+			let notificationIDArr = [];
+			fetchedData.notifications.map((notif) => {
+				notificationArr.push(notif.headline);
+				notificationIDArr.push(notif._id);
+			})
+
+			// console.log("HERE ", notificationArr.length)
+			setNotifications(notificationArr);
+			setNotificationIDs(notificationIDArr);
 		}
 	}, [fetchedData])
 
@@ -127,6 +137,7 @@ export default function AdminDashboardHomePage(props){
 
 							<NotificationContent 
 								notifications={notifications}
+								notificationIDs={notificationIDs}
 							/>
 
 							:
@@ -200,14 +211,25 @@ export default function AdminDashboardHomePage(props){
 
 							<div className={`animate-pulse w-full h-full bg-neutral-100`} />
 
-
 						}
 
 					</ContentCard>
 
 					<ContentCard>
 
-						<MessagesContent />
+						{
+
+							hasDataLoaded
+
+							?
+
+							<DesignContent />
+
+							:
+
+							<div className={`animate-pulse w-full h-full bg-neutral-100`} />
+							
+						}
 					
 					</ContentCard>
 
