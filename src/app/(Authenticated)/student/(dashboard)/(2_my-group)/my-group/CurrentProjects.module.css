@@ -1,5 +1,5 @@
 .container{
-    height: 36rem;
+    min-height: 36rem;
 }
 
 .contentCardTitleContainer{

@@ -26,16 +26,16 @@ async function GroupDetails() {
 
   return (
     <div
-      className={`${styles.contentCardTitleContainer} ${styles.container} p-3 overflow-auto my-9 mx-5 flex flex-col rounded-xl font-montserrat`}
+      className={`${styles.contentCardTitleContainer} ${styles.container} p-3 my-9 mx-5 flex flex-col rounded-xl font-montserrat`}
     >
-      <div className="m-5 flex flex-col space-y-7">
-        <div className="flex flex-row justify-end gap-1 items-center">
+      <div className="flex flex-col m-5 space-y-7">
+        <div className="flex flex-row items-center justify-end gap-1">
           <div></div><Link href={"/student/my-group/proposals"}>
             <button
               type="button"
-              className="flex flex-row p-1 items-center justify-center w-full h-full font-montserrat font-semibold rounded-lg text-sm tracking-widest text-white bg-black border-4 border-black hover:bg-white hover:border-4 hover:border-black hover:text-black"
+              className="flex flex-row items-center justify-center w-full h-full p-1 text-sm font-semibold tracking-widest text-white bg-black border-4 border-black rounded-lg font-montserrat hover:bg-white hover:border-4 hover:border-black hover:text-black"
               >
-              <IoArrowUp className="mr-2 w-4 h-4" />
+              <IoArrowUp className="w-4 h-4 mr-2" />
               Our Proposals
             </button>
               </Link>
@@ -54,15 +54,15 @@ async function GroupDetails() {
             {/* <Link href={"/student/my-group/request-members"}>
             <button
               type="button"
-              className="flex flex-row p-1 items-center justify-center w-full h-full font-montserrat font-semibold rounded-lg text-sm tracking-widest text-white bg-black border-4 border-black hover:bg-white hover:border-4 hover:border-black hover:text-black"
+              className="flex flex-row items-center justify-center w-full h-full p-1 text-sm font-semibold tracking-widest text-white bg-black border-4 border-black rounded-lg font-montserrat hover:bg-white hover:border-4 hover:border-black hover:text-black"
               >
               Request Members
-              <IoArrowForward className="mr-2 w-4 h-4" />
+              <IoArrowForward className="w-4 h-4 mr-2" />
             </button>
               </Link> */}
           </div>
         </div>
-        <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-row items-center justify-between">
           <h1 className="text-3xl font-semibold">{group.data.name}</h1>
           <h2 className="font-light">Fall {group.data.year}</h2>
         </div>
@@ -102,7 +102,7 @@ async function GroupDetails() {
           </h2>
           {!group.data.project && (
             <>
-              <h2 className="col-span-4 mt-5 text-center font-semibold">
+              <h2 className="col-span-4 mt-5 font-semibold text-center">
                 Proposals Approvals Request
               </h2>
               <div className="col-span-4">
@@ -112,7 +112,7 @@ async function GroupDetails() {
           )}
           {group.data.project && (
             <>
-              <h2 className="col-span-4 mt-5 text-center font-semibold">
+              <h2 className="col-span-4 mt-5 font-semibold text-center">
                 Selected Proposal
               </h2>
               <div className="col-span-4">

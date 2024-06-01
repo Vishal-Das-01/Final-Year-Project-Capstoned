@@ -2,6 +2,10 @@
     animation: scaleUpDown 2s ease-in-out infinite;
 }
 
+.container{
+    height: 36rem;
+}
+
 @keyframes scaleUpDown {
     0%, 100% {
         transform: scale(1); /* Normal size */
