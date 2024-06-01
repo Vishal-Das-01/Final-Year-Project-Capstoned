@@ -131,7 +131,7 @@ export default function AdminDashboardMilestonesPage(props){
 			{
 				loading: 'Assigning milestone...',
 				success: 'Milestone assigned!',
-				error: (err) => `${err.message}`
+				error: (err) => `Can't assign milestone. Try again.`
 			}
 		);
 
@@ -139,7 +139,7 @@ export default function AdminDashboardMilestonesPage(props){
             setOpenModal(false);
             setDataChanged(true);
         }).catch((error) => {
-			console.log(error.message)
+			console.log("callAssignMilestoneToast error", error.message)
 		});
 	}
 

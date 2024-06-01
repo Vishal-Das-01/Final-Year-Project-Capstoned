@@ -126,14 +126,16 @@ export default function CreateAdminAccountForm({setOpenModal, setDataChanged}){
 			{
 				loading: 'Creating new admin account...',
 				success: 'Admin account created!',
-				error: (err) => `Failed to create admin account: ${err.message}`
+				error: (err) => `Failed to create admin account. Try again.`
 			}
 		);
 
         submitFormResult.then(() => {
             setOpenModal(false);
             setDataChanged(true);
-        });
+        }).catch((error) => {
+			console.log("CreateAdminAccountFormToast error", error);
+		});	
 	}
 
     return (

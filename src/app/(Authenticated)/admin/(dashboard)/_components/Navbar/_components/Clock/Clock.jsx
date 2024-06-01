@@ -37,7 +37,7 @@ function Clock() {
       className={`${styles.centerContent} bg-gray-200 h-2/3 w-1/2 rounded-full clock flex flex-row items-center justify-center`}
     
     >
-        <h1 className="time font-extrabold text-xl text-black">{time}</h1>
+        <h1 className="time font-extrabold text-xl text-neutral-600">{time}</h1>
     </div>
   );
 }

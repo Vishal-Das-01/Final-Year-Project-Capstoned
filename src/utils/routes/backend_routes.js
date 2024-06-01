@@ -1,9 +1,12 @@
+import PredictiveSuccessAnalysisButton from "@/app/(Authenticated)/student/(dashboard)/(2_my-group)/my-group/_components/AutoProjectAssessment/UniqueScoreButton";
+
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3000/api";
 const ai_baseURL = process.env.NEXT_PUBLIC_AI_BACKEND_URL
 
 export const BACKEND_AI_ROUTES = {
   uniqueIdeaDetection: `${ai_baseURL}/unique-idea-detection`,
   automatedProjectAssessment: `${ai_baseURL}/automated-project-assessment`,
+  predictiveSuccessAnalysis: `${ai_baseURL}/predictive-success-analysis`,
 }
 
 export const BACKEND_ROUTES = {
@@ -68,6 +71,8 @@ export const BACKEND_ROUTES = {
   deleteCompany: `${baseURL}/admin/company/delete?`, // (admin) companies
   updateCompany: `${baseURL}/admin/company/update?`, // (admin) companies
 
+  fetchAdminDashboardData: `${baseURL}/admin/dashboard`, // (admin) dashboard home page
+
   getStudentDashboardDetails: `${baseURL}/student/dashboard`,
   studentRequestProposal: `${baseURL}/student/group/proposal/select-deselect`, // (student) proposals
   studentSubmitMilestone: `${baseURL}/student/project/`, // (student) milestones
@@ -78,6 +83,9 @@ export const BACKEND_ROUTES = {
   getStudentSingleChat: `${baseURL}/user/chat/get/`,
   sendStudentMessage: `${baseURL}/user/chat/message/send`,
   createStudentChat: `${baseURL}/user/chat/create`,
+  createStudentProposal: `${baseURL}/student/proposal/create`,
+  updateStudentProposal: `${baseURL}/user/proposal/`,
+  getGroupProposals: `${baseURL}/student/group/proposal/get`,
   
   updateProfileStudent: `${baseURL}/student/account/update`,
   

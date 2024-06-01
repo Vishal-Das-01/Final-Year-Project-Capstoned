@@ -87,12 +87,6 @@ export default function AdminDashboardProjectsPage(props){
 		}
 	}
 
-	// Delete this code below
-	function delay(seconds) {
-		return new Promise(resolve => setTimeout(resolve, seconds * 1000));
-	}
-	// Delete this code above
-
 	// API Call for marking a project finished
 	// whose id is passed
 	async function markProjectFinished(id){
@@ -137,14 +131,16 @@ export default function AdminDashboardProjectsPage(props){
 			{
 				loading: 'Marking project as finished...',
 				success: 'Project marked as finished!',
-				error: (err) => `Failed to mark project: ${err.message}`
+				error: (err) => `Failed to mark project. Try again`
 			}
 		);
 
 		markProjectFinishedResult.then(() => {
             setOpenModal(false);
 			setDataChanged(true);
-        });
+        }).catch((error) => {
+			console.log("MarkProjectFinishedToast error", error);
+		});	
 	}
 	
 	// API Call for displaying projects in the table 

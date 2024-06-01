@@ -1,9 +1,15 @@
+"use client"
 import Image from "next/image";
 import React from "react";
 import { RiProfileLine } from "react-icons/ri";
 import ProfileImageCard from "../ProfileImageCard/ProfileImageCard";
+import { getFile } from "@/utils/firebase/getFile";
 
 function ProfileCardOne({ studentID, firstName, lastName, gender, contact, email, profileImage, erp, program, resume }) {
+
+  const handleDownload = async () => {
+    await getFile(resume.file, "Resume", "application/pdf");
+  };
   return (
     <div className="relative flex flex-col py-5 h-auto items-center justify-center bg-blue-50 m-5 rounded-xl">
       <div className="absolute top-4 left-4">
@@ -17,11 +23,11 @@ function ProfileCardOne({ studentID, firstName, lastName, gender, contact, email
         <p className="font-montserrat font-semibold text-lg">{firstName} {lastName}</p>
         <p className="font-montserrat font-semibold text-base">{program}</p>
         {/* //Add link for resume */}
-        <a
-          href={resume.file}
+        <button
+          onClick={handleDownload}
           className="font-montserrat font-semibold text-sm text-blue-500" target="_blank" rel="noreferrer" > 
           Resume 
-        </a>
+        </button>
         <p className="font-montserrat font-normal text-sm text-neutral-500">ERP: {erp}</p>
         <p className="font-montserrat font-normal text-sm text-neutral-500">
           {email}

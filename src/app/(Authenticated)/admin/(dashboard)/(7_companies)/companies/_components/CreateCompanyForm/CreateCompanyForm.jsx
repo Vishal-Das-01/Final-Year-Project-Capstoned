@@ -143,14 +143,16 @@ export default function CreateCompanyForm({setOpenModal, setDataChanged}){
 			{
 				loading: 'Creating company...',
 				success: 'Company created!',
-				error: (err) => `Failed to create company: ${err.message}`
+				error: (err) => `Failed to create company. Try again.`
 			}
 		);
 
         submitFormResult.then(() => {
             setOpenModal(false);
             setDataChanged(true);
-        });
+        }).catch((error) => {
+			console.log("CreateCompanyFormToast error", error);
+		});	
 	}
 
     // For testing only
@@ -272,13 +274,15 @@ export default function CreateCompanyForm({setOpenModal, setDataChanged}){
                     horizontalPlacement={"items-center"}
                 >
 
-                    <FormFileInput
+                    {/* <FormFileInput
                         labelText="Profile Image"
                         fileInputName="companyProfileImage"
                         isRequired={true}
                         acceptableFiles=".jpeg, .jpg, .png"
                         setState={setCompany}
-                    />
+                    /> */}
+
+                    <div className="h-[50px]" />
 
                 </FormRow>
 

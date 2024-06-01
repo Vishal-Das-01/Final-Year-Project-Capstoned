@@ -5,7 +5,7 @@ export default function ModalContentText({children}){
 
         <div className={`${styles.contentTextContainer} `}>
 
-            <p className={`${styles.contentText} font-montserrat text-slate-900`}>
+            <p className={`${styles.contentText} font-montserrat text-neutral-500`}>
                         
                 {children}
                     

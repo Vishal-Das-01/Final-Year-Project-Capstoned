@@ -4,7 +4,7 @@ import styles from "./NotificationContent.module.css";
 import NoNotificationIcon from "./_components/NoNotificationIcon/NoNotificationIcon";
 import NotificationListTile from "../_components/NotificationListTile/NotificationListTile";
 
-export default function NotificationContent({notifications}){
+export default function NotificationContent({notifications=[], notificationIDs}){
 	return (
 		<div className={`h-full w-full`}>
 
@@ -31,8 +31,8 @@ export default function NotificationContent({notifications}){
 
 						:
 
-						notifications.map((notification) => {
-							return <NotificationListTile notificationText={notification}/>
+						notifications.map((notification, index) => {
+							return <NotificationListTile key={notificationIDs[index]} notificationText={notification}/>
 						})
 					}
 					

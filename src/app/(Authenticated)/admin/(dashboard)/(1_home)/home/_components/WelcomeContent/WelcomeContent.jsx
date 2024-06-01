@@ -3,6 +3,32 @@ import { IoTimerOutline } from "react-icons/io5";
 import { FiMessageSquare } from "react-icons/fi";
 
 export default function WelcomeContent({name, notificationCount, messageCount}){
+	const formatDate = (date) => {
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        const dayName = days[date.getDay()];
+        const day = date.getDate();
+        const monthName = months[date.getMonth()];
+        const year = date.getFullYear();
+
+        function getOrdinalSuffix(day) {
+            if (day > 3 && day < 21) return 'th';
+            switch (day % 10) {
+                case 1: return 'st';
+                case 2: return 'nd';
+                case 3: return 'rd';
+                default: return 'th';
+            }
+        }
+
+        const suffix = getOrdinalSuffix(day);
+        return `${dayName}, ${day}${suffix} ${monthName}, ${year}`;
+    };
+
+	const today = new Date();
+    const formattedDate = formatDate(today);
+
 	return (
 		<div className={`${styles.welcomeContentWrapper} w-full h-full rounded-3xl`}>
 			
@@ -23,14 +49,15 @@ export default function WelcomeContent({name, notificationCount, messageCount}){
 						<div className={`${styles.welcomeMessageWrapper}`}>
 
 							<p className={`${styles.welcomeMessage} font-montserrat font-semibold my-2 text-neutral-600`}>
-								{`You have ${notificationCount} new notifications.`}
+								{/* {`You have ${notificationCount} new notifications.`} */}
+								{`${formattedDate}`}
 							</p>
 
 						</div>
 					
 					</div>
 
-					<div className={`flex flex-row w-full`}>
+					{/* <div className={`flex flex-row w-full`}>
 
 						<div className={`${styles.welcomeMessageIconWrapper} flex flex-row items-center justify-center`}>
 							<FiMessageSquare color={`#3b82f6`} size={`20px`}/>
@@ -44,7 +71,7 @@ export default function WelcomeContent({name, notificationCount, messageCount}){
 
 						</div>
 					
-					</div>
+					</div> */}
 
 
 				</div>

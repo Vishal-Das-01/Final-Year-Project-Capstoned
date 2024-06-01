@@ -5,7 +5,7 @@ import ModalContentText from "../../../../_components/ModalContentText/ModalCont
 import ModalDataActionButton from "../../../../_components/ModalDataActionButton/ModalDataActionButton";
 import UpdateCompanyForm from "../UpdateCompanyForm/UpdateCompanyForm";
 
-export default function CompanyRowContent({dataID, data, setModalContent, setOpenModal, callDeleteCompanyToast}){
+export default function CompanyRowContent({dataID, data, setModalContent, setOpenModal, callDeleteCompanyToast, setDataChanged}){
 
     return (
         <div className={`w-full h-full`}>
@@ -29,7 +29,7 @@ export default function CompanyRowContent({dataID, data, setModalContent, setOpe
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {String(`${"Company Number"}`)}
+                    {String(`${data.phone ? data.phone : "N/A"}`)}
                 </ModalContentText>
 
             </ModalContent>
@@ -41,7 +41,7 @@ export default function CompanyRowContent({dataID, data, setModalContent, setOpe
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {`${"Company Email"}`}
+                    {`${data.email ? data.email : "N/A"}`}
                 </ModalContentText>
 
             </ModalContent>
@@ -53,7 +53,7 @@ export default function CompanyRowContent({dataID, data, setModalContent, setOpe
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {`${"Web URL"}`}
+                    {`${data.webURL ? data.webURL : "N/A"}`}
                 </ModalContentText>
 
             </ModalContent>
@@ -65,18 +65,30 @@ export default function CompanyRowContent({dataID, data, setModalContent, setOpe
                 </ModalContentHeading>
 
                 <ModalContentText>
-                    {`${"City"}`}
+                    {`${data.city ? data.city : "N/A"}`}
                 </ModalContentText>
 
             </ModalContent>
 
             <ModalContent>
 
-                <div className={`flex flex-row items-end justify-end h-full `} style={{height: "150px"}}>
+                <ModalContentHeading>
+                    Company Verified:
+                </ModalContentHeading>
+
+                <ModalContentText>
+                    {`${data.verified ? "Yes" : "No"}`}
+                </ModalContentText>
+
+            </ModalContent>
+
+            <ModalContent>
+
+                <div className={`flex flex-row items-end justify-end h-full `} style={{height: "115px"}}>
 
                     <ModalDataActionButton 
                         buttonText={"Update"} 
-                        buttonClickAction={() => setModalContent(<UpdateCompanyForm setOpenModal={setOpenModal} data={data} dataID={dataID}/>)}
+                        buttonClickAction={() => setModalContent(<UpdateCompanyForm setOpenModal={setOpenModal} data={data} dataID={dataID} setDataChanged={setDataChanged}/>)}
                         dataID={dataID}
                         isUpdate={true}
                     />

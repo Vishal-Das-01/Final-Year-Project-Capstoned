@@ -135,7 +135,7 @@ export default function AdminDashboardCompaniesPage(props){
 			setOpenModal(false);
 			setDataChanged(true);
 		}).catch((error) => {
-			console.log("deleteCompanyResult error", error);
+			console.log("deleteCompanyResultToast error", error);
 		});		
 	}
 
@@ -220,6 +220,7 @@ export default function AdminDashboardCompaniesPage(props){
 											setModalContent={setModalContent}
 											setOpenModal={setOpenModal}
 											callDeleteCompanyToast={callDeleteCompanyToast}
+											setDataChanged={setDataChanged}
 										/>}
 									>
 
@@ -228,19 +229,19 @@ export default function AdminDashboardCompaniesPage(props){
 										/>
 
 										<TableBodyDataCell 
-											text={String(`${company.name}`)}
+											text={String(`${company.name ? company.name : "N/A"}`)}
 										/>
 
 										<TableBodyDataCell 
-											text={String(`${"Number"}`)}
+											text={String(`${company.phone ? company.phone : "N/A"}`)}
 										/>
 
 										<TableBodyDataCell 
-											text={String(`${"Email"}`)}
+											text={String(`${company.email ? company.email : "N/A"}`)}
 										/>
 
 										<TableBodyDataCell 
-											text={String(`${"City"}`)}
+											text={String(`${company.city ? company.city : "N/A"}`)}
 										/>
 
 										<TableBodyDataCell 

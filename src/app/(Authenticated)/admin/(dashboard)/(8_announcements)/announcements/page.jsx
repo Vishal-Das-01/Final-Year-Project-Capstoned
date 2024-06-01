@@ -128,7 +128,7 @@ export default function AdminDashboardAnnouncementsPage(props){
 			{
 				loading: 'Deleting announcement...',
 				success: 'Announcement deleted!',
-				error: (err) => err.message
+				error: (err) => "Failed to delete announcement. Try again"
 			}
 		);
 
@@ -136,7 +136,7 @@ export default function AdminDashboardAnnouncementsPage(props){
 			setOpenModal(false);
 			setDataChanged(true);
 		}).catch((error) => {
-			console.log(error);
+			console.log("DeleteAnnouncementToast error", error);
 		});		
 	}
 

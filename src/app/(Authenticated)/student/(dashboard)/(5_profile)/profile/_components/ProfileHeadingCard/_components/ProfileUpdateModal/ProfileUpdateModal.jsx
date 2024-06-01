@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { removeAuthDetails } from "@/provider/redux/features/AuthDetails";
 import DropDownIndustries from "./_components/DropDownIndustries/DropDownIndustries";
 import { FaTimes } from "react-icons/fa";
+import { uploadFile } from "@/utils/firebase/uploadFile";
 import { set } from "mongoose";
 import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes";
 
@@ -45,10 +46,20 @@ function ProfileUpdateModal({
     const accessToken = authDetails.accessToken;
     console.log(list, resumeDoc);
 
+    const fileURL = await uploadFile(
+      resume,
+      "resume",
+      "resumes/student/",
+      resume.type
+    );
+
     setLoading(true)
     const response = await callAPI('PATCH', accessToken, BACKEND_ROUTES.updateProfileStudent, 
     {
-      resume: resumeDoc,
+      resume: {
+        file: fileURL,
+        extension: DocFileType.PDF,
+      },
       industries: list,
     }) 
 
@@ -145,7 +156,7 @@ function ProfileUpdateModal({
             </div>
 
             <label htmlFor="document" className="text-sm block mb-3 text-black">
-              Proposal Document: (File should be PDF format only and less than
+              Resume Document: (File should be PDF format only and less than
               5MB)
             </label>
             <input

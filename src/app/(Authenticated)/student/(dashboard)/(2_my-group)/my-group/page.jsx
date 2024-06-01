@@ -8,8 +8,9 @@ import { callAPI } from "@/utils/helpers/callAPI";
 import styles from "./CurrentProjects.module.css";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import HelpingButton from "./_components/HelpingButton/HelpingButton";
-import { IoArrowForward } from "react-icons/io5";
+import { IoArrowForward, IoArrowUp } from "react-icons/io5";
 import Link from "next/link";
+import PredictiveSuccessAnalysisButton from "./_components/AutoProjectAssessment/UniqueScoreButton";
 
 export const metadata = {
   title: "Final Year Groups: Group Details",
@@ -18,43 +19,10 @@ export const metadata = {
 };
 
 async function GroupDetails() {
-  const groupDetails = {
-    data: {
-      name: "Group 1",
-      year: 2024,
-      lead: {
-        firstName: "Lead",
-        lastName: "Lead",
-      },
-      supervisor: {
-        firstName: "Supervisor",
-        lastName: "Supervisor",
-      },
-      mentors: [
-        {
-          firstName: "Mentor",
-          lastName: "Mentor",
-        },
-        {
-          firstName: "Mentor",
-          lastName: "Mentor",
-        },
-      ],
-      members: [
-        {
-          firstName: "Member",
-          lastName: "Member",
-        },
-        {
-          firstName: "Member",
-          lastName: "Member",
-        },
-      ],
-      project: null,
-    },
-    role: "Lead",
-  };
-  const id = 5;
+  const profile = await getProfile()
+  const group = await getGroup(profile.student.group)
+  const project = await getProjectDetails()
+  
 
   return (
     <div
@@ -62,10 +30,28 @@ async function GroupDetails() {
     >
       <div className="m-5 flex flex-col space-y-7">
         <div className="flex flex-row justify-end gap-1 items-center">
-          <div></div>
-          <HelpingButton />
+          <div></div><Link href={"/student/my-group/proposals"}>
+            <button
+              type="button"
+              className="flex flex-row p-1 items-center justify-center w-full h-full font-montserrat font-semibold rounded-lg text-sm tracking-widest text-white bg-black border-4 border-black hover:bg-white hover:border-4 hover:border-black hover:text-black"
+              >
+              <IoArrowUp className="mr-2 w-4 h-4" />
+              Our Proposals
+            </button>
+              </Link>
+          <HelpingButton group={profile.group}/>
+          <PredictiveSuccessAnalysisButton 
+          number_of_students={0}
+          project_description={project.project.proposal.description}
+          project_title={project.project.proposal.title}
+          project_document_URL={project.project.proposal.proposalDoc.file}
+          project_document_type={"PDF"}
+          project_skills={["string"]}
+          student_academic_performance={["string"]}
+          students_skills={["string"]}
+          />
           <div>
-            <Link href={"/student/my-group/request-members"}>
+            {/* <Link href={"/student/my-group/request-members"}>
             <button
               type="button"
               className="flex flex-row p-1 items-center justify-center w-full h-full font-montserrat font-semibold rounded-lg text-sm tracking-widest text-white bg-black border-4 border-black hover:bg-white hover:border-4 hover:border-black hover:text-black"
@@ -73,28 +59,28 @@ async function GroupDetails() {
               Request Members
               <IoArrowForward className="mr-2 w-4 h-4" />
             </button>
-              </Link>
+              </Link> */}
           </div>
         </div>
         <div className="flex flex-row justify-between items-center">
-          <h1 className="text-3xl font-semibold">{groupDetails.data.name}</h1>
-          <h2 className="font-light">Fall {groupDetails.data.year}</h2>
+          <h1 className="text-3xl font-semibold">{group.data.name}</h1>
+          <h2 className="font-light">Fall {group.data.year}</h2>
         </div>
         <div className="grid grid-cols-4 gap-y-5">
           <h2 className="font-semibold">Your Role:</h2>
-          <h2 className="col-span-3">{groupDetails.role}</h2>
+          <h2 className="col-span-3">{project.role}</h2>
           <h2 className="font-semibold">Lead:</h2>
           <h2 className="col-span-3">
-            {groupDetails.data.lead.firstName} {groupDetails.data.lead.lastName}
+            {group.data.lead.firstName} {group.data.lead.lastName}
           </h2>
           <h2 className="font-semibold">Supervisor:</h2>
           <h2 className="col-span-3">
-            {groupDetails.data.supervisor.firstName}{" "}
-            {groupDetails.data.supervisor.lastName}
+            {group.data.supervisor.firstName}{" "}
+            {group.data.supervisor.lastName}
           </h2>
           <h2 className="font-semibold">Mentors:</h2>
           <div className="flex flex-col col-span-3">
-            {groupDetails.data.mentors.map((mentor, index) => (
+            {group.data.mentors.map((mentor, index) => (
               <h2 key={index} className="col-span-3">
                 {mentor.firstName} {mentor.lastName}
               </h2>
@@ -102,7 +88,7 @@ async function GroupDetails() {
           </div>
           <h2 className="font-semibold">Group Members:</h2>
           <div className="flex flex-col col-span-3">
-            {groupDetails.data.members.map((member, index) => (
+            {group.data.members.map((member, index) => (
               <h2 key={index} className="col-span-3">
                 {member.firstName} {member.lastName}
               </h2>
@@ -110,17 +96,27 @@ async function GroupDetails() {
           </div>
           <h2 className="font-semibold">Project Name:</h2>
           <h2 className="col-span-3">
-            {groupDetails.data.project
-              ? ""
+            {group.data.project
+              ? project.project.proposal.title
               : "Project hasn't been confirmed yet."}
           </h2>
-          {!groupDetails.data.project && (
+          {!group.data.project && (
             <>
               <h2 className="col-span-4 mt-5 text-center font-semibold">
                 Proposals Approvals Request
               </h2>
               <div className="col-span-4">
-                {/*<ProposalsTable groupID={id} role={groupDetails.role}/> */}
+                <ProposalsTable groupID={profile.student.group} role={role}/>
+              </div>
+            </>
+          )}
+          {group.data.project && (
+            <>
+              <h2 className="col-span-4 mt-5 text-center font-semibold">
+                Selected Proposal
+              </h2>
+              <div className="col-span-4">
+                <ProposalsTable groupID={profile.student.group} role={project.role}/>
               </div>
             </>
           )}
@@ -132,17 +128,39 @@ async function GroupDetails() {
 
 export default GroupDetails;
 
-async function GetGroupDetails(id) {
+async function getProfile() {
   const accessToken = cookies().get("accessToken")?.value;
-  const response = await callAPI(
-    "GET",
-    accessToken,
-    `${BACKEND_ROUTES.getMentorGroupDetails}/${id}`
-  );
+  const response = await callAPI("GET", accessToken, BACKEND_ROUTES.getProfile);
   if (response.status === HttpStatusCode.Ok) {
     const responseData = await response.json();
     return responseData;
-  } else if (response.status === HttpStatusCode.Unauthorized) {
+  }
+  if (response.status === HttpStatusCode.Unauthorized) {
+    redirect(FRONTEND_ROUTES.login_page);
+  }
+
+}
+
+async function getGroup(groupID) {
+  const accessToken = cookies().get("accessToken")?.value;
+  const response = await callAPI("GET", accessToken, BACKEND_ROUTES.getGroupDetails +"?id=" + groupID);
+  if (response.status === HttpStatusCode.Ok) {
+    const responseData = await response.json();
+    return responseData;
+  }
+  if (response.status === HttpStatusCode.Unauthorized) {
+    redirect(FRONTEND_ROUTES.login_page);
+  }
+}
+
+async function getProjectDetails() {
+  const accessToken = cookies().get("accessToken")?.value;
+  const response = await callAPI("GET", accessToken, BACKEND_ROUTES.getStudentProjects);
+  if(response.status === HttpStatusCode.Ok) {
+    const responseData = await response.json();
+    return responseData;
+  }
+  else if (response.status === HttpStatusCode.Unauthorized){
     redirect(FRONTEND_ROUTES.login_page);
   }
 }
