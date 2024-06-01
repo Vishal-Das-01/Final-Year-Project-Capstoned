@@ -13,7 +13,7 @@ export default function NotificationListTile({notificationText}){
 
                         <div className={`${styles.notificationWrapper} `}>
 
-                            <p className={`${styles.notificationText} font-montserrat `}>
+                            <p className={`${styles.notificationText} font-montserrat text-neutral-500`}>
                                 {notificationText}
                             </p>
 
