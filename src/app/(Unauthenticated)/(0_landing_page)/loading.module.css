@@ -1,0 +1,12 @@
+.spacemanContainer{
+    animation: scaleUpDown 3s ease-in-out infinite;
+}
+
+@keyframes scaleUpDown {
+    0%, 100% {
+        transform: scale(1); /* Normal size */
+    }
+    50% {
+        transform: scale(1.5); /* Scale up to 150% */
+    }
+}
