@@ -31,11 +31,11 @@ async function ProposalsTable({groupID, role}) {
                 Proposal Doc
               </th>
               <th scope="col" class="px-4 py-3">
-                Reject
+                Send for Approval
               </th>
-              <th scope="col" class="px-4 py-3">
+              {/* <th scope="col" class="px-4 py-3">
                 Approve
-              </th>
+              </th> */}
             </tr>
           </thead>
           <tbody>

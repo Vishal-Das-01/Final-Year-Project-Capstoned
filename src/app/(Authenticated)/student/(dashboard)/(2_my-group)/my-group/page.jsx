@@ -22,7 +22,12 @@ async function GroupDetails() {
   const profile = await getProfile()
   const group = await getGroup(profile.student.group)
   const project = await getProjectDetails()
-  
+
+  let role;
+  if (group.lead === profile._id)
+    role = "Lead";
+  else
+    role = "Member";
 
   return (
     <div
@@ -42,9 +47,9 @@ async function GroupDetails() {
           <HelpingButton group={profile.group}/>
           <PredictiveSuccessAnalysisButton 
           number_of_students={0}
-          project_description={project.project.proposal.description}
-          project_title={project.project.proposal.title}
-          project_document_URL={project.project.proposal.proposalDoc.file}
+          project_description={project?.project.proposal.description}
+          project_title={project?.project.proposal.title}
+          project_document_URL={project?.project.proposal.proposalDoc.file}
           project_document_type={"PDF"}
           project_skills={["string"]}
           student_academic_performance={["string"]}
@@ -68,15 +73,15 @@ async function GroupDetails() {
         </div>
         <div className="grid grid-cols-4 gap-y-5">
           <h2 className="font-semibold">Your Role:</h2>
-          <h2 className="col-span-3">{project.role}</h2>
+          <h2 className="col-span-3">{role}</h2>
           <h2 className="font-semibold">Lead:</h2>
           <h2 className="col-span-3">
             {group.data.lead.firstName} {group.data.lead.lastName}
           </h2>
           <h2 className="font-semibold">Supervisor:</h2>
           <h2 className="col-span-3">
-            {group.data.supervisor.firstName}{" "}
-            {group.data.supervisor.lastName}
+            {group.data.supervisor?.firstName}{" "}
+            {group.data.supervisor?.lastName}
           </h2>
           <h2 className="font-semibold">Mentors:</h2>
           <div className="flex flex-col col-span-3">
@@ -106,7 +111,7 @@ async function GroupDetails() {
                 Proposals Approvals Request
               </h2>
               <div className="col-span-4">
-                <ProposalsTable groupID={profile.student.group} role={role}/>
+                <ProposalsTable groupID={profile.student.group} role={role? role :"No Role"}/>
               </div>
             </>
           )}
