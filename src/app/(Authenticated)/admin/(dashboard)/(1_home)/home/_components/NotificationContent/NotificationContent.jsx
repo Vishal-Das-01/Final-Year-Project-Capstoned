@@ -4,7 +4,7 @@ import styles from "./NotificationContent.module.css";
 import NoNotificationIcon from "./_components/NoNotificationIcon/NoNotificationIcon";
 import NotificationListTile from "../_components/NotificationListTile/NotificationListTile";
 
-export default function NotificationContent({notifications, notificationIDs}){
+export default function NotificationContent({notifications=[], notificationIDs}){
 	return (
 		<div className={`h-full w-full`}>
 
