@@ -104,11 +104,11 @@ function ProposalRow({
         >
           {title}
         </th>
-        <td className="px-4 w-2/12 font-bold text-center text-blue-500">
+        <td className="w-2/12 px-4 font-bold text-center text-blue-500">
           {status}
         </td>
         <td class="px-2 py-3 w-2/12">
-          <div className="text-center justify-center items-center flex flex-row text-xl">
+          <div className="flex flex-row items-center justify-center text-xl text-center">
             <a
               href={proposalDoc?.file}
               target="_blank"
@@ -119,12 +119,12 @@ function ProposalRow({
             </a>
           </div>
         </td>
-        {status === "Awaiting Approval" && role === "Supervisor" && (
+        {/* {status === "Awaiting Approval" && role === "Supervisor" && (
           <>
             <td class="px-2 py-3 w-1/12">
               <div
                 type="button"
-                className="text-center justify-center items-center flex flex-row text-xl"
+                className="flex flex-row items-center justify-center text-xl text-center"
               >
                 <FaCircleXmark
                   className={`h-6 w-6 col-span-1 flex items-center text-red-200 ${loading ? "" : "hover:text-red-500 hover:cursor-pointer"}`}
@@ -137,7 +137,7 @@ function ProposalRow({
             <td class="px-2 py-3 w-1/12">
               <div
                 type="button"
-                className="text-center justify-center items-center flex flex-row text-xl"
+                className="flex flex-row items-center justify-center text-xl text-center"
               >
                 <FaCheckCircle
                   className={`h-6 w-6 col-span-1 flex items-center text-green-200 ${loading ? "" : "hover:text-green-500 hover:cursor-pointer"}`}
@@ -148,14 +148,14 @@ function ProposalRow({
               </div>
             </td>
           </>
-        )}
+        )} */}
       </tr>
       {expanded && (
         <tr>
           <td colspan="7">
-            <div className="flex space-y-7 bg-white text-black flex-col w-full border-b-2 p-5">
-              <div className=" w-full flex flex-row items-start justify-center">
-                <div className="flex flex-col w-1/3 justify-center">
+            <div className="flex flex-col w-full p-5 text-black bg-white border-b-2 space-y-7">
+              <div className="flex flex-row items-start justify-center w-full ">
+                <div className="flex flex-col justify-center w-1/3">
                   <p className="font-semibold">Description</p>
                   <p>{description}</p>
                 </div>
@@ -176,13 +176,13 @@ function ProposalRow({
                   </div>
                 </div>
               </div>
-              <div className="flex flex-row w-full items-center justify-evenly">
+              <div className="flex flex-row items-center w-full justify-evenly">
                 <p>
-                  <span className="font-semibold mr-2">Last Modified:</span>
+                  <span className="mr-2 font-semibold">Last Modified:</span>
                   <span>{convertDate(updatedAt)}</span>
                 </p>
                 <p>
-                  <span className="font-semibold mr-2">Created At:</span>
+                  <span className="mr-2 font-semibold">Created At:</span>
                   <span>{convertDate(createdAt)}</span>
                 </p>
               </div>
