@@ -8,7 +8,7 @@ import { callAPI } from "@/utils/helpers/callAPI";
 import styles from "./CurrentProjects.module.css";
 import { BACKEND_ROUTES } from "@/utils/routes/backend_routes";
 import HelpingButton from "./_components/HelpingButton/HelpingButton";
-import { IoArrowForward } from "react-icons/io5";
+import { IoArrowForward, IoArrowUp } from "react-icons/io5";
 import Link from "next/link";
 import PredictiveSuccessAnalysisButton from "./_components/AutoProjectAssessment/UniqueScoreButton";
 
@@ -30,7 +30,15 @@ async function GroupDetails() {
     >
       <div className="m-5 flex flex-col space-y-7">
         <div className="flex flex-row justify-end gap-1 items-center">
-          <div></div>
+          <div></div><Link href={"/student/my-group/proposals"}>
+            <button
+              type="button"
+              className="flex flex-row p-1 items-center justify-center w-full h-full font-montserrat font-semibold rounded-lg text-sm tracking-widest text-white bg-black border-4 border-black hover:bg-white hover:border-4 hover:border-black hover:text-black"
+              >
+              <IoArrowUp className="mr-2 w-4 h-4" />
+              Our Proposals
+            </button>
+              </Link>
           <HelpingButton group={profile.group}/>
           <PredictiveSuccessAnalysisButton 
           number_of_students={0}
