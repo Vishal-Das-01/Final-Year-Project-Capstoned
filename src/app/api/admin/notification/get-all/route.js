@@ -15,7 +15,7 @@ export const GET = async (request) => {
 
         const notifications = await Notification.find({
             $or: [
-              { type: { $in: ['To All', 'To Mentors'] } },
+              { type: { $in: ['To Admins'] } },
               { type: 'To Individual', receiver: profileID }
             ],
             activated: true
@@ -23,7 +23,7 @@ export const GET = async (request) => {
 
         const totalNotifications = await Notification.countDocuments({
             $or: [
-              { type: { $in: ['To All', 'To Mentors'] } },
+              { type: { $in: ['To Admins'] } },
               { type: 'To Individual', receiver: profileID }
             ],
             activated: true

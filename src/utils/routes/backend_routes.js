@@ -12,7 +12,6 @@ export const BACKEND_ROUTES = {
   refresh: `${baseURL}/auth/refresh`,
   sendOTP: `${baseURL}/auth/otp/send`,
   verifyOTP: `${baseURL}/auth/otp/verify`,
-  sendRequest: 'http://localhost:3000/api/student/request/send',
   getProfile: `${baseURL}/user/account/get`,
   newPassword: `${baseURL}/user/account/password/new`,
   getAllCompanies: `${baseURL}/user/company/get/all`, // (user) companies
@@ -30,6 +29,7 @@ export const BACKEND_ROUTES = {
   getMentorProjectDetails: `${baseURL}/mentor/project/get/`,
   postMentorMilestoneMarks: `${baseURL}/mentor/project/mark`,
   getMentorPastProjects: `${baseURL}/mentor/project/get/past`,
+  getMentorNotifications: `${baseURL}/mentor/notification/get/all`,
   getMentorChatRooms: `${baseURL}/user/chat/get/all`,
   getMentorSingleChat: `${baseURL}/user/chat/get/`,
   getSearchAllMentors: `${baseURL}/user/mentor/get/all`,
@@ -42,6 +42,8 @@ export const BACKEND_ROUTES = {
   getGroupDetails: `${baseURL}/user/group/get`,
   deleteRequest: `${baseURL}/user/request/decline`,
   acceptRequest: `${baseURL}/user/request/accept`,
+
+  markNotificationRead: `${baseURL}/user/notification/mark-read`,
 
   getAllMilestones: `${baseURL}/admin/milestone/get-all`, // (admin) milestones
   createMilestone: `${baseURL}/admin/milestone/create`, // (admin) milestones
@@ -68,6 +70,8 @@ export const BACKEND_ROUTES = {
   deleteCompany: `${baseURL}/admin/company/delete?`, // (admin) companies
   updateCompany: `${baseURL}/admin/company/update?`, // (admin) companies
 
+  
+  sendRequest: `${baseURL}/student/request/send`,
   getStudentDashboardDetails: `${baseURL}/student/dashboard`,
   studentRequestProposal: `${baseURL}/student/group/proposal/select-deselect`, // (student) proposals
   studentSubmitMilestone: `${baseURL}/student/project/`, // (student) milestones
@@ -84,4 +88,6 @@ export const BACKEND_ROUTES = {
   getSearchAllMentors: `${baseURL}/user/mentor/get/all`,
   getSearchAllStudents: `${baseURL}/user/student/get/all`,
 
+  getStudentNotifications: `${baseURL}/student/notification/get/all`,
+  getAdminNotifications: `${baseURL}/admin/notification/get-all`,
 };

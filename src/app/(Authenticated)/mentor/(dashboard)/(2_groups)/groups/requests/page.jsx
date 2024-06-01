@@ -17,7 +17,7 @@ import { useSocket } from "@/utils/helpers/socketProvider";
 
 function Requests() {
 
-  const { socket, isConnected } = useSocket();
+  const { socket } = useSocket();
 
   const [requests, setRequests] = useState([]);
   const [processing, setProcessing] = useState(false);
