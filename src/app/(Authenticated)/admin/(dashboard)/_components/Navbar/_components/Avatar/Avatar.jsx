@@ -18,7 +18,7 @@ export default function Avatar({alt}){
 				
 					<Image 
 						className={`rounded-full`}
-						src={profileImage || "/defaultProfile.jpg"} 
+						src={profileImage || "/picCircular.png"} 
 						alt={alt}
 						height={100}
 						width={100}
