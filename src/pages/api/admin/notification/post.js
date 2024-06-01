@@ -42,6 +42,7 @@ export default async function handler(req, res) {
         
             return res.status(200).json({ message: 'Notification posted.' });
         } catch (error) {
+            console.log(error)
             if (error.name === "ValidationError") {
                 return res.status(400).json({ message: 'Please provide correct/necessary fields.' });
             }

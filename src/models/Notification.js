@@ -32,9 +32,15 @@ const notificationSchema = new Schema({
         enum: Object.values(NotificationType),
         required: true
     },
+    read: {
+        type: Boolean,
+        default: false,
+        required: true
+    },
     activated: {
         type: Boolean,
-        default: true
+        default: true,
+        required: true
     }
 },{timestamps: true})
 
