@@ -275,13 +275,15 @@ export default function UpdateCompanyForm({setOpenModal, data, dataID, setDataCh
                     horizontalPlacement={"items-center"}
                 >
 
-                    <FormFileInput
+                    {/* <FormFileInput
                         labelText="Profile Image"
                         fileInputName="companyProfileImage"
                         isRequired={true}
                         acceptableFiles=".jpeg, .jpg, .png"
                         setState={setCompany}
-                    />
+                    /> */}
+
+                    <div className="h-[50px]" />
 
                 </FormRow>
 
