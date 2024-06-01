@@ -33,7 +33,7 @@ function ProposalModal({ setOpenModal, oldTitle, oldDescription, oldMentorship, 
       <div class="p-4 w-full max-w-3xl max-h-full">
         <div class="bg-white shadow">
           <div class="flex items-center justify-between p-4 md:p-5 rounded-t dark:border-gray-600">
-            <h3 class="font-semibold text-base text-black">Create Group</h3>
+            <h3 class="font-semibold text-base text-black">Group Details</h3>
 
             <button
               type="button"

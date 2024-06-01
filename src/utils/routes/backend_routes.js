@@ -1,9 +1,12 @@
+import PredictiveSuccessAnalysisButton from "@/app/(Authenticated)/student/(dashboard)/(2_my-group)/my-group/_components/AutoProjectAssessment/UniqueScoreButton";
+
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3000/api";
 const ai_baseURL = process.env.NEXT_PUBLIC_AI_BACKEND_URL
 
 export const BACKEND_AI_ROUTES = {
   uniqueIdeaDetection: `${ai_baseURL}/unique-idea-detection`,
   automatedProjectAssessment: `${ai_baseURL}/automated-project-assessment`,
+  predictiveSuccessAnalysis: `${ai_baseURL}/predictive-success-analysis`,
 }
 
 export const BACKEND_ROUTES = {
