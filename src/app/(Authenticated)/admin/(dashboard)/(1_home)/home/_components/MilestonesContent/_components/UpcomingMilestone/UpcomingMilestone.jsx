@@ -22,7 +22,7 @@ export default function UpcomingMilestone({ milestone }) {
             <div className={`${styles.milestoneNameContainer} text-neutral-400 w-full flex justify-center `}>
 
                 <p className={`${styles.milestoneName} font-montserrat`}>
-                    {`${milestone.title}`}
+                    {`${milestone && milestone.title}`}
                 </p>
             
             </div>

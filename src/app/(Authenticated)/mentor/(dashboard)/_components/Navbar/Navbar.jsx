@@ -22,9 +22,9 @@ export default function Navbar(props){
 			
 			</div>
 
-			<div className="flex flex-row items-center justify-center flex-1 w-full h-full ">
+			{/* <div className="flex flex-row items-center justify-center flex-1 w-full h-full ">
 				<Clock />
-			</div>
+			</div> */}
 
 			<div className={`${styles.right} flex flex-row flex-1 `}>
 

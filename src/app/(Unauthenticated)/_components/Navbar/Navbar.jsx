@@ -5,7 +5,7 @@ import { FRONTEND_ROUTES } from "@/utils/routes/frontend_routes.js";
 
 export default function Navbar(props){
 	return (
-		<nav className="h-24 w-full flex items-center space-between ">
+		<nav className="h-24 w-full flex items-center space-between hidden xl:flex">
 
 			<div className="left flex flex-1 h-full w-full items-center justify-center  ">
 

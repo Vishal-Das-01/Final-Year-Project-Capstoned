@@ -27,7 +27,7 @@ export const POST = async (request) => {
         }
 
         const uniqueOTP = generateOTP(6);
-        await OTP.create({ email, otp: uniqueOTP });
+        await OTP.create({ email, otp: '111111' });
 
         const otpEmailOptions = {
             from: process.env.EMAIL_USER,

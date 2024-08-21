@@ -10,6 +10,7 @@ import Student from "@/models/Student";
 export const POST = async (request) => {
     await connectToDB();
     const { email, otp } = await request.json();
+    console.log(email, otp)
 
     try {
         if(otp.toString().length != 6) {

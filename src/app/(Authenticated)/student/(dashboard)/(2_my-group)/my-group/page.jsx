@@ -24,7 +24,7 @@ async function GroupDetails() {
   const project = await getProjectDetails()
 
   let role;
-  if (group.lead === profile._id)
+  if (group && group.lead === profile._id)
     role = "Lead";
   else
     role = "Member";
@@ -68,24 +68,24 @@ async function GroupDetails() {
           </div>
         </div>
         <div className="flex flex-row items-center justify-between">
-          <h1 className="text-3xl font-semibold">{group.data.name}</h1>
-          <h2 className="font-light">Fall {group.data.year}</h2>
+          <h1 className="text-3xl font-semibold">{group && group.data.name}</h1>
+          <h2 className="font-light">Fall {group && group.data.year}</h2>
         </div>
         <div className="grid grid-cols-4 gap-y-5">
           <h2 className="font-semibold">Your Role:</h2>
           <h2 className="col-span-3">{role}</h2>
           <h2 className="font-semibold">Lead:</h2>
           <h2 className="col-span-3">
-            {group.data.lead.firstName} {group.data.lead.lastName}
+            {group && group.data.lead.firstName} {group && group.data.lead.lastName}
           </h2>
           <h2 className="font-semibold">Supervisor:</h2>
           <h2 className="col-span-3">
-            {group.data.supervisor?.firstName}{" "}
-            {group.data.supervisor?.lastName}
+            {group && group.data.supervisor?.firstName}{" "}
+            {group && group.data.supervisor?.lastName}
           </h2>
           <h2 className="font-semibold">Mentors:</h2>
           <div className="flex flex-col col-span-3">
-            {group.data.mentors.map((mentor, index) => (
+            {group && group.data.mentors.map((mentor, index) => (
               <h2 key={index} className="col-span-3">
                 {mentor.firstName} {mentor.lastName}
               </h2>
@@ -93,7 +93,7 @@ async function GroupDetails() {
           </div>
           <h2 className="font-semibold">Group Members:</h2>
           <div className="flex flex-col col-span-3">
-            {group.data.members.map((member, index) => (
+            {group && group.data.members.map((member, index) => (
               <h2 key={index} className="col-span-3">
                 {member.firstName} {member.lastName}
               </h2>
@@ -101,11 +101,11 @@ async function GroupDetails() {
           </div>
           <h2 className="font-semibold">Project Name:</h2>
           <h2 className="col-span-3">
-            {group.data.project
+            {group && group.data.project
               ? project.project.proposal.title
               : "Project hasn't been confirmed yet."}
           </h2>
-          {!group.data.project && (
+          {group && !group.data.project && (
             <>
               <h2 className="col-span-4 mt-5 font-semibold text-center">
                 Proposals Approvals Request
@@ -115,7 +115,7 @@ async function GroupDetails() {
               </div>
             </>
           )}
-          {group.data.project && (
+          {group && group.data.project && (
             <>
               <h2 className="col-span-4 mt-5 font-semibold text-center">
                 Selected Proposal

@@ -14,11 +14,11 @@ export default function StudentDashboardLayout({ children }) {
 
 			<div className={`${styles.pageBodyContainer} w-full h-full flex flex-col`}>
 
-				<div className={`${styles.navbarContainer} flex flex-row`}>
+				<div className={`${styles.navbarContainer} flex flex-row hidden xl:flex`}>
 					<Navbar />
 				</div>
 
-				<div className={`${styles.sideMenuAndContentContainer} overflow-hidden flex flex-row`}>
+				<div className={`${styles.sideMenuAndContentContainer} overflow-hidden flex flex-row hidden xl:flex`}>
 
 					<div className={`${styles.sideMenuContainer} bg-white`}>
 						<SideMenu />
@@ -29,6 +29,18 @@ export default function StudentDashboardLayout({ children }) {
 					</div>
 
 				</div>
+
+				{/* Small device message */}
+				<div className="flex justify-center items-center h-full xl:hidden">
+            		<div className="text-center">
+              		<h1 className="text-[48px] font-exo2 font-semibold text-neutral-600">
+                		CAPSTONED
+              		</h1>
+              		<p className="text-red-500 text-lg mt-4 font-medium">
+                		We are not available on small devices
+              		</p>
+            		</div>
+          		</div>
 
 			</div>
 
