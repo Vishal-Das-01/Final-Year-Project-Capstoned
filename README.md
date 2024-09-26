@@ -21,8 +21,13 @@ Capstoned aims to address a critical issue faced by students - the lack of an ef
 
 ## Tech Stack
 - **Framework**: Next.js (Used for both backend and frontend) 🖥️
+- **CSS Framework**: Tailwind CSS 🎨
+- **State Management**: Redux 🔄
+- **Web Sockets**: Socket.io 📡
 - **Database**: MongoDB 📊
 - **File Storage**: Firebase Cloud Storage ☁️
+- **Natural Language Processing**: LangChain 🧠
+- **API Framework**: FastAPI ⚡
 
 ## Contact
 For inquiries, please contact us at capstoned.service@outlook.com. 📧
