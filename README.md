@@ -1,7 +1,7 @@
 # 🚀 Capstoned 🌌
 
 ## Description
-Capstoned aims to address a critical issue faced by students at IBA - the lack of an efficient system for managing their Final Year Projects (FYPs). To alleviate this problem, we propose the development of an innovative FYP Management System. This comprehensive solution will connect students, supervisors, co-supervisors, and industry mentors, fostering seamless collaboration and information exchange.
+Capstoned aims to address a critical issue faced by students - the lack of an efficient system for managing their Final Year Projects (FYPs). To alleviate this problem, we propose the development of an innovative FYP Management System. This comprehensive solution will connect students, supervisors, co-supervisors, and industry mentors, fostering seamless collaboration and information exchange.
 
 ## Features
 | Feature                              | Description                                                                                   |
