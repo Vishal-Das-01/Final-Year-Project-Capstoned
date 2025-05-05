@@ -64,11 +64,6 @@ In this fork of the Capstoned repo, I was responsible for designing, implementin
 
 ---
 
-> 📌 **Repo link (this fork):**  
-> https://github.com/Vishal-Das-01/Final-Year-Project-Capstoned
-
-
-
 ## Contact
 For inquiries, please contact us at capstoned.service@outlook.com. 📧
 
