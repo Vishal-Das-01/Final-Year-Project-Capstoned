@@ -29,6 +29,46 @@ Capstoned aims to address a critical issue faced by students - the lack of an ef
 - **Natural Language Processing**: LangChain 🧠
 - **API Framework**: FastAPI ⚡
 
+## 🛠 My Contributions
+
+In this fork of the Capstoned repo, I was responsible for designing, implementing, and testing the following modules:
+
+1. **AI-Powered Assessment & Success Prediction**  
+   - **Files:**  
+     - `src/pages/api/assessment.js`  
+     - `src/utils/assessmentModel.js`  
+   - **What I did:** Trained the ML model, built the prediction API endpoints, and integrated it into the student dashboard.
+
+2. **Skill-Based Team Matching**  
+   - **Files:**  
+     - `src/utils/teamMatching.js`  
+     - `src/pages/api/match.js`  
+   - **What I did:** Developed the matching algorithm (K-means + heuristics), defined the MongoDB schema, and exposed REST routes.
+
+3. **Document Workflow UI**  
+   - **Files:**  
+     - `src/components/Workflow/Chat.js`  
+     - `src/components/Workflow/Upload.js`  
+     - `src/components/Workflow/DocumentList.js`  
+   - **What I did:** Built React/Tailwind components for real-time chat, file uploads, and document versioning.
+
+4. **WebSocket Integration for Real-Time Updates**  
+   - **Files:**  
+     - `src/pages/api/socket.js`  
+   - **What I did:** Configured Socket.io on the backend and wired it up in the front end to push live notifications and chat messages.
+
+5. **LangChain NLP for Idea-Duplication Detection**  
+   - **Files:**  
+     - `src/utils/langchainDuplication.js`  
+   - **What I did:** Integrated LangChain pipelines to scan new proposals against historical data and flag duplicates.
+
+---
+
+> 📌 **Repo link (this fork):**  
+> https://github.com/Vishal-Das-01/Final-Year-Project-Capstoned
+
+
+
 ## Contact
 For inquiries, please contact us at capstoned.service@outlook.com. 📧
 
