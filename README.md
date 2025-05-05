@@ -2,6 +2,7 @@
 
 **Author:** Vishal Das  
 **Forked from original team repository:** [https://github.com/TahaMirza50/FYP-Management-System]
+---
 
 ## Description
 Capstoned aims to address a critical issue faced by students - the lack of an efficient system for managing their Final Year Projects (FYPs). To alleviate this problem, we propose the development of an innovative FYP Management System. This comprehensive solution will connect students, supervisors, co-supervisors, and industry mentors, fostering seamless collaboration and information exchange.
@@ -64,10 +65,6 @@ Capstoned aims to address a critical issue faced by students - the lack of an ef
 - Contributed to a 92% overall satisfaction score in post-pilot SUS surveys, reflecting system reliability and UX quality.
 
 ---
-
-> 📌 **Explore the code (my contributions):**  
-> https://github.com/Vishal-Das-01/Final-Year-Project-Capstoned  
-
 
 ## Contact
 For inquiries, please contact us at capstoned.service@outlook.com. 📧
